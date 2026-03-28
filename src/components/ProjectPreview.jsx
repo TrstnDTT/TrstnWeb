@@ -447,6 +447,14 @@ const REGISTRY = {
   'tattoo-minimalist': TattooMinimalist,
   'tattoo-bento': TattooBento,
   'tattoo-editorial': TattooEditorial,
+  /* Ancien meta-portfolio : catégories séparées (sitesConfig) */
+  'evenementiel-editorial': SalonEditorial,
+  'evenementiel-minimalist': SalonMinimalist,
+  'photographie-minimalist': SalonMinimalist,
+  'photographie-editorial': SalonEditorial,
+  'artisans-services-bento': BoulangerieBento,
+  'artisans-services-minimalist': BoulangerieMinimalist,
+  'artisans-services-editorial': BoulangerieEditorial,
 }
 
 export function ProjectPreview({ categoryId, layoutStyle, title }) {

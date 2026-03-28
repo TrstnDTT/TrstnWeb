@@ -15,14 +15,14 @@ export const SITE = {
     heroEyebrow: 'Portfolio',
     heroTitle: 'Sites vitrines & identités UI/UX',
     heroLead:
-      'Découvrez quinze designs différents — restaurants, boulangeries, salons, bars et studios — avec des identités visuelles uniques et des parcours complets (menu, avis, FAQ, contact).',
+      'Dix-huit mini-sites : trois restaurants aux univers tranchés — gastronomique (La Table Constance), bistro (Atelier Sept), fast food (Le Carré Rouge). Trois boulangeries et trois salons / barber complètent le panorama.',
     ctaProjects: 'Voir les projets',
   },
   /** Texte « À propos » — auteur solo (remplace l’ancien collectif étudiant). */
   about: {
     title: 'À propos',
     paragraphs: [
-      'Je conçois et développe des interfaces web (React, UI soignée) orientées identité de marque et conversion. Ce portfolio regroupe 15 mini-sites « vitrines » — restaurants, boulangeries, salons, bars et studios — chacun avec une charte graphique et un contenu crédible (carte, avis, FAQ, contact).',
+      'Je conçois et développe des interfaces web (React, UI soignée) orientées identité de marque et conversion. Six expériences sont alignées sur le projet local trstnportfolio (sitesConfig / sitesInfo) ; les autres suivent la même exigence (parcours complet, avis, FAQ, contact).',
       'Tout est réalisé en solo : design, prototypage, intégration et animations. Ouvrez un projet pour parcourir l’expérience plein écran ; chaque univers reste distinct, avec la même exigence de finition.',
     ],
   },
@@ -48,22 +48,22 @@ export const CATEGORIES = [
     },
     projects: [
       {
-        siteId: 'maison-lumiere',
-        title: 'Maison Lumière',
+        siteId: 'table-constance',
+        title: 'La Table Constance',
         description:
-          'Table gastronomique : silence visuel, serif de caractère et hiérarchie menu / vins digne d’une carte imprimée.',
-      },
-      {
-        siteId: 'carre-rouge',
-        title: 'Le Carré Rouge',
-        description:
-          'Smash & street : grille bento saturée, CTA qui claquent et rythme de commande express.',
+          'Expérience dédiée : rail de navigation, hero plein écran, Maison avant le menu, citations en exergue — pas le même squelette que les autres.',
       },
       {
         siteId: 'atelier-sept',
         title: 'Atelier Sept',
         description:
-          'Bistro du Sud : ardoise courte, bois profond et typo chaude comme une enseigne peinte à la main.',
+          'Expérience dédiée : fond papier, en-tête centré, histoire en carte puis ardoise — tout le zinc sans la grille ProjectView.',
+      },
+      {
+        siteId: 'carre-rouge',
+        title: 'Le Carré Rouge',
+        description:
+          'Expérience dédiée : bandeau défilant, header comptoir, barre d’action fixe en bas — rythme appli de commande.',
       },
     ],
   },
@@ -87,15 +87,15 @@ export const CATEGORIES = [
     projects: [
       {
         siteId: 'pain-dore',
-        title: 'Le Pain Doré',
+        title: 'La Boulangerie Traditionnelle',
         description:
-          'Fournil artisanal : Lora & Quicksand, tons crème / terracotta et esquisses levain comme un carnet de chef.',
+          'Ancien portfolio — bakery-classic : rustique, tons beige / doré, template BakeryClassic.',
       },
       {
-        siteId: 'artisan-grain',
-        title: 'Artisan du Grain',
+        siteId: 'pain-passion',
+        title: 'Pain & Passion',
         description:
-          'Boulangerie bio : modules au kilo, traçabilité moulin et surfaces pierre / son — pas de vert marketing.',
+          'Ancien portfolio — bakery-modern : contraste chaud / blanc, Inter & Playfair, boulangerie actuelle.',
       },
       {
         siteId: 'four-chocolat',
@@ -107,7 +107,7 @@ export const CATEGORIES = [
   },
   {
     id: 'salon',
-    label: 'Salon de coiffure',
+    label: 'Salon de coiffure & barber',
     theme: {
       fontDisplay: '"Italiana", Georgia, serif',
       fontBody: '"Raleway", system-ui, sans-serif',
@@ -124,22 +124,22 @@ export const CATEGORIES = [
     },
     projects: [
       {
-        siteId: 'studio-eclipse',
-        title: 'Studio Éclipse',
-        description:
-          'Salon « loft » : Italiana + blanc cassé, lookbook et blocs photo façon shooting.',
-      },
-      {
         siteId: 'atelier-m',
-        title: 'L’Atelier M',
+        title: 'Urban Cuts',
         description:
-          'Barbier × coiffure : Montserrat serré, grille tarifaire noire / or et cases façon app premium.',
+          'Ancien portfolio — barber-urban : barber shop street, noir / rouge / blanc, template BarberUrban.',
       },
       {
         siteId: 'cheveux-co',
         title: 'Cheveux & Co',
         description:
-          'Salon familial : Cormorant XXL, beige pierre et hiérarchie « enfants / adultes » lisible.',
+          'Salon de coiffure familial : Cormorant, beige pierre, tarifs enfants / adultes lisibles.',
+      },
+      {
+        siteId: 'au-rasoir',
+        title: 'Au Rasoir',
+        description:
+          'Barber shop minimal : noir & or fin, file d’attente virtuelle, typo sans serif serrée.',
       },
     ],
   },
@@ -201,9 +201,9 @@ export const CATEGORIES = [
     projects: [
       {
         siteId: 'aiguille-noire',
-        title: 'Aiguille Noire',
+        title: 'INK & IRON',
         description:
-          'Studio tattoo : Oswald + mono, bleu nuit en accent et flashs présentés comme une galerie.',
+          'Tattoo sobre : studio clair, Oswald + serif, hygiène lisible — esprit INK & IRON.',
       },
       {
         siteId: 'lobe-aiguille',
@@ -216,6 +216,84 @@ export const CATEGORIES = [
         title: 'Peau & Encre',
         description:
           'Collectif : Bebas en bannière, rouge profond et blocs qui se croisent comme une affiche.',
+      },
+    ],
+  },
+  {
+    id: 'evenementiel',
+    label: 'Événementiel',
+    theme: {
+      fontDisplay: '"Great Vibes", cursive',
+      fontBody: '"Cormorant Garamond", Georgia, serif',
+      gradientFrom: '#1a1216',
+      gradientVia: '#120e12',
+      gradientTo: '#0a080c',
+      accent: '#e8b4bc',
+      accentMuted: 'rgba(232, 180, 188, 0.38)',
+      surface: 'rgba(255, 251, 252, 0.06)',
+      border: 'rgba(232, 180, 188, 0.28)',
+      textHeading: '#fff8fb',
+      textBody: 'rgba(255, 248, 251, 0.75)',
+      glow: 'rgba(232, 180, 188, 0.14)',
+    },
+    projects: [
+      {
+        siteId: 'maison-lumiere',
+        title: 'Rêves & Unions',
+        description:
+          'Données trstnportfolio (event-wedding) : ambiance romantique pour mariages de rêve.',
+      },
+    ],
+  },
+  {
+    id: 'photographie',
+    label: 'Photographie',
+    theme: {
+      fontDisplay: '"Inter", system-ui, sans-serif',
+      fontBody: '"Inter", system-ui, sans-serif',
+      gradientFrom: '#141414',
+      gradientVia: '#0e0e0e',
+      gradientTo: '#080808',
+      accent: '#e5e5e5',
+      accentMuted: 'rgba(229, 229, 229, 0.25)',
+      surface: 'rgba(255, 255, 255, 0.05)',
+      border: 'rgba(255, 255, 255, 0.12)',
+      textHeading: '#fafafa',
+      textBody: 'rgba(250, 250, 250, 0.72)',
+      glow: 'rgba(255, 255, 255, 0.08)',
+    },
+    projects: [
+      {
+        siteId: 'studio-eclipse',
+        title: 'Pure Gallery',
+        description:
+          'Données trstnportfolio (photo-minimalist) : minimalisme absolu, focus sur les images.',
+      },
+    ],
+  },
+  {
+    id: 'artisans-services',
+    label: 'Artisans & services',
+    theme: {
+      fontDisplay: '"Cormorant Garamond", Georgia, serif',
+      fontBody: '"Lora", Georgia, serif',
+      gradientFrom: '#1a120c',
+      gradientVia: '#120c08',
+      gradientTo: '#0a0906',
+      accent: '#d2691e',
+      accentMuted: 'rgba(210, 105, 30, 0.35)',
+      surface: 'rgba(250, 248, 243, 0.05)',
+      border: 'rgba(139, 69, 19, 0.38)',
+      textHeading: '#fff5eb',
+      textBody: 'rgba(255, 245, 235, 0.75)',
+      glow: 'rgba(210, 105, 30, 0.12)',
+    },
+    projects: [
+      {
+        siteId: 'artisan-grain',
+        title: 'Ébénisterie Tradition',
+        description:
+          'Données trstnportfolio (service-woodworker) : textures bois, tons terreux, authenticité.',
       },
     ],
   },

@@ -6,47 +6,47 @@
 export const BUSINESS_RICH = {
   'maison-lumiere': {
     valueProposition:
-      'Une étoile discrète au cœur du Marais : le vivant du terroir, dressé sans bruit.',
-    ctaPrimary: { label: 'Demander une table', href: '#contact' },
-    ctaSecondary: { label: 'Voir l’adresse', href: '#footer-business' },
+      'Organisation de mariages (sitesInfo event-wedding) : romance, élégance et personnalisation sur-mesure.',
+    ctaPrimary: { label: 'Prendre rendez-vous', href: '#contact' },
+    ctaSecondary: { label: 'Itinéraire agence', href: '#footer-business' },
     menuSections: [
       {
-        title: 'Entrées',
+        title: 'Accompagnement',
         items: [
           {
-            name: 'Velouté de potimarron, huile de noisette toastée',
-            price: '22€',
-            ingredients: 'Potimarron fermier, crème légère, graines torréfiées',
+            name: 'Consultation & moodboard',
+            price: 'forfait',
+            ingredients: 'Brief, inspirations, budget indicatif',
           },
           {
-            name: 'Huîtres n°2, mignonette au poivre vert',
-            price: '18€',
-            ingredients: 'Marennes-Oléron, échalote, vinaigre de cidre',
+            name: 'Coordination jour J',
+            price: 'sur devis',
+            ingredients: 'Timing cérémonie, prestataires, plan B',
           },
         ],
       },
       {
-        title: 'Plats',
+        title: 'Décoration & scénographie',
         items: [
           {
-            name: 'Filet de bar rôti, artichauts poivrade',
-            price: '44€',
-            ingredients: 'Bar de ligne, jus corsé au vin jaune, citron confit',
+            name: 'Scénographie florale',
+            price: 'devis',
+            ingredients: 'Palette, saison, livraison matin',
           },
           {
-            name: 'Pigeon fermier en deux services',
-            price: '48€',
-            ingredients: 'Cuisses confites, suprême rosé, jus réduit',
+            name: 'Papeterie & signalétique',
+            price: 'devis',
+            ingredients: 'Invitations, plan de table, calligraphie',
           },
         ],
       },
       {
-        title: 'Desserts',
+        title: 'Réseau partenaires',
         items: [
           {
-            name: 'Soufflé au Grand Marnier',
-            price: '18€',
-            ingredients: 'Œufs fermiers, zestes d’agrumes, glace vanille',
+            name: 'Traiteurs & boissons',
+            price: 'devis',
+            ingredients: 'Sélection selon régime et nombre de convives',
           },
         ],
       },
@@ -55,46 +55,140 @@ export const BUSINESS_RICH = {
       {
         name: 'Claire H.',
         rating: 5,
-        text: 'Service fluide, accords mets-vins justes — rarement vu une carte aussi lisible pour un niveau pareil.',
+        text: 'L’équipe a géré nos stress sans qu’on le voie : les invités parlaient encore du décor la semaine suivante.',
       },
       {
         name: 'Marc-Antoine D.',
         rating: 5,
-        text: 'Dîner d’affaires réussi : la salle est calme, les assiettes racontent une histoire sans en faire trop.',
+        text: 'Mariage à 120 personnes : plannings, rappels, zéro imprévu non anticipé.',
       },
       {
         name: 'Élodie R.',
         rating: 5,
-        text: 'J’ai réservé trois semaines à l’avance : ça valait chaque jour d’attente.',
+        text: 'On voulait du sur-mesure sans bling : pile le bon ton.',
       },
     ],
     gallery: [
-      { caption: 'Salle voûtée, lumière tamisée' },
-      { caption: 'Table dressée, argenterie vintage' },
-      { caption: 'Passage en cuisine ouverte' },
-      { caption: 'Carte des vins au mur' },
+      { caption: 'Moodboard & échantillons' },
+      { caption: 'Essai déco salle' },
+      { caption: 'Table dressée jour J' },
+      { caption: 'Équipe à l’écoute des mariés' },
     ],
     faq: [
       {
-        q: 'Proposez-vous un menu végétarien sur demande ?',
-        a: 'Oui, avec préavis de 48 h : nous adaptons les légumes de saison et les accords.',
+        q: 'Combien de mois avant pour un mariage ?',
+        a: 'Au moins six mois en haute saison ; nous bloquons un premier rendez-vous découverte.',
       },
       {
-        q: 'Les enfants sont-ils les bienvenus le soir ?',
-        a: 'Nous accueillons les jeunes gourmets dès 10 ans en début de service, sur réservation.',
+        q: 'Travaillez-vous avec des traiteurs imposés ?',
+        a: 'Nous recommandons un réseau testé ; vous pouvez aussi proposer le vôtre sous validation.',
       },
       {
-        q: 'Acceptez-vous les chèques cadeaux dématérialisés ?',
-        a: 'Oui, présentez le code à l’arrivée ; le montant est déduit de l’addition.',
+        q: 'Intervenez-vous hors Île-de-France ?',
+        a: 'Oui, avec frais de déplacement selon distance et équipe sur place.',
+      },
+    ],
+    openingHours: {
+      lundi: '9h00 – 18h00',
+      mardi: '9h00 – 18h00',
+      mercredi: '9h00 – 18h00',
+      jeudi: '9h00 – 18h00',
+      vendredi: '9h00 – 18h00',
+      samedi: '10h00 – 16h00',
+      dimanche: 'Fermé',
+    },
+  },
+  'table-constance': {
+    valueProposition:
+      'Une salle feutrée, une cuisine visible, une carte qui respecte les saisons — gastronomie sans artifice.',
+    ctaPrimary: { label: 'Réserver une table', href: '#contact' },
+    ctaSecondary: { label: 'Dress code & accès', href: '#footer-business' },
+    menuSections: [
+      {
+        title: 'Pour ouvrir',
+        items: [
+          {
+            name: 'Huîtres fines de Belon, mignonette au poivre vert',
+            price: '18€',
+            ingredients: 'Demi-douzaine, citron confit',
+          },
+          {
+            name: 'Velouté de cèpes, huile de noisette toastée',
+            price: '16€',
+            ingredients: 'Chapelure croustillante, herbes fraîches',
+          },
+        ],
+      },
+      {
+        title: 'Les assiettes',
+        items: [
+          {
+            name: 'Saint-jacques snackées, purée de panais, émulsion citronnée',
+            price: '38€',
+            ingredients: 'Coquilles bretonnes, beurre noisette',
+          },
+          {
+            name: 'Filet de bœuf charolais, jus corsé, légumes glacés',
+            price: '44€',
+            ingredients: 'Maturation 21 jours, pommes soufflées',
+          },
+        ],
+      },
+      {
+        title: 'Douceurs',
+        items: [
+          {
+            name: 'Soufflé au chocolat grand cru, glace vanille bourbon',
+            price: '14€',
+            ingredients: 'Préparation minute en salle',
+          },
+        ],
+      },
+    ],
+    testimonials: [
+      {
+        name: 'Valérie M.',
+        rating: 5,
+        text: 'Service discret, assiettes comme des tableaux — on entend presque la vaisselle fine.',
+      },
+      {
+        name: 'Thomas R.',
+        rating: 5,
+        text: 'Accords mets-vins expliqués sans jargon : rare et précieux.',
+      },
+      {
+        name: 'Inès L.',
+        rating: 5,
+        text: 'Nous avons fêté un anniversaire : table isolée, attention aux détails.',
+      },
+    ],
+    gallery: [
+      { caption: 'Salle : nappes ivoire, lumière tamisée' },
+      { caption: 'Passage cuisine vers la salle' },
+      { caption: 'Carte des vins au verre' },
+      { caption: 'Chef en finalisation au comptoir' },
+    ],
+    faq: [
+      {
+        q: 'Y a-t-il une tenue exigée ?',
+        a: 'Tenue correcte exigée ; veste conseillée pour les messieurs le vendredi et samedi soir.',
+      },
+      {
+        q: 'Proposez-vous un menu végétarien ?',
+        a: 'Menu dégustation végétal sur réservation 48 h à l’avance.',
+      },
+      {
+        q: 'Acceptez-vous les groupes ?',
+        a: 'Au-delà de 6 personnes, privatisation partielle possible — contactez l’hôte.',
       },
     ],
     openingHours: {
       lundi: 'Fermé',
-      mardi: '19h00 – 23h00',
-      mercredi: '19h00 – 23h00',
-      jeudi: '19h00 – 23h00',
-      vendredi: '19h00 – 23h30',
-      samedi: '19h00 – 23h30',
+      mardi: '12h30 – 14h00 · 19h30 – 22h00',
+      mercredi: '12h30 – 14h00 · 19h30 – 22h00',
+      jeudi: '12h30 – 14h00 · 19h30 – 22h00',
+      vendredi: '12h30 – 14h00 · 19h30 – 22h30',
+      samedi: '12h30 – 14h00 · 19h30 – 22h30',
       dimanche: 'Fermé',
     },
   },
@@ -273,7 +367,7 @@ export const BUSINESS_RICH = {
   },
   'pain-dore': {
     valueProposition:
-      'Le meilleur levain de Nantes depuis 1982 : farines anciennes, four à pierre, équipe qui se lève avec le jour.',
+      'Textes issus de sitesInfo bakery-classic : trois générations, pain artisanal, ingrédients de qualité.',
     ctaPrimary: { label: 'Commander', href: '#contact' },
     ctaSecondary: { label: 'Horaires & accès', href: '#footer-business' },
     menuSections: [
@@ -360,34 +454,133 @@ export const BUSINESS_RICH = {
       dimanche: '07h00 – 13h30',
     },
   },
-  'artisan-grain': {
+  'pain-passion': {
     valueProposition:
-      'Traçabilité du grain au sac : meuniers partenaires, label bio, prix affichés au kilo sans surprise.',
-    ctaPrimary: { label: 'Passer commande', href: '#contact' },
-    ctaSecondary: { label: 'Voir la boulangerie', href: '#footer-business' },
+      'Pain & Passion (sitesInfo bakery-modern) : artisanat, lieu clair, carte qui évolue chaque semaine.',
+    ctaPrimary: { label: 'Commander', href: '#contact' },
+    ctaSecondary: { label: 'Itinéraire', href: '#footer-business' },
     menuSections: [
       {
-        title: 'Pains bio (kg)',
+        title: 'Pains & fougasses',
         items: [
           {
-            name: 'Campagne T80',
-            price: '5,80€/kg',
-            ingredients: 'Blé dur et tendre, levain liquide, croûte épaisse',
+            name: 'Campagne noir & sésame',
+            price: '5,40€',
+            ingredients: 'Encre de seiche, huile de sésame toasté',
           },
           {
-            name: 'Tourte meule',
-            price: '6,50€/kg',
-            ingredients: 'Seigle & épeautre, fermentation 24 h',
+            name: 'Bun brioche nature',
+            price: '1,20€',
+            ingredients: 'Parfait burger maison',
           },
         ],
       },
       {
-        title: 'Spécialités',
+        title: 'Viennoiseries',
         items: [
           {
-            name: 'Pain aux graines (petit format)',
-            price: '3,20€',
-            ingredients: 'Tournesol, courge, lin doré',
+            name: 'Croissant inversé',
+            price: '2,10€',
+            ingredients: 'Beurre touré à l’extérieur, croustillant',
+          },
+          {
+            name: 'Pain suisse praliné',
+            price: '2,40€',
+            ingredients: 'Noisettes torréfiées',
+          },
+        ],
+      },
+    ],
+    testimonials: [
+      {
+        name: 'Karim L.',
+        rating: 5,
+        text: 'Enfin une boulangerie qui assume le design sans sacrifier le goût.',
+      },
+      {
+        name: 'Élodie R.',
+        rating: 5,
+        text: 'Le comptoir vitré sur le labo : on voit tout, ça rassure.',
+      },
+      {
+        name: 'Hugo P.',
+        rating: 5,
+        text: 'Pain aux graines à tomber — je repasse le mercredi.',
+      },
+    ],
+    gallery: [
+      { caption: 'Fournil ouvert sur la salle' },
+      { caption: 'Carte ardoise & néon discret' },
+      { caption: 'Viennoiseries empilées' },
+      { caption: 'Baristas & boulangers' },
+    ],
+    faq: [
+      {
+        q: 'Proposez-vous du sans gluten ?',
+        a: 'Un pain dédié le vendredi sur commande ; liste d’allergènes à la caisse.',
+      },
+      {
+        q: 'Livrez-vous les entreprises ?',
+        a: 'Oui, petit-déjeuner d’équipe en Île-de-France, devis en ligne.',
+      },
+      {
+        q: 'Avez-vous une place assise ?',
+        a: 'Une dizaine de places, dont bar face au pétrin.',
+      },
+    ],
+    openingHours: {
+      lundi: 'Fermé',
+      mardi: '07h00 – 19h00',
+      mercredi: '07h00 – 19h00',
+      jeudi: '07h00 – 19h00',
+      vendredi: '07h00 – 19h00',
+      samedi: '07h00 – 19h00',
+      dimanche: '07h00 – 13h30',
+    },
+  },
+  'artisan-grain': {
+    valueProposition:
+      'Ébénisterie (sitesInfo service-woodworker) : meubles sur-mesure, restauration, essences nobles.',
+    ctaPrimary: { label: 'Demander un devis', href: '#contact' },
+    ctaSecondary: { label: 'Voir l’atelier', href: '#footer-business' },
+    menuSections: [
+      {
+        title: 'Mobilier sur-mesure',
+        items: [
+          {
+            name: 'Bibliothèques & dressings',
+            price: 'devis',
+            ingredients: 'Mesures, essences, finitions',
+          },
+          {
+            name: 'Tables & bureaux',
+            price: 'devis',
+            ingredients: 'Chêne, noyer, merisier',
+          },
+        ],
+      },
+      {
+        title: 'Aménagements',
+        items: [
+          {
+            name: 'Escaliers & parquets',
+            price: 'devis',
+            ingredients: 'Pose, isolation phonique',
+          },
+          {
+            name: 'Portes & lambris',
+            price: 'devis',
+            ingredients: 'Assemblages traditionnels',
+          },
+        ],
+      },
+      {
+        title: 'Restauration',
+        items: [
+          {
+            name: 'Meubles & boiseries',
+            price: 'devis',
+            ingredients: 'Marqueterie, vernis, dorure',
           },
         ],
       },
@@ -396,46 +589,46 @@ export const BUSINESS_RICH = {
       {
         name: 'Lucie P.',
         rating: 5,
-        text: 'Enfin une étiquette qui dit d’où vient la farine — ça change tout.',
+        text: 'Notre bibliothèque cintrée : joints parfaits, odeur du chêne pendant des semaines.',
       },
       {
         name: 'David R.',
-        rating: 4,
-        text: 'Un peu plus cher que la moyenne, mais la tenue en bouche est là.',
+        rating: 5,
+        text: 'Restauration d’un secrétaire Louis XVI : on ne voit plus la rayure.',
       },
       {
         name: 'Inès A.',
         rating: 5,
-        text: 'L’équipe explique la mouture sans jargon : pédagogique et bon.',
+        text: 'Devis détaillé avec croquis, aucune surprise à la livraison.',
       },
     ],
     gallery: [
-      { caption: 'Sacs de farine empilés' },
-      { caption: 'Meule de pierre visible' },
-      { caption: 'Étiquettes traçabilité' },
-      { caption: 'Pains alignés sans emballage plastique' },
+      { caption: 'Atelier : rabot & établi' },
+      { caption: 'Essences empilées' },
+      { caption: 'Assemblage à tenons' },
+      { caption: 'Finition à la laine d’acier' },
     ],
     faq: [
       {
-        q: 'Vos farines sont-elles toutes françaises ?',
-        a: 'Sauf exception affichée pour certaines variétés anciennes d’Europe centrale.',
+        q: 'Quel délai pour un dressing sur-mesure ?',
+        a: 'Comptez 10 à 14 semaines selon complexité et saison.',
       },
       {
-        q: 'Livrez-vous les professionnels ?',
-        a: 'Oui, de Toulouse Métropole, commande la veille avant 16h.',
+        q: 'Intervenez-vous hors Lyon ?',
+        a: 'Oui, avec frais kilométriques pour la pose.',
       },
       {
-        q: 'Puis-je goûter avant d’acheter au kilo ?',
-        a: 'Dégustation offerte le samedi matin sur une coupe de campagne.',
+        q: 'Proposez-vous des essences locales ?',
+        a: 'Priorité aux bois français ; import sur demande documentée.',
       },
     ],
     openingHours: {
       lundi: 'Fermé',
-      mardi: '07h30 – 19h30',
-      mercredi: '07h30 – 19h30',
-      jeudi: '07h30 – 19h30',
-      vendredi: '07h30 – 19h30',
-      samedi: '07h30 – 19h30',
+      mardi: '09h00 – 18h00',
+      mercredi: '09h00 – 18h00',
+      jeudi: '09h00 – 18h00',
+      vendredi: '09h00 – 18h00',
+      samedi: '09h00 – 18h00',
       dimanche: 'Fermé',
     },
   },
@@ -520,7 +713,7 @@ export const BUSINESS_RICH = {
   },
   'studio-eclipse': {
     valueProposition:
-      'Coupe qui sculpte la lumière, coloration qui respecte le fibre — le VIIIe en silence absolu.',
+      'Portfolio photo (sitesInfo photo-minimalist) : simplicité, images sans distraction.',
     ctaPrimary: { label: 'Prendre rendez-vous', href: '#contact' },
     ctaSecondary: { label: 'Itinéraire salon', href: '#footer-business' },
     menuSections: [
@@ -573,10 +766,10 @@ export const BUSINESS_RICH = {
       },
     ],
     gallery: [
-      { caption: 'Poste coiffage face baie vitrée' },
-      { caption: 'Murs blancs, sol béton ciré' },
-      { caption: 'Produits alignés comme une loge mode' },
-      { caption: 'Espace photo avant/après' },
+      { caption: 'Fond blanc, silhouette nette' },
+      { caption: 'Fiche coupe posée comme une légende photo' },
+      { caption: 'Miroir sans cadre, reflet brut' },
+      { caption: 'Portrait avant / après, même lumière' },
     ],
     faq: [
       {
@@ -604,7 +797,7 @@ export const BUSINESS_RICH = {
   },
   'atelier-m': {
     valueProposition:
-      'Barbier et salon mixte : diagnostic long, tondeuse affûtée, café serré offert à la fin.',
+      'Urban Cuts (sitesInfo barber-urban) : street culture × techniques classiques.',
     ctaPrimary: { label: 'Réserver un créneau', href: '#contact' },
     ctaSecondary: { label: 'Plan d’accès', href: '#footer-business' },
     menuSections: [
@@ -762,6 +955,90 @@ export const BUSINESS_RICH = {
       jeudi: '09h30 – 18h30',
       vendredi: '09h30 – 18h30',
       samedi: '09h00 – 17h30',
+      dimanche: 'Fermé',
+    },
+  },
+  'au-rasoir': {
+    valueProposition:
+      'Barber shop minimal au cœur du 10e : une chaise, des outils stériles, réservation en ligne — entre salon de coiffure et barbier de précision.',
+    ctaPrimary: { label: 'Prendre rendez-vous', href: '#contact' },
+    ctaSecondary: { label: 'Itinéraire', href: '#footer-business' },
+    menuSections: [
+      {
+        title: 'Barbier',
+        items: [
+          {
+            name: 'Coupe homme fade ou dégradé',
+            price: '38€',
+            ingredients: 'Durée ~40 min',
+          },
+          {
+            name: 'Contour barbe + huile',
+            price: '28€',
+            ingredients: 'Durée ~25 min',
+          },
+        ],
+      },
+      {
+        title: 'Coiffure',
+        items: [
+          {
+            name: 'Coupe femme courte ou carré',
+            price: '52€',
+            ingredients: 'Brushing léger inclus',
+          },
+          {
+            name: 'Coupe enfant (-10 ans)',
+            price: '24€',
+            ingredients: 'Sur rendez-vous mercredi & samedi matin',
+          },
+        ],
+      },
+    ],
+    testimonials: [
+      {
+        name: 'Marcus T.',
+        rating: 5,
+        text: 'Enfin un endroit où personne ne me parle football pendant qu’on me rase la nuque.',
+      },
+      {
+        name: 'Léa F.',
+        rating: 5,
+        text: 'Carré plongeant net, zéro blabla produit — juste une lame et un miroir.',
+      },
+      {
+        name: 'David K.',
+        rating: 4,
+        text: 'Un peu cher mais le calme vaut le détour un vendredi soir.',
+      },
+    ],
+    gallery: [
+      { caption: 'Fauteuil unique face baie vitrée' },
+      { caption: 'Rangée de peignes sous UV' },
+      { caption: 'Comptoir noir & file or' },
+      { caption: 'Barbier au rasoir sur finition' },
+    ],
+    faq: [
+      {
+        q: 'Acceptez-vous les walk-in ?',
+        a: 'En semaine avant 16h parfois ; week-end réservation obligatoire en ligne.',
+      },
+      {
+        q: 'C’est mixte barbier / coiffure ?',
+        a: 'Oui : deux praticiens, même charte hygiène et même grille tarifaire affichée.',
+      },
+      {
+        q: 'Proposez-vous la barbe à l’ancienne au rasoir ?',
+        a: 'Oui sur demande lors de la réservation ; supplément serviette chaude 8€.',
+      },
+    ],
+    openingHours: {
+      lundi: 'Fermé',
+      mardi: '10h00 – 20h00',
+      mercredi: '10h00 – 20h00',
+      jeudi: '10h00 – 20h00',
+      vendredi: '10h00 – 20h00',
+      samedi: '10h00 – 20h00',
       dimanche: 'Fermé',
     },
   },
@@ -1009,7 +1286,7 @@ export const BUSINESS_RICH = {
   },
   'aiguille-noire': {
     valueProposition:
-      'Réalisme, néo-trad, dotwork : pigments UE, aiguilles stériles, dossier hygiène consultable avant la première piqûre.',
+      'INK & IRON (sitesInfo tattoo-noir) : hygiène, direction artistique, transparence.',
     ctaPrimary: { label: 'Demander un projet', href: '#contact' },
     ctaSecondary: { label: 'Consignes & accès', href: '#footer-business' },
     menuSections: [

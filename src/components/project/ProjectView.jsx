@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { hasLegacyTemplate } from '../../data/legacyPortfolioSource.js'
+import { LegacyProjectShell } from '../../legacy/LegacyProjectShell.jsx'
 import { BackButton } from '../mini/BackButton.jsx'
 import { ContactForm } from '../mini/ContactForm.jsx'
 import { FakeMap } from '../mini/FakeMap.jsx'
@@ -20,24 +22,31 @@ const fade = {
   transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
 }
 
-function heroVariants(reduceMotion) {
+function heroVariants(reduceMotion, mood) {
+  const stagger =
+    mood === 'fast' ? 0.07 : mood === 'fine' ? 0.14 : 0.09
+  const delay = mood === 'fast' ? 0.04 : mood === 'fine' ? 0.1 : 0.06
+  const y = mood === 'fine' ? 18 : mood === 'fast' ? 32 : 26
   return {
     container: {
       hidden: { opacity: 0 },
       show: {
         opacity: 1,
         transition: {
-          staggerChildren: reduceMotion ? 0 : 0.09,
-          delayChildren: reduceMotion ? 0 : 0.06,
+          staggerChildren: reduceMotion ? 0 : stagger,
+          delayChildren: reduceMotion ? 0 : delay,
         },
       },
     },
     item: {
-      hidden: { opacity: 0, y: reduceMotion ? 0 : 26 },
+      hidden: { opacity: 0, y: reduceMotion ? 0 : y },
       show: {
         opacity: 1,
         y: 0,
-        transition: { duration: reduceMotion ? 0.2 : 0.52, ease: [0.22, 1, 0.36, 1] },
+        transition: {
+          duration: reduceMotion ? 0.2 : mood === 'fine' ? 0.65 : mood === 'fast' ? 0.42 : 0.52,
+          ease: [0.22, 1, 0.36, 1],
+        },
       },
     },
   }
@@ -54,23 +63,30 @@ function buildNav(menuLabel) {
 
 export function ProjectView({ site, onBack }) {
   const reduceMotion = useReducedMotion()
-  const hv = heroVariants(reduceMotion)
+  const heroMood = site.heroMood ?? 'default'
+  const hv = heroVariants(reduceMotion, heroMood)
   const [open, setOpen] = useState(false)
+
+  if (hasLegacyTemplate(site.id)) {
+    return <LegacyProjectShell site={site} onBack={onBack} />
+  }
   const t = site.textColor
   const s = site.secondaryColor
   const p = site.surfaceColor ?? site.primaryColor
   const cssVar = { text: t, surface: p }
 
   const menuNavLabel =
-    site.layoutStructure === 'flash-gallery'
-      ? 'Galerie'
-      : site.layoutStructure === 'breads-weight'
-        ? 'Pains'
-        : site.layoutStructure === 'coffee-cart'
-          ? 'Cafés'
-          : site.layoutStructure === 'tarifs-grid'
-            ? 'Tarifs'
-            : 'Carte'
+    site.menuPresentation === 'fine-dining'
+      ? 'Menus'
+      : site.layoutStructure === 'flash-gallery'
+        ? 'Galerie'
+        : site.layoutStructure === 'breads-weight'
+          ? 'Pains'
+          : site.layoutStructure === 'coffee-cart'
+            ? 'Cafés'
+            : site.layoutStructure === 'tarifs-grid'
+              ? 'Tarifs'
+              : 'Carte'
 
   const nav = buildNav(menuNavLabel)
 
@@ -184,11 +200,31 @@ export function ProjectView({ site, onBack }) {
       <main className="pt-16">
         <section
           id="hero"
-          className="relative overflow-hidden px-5 pb-16 pt-12 md:px-10 md:pb-24 md:pt-16"
+          className={[
+            'relative overflow-hidden px-5 pt-12 md:px-10',
+            heroMood === 'fine' ? 'pb-20 md:pb-28 md:pt-20' : 'pb-16 md:pb-24 md:pt-16',
+            heroMood === 'fast' ? 'md:pt-14' : '',
+          ].join(' ')}
           style={{
-            background: `linear-gradient(165deg, ${site.primaryColor} 0%, ${p} 55%)`,
+            background:
+              heroMood === 'fine'
+                ? `radial-gradient(ellipse 80% 60% at 50% -10%, ${s}22 0%, transparent 52%), linear-gradient(175deg, ${site.primaryColor} 0%, ${p} 58%, ${site.primaryColor}ee 100%)`
+                : heroMood === 'bistro'
+                  ? `linear-gradient(168deg, ${site.primaryColor} 0%, ${p} 48%, ${site.primaryColor}cc 100%)`
+                  : heroMood === 'fast'
+                    ? `linear-gradient(135deg, ${site.primaryColor} 0%, ${p} 35%, ${s}33 90%), linear-gradient(165deg, ${p} 0%, ${site.primaryColor} 70%)`
+                    : `linear-gradient(165deg, ${site.primaryColor} 0%, ${p} 55%)`,
           }}
         >
+          {heroMood === 'fast' && !reduceMotion && (
+            <motion.div
+              className="pointer-events-none absolute -right-8 top-8 h-28 w-28 rounded-full opacity-40 blur-2xl md:right-[12%]"
+              style={{ backgroundColor: s }}
+              animate={{ scale: [1, 1.15, 1], opacity: [0.35, 0.55, 0.35] }}
+              transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
+              aria-hidden
+            />
+          )}
           <motion.div
             className="relative z-[1]"
             initial="hidden"
@@ -196,47 +232,71 @@ export function ProjectView({ site, onBack }) {
             variants={hv.container}
           >
             <motion.p
-              className="text-[10px] font-medium uppercase tracking-[0.3em] opacity-80"
+              className={[
+                'font-medium uppercase opacity-80',
+                heroMood === 'fine' ? 'text-[11px] tracking-[0.42em]' : 'text-[10px] tracking-[0.3em]',
+              ].join(' ')}
               style={{ color: s }}
               variants={hv.item}
             >
               {site.tagline}
             </motion.p>
             <motion.h1
-              className="pv-heading mt-4 max-w-4xl text-3xl font-semibold leading-[1.12] tracking-tight md:text-5xl lg:text-6xl"
+              className={[
+                'pv-heading mt-4 max-w-4xl leading-[1.12] tracking-tight',
+                heroMood === 'fine'
+                  ? 'text-3xl font-light md:text-5xl lg:text-[3.25rem]'
+                  : heroMood === 'fast'
+                    ? 'text-3xl font-black uppercase italic md:text-5xl lg:text-6xl'
+                    : 'text-3xl font-semibold md:text-5xl lg:text-6xl',
+              ].join(' ')}
               style={{ color: t }}
               variants={hv.item}
             >
               {headline}
             </motion.h1>
             <motion.p
-              className="mt-6 max-w-2xl text-base leading-relaxed opacity-95 md:text-lg"
+              className={[
+                'mt-6 max-w-2xl leading-relaxed opacity-95',
+                heroMood === 'fine' ? 'text-base font-light md:text-lg' : 'text-base md:text-lg',
+              ].join(' ')}
               style={{ color: t }}
               variants={hv.item}
             >
               {site.hero.subline}
             </motion.p>
             <motion.div
-              className="mt-10 flex flex-wrap gap-3"
+              className={heroMood === 'fine' ? 'mt-14 flex flex-wrap gap-4' : 'mt-10 flex flex-wrap gap-3'}
               variants={hv.item}
             >
               <motion.a
                 href={ctaPrimary.href}
-                className="inline-block px-8 py-3 text-xs font-semibold uppercase tracking-wider"
+                className={[
+                  'inline-block px-8 py-3 text-xs uppercase tracking-wider',
+                  heroMood === 'fine' ? 'font-normal' : 'font-semibold',
+                  heroMood === 'fast' ? 'rounded-full font-bold' : '',
+                ].join(' ')}
                 style={{
                   backgroundColor: s,
                   color: site.primaryColor,
                   fontFamily: site.fontFamilyBody,
                 }}
-                whileHover={{ scale: 1.03 }}
+                whileHover={{ scale: heroMood === 'fast' ? 1.06 : 1.03 }}
                 whileTap={{ scale: 0.98 }}
-                transition={{ type: 'spring', stiffness: 450, damping: 28 }}
+                transition={
+                  heroMood === 'fast'
+                    ? { type: 'spring', stiffness: 520, damping: 22 }
+                    : { type: 'spring', stiffness: 450, damping: 28 }
+                }
               >
                 {ctaPrimary.label}
               </motion.a>
               <motion.a
                 href={ctaSecondary.href}
-                className="inline-block border-2 px-8 py-3 text-xs font-semibold uppercase tracking-wider"
+                className={[
+                  'inline-block border-2 px-8 py-3 text-xs font-semibold uppercase tracking-wider',
+                  heroMood === 'fast' ? 'rounded-full' : '',
+                ].join(' ')}
                 style={{
                   borderColor: s,
                   color: t,

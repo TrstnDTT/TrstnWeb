@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import {
   ArrowRight,
+  Camera,
   Croissant,
+  Hammer,
   Home,
   Info,
+  PartyPopper,
   PenTool,
   Scissors,
   UtensilsCrossed,
@@ -22,6 +25,9 @@ const ICONS = {
   salon: Scissors,
   bar: Wine,
   tattoo: PenTool,
+  evenementiel: PartyPopper,
+  photographie: Camera,
+  'artisans-services': Hammer,
 }
 
 const cardVariants = {

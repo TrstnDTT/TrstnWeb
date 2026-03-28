@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
+import { motion } from 'framer-motion'
 
-export function SectionDetailedMenu({ site }) {
+function SectionDetailedMenuDefault({ site }) {
   const sections = site.menuSections
   if (!sections?.length) return null
   const t = site.textColor
@@ -56,10 +57,265 @@ export function SectionDetailedMenu({ site }) {
           </div>
         ))}
       </div>
-
     </div>
   )
 }
+
+/** Gastronomique : colonne étroite, respiration, filets fins. */
+function SectionDetailedMenuFine({ site }) {
+  const sections = site.menuSections
+  if (!sections?.length) return null
+  const t = site.textColor
+  const s = site.secondaryColor
+
+  return (
+    <div className="mx-auto max-w-xl px-1">
+      <div className="text-center">
+        <p
+          className="text-[10px] font-medium uppercase tracking-[0.45em] opacity-75"
+          style={{ color: s }}
+        >
+          Carte
+        </p>
+        <h2
+          className="pv-heading mt-4 text-3xl font-light italic md:text-[2.1rem]"
+          style={{ color: t, fontFamily: site.fontFamilyHeading }}
+        >
+          Menus & assiettes
+        </h2>
+        <div className="mx-auto mt-6 h-px max-w-[6rem]" style={{ backgroundColor: `${s}99` }} />
+      </div>
+      <div className="mt-16 space-y-20">
+        {sections.map((sec, si) => (
+          <div key={si}>
+            <h3
+              className="text-center text-[11px] font-medium uppercase tracking-[0.35em] opacity-90"
+              style={{ color: s }}
+            >
+              {sec.title}
+            </h3>
+            <ul className="mt-10 space-y-10">
+              {sec.items.map((item, ii) => (
+                <li
+                  key={ii}
+                  className="border-b pb-10 last:border-0"
+                  style={{ borderColor: `${s}28` }}
+                >
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="max-w-md">
+                      <p
+                        className="text-lg font-light leading-snug md:text-xl"
+                        style={{ color: t, fontFamily: site.fontFamilyHeading }}
+                      >
+                        {item.name}
+                      </p>
+                      {item.ingredients && (
+                        <p
+                          className="mt-2 text-sm font-light leading-relaxed"
+                          style={{ color: t, opacity: 0.82 }}
+                        >
+                          {item.ingredients}
+                        </p>
+                      )}
+                    </div>
+                    <span
+                      className="shrink-0 text-base font-light tabular-nums tracking-wide md:text-lg"
+                      style={{ color: s }}
+                    >
+                      {item.price ?? item.pricePerKg}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/** Bistro : ardoise unique, ton décontracté. */
+function SectionDetailedMenuBistro({ site }) {
+  const sections = site.menuSections
+  if (!sections?.length) return null
+  const t = site.textColor
+  const s = site.secondaryColor
+  const p = site.surfaceColor ?? site.primaryColor
+
+  return (
+    <div className="mx-auto max-w-lg">
+      <h2
+        className="pv-heading text-center text-2xl font-semibold md:text-3xl"
+        style={{ color: t }}
+      >
+        L’ardoise du moment
+      </h2>
+      <p className="mt-2 text-center text-sm opacity-85" style={{ color: t }}>
+        Selon le marché — on ajuste les lignes chaque matin.
+      </p>
+      <div
+        className="mt-10 rounded-lg border-4 px-5 py-8 shadow-2xl md:px-8 md:py-12"
+        style={{
+          borderColor: `${s}cc`,
+          backgroundColor: p,
+          backgroundImage: `linear-gradient(165deg, ${p} 0%, ${site.primaryColor}ee 100%)`,
+        }}
+      >
+        <div className="space-y-10">
+          {sections.map((sec, si) => (
+            <div key={si}>
+              <h3
+                className="border-b border-dashed pb-2 text-left text-base font-semibold uppercase tracking-[0.12em] opacity-95"
+                style={{ borderColor: `${s}55`, color: s }}
+              >
+                {sec.title}
+              </h3>
+              <ul className="mt-5 space-y-5">
+                {sec.items.map((item, ii) => (
+                  <li key={ii} className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:gap-4">
+                    <div>
+                      <p className="font-medium leading-snug" style={{ color: t }}>
+                        {item.name}
+                      </p>
+                      {item.ingredients && (
+                        <p className="mt-1 text-sm opacity-85" style={{ color: t }}>
+                          {item.ingredients}
+                        </p>
+                      )}
+                    </div>
+                    <span className="shrink-0 font-semibold tabular-nums" style={{ color: s }}>
+                      {item.price ?? item.pricePerKg}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const fastCardVariants = {
+  hidden: { opacity: 0, y: 16, scale: 0.96 },
+  show: (i) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { delay: i * 0.06, duration: 0.38, ease: [0.22, 1, 0.36, 1] },
+  }),
+}
+
+/** Fast food : grille animée, punch visuel. */
+function SectionDetailedMenuFast({ site }) {
+  const sections = site.menuSections
+  if (!sections?.length) return null
+  const t = site.textColor
+  const s = site.secondaryColor
+  const p = site.surfaceColor ?? site.primaryColor
+  let cardIndex = 0
+
+  return (
+    <div className="mx-auto max-w-5xl">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h2
+            className="pv-heading text-3xl font-black uppercase italic tracking-tight md:text-4xl"
+            style={{ color: t }}
+          >
+            Au comptoir
+          </h2>
+          <p className="mt-1 text-sm font-medium opacity-90" style={{ color: s }}>
+            Cliquez, chopez, dégustez — tout est prêt en un éclair.
+          </p>
+        </div>
+        <span
+          className="rounded-full px-4 py-1.5 text-[10px] font-bold uppercase tracking-wider"
+          style={{ backgroundColor: s, color: site.primaryColor }}
+        >
+          Menu midi & soir
+        </span>
+      </div>
+      <div className="mt-12 space-y-12">
+        {sections.map((sec, si) => (
+          <div key={si}>
+            <h3
+              className="inline-block rounded-lg px-3 py-1 text-sm font-bold uppercase tracking-wide"
+              style={{ backgroundColor: `${s}33`, color: t }}
+            >
+              {sec.title}
+            </h3>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {sec.items.map((item, ii) => {
+                const i = cardIndex++
+                return (
+                  <motion.article
+                    key={ii}
+                    className="flex flex-col overflow-hidden rounded-2xl border-2 shadow-lg"
+                    style={{ borderColor: `${s}66`, backgroundColor: p }}
+                    custom={i}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, margin: '-40px' }}
+                    variants={fastCardVariants}
+                  >
+                    <div
+                      className="h-2 w-full"
+                      style={{
+                        background: `linear-gradient(90deg, ${site.primaryColor}, ${s}, ${site.primaryColor})`,
+                      }}
+                      aria-hidden
+                    />
+                    <div className="flex flex-1 flex-col p-4">
+                      <p
+                        className="text-[10px] font-bold uppercase tracking-wider opacity-80"
+                        style={{ color: s }}
+                      >
+                        {sec.title}
+                      </p>
+                      <p
+                        className="mt-2 flex-1 text-base font-bold leading-tight"
+                        style={{ color: t, fontFamily: site.fontFamilyHeading }}
+                      >
+                        {item.name}
+                      </p>
+                      {item.ingredients && (
+                        <p className="mt-2 text-xs leading-relaxed opacity-85" style={{ color: t }}>
+                          {item.ingredients}
+                        </p>
+                      )}
+                      <p
+                        className="mt-4 text-xl font-black tabular-nums"
+                        style={{ color: s }}
+                      >
+                        {item.price ?? item.pricePerKg}
+                      </p>
+                    </div>
+                  </motion.article>
+                )
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export function SectionDetailedMenu({ site }) {
+  const sections = site.menuSections
+  if (!sections?.length) return null
+  const mp = site.menuPresentation
+  if (mp === 'fine-dining') return <SectionDetailedMenuFine site={site} />
+  if (mp === 'bistro') return <SectionDetailedMenuBistro site={site} />
+  if (mp === 'fast-food') return <SectionDetailedMenuFast site={site} />
+  return <SectionDetailedMenuDefault site={site} />
+}
+
+const testimonialCardClass =
+  'flex flex-col rounded-2xl border p-5 shadow-sm'
 
 export function SectionTestimonials({ site }) {
   const list = site.testimonials
@@ -67,6 +323,7 @@ export function SectionTestimonials({ site }) {
   const t = site.textColor
   const s = site.secondaryColor
   const p = site.surfaceColor ?? site.primaryColor
+  const isFast = site.menuPresentation === 'fast-food'
 
   return (
     <div className="mx-auto max-w-5xl">
@@ -77,28 +334,53 @@ export function SectionTestimonials({ site }) {
         Avis clients
       </h2>
       <div className="mt-10 grid gap-6 md:grid-cols-3">
-        {list.map((av, i) => (
-          <blockquote
-            key={i}
-            className="flex flex-col rounded-2xl border p-5 shadow-sm"
-            style={{
-              borderColor: `${s}44`,
-              backgroundColor: `${p}cc`,
-            }}
-          >
-            <div className="flex items-center justify-between gap-2">
-              <cite className="not-italic font-semibold" style={{ color: t }}>
-                {av.name}
-              </cite>
-              <span className="text-sm font-bold tabular-nums" style={{ color: s }}>
-                {av.rating}/5
-              </span>
-            </div>
-            <p className="mt-3 text-sm leading-relaxed opacity-95" style={{ color: t }}>
-              « {av.text} »
-            </p>
-          </blockquote>
-        ))}
+        {list.map((av, i) => {
+          const inner = (
+            <>
+              <div className="flex items-center justify-between gap-2">
+                <cite className="not-italic font-semibold" style={{ color: t }}>
+                  {av.name}
+                </cite>
+                <span className="text-sm font-bold tabular-nums" style={{ color: s }}>
+                  {av.rating}/5
+                </span>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed opacity-95" style={{ color: t }}>
+                « {av.text} »
+              </p>
+            </>
+          )
+          if (isFast) {
+            return (
+              <motion.blockquote
+                key={i}
+                className={`${testimonialCardClass} ${isFast ? 'rounded-3xl border-2 shadow-lg' : ''}`}
+                style={{
+                  borderColor: `${s}55`,
+                  backgroundColor: `${p}ee`,
+                }}
+                initial={{ opacity: 0, y: 22, rotate: i % 2 === 0 ? -1 : 1 }}
+                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+                viewport={{ once: true, margin: '-30px' }}
+                transition={{ delay: i * 0.08, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {inner}
+              </motion.blockquote>
+            )
+          }
+          return (
+            <blockquote
+              key={i}
+              className={testimonialCardClass}
+              style={{
+                borderColor: `${s}44`,
+                backgroundColor: `${p}cc`,
+              }}
+            >
+              {inner}
+            </blockquote>
+          )
+        })}
       </div>
     </div>
   )
