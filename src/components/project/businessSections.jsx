@@ -150,11 +150,11 @@ export function SectionGallery({ site }) {
 
 export function SectionFAQ({ site }) {
   const items = site.faq
+  const [open, setOpen] = useState(0)
   if (!items?.length) return null
   const t = site.textColor
   const s = site.secondaryColor
   const p = site.surfaceColor ?? site.primaryColor
-  const [open, setOpen] = useState(0)
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -205,7 +205,6 @@ export function SectionFAQ({ site }) {
 export function BusinessFooter({ site }) {
   const t = site.textColor
   const s = site.secondaryColor
-  const p = site.surfaceColor ?? site.primaryColor
   const loc = site.location
   const fullAddress = `${loc.street}, ${loc.postalCode} ${loc.city}`
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress + ', ' + loc.country)}`

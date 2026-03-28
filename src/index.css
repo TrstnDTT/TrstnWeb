@@ -1,5 +1,10 @@
 @import 'tailwindcss';
 
+/* Aligné sur l’ancien portfolio Next.js : Inter comme police de shell */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -7,6 +12,7 @@ html {
 body {
   margin: 0;
   min-height: 100svh;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -30,7 +36,8 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.trstn-shell > * {
+/* Ne pas cibler `aside` ici : `position: relative` écrasait `fixed` et empilait le main sous la sidebar. */
+.trstn-shell > main {
   position: relative;
   z-index: 1;
 }

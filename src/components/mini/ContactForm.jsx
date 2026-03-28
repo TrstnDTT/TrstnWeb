@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -31,17 +31,16 @@ export function ContactForm({ contact, site }) {
     phone: '',
     message: '',
   })
-  const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [sent, setSent] = useState(false)
 
   const shouldValidate =
     sent || Object.values(touched).some(Boolean)
 
-  useEffect(() => {
-    if (!shouldValidate) return
-    setErrors(validate(values))
-  }, [values, touched, sent, shouldValidate])
+  const errors = useMemo(() => {
+    if (!shouldValidate) return {}
+    return validate(values)
+  }, [values, shouldValidate])
 
   const setField = (field) => (e) => {
     setValues((v) => ({ ...v, [field]: e.target.value }))
@@ -55,7 +54,6 @@ export function ContactForm({ contact, site }) {
     e.preventDefault()
     setTouched({ name: true, email: true, phone: true, message: true })
     const next = validate(values)
-    setErrors(next)
     if (Object.keys(next).length) {
       setSent(false)
       return

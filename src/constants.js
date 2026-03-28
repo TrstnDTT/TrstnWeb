@@ -10,6 +10,22 @@ export const SITE = {
   subtitle: 'Portfolio — identités UI/UX par secteur',
   footer:
     'Chaque vignette ouvre une expérience plein écran : même exigence que sur mes livrables client — hiérarchie, matière, mouvement.',
+  /** Page d’accueil (/) — hero + accroche, aligné sur l’ancien « Meta Portfolio ». */
+  home: {
+    heroEyebrow: 'Portfolio',
+    heroTitle: 'Sites vitrines & identités UI/UX',
+    heroLead:
+      'Découvrez quinze designs différents — restaurants, boulangeries, salons, bars et studios — avec des identités visuelles uniques et des parcours complets (menu, avis, FAQ, contact).',
+    ctaProjects: 'Voir les projets',
+  },
+  /** Texte « À propos » — auteur solo (remplace l’ancien collectif étudiant). */
+  about: {
+    title: 'À propos',
+    paragraphs: [
+      'Je conçois et développe des interfaces web (React, UI soignée) orientées identité de marque et conversion. Ce portfolio regroupe 15 mini-sites « vitrines » — restaurants, boulangeries, salons, bars et studios — chacun avec une charte graphique et un contenu crédible (carte, avis, FAQ, contact).',
+      'Tout est réalisé en solo : design, prototypage, intégration et animations. Ouvrez un projet pour parcourir l’expérience plein écran ; chaque univers reste distinct, avec la même exigence de finition.',
+    ],
+  },
 }
 
 export const CATEGORIES = [
