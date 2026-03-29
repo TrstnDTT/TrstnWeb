@@ -10,6 +10,11 @@ export const SITE = {
   subtitle: 'Portfolio — identités UI/UX par secteur',
   /** E-mail affiché pour « Me contacter » sur l’accueil (glass). */
   contactEmail: 'decoberttristan@gmail.com',
+  /** Page contact — localisation & réseau (URL publique). */
+  contact: {
+    locationLabel: 'France',
+    instagramUrl: 'https://www.instagram.com/',
+  },
   footer:
     'Chaque vignette ouvre une expérience plein écran : même exigence que sur mes livrables client — hiérarchie, matière, mouvement.',
   /** Page d’accueil (/) — hero + accroche, aligné sur l’ancien « Meta Portfolio ». */
@@ -299,6 +304,17 @@ export const CATEGORIES = [
       },
     ],
   },
+]
+
+/** Types de projet — formulaire contact (dropdown). */
+export const CONTACT_PROJECT_TYPES = [
+  'Restaurant',
+  'Bar',
+  'Boutique',
+  'Boulangerie',
+  'Salon / Coiffure',
+  'Hôtel',
+  'Autre',
 ]
 
 export function getCategoryById(id) {

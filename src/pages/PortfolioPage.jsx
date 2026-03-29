@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { Home, Info } from 'lucide-react'
+import { Home, Info, Mail } from 'lucide-react'
 import { PortfolioProjectGrid } from '../components/portfolio/PortfolioProjectGrid.jsx'
 import { ProjectExperience } from '../components/templates/ProjectExperience.jsx'
 import { CATEGORIES, SITE, getCategoryById } from '../constants.js'
@@ -330,11 +330,18 @@ export default function PortfolioPage() {
                   Accueil
                 </Link>
                 <Link
-                  to="/#about"
+                  to="/about"
                   className="inline-flex items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] text-zinc-500 transition-[letter-spacing] duration-300 hover:tracking-[0.28em] hover:text-zinc-300"
                 >
                   <Info className="h-3 w-3 opacity-70" strokeWidth={1.5} aria-hidden />
                   À propos
+                </Link>
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] text-zinc-500 transition-[letter-spacing] duration-300 hover:tracking-[0.28em] hover:text-zinc-300"
+                >
+                  <Mail className="h-3 w-3 opacity-70" strokeWidth={1.5} aria-hidden />
+                  Contact
                 </Link>
               </div>
 
