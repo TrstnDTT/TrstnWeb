@@ -532,6 +532,42 @@ export const SITES = [
     },
     social: { instagramLabel: 'Brunch & sunsets' },
   },
+  {
+    id: 'bar-basque',
+    categoryId: 'bar',
+    name: 'Bar Basque',
+    tagline: 'Café, cuisine & bières',
+    hero: {
+      headline:
+        'Café, Cuisine, Bière. Bar Basque — Un lieu de rencontres humaines.',
+      subline: '',
+      cta: 'Réserver une table',
+    },
+    about: {
+      title: 'L’esprit du lieu',
+      paragraphs: [
+        'Bienvenue au Bar Basque, où le savoir-faire artisanal de la cuisine rencontre la convivialité d’un café de quartier. Depuis 2018, nous priorisons un accueil soigné et des produits locaux. Que ce soit pour un expresso matinal, un déjeuner d’affaires ou une soirée bières entre amis, nous avons pensé à chaque détail pour votre confort.',
+      ],
+    },
+    contact: {
+      sectionTitle: 'Réservation',
+      nameLabel: 'Nom',
+      emailLabel: 'E-mail',
+      phoneLabel: 'Téléphone',
+      messageLabel: 'Message',
+      submitLabel: 'Réserver',
+    },
+    location: {
+      sectionTitle: 'Nous trouver',
+      street: 'Place du village',
+      city: 'Bayonne',
+      postalCode: '64100',
+      country: 'France',
+      hours: 'Lun–Dim · 8h00 – 1h00',
+      mapArea: 'Centre',
+    },
+    social: { instagramLabel: 'Bar Basque' },
+  },
   /* —— Tattoo / piercing —— */
   {
     id: 'aiguille-noire',

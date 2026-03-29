@@ -349,6 +349,23 @@ export const SITE_IDENTITIES = {
       ],
     },
   },
+  'bar-basque': {
+    primaryColor: '#C36B46',
+    secondaryColor: '#889C81',
+    textColor: '#FAF0E6',
+    surfaceColor: '#1A1A17',
+    fontFamilyHeading: '"Syne", system-ui, sans-serif',
+    fontFamilyBody: '"Lora", Georgia, serif',
+    layoutStructure: 'bar-basque-single',
+    previewKey: 'cozy-warm',
+    trstnSignature: 'footer-bar',
+    /** Chemins publics — `/public/bar-basque/` (SteakDish = hero, Menu & poisson = galerie). */
+    barBasqueAssets: {
+      hero: '/bar-basque/SteakDish.png',
+      menuContext: '/bar-basque/Menu.png',
+      gallery: ['/bar-basque/SteakDish.png', '/bar-basque/Menu.png', '/bar-basque/FishDish.png'],
+    },
+  },
   'nuit-jour': {
     primaryColor: '#2a5d4a',
     secondaryColor: '#e8a87c',

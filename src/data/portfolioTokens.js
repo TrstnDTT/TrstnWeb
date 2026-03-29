@@ -94,6 +94,12 @@ export const PORTFOLIO_TOKENS = {
     cardGlow: '0 0 36px -12px rgba(232, 168, 124, 0.22)',
     backButtonRing: 'rgba(42, 93, 74, 0.35)',
   },
+  'bar-basque': {
+    portfolioTagline: 'Bar Basque — café, terre & convivialité.',
+    cardBorder: 'rgba(195, 107, 70, 0.42)',
+    cardGlow: '0 0 40px -12px rgba(136, 156, 129, 0.22)',
+    backButtonRing: 'rgba(195, 107, 70, 0.38)',
+  },
   'aiguille-noire': {
     portfolioTagline: 'INK & IRON — clair, hygiène, Oswald.',
     cardBorder: 'rgba(17, 17, 17, 0.25)',

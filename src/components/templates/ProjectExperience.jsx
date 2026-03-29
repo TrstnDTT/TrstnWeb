@@ -1,3 +1,4 @@
+import { BarBasqueExperience } from '../bar/BarBasqueExperience.jsx'
 import { BarCoastalBrasserieExperience } from '../bar/BarCoastalBrasserieExperience.jsx'
 import { BarCraftTaproomExperience } from '../bar/BarCraftTaproomExperience.jsx'
 import { BarSpeakeasyExperience } from '../bar/BarSpeakeasyExperience.jsx'
@@ -17,6 +18,7 @@ const BAR_EXPERIENCE = {
   'velvet-room': BarSpeakeasyExperience,
   'zinc-bleu': BarCraftTaproomExperience,
   'nuit-jour': BarCoastalBrasserieExperience,
+  'bar-basque': BarBasqueExperience,
 }
 
 export function ProjectExperience({ site, onBack }) {

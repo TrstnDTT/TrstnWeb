@@ -186,6 +186,12 @@ export const CATEGORIES = [
         description:
           'Expérience brasserie : split jour/nuit, sable & mer, cartes en cartouches — Nice sans néon.',
       },
+      {
+        siteId: 'bar-basque',
+        title: 'Bar Basque',
+        description:
+          'Lieu hybride chaleureux : café, cuisine basque, bières — hero immersif, menu à pointillés, réservation glass.',
+      },
     ],
   },
   {
