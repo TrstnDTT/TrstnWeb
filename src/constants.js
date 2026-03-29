@@ -2,12 +2,14 @@
  * Données du portfolio : catégories sectorielles et projets (textes en français).
  * Chaque catégorie définit une identité visuelle (variables CSS) pour la zone principale.
  *
- * Chaque projet : `siteId` → fusion dans `getSiteById()` (`siteIdentity.js` : couleurs, typo, layoutStructure, previewKey).
+ * Chaque projet : `siteId` → fusion dans `getSiteById()` (`siteIdentity.js` : couleurs, typo, layoutStructure).
  */
 
 export const SITE = {
   title: 'TrstnWeb',
   subtitle: 'Portfolio — identités UI/UX par secteur',
+  /** E-mail affiché pour « Me contacter » sur l’accueil (glass). */
+  contactEmail: 'decoberttristan@gmail.com',
   footer:
     'Chaque vignette ouvre une expérience plein écran : même exigence que sur mes livrables client — hiérarchie, matière, mouvement.',
   /** Page d’accueil (/) — hero + accroche, aligné sur l’ancien « Meta Portfolio ». */
@@ -15,7 +17,7 @@ export const SITE = {
     heroEyebrow: 'Portfolio',
     heroTitle: 'Sites vitrines & identités UI/UX',
     heroLead:
-      'Dix-huit mini-sites : trois restaurants aux univers tranchés — gastronomique (La Table Constance), bistro (Atelier Sept), fast food (Le Carré Rouge). Trois boulangeries et trois salons / barber complètent le panorama.',
+      'Dix-huit mini-sites : trois restaurants et trois bars en expériences dédiées (speakeasy, craft néon, brasserie côte). Boulangeries et salons / barber complètent le panorama.',
     ctaProjects: 'Voir les projets',
   },
   /** Texte « À propos » — auteur solo (remplace l’ancien collectif étudiant). */
@@ -165,19 +167,19 @@ export const CATEGORIES = [
         siteId: 'velvet-room',
         title: 'Velvet Room',
         description:
-          'Cocktail bar : bleu nuit / cuivre, Cinzel et silence typographique — pas une enseigne criarde.',
+          'Expérience speakeasy : hero cinéma, rail latéral cuivre, galerie bandeau — jazz & velours.',
       },
       {
         siteId: 'zinc-bleu',
         title: 'Le Zinc Bleu',
         description:
-          'Craft & DJ : grille néon fuchsia / cyan, Syne condensée et cases qui pulsent.',
+          'Expérience craft : néon cyan, marquee, grille de fûts animée, barre fixe — énergie canal.',
       },
       {
         siteId: 'nuit-jour',
         title: 'Nuit & Jour',
         description:
-          'Brasserie méditerranéenne : jour café / soir tapas, même grille, deux temporalités.',
+          'Expérience brasserie : split jour/nuit, sable & mer, cartes en cartouches — Nice sans néon.',
       },
     ],
   },

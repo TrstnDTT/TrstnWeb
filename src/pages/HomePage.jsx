@@ -1,12 +1,11 @@
 import { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowRight, LayoutGrid } from 'lucide-react'
 import { SITE } from '../constants.js'
 
-/**
- * Page d’accueil (style proche de l’ancien site Next : Inter, fond clair slate, hero + À propos).
- */
+/** Courbes « fluides » — lourd, organique, pas mécanique */
+const easeLux = [0.22, 1, 0.36, 1]
+
 export default function HomePage() {
   const location = useLocation()
 
@@ -18,107 +17,108 @@ export default function HomePage() {
     }
   }, [location])
 
+  const glassBtn =
+    'trstn-entry-btn flex w-full max-w-full items-center justify-center rounded-[6px] border-[0.5px] border-white/10 bg-white/[0.03] px-8 py-4 text-center text-[#fafafa] shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-sm transition-[transform,box-shadow,background-color] duration-500 hover:bg-white/[0.06] hover:shadow-[0_8px_40px_rgba(0,0,0,0.18)] active:scale-[0.99]'
+
   return (
-    <div className="min-h-screen bg-slate-100 font-sans text-slate-900 antialiased">
-      <header className="sticky top-0 z-50 border-b border-slate-200/90 bg-white/85 backdrop-blur-md">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
-          <Link
-            to="/"
-            className="text-[15px] font-semibold tracking-tight text-slate-900 transition hover:opacity-80"
-          >
-            {SITE.title}
-          </Link>
-          <nav
-            className="flex items-center gap-5 text-[13px] font-medium text-slate-600 sm:gap-8"
-            aria-label="Navigation accueil"
-          >
-            <a href="#hero" className="transition hover:text-slate-900">
-              Accueil
-            </a>
-            <a href="#about" className="transition hover:text-slate-900">
-              À propos
-            </a>
-            <Link
-              to="/portfolio"
-              className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-3.5 py-1.5 text-[12px] font-semibold text-white transition hover:bg-slate-800"
-            >
-              <LayoutGrid className="h-3.5 w-3.5 opacity-90" aria-hidden />
-              Projets
-            </Link>
-          </nav>
-        </div>
-      </header>
+    <div className="trstn-ui min-h-[100dvh] bg-[#050506] text-[#fafafa] antialiased">
+      {/* —— Écran d’entrée plein viewport —— */}
+      <section
+        className="relative flex min-h-[100dvh] w-full flex-col overflow-hidden"
+        aria-label="Accueil TrstnWeb"
+      >
+        {/* Couche colorée (obscurcie ensuite par le verre) */}
+        <div
+          className="pointer-events-none absolute inset-0 scale-110 bg-[conic-gradient(from_200deg_at_50%_40%,#1a0a2e_0%,#0a1628_25%,#0d2838_45%,#1a3d32_65%,#2d1f3d_85%,#1a0a2e_100%)]"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_20%_15%,rgba(180,100,255,0.35),transparent_55%)]"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_85%_75%,rgba(0,200,220,0.28),transparent_50%)]"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(255,160,80,0.15),transparent_45%)]"
+          aria-hidden
+        />
 
-      <main>
-        <section
-          id="hero"
-          className="relative overflow-hidden border-b border-slate-200/80 bg-gradient-to-b from-white to-slate-100 px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24"
-        >
-          <div
-            className="pointer-events-none absolute -right-20 top-0 h-64 w-64 rounded-full bg-slate-200/60 blur-3xl"
-            aria-hidden
-          />
-          <div className="relative mx-auto max-w-3xl">
-            <motion.p
-              className="text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-500"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {SITE.home.heroEyebrow}
-            </motion.p>
+        {/* Verre : blur fort + voile sombre */}
+        <div
+          className="absolute inset-0 backdrop-blur-[80px]"
+          style={{ backgroundColor: 'rgba(10, 10, 10, 0.8)' }}
+          aria-hidden
+        />
+
+        {/* Contenu centré (flex parfait) */}
+        <div className="relative z-10 flex min-h-[100dvh] w-full flex-col items-center justify-center px-5 py-16 sm:px-8">
+          <div className="flex w-full max-w-[450px] flex-col items-center gap-6">
             <motion.h1
-              className="mt-4 text-3xl font-semibold leading-[1.15] tracking-tight text-slate-900 sm:text-4xl md:text-[2.5rem]"
-              initial={{ opacity: 0, y: 16 }}
+              className="text-center text-[clamp(2rem,6vw,3rem)] leading-none tracking-[-0.02em] text-[#fafafa]"
+              style={{ fontFamily: "'Syne', ui-sans-serif, system-ui, sans-serif", fontWeight: 800 }}
+              initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.8, ease: easeLux }}
             >
-              {SITE.home.heroTitle}
+              {SITE.title}
             </motion.h1>
-            <motion.p
-              className="mt-6 max-w-2xl text-[15px] leading-relaxed text-slate-600 md:text-base"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.12, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {SITE.home.heroLead}
-            </motion.p>
-            <motion.div
-              className="mt-10"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.18, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Link
-                to="/portfolio"
-                className="group inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/15 transition hover:bg-slate-800"
-              >
-                {SITE.home.ctaProjects}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
-              </Link>
-            </motion.div>
-          </div>
-        </section>
 
-        <section
-          id="about"
-          className="scroll-mt-24 px-5 py-16 sm:px-8 sm:py-24"
-        >
-          <div className="mx-auto max-w-3xl">
-            <h2 className="text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-500">
-              {SITE.about.title}
-            </h2>
-            <div className="mt-6 space-y-5 text-[15px] leading-relaxed text-slate-700 md:text-base">
-              {SITE.about.paragraphs.map((para, i) => (
-                <p key={i}>{para}</p>
-              ))}
+            <div className="flex w-full flex-col gap-6">
+              <motion.div
+                initial={{ opacity: 0, y: 22 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.75, delay: 0.4, ease: easeLux }}
+              >
+                <Link to="/portfolio" className={glassBtn}>
+                  Voir les projets
+                </Link>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 22 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.75, delay: 0.8, ease: easeLux }}
+              >
+                <a href={SITE.contactEmail} className={glassBtn}>
+                  Me contacter
+                </a>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 22 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.75, delay: 0.8, ease: easeLux }}
+              >
+                <a href="#about" className={glassBtn}>
+                  À propos
+                </a>
+              </motion.div>
             </div>
-            <p className="mt-10 text-center text-[12px] text-slate-500">
-              Propulsé par <span className="font-medium text-slate-700">{SITE.title}</span>
-            </p>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
+
+      {/* Contenu secondaire (ancres) — en dessous du fold */}
+      <section
+        id="about"
+        className="scroll-mt-6 border-t border-white/[0.06] bg-[#08080a] px-5 py-20 sm:px-10"
+      >
+        <div className="mx-auto max-w-2xl">
+          <h2 className="trstn-heading text-[11px] uppercase tracking-[0.28em] text-zinc-500">
+            {SITE.about.title}
+          </h2>
+          <div className="trstn-label mt-8 space-y-6 text-[15px] leading-relaxed text-zinc-400 md:text-base">
+            {SITE.about.paragraphs.map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
+          </div>
+          <p className="trstn-label mt-12 text-center text-[12px] text-zinc-600">
+            Propulsé par <span className="text-zinc-500">{SITE.title}</span>
+          </p>
+        </div>
+      </section>
     </div>
   )
 }

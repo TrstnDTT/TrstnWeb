@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* Aligné sur l’ancien portfolio Next.js : Inter comme police de shell */
+/* Inter par défaut (pages sans .trstn-ui) ; le shell portfolio utilise Syne via .trstn-ui */
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
@@ -15,6 +15,30 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/**
+ * Enveloppe TrstnWeb uniquement — ne pas wrapper les mini-sites.
+ * Typo Syne : extra-bold pour marque / titres, medium pour secondaire.
+ */
+.trstn-ui {
+  font-family: 'Syne', ui-sans-serif, system-ui, sans-serif;
+}
+
+.trstn-ui .trstn-heading {
+  font-weight: 800;
+}
+
+.trstn-ui .trstn-label {
+  font-weight: 500;
+}
+
+/* Les mini-sites (plein écran) ne sont pas dans `.trstn-ui` : leurs `font-family` inline restent prioritaires. */
+
+/* Accueil — boutons glass (Plus Jakarta Sans, medium) */
+.trstn-entry-btn {
+  font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
 }
 
 #root {

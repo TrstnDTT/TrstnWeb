@@ -13,7 +13,7 @@ export function BackButton({ onClick, site }) {
     <motion.button
       type="button"
       onClick={onClick}
-      className="fixed left-3 top-3 z-[1000] flex items-center gap-2 rounded-full border px-3 py-2.5 text-xs font-medium backdrop-blur-xl md:left-5 md:top-5 md:px-4 md:text-sm"
+      className="trstn-ui trstn-label fixed left-3 top-3 z-[1000] flex items-center gap-2 rounded-full border px-3 py-2.5 text-xs backdrop-blur-xl md:left-5 md:top-5 md:px-4 md:text-sm"
       style={{
         borderColor: ring,
         backgroundColor: `${p}e6`,

@@ -116,32 +116,32 @@ export default function PortfolioPage() {
   return (
     <>
       {!activeProject && (
-        <div className="trstn-shell min-h-screen bg-[#050506] font-sans text-zinc-300">
+        <div className="trstn-ui trstn-shell min-h-screen bg-[#050506] text-zinc-300">
           <aside
-            className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.08] bg-zinc-950/90 backdrop-blur-xl md:inset-x-auto md:bottom-0 md:left-0 md:w-64 md:border-b-0 md:border-r md:border-white/[0.08]"
+            className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.07] bg-[#0a0a0a] backdrop-blur-xl md:inset-x-auto md:bottom-0 md:left-0 md:w-64 md:border-b-0 md:border-r md:border-white/[0.08]"
             aria-label="Navigation des secteurs"
           >
             <div className="flex max-h-[100svh] flex-col px-4 py-4 md:h-full md:px-5 md:py-8">
-              <div className="mb-4 shrink-0 md:mb-10">
-                <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-500">
-                  {SITE.title}
+              <div className="mb-6 shrink-0 border-b border-white/[0.06] pb-6 md:mb-10 md:pb-8">
+                <p className="trstn-heading text-[1.35rem] leading-none tracking-[-0.07em] text-white">
+                  TrstnWeb
                 </p>
-                <h1 className="mt-1 font-medium tracking-tight text-zinc-100">
+                <p className="trstn-label mt-2 text-[11px] uppercase tracking-[0.22em] text-zinc-500">
                   {SITE.subtitle}
-                </h1>
+                </p>
               </div>
 
               <div className="mb-4 flex flex-wrap gap-2 md:mb-6">
                 <Link
                   to="/"
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-300 transition hover:bg-white/[0.08] hover:text-white"
+                  className="trstn-label inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[11px] uppercase tracking-[0.14em] text-zinc-300 transition hover:bg-white/[0.08] hover:text-white"
                 >
                   <Home className="h-3.5 w-3.5 opacity-80" strokeWidth={1.75} aria-hidden />
                   Accueil
                 </Link>
                 <Link
                   to="/#about"
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-300 transition hover:bg-white/[0.08] hover:text-white"
+                  className="trstn-label inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[11px] uppercase tracking-[0.14em] text-zinc-300 transition hover:bg-white/[0.08] hover:text-white"
                 >
                   <Info className="h-3.5 w-3.5 opacity-80" strokeWidth={1.75} aria-hidden />
                   À propos
@@ -161,16 +161,22 @@ export default function PortfolioPage() {
                       type="button"
                       onClick={() => setActiveCategory(cat.id)}
                       className={[
-                        'group flex min-w-0 shrink-0 items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm md:w-full',
-                        isActive
-                          ? 'bg-white/[0.08] text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)]'
-                          : 'text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200',
+                        'group relative flex min-w-0 shrink-0 items-center gap-3 rounded-xl px-3 py-2.5 pb-3 text-left text-sm md:w-full',
+                        isActive ? 'text-white' : 'text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200',
                       ].join(' ')}
                       aria-current={isActive ? 'true' : undefined}
                       whileHover={{ x: 3 }}
                       whileTap={{ scale: 0.98 }}
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     >
+                      {isActive && (
+                        <motion.div
+                          layoutId="trstn-sidebar-active-line"
+                          className="absolute bottom-1 left-3 right-3 h-[2px] rounded-full bg-white md:left-2 md:right-2"
+                          transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                          aria-hidden
+                        />
+                      )}
                       <span
                         className={[
                           'flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-colors',
@@ -181,13 +187,13 @@ export default function PortfolioPage() {
                       >
                         <Icon className="h-4 w-4" strokeWidth={1.5} aria-hidden />
                       </span>
-                      <span className="truncate font-medium">{cat.label}</span>
+                      <span className="trstn-heading truncate">{cat.label}</span>
                     </motion.button>
                   )
                 })}
               </nav>
 
-              <p className="mt-6 hidden text-[10px] leading-relaxed text-zinc-600 md:block">
+              <p className="trstn-label mt-6 hidden text-[10px] leading-relaxed text-zinc-600 md:block">
                 Propulsé par <span className="text-zinc-500">TrstnWeb</span>
               </p>
             </div>
@@ -197,7 +203,6 @@ export default function PortfolioPage() {
             className="relative min-h-[100svh] overflow-x-hidden md:pl-64"
             style={{
               background: `linear-gradient(165deg, ${t.gradientFrom} 0%, ${t.gradientVia} 48%, ${t.gradientTo} 100%)`,
-              fontFamily: t.fontBody,
               color: t.textBody,
             }}
           >
@@ -228,7 +233,7 @@ export default function PortfolioPage() {
                 <div className="relative mx-auto max-w-5xl">
                   <header id="portfolio-top" className="mb-12 max-w-2xl scroll-mt-28 md:mb-16 md:scroll-mt-24">
                     <motion.p
-                      className="text-[11px] font-medium uppercase tracking-[0.28em]"
+                      className="trstn-label text-[11px] uppercase tracking-[0.28em]"
                       style={{ color: t.accent }}
                       initial={{ opacity: 0, y: 12 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -237,8 +242,8 @@ export default function PortfolioPage() {
                       {active.label}
                     </motion.p>
                     <motion.h2
-                      className="mt-3 text-3xl font-normal leading-[1.15] tracking-tight sm:text-4xl md:text-[2.65rem]"
-                      style={{ fontFamily: t.fontDisplay, color: t.textHeading }}
+                      className="trstn-heading mt-3 text-3xl leading-[1.12] tracking-[-0.03em] sm:text-4xl md:text-[2.65rem]"
+                      style={{ color: t.textHeading }}
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.1, duration: 0.45 }}
@@ -246,7 +251,7 @@ export default function PortfolioPage() {
                       Réalisations sélectionnées
                     </motion.h2>
                     <motion.p
-                      className="mt-4 max-w-lg text-[15px] leading-relaxed md:text-base"
+                      className="trstn-label mt-4 max-w-lg text-[15px] leading-relaxed md:text-base"
                       initial={{ opacity: 0, y: 12 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.18, duration: 0.45 }}
@@ -288,40 +293,30 @@ export default function PortfolioPage() {
                               ease: [0.22, 1, 0.36, 1],
                             }}
                           >
-                            <ProjectPreview
-                              categoryId={active.id}
-                              layoutStyle={
-                                getSiteById(project.siteId)?.previewKey ??
-                                'minimalist'
-                              }
-                              title={project.title}
-                            />
+                            <ProjectPreview site={getSiteById(project.siteId)} />
                             <div className="flex flex-1 flex-col px-5 pb-5 pt-4">
                               {shell?.portfolioTagline && (
                                 <p
-                                  className="mb-2 text-[10px] font-medium uppercase tracking-[0.2em] opacity-80"
+                                  className="trstn-label mb-2 text-[10px] uppercase tracking-[0.2em] opacity-80"
                                   style={{ color: t.accent }}
                                 >
                                   {shell.portfolioTagline}
                                 </p>
                               )}
                               <h3
-                                className="text-lg font-normal leading-snug tracking-tight sm:text-xl"
-                                style={{
-                                  fontFamily: t.fontDisplay,
-                                  color: t.textHeading,
-                                }}
+                                className="trstn-heading text-lg leading-snug tracking-[-0.02em] sm:text-xl"
+                                style={{ color: t.textHeading }}
                               >
                                 {project.title}
                               </h3>
-                              <p className="mt-2 flex-1 text-[13px] leading-relaxed md:text-[14px]">
+                              <p className="trstn-label mt-2 flex-1 text-[13px] leading-relaxed md:text-[14px]">
                                 {project.description}
                               </p>
                               <div className="mt-5">
                                 <motion.button
                                   type="button"
                                   onClick={(e) => openProject(project.siteId, e)}
-                                  className="group inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium tracking-wide sm:w-auto"
+                                  className="trstn-label group inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm tracking-wide sm:w-auto"
                                   style={{
                                     backgroundColor: t.accent,
                                     color: '#0a0a0c',
@@ -360,7 +355,7 @@ export default function PortfolioPage() {
         {activeProject && activeSite && (
           <motion.div
             key={activeSite.id}
-            className="fixed inset-0 z-[100] overflow-hidden bg-[#030304]"
+            className="fixed inset-0 z-[100] isolate overflow-hidden bg-[#030304]"
             style={
               prefersReducedMotion
                 ? undefined
