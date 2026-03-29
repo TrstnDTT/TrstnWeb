@@ -52,10 +52,11 @@ const categoryRegionVariants = {
   },
 }
 
+/** Barre mobile : uniquement transform (GPU) — pas d’animation sur padding du contenu. */
 const MOBILE_NAV_TRANSITION = {
   type: 'tween',
-  ease: [0.075, 0.82, 0.165, 1],
-  duration: 0.3,
+  ease: [0.4, 0, 0.2, 1],
+  duration: 0.35,
 }
 
 const SCROLL_NAV_THROTTLE_MS = 80
@@ -85,7 +86,10 @@ function usePortfolioMobileNav(enabled = true, ignoreScrollUntilRef) {
     const el = navRef.current
     if (!el) return
 
-    const measure = () => {
+    let debounceId = 0
+    const DEBOUNCE_MS = 120
+
+    const applyMeasure = () => {
       if (window.matchMedia('(min-width: 768px)').matches) {
         setNavH(0)
         return
@@ -93,11 +97,17 @@ function usePortfolioMobileNav(enabled = true, ignoreScrollUntilRef) {
       setNavH(el.offsetHeight)
     }
 
-    measure()
+    const measure = () => {
+      window.clearTimeout(debounceId)
+      debounceId = window.setTimeout(applyMeasure, DEBOUNCE_MS)
+    }
+
+    applyMeasure()
     const ro = new ResizeObserver(measure)
     ro.observe(el)
     window.addEventListener('resize', measure)
     return () => {
+      window.clearTimeout(debounceId)
       ro.disconnect()
       window.removeEventListener('resize', measure)
     }
@@ -282,7 +292,9 @@ export default function PortfolioPage() {
         >
           <motion.aside
             ref={navRef}
-            className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.07] bg-[#0d0d0c]/95 backdrop-blur-xl will-change-transform transform-gpu [backface-visibility:hidden] md:inset-x-auto md:bottom-0 md:left-0 md:top-0 md:h-full md:w-[min(11rem,22vw)] md:border-b-0 md:border-r md:border-white/[0.07] md:backdrop-blur-none"
+            layout={false}
+            className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.07] bg-[#0d0d0c]/95 backdrop-blur-xl transform-gpu [backface-visibility:hidden] md:inset-x-auto md:bottom-0 md:left-0 md:top-0 md:h-full md:w-[min(11rem,22vw)] md:border-b-0 md:border-r md:border-white/[0.07] md:backdrop-blur-none"
+            style={{ willChange: 'transform' }}
             aria-label="Navigation des secteurs"
             initial={false}
             animate={
@@ -378,12 +390,7 @@ export default function PortfolioPage() {
                   'relative z-10 w-full px-5 pb-20 sm:px-10 md:px-14 md:pb-32 lg:px-20 md:pt-16',
                   prefersReducedMotion
                     ? 'max-md:pt-[calc(6.5rem+env(safe-area-inset-top))]'
-                    : [
-                        'max-md:pt-0',
-                        'max-md:transition-[padding-top]',
-                        'max-md:duration-[480ms]',
-                        'max-md:ease-[cubic-bezier(0.25,1,0.3,1)]',
-                      ].join(' '),
+                    : 'max-md:pt-0',
                 ].join(' ')}
                 initial="initial"
                 animate="animate"
@@ -391,7 +398,10 @@ export default function PortfolioPage() {
                 variants={reducedCategoryVariants}
                 style={
                   !prefersReducedMotion && isMobile
-                    ? { paddingTop: mobileNavHidden ? 12 : mobileContentTopPad }
+                    ? {
+                        paddingTop: mobileNavHidden ? 12 : mobileContentTopPad,
+                        transition: 'none',
+                      }
                     : undefined
                 }
               >
