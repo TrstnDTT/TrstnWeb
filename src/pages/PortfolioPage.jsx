@@ -59,6 +59,10 @@ const MOBILE_NAV_TRANSITION = {
 }
 
 const SCROLL_NAV_THROTTLE_MS = 80
+/** Zone bas de page : pas de réapparition barre sur micro-mouvements / rebond. */
+const SCROLL_BOTTOM_SAFE_PX = 50
+/** Scroll vers le haut requis pour réafficher la barre depuis le bas. */
+const SCROLL_SIGNIFICANT_UP_PX = 18
 
 function usePortfolioMobileNav(enabled = true, ignoreScrollUntilRef) {
   const [hidden, setHidden] = useState(false)
@@ -115,14 +119,24 @@ function usePortfolioMobileNav(enabled = true, ignoreScrollUntilRef) {
           setHidden(false)
           return
         }
-        const y = window.scrollY || document.documentElement.scrollTop
+        const scrollHeight = Math.max(
+          document.documentElement.scrollHeight,
+          document.body.scrollHeight,
+        )
+        const maxY = Math.max(0, scrollHeight - window.innerHeight)
+        const yRaw = window.scrollY || document.documentElement.scrollTop
+        const y = Math.min(Math.max(0, yRaw), maxY)
+
         if (ignoreScrollUntilRef?.current && Date.now() < ignoreScrollUntilRef.current) {
           lastY.current = y
           return
         }
+
         const delta = y - lastY.current
         lastY.current = y
         const threshold = 6
+        const nearBottom =
+          maxY > 0 && y >= maxY - SCROLL_BOTTOM_SAFE_PX
 
         let next = hiddenRef.current
         if (y < 16) {
@@ -130,6 +144,9 @@ function usePortfolioMobileNav(enabled = true, ignoreScrollUntilRef) {
         } else if (delta > threshold) {
           next = true
         } else if (delta < -threshold) {
+          if (nearBottom && delta > -SCROLL_SIGNIFICANT_UP_PX) {
+            return
+          }
           next = false
         }
 
@@ -143,7 +160,16 @@ function usePortfolioMobileNav(enabled = true, ignoreScrollUntilRef) {
       })
     }
 
-    lastY.current = window.scrollY || 0
+    const clampY = () => {
+      const sh = Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight,
+      )
+      const maxY = Math.max(0, sh - window.innerHeight)
+      const raw = window.scrollY || 0
+      return Math.min(Math.max(0, raw), maxY)
+    }
+    lastY.current = clampY()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [enabled, ignoreScrollUntilRef])
@@ -200,11 +226,17 @@ export default function PortfolioPage() {
   useEffect(() => {
     if (activeProject) {
       document.documentElement.style.scrollSnapType = ''
+      document.documentElement.style.overscrollBehaviorY = ''
+      document.body.style.overscrollBehaviorY = ''
       return
     }
     document.documentElement.style.scrollSnapType = 'y proximity'
+    document.documentElement.style.overscrollBehaviorY = 'none'
+    document.body.style.overscrollBehaviorY = 'none'
     return () => {
       document.documentElement.style.scrollSnapType = ''
+      document.documentElement.style.overscrollBehaviorY = ''
+      document.body.style.overscrollBehaviorY = ''
     }
   }, [activeProject])
 
@@ -245,7 +277,7 @@ export default function PortfolioPage() {
     <>
       {!activeProject && (
         <div
-          className="trstn-ui trstn-shell relative min-h-screen text-[#e6e4df]"
+          className="trstn-ui trstn-shell relative min-h-screen h-auto text-[#e6e4df] overscroll-y-none"
           style={{ backgroundColor: GALLERY.bg }}
         >
           <motion.aside
@@ -336,14 +368,14 @@ export default function PortfolioPage() {
             </div>
           </motion.aside>
 
-          <main className="relative min-h-[100svh] overflow-x-hidden overflow-y-visible md:pl-[min(11rem,22vw)]">
+          <main className="relative h-auto min-h-0 overflow-x-hidden overflow-y-visible md:min-h-[100svh] md:pl-[min(11rem,22vw)]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={active.id}
                 role="region"
                 aria-label={`Projets — ${active.label}`}
                 className={[
-                  'relative z-10 w-full px-5 pb-32 sm:px-10 md:px-14 md:pb-40 lg:px-20 md:pt-16',
+                  'relative z-10 w-full px-5 pb-20 sm:px-10 md:px-14 md:pb-32 lg:px-20 md:pt-16',
                   prefersReducedMotion
                     ? 'max-md:pt-[calc(6.5rem+env(safe-area-inset-top))]'
                     : [

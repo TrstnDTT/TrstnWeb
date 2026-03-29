@@ -119,11 +119,15 @@ function PortfolioProjectGridInner({
         const shell = getSiteById(project.siteId)?.portfolio
         const gridStyle = getCardGridStyle(i, projects.length, !isMobile)
         const showBody = i < visibleCount
+        const isLast = i === projects.length - 1
+        const snapClass = isLast
+          ? 'max-md:snap-end max-md:snap-always'
+          : 'max-md:snap-center max-md:snap-always'
 
         return (
           <motion.li
             key={`${categoryId}-${project.siteId}`}
-            className="list-none max-md:snap-center max-md:snap-always relative z-0"
+            className={`list-none relative z-0 ${snapClass}`}
             style={gridStyle}
             custom={i}
             variants={cardReveal}
