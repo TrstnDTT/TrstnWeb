@@ -33,8 +33,15 @@ function computeOpenOrigin(event) {
   }
 }
 
-/** Placement éditorial asymétrique (grille « cassée »). */
-function getCardGridStyle(index, total) {
+/**
+ * Placement éditorial asymétrique (2 colonnes, md+).
+ * Sur une seule colonne (mobile), ne pas fixer gridColumn > 1 — sinon colonnes
+ * implicites + overflow-x-hidden masquent les cartes hors écran.
+ */
+function getCardGridStyle(index, total, asymmetric) {
+  if (!asymmetric) {
+    return {}
+  }
   if (total === 1) {
     return { gridColumn: '1 / -1', maxWidth: 'min(36rem, 100%)', justifySelf: 'start' }
   }
@@ -83,7 +90,7 @@ const MOBILE_NAV_TRANSITION = {
   damping: 30,
 }
 
-function usePortfolioMobileNav(enabled = true) {
+function usePortfolioMobileNav(enabled = true, ignoreScrollUntilRef) {
   const [hidden, setHidden] = useState(false)
   const [navH, setNavH] = useState(0)
   const navRef = useRef(null)
@@ -132,6 +139,10 @@ function usePortfolioMobileNav(enabled = true) {
           return
         }
         const y = window.scrollY || document.documentElement.scrollTop
+        if (ignoreScrollUntilRef?.current && Date.now() < ignoreScrollUntilRef.current) {
+          lastY.current = y
+          return
+        }
         const delta = y - lastY.current
         const threshold = 6
 
@@ -149,7 +160,7 @@ function usePortfolioMobileNav(enabled = true) {
     lastY.current = window.scrollY || 0
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [enabled])
+  }, [enabled, ignoreScrollUntilRef])
 
   return { hidden, navH, navRef }
 }
@@ -183,8 +194,10 @@ function getCardRevealVariants(reduced) {
 export default function PortfolioPage() {
   const prefersReducedMotion = useReducedMotion()
   const [activeProject, setActiveProject] = useState(null)
+  const navScrollIgnoreUntil = useRef(0)
   const { hidden: navHiddenScroll, navH, navRef } = usePortfolioMobileNav(
     !activeProject,
+    navScrollIgnoreUntil,
   )
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined'
@@ -220,6 +233,22 @@ export default function PortfolioPage() {
     document.body.style.overflow = activeProject ? 'hidden' : ''
     return () => {
       document.body.style.overflow = ''
+    }
+  }, [activeProject])
+
+  useEffect(() => {
+    navScrollIgnoreUntil.current = Date.now() + 480
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [activeCategory])
+
+  useEffect(() => {
+    if (activeProject) {
+      document.documentElement.style.scrollSnapType = ''
+      return
+    }
+    document.documentElement.style.scrollSnapType = 'y proximity'
+    return () => {
+      document.documentElement.style.scrollSnapType = ''
     }
   }, [activeProject])
 
@@ -351,7 +380,7 @@ export default function PortfolioPage() {
             </div>
           </motion.aside>
 
-          <main className="relative min-h-[100svh] overflow-x-hidden md:pl-[min(11rem,22vw)]">
+          <main className="relative min-h-[100svh] overflow-x-hidden overflow-y-visible md:pl-[min(11rem,22vw)]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={active.id}
@@ -400,18 +429,19 @@ export default function PortfolioPage() {
                     </p>
                   </header>
 
-                  <ul
-                    className="m-0 grid list-none grid-cols-1 gap-16 p-0 md:grid-cols-2 md:gap-x-10 md:gap-y-24"
-                    style={{ minHeight: 'min(70vh, 52rem)' }}
-                  >
+                  <ul className="m-0 grid list-none grid-cols-1 gap-16 p-0 md:grid-cols-2 md:gap-x-10 md:gap-y-24">
                     {active.projects.map((project, i) => {
                       const shell = getSiteById(project.siteId)?.portfolio
-                      const gridStyle = getCardGridStyle(i, active.projects.length)
+                      const gridStyle = getCardGridStyle(
+                        i,
+                        active.projects.length,
+                        !isMobile,
+                      )
 
                       return (
                         <motion.li
                           key={`${active.id}-${project.title}`}
-                          className="list-none"
+                          className="list-none max-md:snap-center max-md:snap-always relative z-0"
                           style={gridStyle}
                           custom={i}
                           variants={cardReveal}
@@ -423,7 +453,7 @@ export default function PortfolioPage() {
                             role="button"
                             tabIndex={0}
                             aria-label={`Ouvrir le projet ${project.title}`}
-                            className="group flex h-full cursor-pointer flex-col overflow-hidden bg-[rgba(255,255,255,0.02)] text-left outline-none ring-offset-2 ring-offset-[#121210] focus-visible:ring-2 focus-visible:ring-white/25"
+                            className="group relative z-0 flex h-full cursor-pointer flex-col overflow-hidden bg-[rgba(255,255,255,0.02)] text-left outline-none ring-offset-2 ring-offset-[#121210] focus-visible:ring-2 focus-visible:ring-white/25 will-change-transform"
                             style={{
                               boxShadow: `
                                 0 0 0 1px ${GALLERY.borderOuter},

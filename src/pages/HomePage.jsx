@@ -115,7 +115,7 @@ export default function HomePage() {
             ))}
           </div>
           <p className="trstn-label mt-12 text-center text-[12px] text-zinc-600">
-            Propulsé par <span className="text-zinc-500">{SITE.title}</span>
+            Conçu par <span className="text-zinc-500">{SITE.title}</span>
           </p>
         </div>
       </section>

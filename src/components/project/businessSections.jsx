@@ -548,7 +548,7 @@ export function BusinessFooter({ site }) {
             className="mt-8 text-[10px] font-medium uppercase tracking-[0.35em] opacity-70"
             style={{ color: t }}
           >
-            Propulsé par TrstnWeb
+            Conçu par TrstnWeb
           </p>
           <p className="mt-2 text-xs opacity-60" style={{ color: t }}>
             © {new Date().getFullYear()} {site.name}
