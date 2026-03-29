@@ -1,7 +1,9 @@
+import { memo } from 'react'
+
 /**
  * Hero visuel carte — abstraction couleur (texture « matière »), format portrait galerie.
  */
-export function ProjectPreview({ site, className = '' }) {
+function ProjectPreviewInner({ site, className = '' }) {
   const p = site?.primaryColor ?? '#1c1c1e'
   const s = site?.secondaryColor ?? '#78716c'
   const surf = site?.surfaceColor ?? p
@@ -41,3 +43,13 @@ export function ProjectPreview({ site, className = '' }) {
     </div>
   )
 }
+
+export const ProjectPreview = memo(
+  ProjectPreviewInner,
+  (prev, next) =>
+    prev.className === next.className &&
+    prev.site?.id === next.site?.id &&
+    prev.site?.primaryColor === next.site?.primaryColor &&
+    prev.site?.secondaryColor === next.site?.secondaryColor &&
+    prev.site?.surfaceColor === next.site?.surfaceColor,
+)

@@ -1,8 +1,8 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Home, Info } from 'lucide-react'
-import { ProjectPreview } from '../components/ProjectPreview.jsx'
+import { PortfolioProjectGrid } from '../components/portfolio/PortfolioProjectGrid.jsx'
 import { ProjectExperience } from '../components/templates/ProjectExperience.jsx'
 import { CATEGORIES, SITE, getCategoryById } from '../constants.js'
 import { getSiteById } from '../data.js'
@@ -33,69 +33,45 @@ function computeOpenOrigin(event) {
   }
 }
 
-/**
- * Placement éditorial asymétrique (2 colonnes, md+).
- * Sur une seule colonne (mobile), ne pas fixer gridColumn > 1 — sinon colonnes
- * implicites + overflow-x-hidden masquent les cartes hors écran.
- */
-function getCardGridStyle(index, total, asymmetric) {
-  if (!asymmetric) {
-    return {}
-  }
-  if (total === 1) {
-    return { gridColumn: '1 / -1', maxWidth: 'min(36rem, 100%)', justifySelf: 'start' }
-  }
-  if (total === 2) {
-    if (index === 0) return { gridColumn: 1, gridRow: 1 }
-    return { gridColumn: 2, gridRow: 1, marginTop: '6rem' }
-  }
-  if (total === 3) {
-    if (index === 0) return { gridColumn: 1, gridRow: 1 }
-    if (index === 1) return { gridColumn: 2, gridRow: 1, marginTop: '5rem' }
-    return { gridColumn: 1, gridRow: 2, maxWidth: 'min(92%, 42rem)' }
-  }
-  const col = (index % 2) + 1
-  const row = Math.floor(index / 2) + 1
-  const marginTop = index % 2 === 1 && index > 0 ? '3.5rem' : undefined
-  return { gridColumn: col, gridRow: row, marginTop }
-}
-
 const categoryRegionVariants = {
-  initial: { opacity: 0, y: 52, filter: 'blur(12px)' },
+  initial: { opacity: 0, y: 32, filter: 'blur(6px)' },
   animate: {
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
     transition: {
-      opacity: { duration: 0.5, delay: 0.06 },
-      filter: { duration: 0.65, delay: 0.04 },
-      y: {
-        type: 'spring',
-        damping: 38,
-        stiffness: 86,
-        mass: 1.15,
-      },
+      opacity: { duration: 0.38, delay: 0.04 },
+      filter: { duration: 0.35 },
+      y: { duration: 0.42, ease: [0.2, 1, 0.36, 1] },
     },
   },
   exit: {
     opacity: 0,
-    filter: 'blur(14px)',
-    transition: { duration: 0.48, ease: [0.4, 0, 0.2, 1] },
+    filter: 'blur(6px)',
+    transition: { duration: 0.32, ease: [0.4, 0, 0.2, 1] },
   },
 }
 
 const MOBILE_NAV_TRANSITION = {
-  type: 'spring',
-  stiffness: 300,
-  damping: 30,
+  type: 'tween',
+  ease: [0.075, 0.82, 0.165, 1],
+  duration: 0.3,
 }
+
+const SCROLL_NAV_THROTTLE_MS = 80
 
 function usePortfolioMobileNav(enabled = true, ignoreScrollUntilRef) {
   const [hidden, setHidden] = useState(false)
+  const hiddenRef = useRef(false)
   const [navH, setNavH] = useState(0)
   const navRef = useRef(null)
   const lastY = useRef(0)
   const ticking = useRef(false)
+  const lastHiddenEmit = useRef(0)
+
+  useEffect(() => {
+    hiddenRef.current = hidden
+  }, [hidden])
 
   useLayoutEffect(() => {
     if (!enabled) {
@@ -135,6 +111,7 @@ function usePortfolioMobileNav(enabled = true, ignoreScrollUntilRef) {
       requestAnimationFrame(() => {
         ticking.current = false
         if (!window.matchMedia('(max-width: 767px)').matches) {
+          hiddenRef.current = false
           setHidden(false)
           return
         }
@@ -144,16 +121,25 @@ function usePortfolioMobileNav(enabled = true, ignoreScrollUntilRef) {
           return
         }
         const delta = y - lastY.current
+        lastY.current = y
         const threshold = 6
 
+        let next = hiddenRef.current
         if (y < 16) {
-          setHidden(false)
+          next = false
         } else if (delta > threshold) {
-          setHidden(true)
+          next = true
         } else if (delta < -threshold) {
-          setHidden(false)
+          next = false
         }
-        lastY.current = y
+
+        if (next === hiddenRef.current) return
+
+        const now = Date.now()
+        if (now - lastHiddenEmit.current < SCROLL_NAV_THROTTLE_MS) return
+        lastHiddenEmit.current = now
+        hiddenRef.current = next
+        setHidden(next)
       })
     }
 
@@ -163,32 +149,6 @@ function usePortfolioMobileNav(enabled = true, ignoreScrollUntilRef) {
   }, [enabled, ignoreScrollUntilRef])
 
   return { hidden, navH, navRef }
-}
-
-function getCardRevealVariants(reduced) {
-  if (reduced) {
-    return {
-      hidden: { opacity: 0 },
-      show: (i) => ({
-        opacity: 1,
-        transition: { delay: 0.06 + i * 0.05, duration: 0.35 },
-      }),
-    }
-  }
-  return {
-    hidden: { opacity: 0, y: 24 },
-    show: (i) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: 0.14 + i * 0.1,
-        type: 'spring',
-        damping: 36,
-        stiffness: 200,
-        mass: 0.85,
-      },
-    }),
-  }
 }
 
 export default function PortfolioPage() {
@@ -213,10 +173,6 @@ export default function PortfolioPage() {
     return () => mq.removeEventListener('change', fn)
   }, [])
 
-  const cardReveal = useMemo(
-    () => getCardRevealVariants(prefersReducedMotion),
-    [prefersReducedMotion],
-  )
   const [openOrigin, setOpenOrigin] = useState(null)
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0].id)
 
@@ -252,10 +208,10 @@ export default function PortfolioPage() {
     }
   }, [activeProject])
 
-  const openProject = (siteId, event) => {
+  const openProject = useCallback((siteId, event) => {
     setOpenOrigin(computeOpenOrigin(event))
     setActiveProject(siteId)
-  }
+  }, [])
 
   const closeProject = () => {
     setActiveProject(null)
@@ -294,7 +250,7 @@ export default function PortfolioPage() {
         >
           <motion.aside
             ref={navRef}
-            className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.07] bg-[#0d0d0c]/95 backdrop-blur-xl will-change-transform md:inset-x-auto md:bottom-0 md:left-0 md:top-0 md:h-full md:w-[min(11rem,22vw)] md:border-b-0 md:border-r md:border-white/[0.07] md:backdrop-blur-none"
+            className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.07] bg-[#0d0d0c]/95 backdrop-blur-xl will-change-transform transform-gpu [backface-visibility:hidden] md:inset-x-auto md:bottom-0 md:left-0 md:top-0 md:h-full md:w-[min(11rem,22vw)] md:border-b-0 md:border-r md:border-white/[0.07] md:backdrop-blur-none"
             aria-label="Navigation des secteurs"
             initial={false}
             animate={
@@ -429,87 +385,14 @@ export default function PortfolioPage() {
                     </p>
                   </header>
 
-                  <ul className="m-0 grid list-none grid-cols-1 gap-16 p-0 md:grid-cols-2 md:gap-x-10 md:gap-y-24">
-                    {active.projects.map((project, i) => {
-                      const shell = getSiteById(project.siteId)?.portfolio
-                      const gridStyle = getCardGridStyle(
-                        i,
-                        active.projects.length,
-                        !isMobile,
-                      )
-
-                      return (
-                        <motion.li
-                          key={`${active.id}-${project.title}`}
-                          className="list-none max-md:snap-center max-md:snap-always relative z-0"
-                          style={gridStyle}
-                          custom={i}
-                          variants={cardReveal}
-                          initial="hidden"
-                          animate="show"
-                        >
-                          <motion.article
-                            data-project-card
-                            role="button"
-                            tabIndex={0}
-                            aria-label={`Ouvrir le projet ${project.title}`}
-                            className="group relative z-0 flex h-full cursor-pointer flex-col overflow-hidden bg-[rgba(255,255,255,0.02)] text-left outline-none ring-offset-2 ring-offset-[#121210] focus-visible:ring-2 focus-visible:ring-white/25 will-change-transform"
-                            style={{
-                              boxShadow: `
-                                0 0 0 1px ${GALLERY.borderOuter},
-                                inset 0 0 0 1px ${GALLERY.borderInner}
-                              `,
-                            }}
-                            whileHover={
-                              prefersReducedMotion
-                                ? undefined
-                                : { y: -2, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } }
-                            }
-                            onClick={(e) => openProject(project.siteId, e)}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter' || e.key === ' ') {
-                                e.preventDefault()
-                                openProject(project.siteId, e)
-                              }
-                            }}
-                          >
-                            <ProjectPreview site={getSiteById(project.siteId)} />
-                            <div className="flex flex-1 flex-col px-6 pb-8 pt-6 md:px-7 md:pb-9">
-                              {shell?.portfolioTagline && (
-                                <p
-                                  className="mb-2 text-[10px] uppercase tracking-[0.24em] text-zinc-500"
-                                  style={{ color: GALLERY.accent }}
-                                >
-                                  {shell.portfolioTagline}
-                                </p>
-                              )}
-                              <h3
-                                className="text-[1.35rem] font-medium leading-snug tracking-[-0.02em] text-white sm:text-[1.45rem]"
-                                style={fontPlayfair}
-                              >
-                                {project.title}
-                              </h3>
-                              <p className="trstn-label mt-3 flex-1 text-[14px] leading-relaxed text-zinc-500 md:text-[15px]">
-                                {project.description}
-                              </p>
-                              <div className="mt-8">
-                                <span
-                                  className="group inline-flex items-baseline gap-2 text-[13px] tracking-[0.04em] text-zinc-400 transition-[letter-spacing] duration-300 group-hover:tracking-[0.08em] group-hover:text-zinc-200"
-                                  style={fontPlayfair}
-                                  aria-hidden
-                                >
-                                  <span className="font-normal italic">Voir le projet</span>
-                                  <span className="text-[1.1em] font-normal transition-transform duration-300 group-hover:translate-x-0.5">
-                                    →
-                                  </span>
-                                </span>
-                              </div>
-                            </div>
-                          </motion.article>
-                        </motion.li>
-                      )
-                    })}
-                  </ul>
+                  <PortfolioProjectGrid
+                    categoryId={active.id}
+                    projects={active.projects}
+                    isMobile={isMobile}
+                    prefersReducedMotion={prefersReducedMotion}
+                    onOpenProject={openProject}
+                    gallery={GALLERY}
+                  />
                 </div>
               </motion.div>
             </AnimatePresence>
