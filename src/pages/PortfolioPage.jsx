@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Home, Info } from 'lucide-react'
@@ -77,6 +77,83 @@ const categoryRegionVariants = {
   },
 }
 
+const MOBILE_NAV_TRANSITION = {
+  type: 'spring',
+  stiffness: 300,
+  damping: 30,
+}
+
+function usePortfolioMobileNav(enabled = true) {
+  const [hidden, setHidden] = useState(false)
+  const [navH, setNavH] = useState(0)
+  const navRef = useRef(null)
+  const lastY = useRef(0)
+  const ticking = useRef(false)
+
+  useLayoutEffect(() => {
+    if (!enabled) {
+      setNavH(0)
+      return
+    }
+    const el = navRef.current
+    if (!el) return
+
+    const measure = () => {
+      if (window.matchMedia('(min-width: 768px)').matches) {
+        setNavH(0)
+        return
+      }
+      setNavH(el.offsetHeight)
+    }
+
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    window.addEventListener('resize', measure)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', measure)
+    }
+  }, [enabled])
+
+  useEffect(() => {
+    if (!enabled) {
+      setHidden(false)
+      return
+    }
+
+    const onScroll = () => {
+      if (ticking.current) return
+      ticking.current = true
+      requestAnimationFrame(() => {
+        ticking.current = false
+        if (!window.matchMedia('(max-width: 767px)').matches) {
+          setHidden(false)
+          return
+        }
+        const y = window.scrollY || document.documentElement.scrollTop
+        const delta = y - lastY.current
+        const threshold = 6
+
+        if (y < 16) {
+          setHidden(false)
+        } else if (delta > threshold) {
+          setHidden(true)
+        } else if (delta < -threshold) {
+          setHidden(false)
+        }
+        lastY.current = y
+      })
+    }
+
+    lastY.current = window.scrollY || 0
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [enabled])
+
+  return { hidden, navH, navRef }
+}
+
 function getCardRevealVariants(reduced) {
   if (reduced) {
     return {
@@ -105,11 +182,28 @@ function getCardRevealVariants(reduced) {
 
 export default function PortfolioPage() {
   const prefersReducedMotion = useReducedMotion()
+  const [activeProject, setActiveProject] = useState(null)
+  const { hidden: navHiddenScroll, navH, navRef } = usePortfolioMobileNav(
+    !activeProject,
+  )
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined'
+      ? window.matchMedia('(max-width: 767px)').matches
+      : false,
+  )
+  const mobileNavHidden = prefersReducedMotion ? false : navHiddenScroll
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)')
+    const fn = () => setIsMobile(mq.matches)
+    mq.addEventListener('change', fn)
+    return () => mq.removeEventListener('change', fn)
+  }, [])
+
   const cardReveal = useMemo(
     () => getCardRevealVariants(prefersReducedMotion),
     [prefersReducedMotion],
   )
-  const [activeProject, setActiveProject] = useState(null)
   const [openOrigin, setOpenOrigin] = useState(null)
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0].id)
 
@@ -159,6 +253,9 @@ export default function PortfolioPage() {
       }
     : categoryRegionVariants
 
+  const mobileContentTopPad =
+    navH > 0 ? navH + 12 : 104
+
   return (
     <>
       {!activeProject && (
@@ -166,9 +263,21 @@ export default function PortfolioPage() {
           className="trstn-ui trstn-shell relative min-h-screen text-[#e6e4df]"
           style={{ backgroundColor: GALLERY.bg }}
         >
-          <aside
-            className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-[#0d0d0c]/95 backdrop-blur-md md:inset-x-auto md:bottom-0 md:left-0 md:w-[min(11rem,22vw)] md:border-b-0 md:border-r md:border-white/[0.07]"
+          <motion.aside
+            ref={navRef}
+            className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.07] bg-[#0d0d0c]/95 backdrop-blur-xl will-change-transform md:inset-x-auto md:bottom-0 md:left-0 md:top-0 md:h-full md:w-[min(11rem,22vw)] md:border-b-0 md:border-r md:border-white/[0.07] md:backdrop-blur-none"
             aria-label="Navigation des secteurs"
+            initial={false}
+            animate={
+              prefersReducedMotion || !isMobile
+                ? { y: 0 }
+                : { y: mobileNavHidden ? '-100%' : 0 }
+            }
+            transition={
+              prefersReducedMotion
+                ? { duration: 0 }
+                : MOBILE_NAV_TRANSITION
+            }
           >
             <div className="flex max-h-[100svh] flex-col px-4 py-5 md:h-full md:px-5 md:py-10">
               <div className="mb-8 shrink-0 border-b border-white/[0.05] pb-6">
@@ -240,7 +349,7 @@ export default function PortfolioPage() {
                 })}
               </nav>
             </div>
-          </aside>
+          </motion.aside>
 
           <main className="relative min-h-[100svh] overflow-x-hidden md:pl-[min(11rem,22vw)]">
             <AnimatePresence mode="wait">
@@ -248,11 +357,26 @@ export default function PortfolioPage() {
                 key={active.id}
                 role="region"
                 aria-label={`Projets — ${active.label}`}
-                className="relative z-10 w-full px-5 pb-32 pt-8 max-md:pt-[calc(6.5rem+env(safe-area-inset-top))] sm:px-10 md:px-14 md:pb-40 md:pt-16 lg:px-20"
+                className={[
+                  'relative z-10 w-full px-5 pb-32 sm:px-10 md:px-14 md:pb-40 lg:px-20 md:pt-16',
+                  prefersReducedMotion
+                    ? 'max-md:pt-[calc(6.5rem+env(safe-area-inset-top))]'
+                    : [
+                        'max-md:pt-0',
+                        'max-md:transition-[padding-top]',
+                        'max-md:duration-[480ms]',
+                        'max-md:ease-[cubic-bezier(0.25,1,0.3,1)]',
+                      ].join(' '),
+                ].join(' ')}
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 variants={reducedCategoryVariants}
+                style={
+                  !prefersReducedMotion && isMobile
+                    ? { paddingTop: mobileNavHidden ? 12 : mobileContentTopPad }
+                    : undefined
+                }
               >
                 <div className="relative mx-auto max-w-6xl">
                   <header
