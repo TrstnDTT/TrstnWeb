@@ -1,59 +1,24 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import {
-  ArrowRight,
-  Camera,
-  Croissant,
-  Hammer,
-  Home,
-  Info,
-  PartyPopper,
-  PenTool,
-  Scissors,
-  UtensilsCrossed,
-  Wine,
-} from 'lucide-react'
+import { Home, Info } from 'lucide-react'
 import { ProjectPreview } from '../components/ProjectPreview.jsx'
 import { ProjectExperience } from '../components/templates/ProjectExperience.jsx'
 import { CATEGORIES, SITE, getCategoryById } from '../constants.js'
 import { getSiteById } from '../data.js'
 
-const ICONS = {
-  restaurant: UtensilsCrossed,
-  boulangerie: Croissant,
-  salon: Scissors,
-  bar: Wine,
-  tattoo: PenTool,
-  evenementiel: PartyPopper,
-  photographie: Camera,
-  'artisans-services': Hammer,
+/** Fond galerie & accent unique (détails discrets). */
+const GALLERY = {
+  bg: '#121210',
+  borderOuter: 'rgba(255, 255, 255, 0.05)',
+  borderInner: 'rgba(255, 255, 255, 0.09)',
+  text: '#e6e4df',
+  textMuted: 'rgba(230, 228, 223, 0.55)',
+  accent: '#b8a074',
 }
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 28 },
-  show: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: 0.12 + i * 0.09,
-      duration: 0.55,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  }),
-}
-
-const viewportEnter = {
-  initial: { opacity: 0 },
-  animate: {
-    opacity: 1,
-    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-  },
-  exit: {
-    opacity: 0,
-    transition: { duration: 0.28, ease: [0.4, 0, 1, 1] },
-  },
-}
+const fontSyne = { fontFamily: '"Syne", system-ui, sans-serif' }
+const fontPlayfair = { fontFamily: '"Playfair Display", Georgia, serif' }
 
 function computeOpenOrigin(event) {
   if (typeof window === 'undefined') return { x: 50, y: 42 }
@@ -68,8 +33,82 @@ function computeOpenOrigin(event) {
   }
 }
 
+/** Placement éditorial asymétrique (grille « cassée »). */
+function getCardGridStyle(index, total) {
+  if (total === 1) {
+    return { gridColumn: '1 / -1', maxWidth: 'min(36rem, 100%)', justifySelf: 'start' }
+  }
+  if (total === 2) {
+    if (index === 0) return { gridColumn: 1, gridRow: 1 }
+    return { gridColumn: 2, gridRow: 1, marginTop: '6rem' }
+  }
+  if (total === 3) {
+    if (index === 0) return { gridColumn: 1, gridRow: 1 }
+    if (index === 1) return { gridColumn: 2, gridRow: 1, marginTop: '5rem' }
+    return { gridColumn: 1, gridRow: 2, maxWidth: 'min(92%, 42rem)' }
+  }
+  const col = (index % 2) + 1
+  const row = Math.floor(index / 2) + 1
+  const marginTop = index % 2 === 1 && index > 0 ? '3.5rem' : undefined
+  return { gridColumn: col, gridRow: row, marginTop }
+}
+
+const categoryRegionVariants = {
+  initial: { opacity: 0, y: 52, filter: 'blur(12px)' },
+  animate: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      opacity: { duration: 0.5, delay: 0.06 },
+      filter: { duration: 0.65, delay: 0.04 },
+      y: {
+        type: 'spring',
+        damping: 38,
+        stiffness: 86,
+        mass: 1.15,
+      },
+    },
+  },
+  exit: {
+    opacity: 0,
+    filter: 'blur(14px)',
+    transition: { duration: 0.48, ease: [0.4, 0, 0.2, 1] },
+  },
+}
+
+function getCardRevealVariants(reduced) {
+  if (reduced) {
+    return {
+      hidden: { opacity: 0 },
+      show: (i) => ({
+        opacity: 1,
+        transition: { delay: 0.06 + i * 0.05, duration: 0.35 },
+      }),
+    }
+  }
+  return {
+    hidden: { opacity: 0, y: 24 },
+    show: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.14 + i * 0.1,
+        type: 'spring',
+        damping: 36,
+        stiffness: 200,
+        mass: 0.85,
+      },
+    }),
+  }
+}
+
 export default function PortfolioPage() {
   const prefersReducedMotion = useReducedMotion()
+  const cardReveal = useMemo(
+    () => getCardRevealVariants(prefersReducedMotion),
+    [prefersReducedMotion],
+  )
   const [activeProject, setActiveProject] = useState(null)
   const [openOrigin, setOpenOrigin] = useState(null)
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0].id)
@@ -82,7 +121,6 @@ export default function PortfolioPage() {
     () => (activeProject ? getSiteById(activeProject) : null),
     [activeProject],
   )
-  const t = active.theme
 
   useEffect(() => {
     document.body.style.overflow = activeProject ? 'hidden' : ''
@@ -113,230 +151,204 @@ export default function PortfolioPage() {
     ? { opacity: 0 }
     : { scale: 0.97, opacity: 0, borderRadius: 18 }
 
+  const reducedCategoryVariants = prefersReducedMotion
+    ? {
+        initial: { opacity: 0 },
+        animate: { opacity: 1, transition: { duration: 0.35 } },
+        exit: { opacity: 0, transition: { duration: 0.25 } },
+      }
+    : categoryRegionVariants
+
   return (
     <>
       {!activeProject && (
-        <div className="trstn-ui trstn-shell min-h-screen bg-[#050506] text-zinc-300">
+        <div
+          className="trstn-ui trstn-shell relative min-h-screen text-[#e6e4df]"
+          style={{ backgroundColor: GALLERY.bg }}
+        >
           <aside
-            className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.07] bg-[#0a0a0a] backdrop-blur-xl md:inset-x-auto md:bottom-0 md:left-0 md:w-64 md:border-b-0 md:border-r md:border-white/[0.08]"
+            className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-[#0d0d0c]/95 backdrop-blur-md md:inset-x-auto md:bottom-0 md:left-0 md:w-[min(11rem,22vw)] md:border-b-0 md:border-r md:border-white/[0.07]"
             aria-label="Navigation des secteurs"
           >
-            <div className="flex max-h-[100svh] flex-col px-4 py-4 md:h-full md:px-5 md:py-8">
-              <div className="mb-6 shrink-0 border-b border-white/[0.06] pb-6 md:mb-10 md:pb-8">
-                <p className="trstn-heading text-[1.35rem] leading-none tracking-[-0.07em] text-white">
+            <div className="flex max-h-[100svh] flex-col px-4 py-5 md:h-full md:px-5 md:py-10">
+              <div className="mb-8 shrink-0 border-b border-white/[0.05] pb-6">
+                <p
+                  className="text-[1.05rem] font-semibold leading-none tracking-[-0.06em] text-white/90"
+                  style={fontSyne}
+                >
                   TrstnWeb
                 </p>
-                <p className="trstn-label mt-2 text-[11px] uppercase tracking-[0.22em] text-zinc-500">
+                <p className="mt-2 text-[10px] uppercase tracking-[0.28em] text-zinc-500">
                   {SITE.subtitle}
                 </p>
               </div>
 
-              <div className="mb-4 flex flex-wrap gap-2 md:mb-6">
+              <div className="mb-6 flex flex-wrap gap-2">
                 <Link
                   to="/"
-                  className="trstn-label inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[11px] uppercase tracking-[0.14em] text-zinc-300 transition hover:bg-white/[0.08] hover:text-white"
+                  className="inline-flex items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] text-zinc-500 transition-[letter-spacing] duration-300 hover:tracking-[0.28em] hover:text-zinc-300"
                 >
-                  <Home className="h-3.5 w-3.5 opacity-80" strokeWidth={1.75} aria-hidden />
+                  <Home className="h-3 w-3 opacity-70" strokeWidth={1.5} aria-hidden />
                   Accueil
                 </Link>
                 <Link
                   to="/#about"
-                  className="trstn-label inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[11px] uppercase tracking-[0.14em] text-zinc-300 transition hover:bg-white/[0.08] hover:text-white"
+                  className="inline-flex items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] text-zinc-500 transition-[letter-spacing] duration-300 hover:tracking-[0.28em] hover:text-zinc-300"
                 >
-                  <Info className="h-3.5 w-3.5 opacity-80" strokeWidth={1.75} aria-hidden />
+                  <Info className="h-3 w-3 opacity-70" strokeWidth={1.5} aria-hidden />
                   À propos
                 </Link>
               </div>
 
               <nav
-                className="scrollbar-thin flex gap-1 overflow-x-auto pb-1 md:flex-1 md:flex-col md:overflow-y-auto md:pb-0"
+                className="scrollbar-thin flex gap-1 overflow-x-auto pb-2 md:flex-1 md:flex-col md:overflow-y-auto md:pb-0"
                 role="navigation"
               >
-                {CATEGORIES.map((cat) => {
-                  const Icon = ICONS[cat.id]
+                {CATEGORIES.map((cat, idx) => {
+                  const n = String(idx + 1).padStart(2, '0')
                   const isActive = activeCategory === cat.id
                   return (
-                    <motion.button
+                    <button
                       key={cat.id}
                       type="button"
                       onClick={() => setActiveCategory(cat.id)}
-                      className={[
-                        'group relative flex min-w-0 shrink-0 items-center gap-3 rounded-xl px-3 py-2.5 pb-3 text-left text-sm md:w-full',
-                        isActive ? 'text-white' : 'text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-200',
-                      ].join(' ')}
+                      className="group relative flex min-w-0 shrink-0 items-baseline gap-2.5 py-3 pl-1 pr-2 text-left md:w-full"
                       aria-current={isActive ? 'true' : undefined}
-                      whileHover={{ x: 3 }}
-                      whileTap={{ scale: 0.98 }}
-                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     >
-                      {isActive && (
-                        <motion.div
-                          layoutId="trstn-sidebar-active-line"
-                          className="absolute bottom-1 left-3 right-3 h-[2px] rounded-full bg-white md:left-2 md:right-2"
-                          transition={{ type: 'spring', stiffness: 420, damping: 34 }}
-                          aria-hidden
-                        />
-                      )}
                       <span
-                        className={[
-                          'flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-colors',
-                          isActive
-                            ? 'border-white/20 bg-white/[0.06] text-white'
-                            : 'border-white/[0.06] bg-white/[0.02] text-zinc-500 group-hover:border-white/10 group-hover:text-zinc-300',
-                        ].join(' ')}
+                        className="absolute bottom-2 left-0 top-2 w-px bg-white/35 transition-opacity duration-300"
+                        style={{ opacity: isActive ? 1 : 0 }}
+                        aria-hidden
+                      />
+                      <span
+                        className="w-7 shrink-0 text-right text-[11px] tabular-nums leading-none transition-colors duration-300"
+                        style={{
+                          ...fontPlayfair,
+                          color: isActive ? GALLERY.accent : 'rgba(161, 161, 170, 0.85)',
+                        }}
                       >
-                        <Icon className="h-4 w-4" strokeWidth={1.5} aria-hidden />
+                        {n}
                       </span>
-                      <span className="trstn-heading truncate">{cat.label}</span>
-                    </motion.button>
+                      <span
+                        className="min-w-0 truncate text-[13px] font-semibold tracking-[-0.02em] text-zinc-400 transition-[letter-spacing] duration-300 group-hover:tracking-[0.12em]"
+                        style={fontSyne}
+                      >
+                        {cat.label}
+                      </span>
+                    </button>
                   )
                 })}
               </nav>
-
-              <p className="trstn-label mt-6 hidden text-[10px] leading-relaxed text-zinc-600 md:block">
-                Propulsé par <span className="text-zinc-500">TrstnWeb</span>
-              </p>
             </div>
           </aside>
 
-          <main
-            className="relative min-h-[100svh] overflow-x-hidden md:pl-64"
-            style={{
-              background: `linear-gradient(165deg, ${t.gradientFrom} 0%, ${t.gradientVia} 48%, ${t.gradientTo} 100%)`,
-              color: t.textBody,
-            }}
-          >
-            <div
-              className="pointer-events-none absolute inset-0 z-0 opacity-[0.85]"
-              style={{
-                background: `radial-gradient(ellipse 90% 55% at 50% -15%, ${t.glow}, transparent 55%)`,
-              }}
-              aria-hidden
-            />
-            <div
-              className="pointer-events-none absolute -right-24 top-1/3 z-0 h-72 w-72 rounded-full blur-3xl md:right-10"
-              style={{ background: t.accentMuted }}
-              aria-hidden
-            />
-
+          <main className="relative min-h-[100svh] overflow-x-hidden md:pl-[min(11rem,22vw)]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={active.id}
                 role="region"
                 aria-label={`Projets — ${active.label}`}
-                className="relative z-10 w-full px-4 pb-16 pt-6 max-md:pt-[calc(7.5rem+env(safe-area-inset-top))] sm:px-8 md:px-12 md:pb-20 md:pt-12 lg:px-16"
+                className="relative z-10 w-full px-5 pb-32 pt-8 max-md:pt-[calc(6.5rem+env(safe-area-inset-top))] sm:px-10 md:px-14 md:pb-40 md:pt-16 lg:px-20"
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                variants={viewportEnter}
+                variants={reducedCategoryVariants}
               >
-                <div className="relative mx-auto max-w-5xl">
-                  <header id="portfolio-top" className="mb-12 max-w-2xl scroll-mt-28 md:mb-16 md:scroll-mt-24">
-                    <motion.p
-                      className="trstn-label text-[11px] uppercase tracking-[0.28em]"
-                      style={{ color: t.accent }}
-                      initial={{ opacity: 0, y: 12 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.05, duration: 0.4 }}
+                <div className="relative mx-auto max-w-6xl">
+                  <header
+                    id="portfolio-top"
+                    className="mb-20 max-w-xl scroll-mt-28 md:mb-28 md:scroll-mt-24"
+                  >
+                    <p
+                      className="text-[11px] uppercase tracking-[0.32em] text-zinc-500"
+                      style={{ color: GALLERY.accent }}
                     >
                       {active.label}
-                    </motion.p>
-                    <motion.h2
-                      className="trstn-heading mt-3 text-3xl leading-[1.12] tracking-[-0.03em] sm:text-4xl md:text-[2.65rem]"
-                      style={{ color: t.textHeading }}
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1, duration: 0.45 }}
+                    </p>
+                    <h2
+                      className="mt-4 text-3xl font-medium leading-[1.15] tracking-[-0.02em] text-white/95 sm:text-[2.1rem] md:text-[2.35rem]"
+                      style={fontPlayfair}
                     >
                       Réalisations sélectionnées
-                    </motion.h2>
-                    <motion.p
-                      className="trstn-label mt-4 max-w-lg text-[15px] leading-relaxed md:text-base"
-                      initial={{ opacity: 0, y: 12 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.18, duration: 0.45 }}
-                    >
+                    </h2>
+                    <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-zinc-500 md:text-base">
                       {SITE.footer}
-                    </motion.p>
+                    </p>
                   </header>
 
-                  <ul className="grid list-none gap-6 p-0 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+                  <ul
+                    className="m-0 grid list-none grid-cols-1 gap-16 p-0 md:grid-cols-2 md:gap-x-10 md:gap-y-24"
+                    style={{ minHeight: 'min(70vh, 52rem)' }}
+                  >
                     {active.projects.map((project, i) => {
                       const shell = getSiteById(project.siteId)?.portfolio
-                      const baseShadow = '0 24px 48px -28px rgba(0,0,0,0.65)'
-                      const hoverShadow = shell?.cardGlow
-                        ? `${baseShadow}, ${shell.cardGlow}`
-                        : baseShadow
+                      const gridStyle = getCardGridStyle(i, active.projects.length)
 
                       return (
                         <motion.li
                           key={`${active.id}-${project.title}`}
                           className="list-none"
+                          style={gridStyle}
                           custom={i}
-                          variants={cardVariants}
+                          variants={cardReveal}
                           initial="hidden"
                           animate="show"
                         >
                           <motion.article
                             data-project-card
-                            className="flex h-full flex-col overflow-hidden rounded-2xl border backdrop-blur-md"
+                            role="button"
+                            tabIndex={0}
+                            aria-label={`Ouvrir le projet ${project.title}`}
+                            className="group flex h-full cursor-pointer flex-col overflow-hidden bg-[rgba(255,255,255,0.02)] text-left outline-none ring-offset-2 ring-offset-[#121210] focus-visible:ring-2 focus-visible:ring-white/25"
                             style={{
-                              backgroundColor: t.surface,
-                              borderColor: shell?.cardBorder ?? t.border,
+                              boxShadow: `
+                                0 0 0 1px ${GALLERY.borderOuter},
+                                inset 0 0 0 1px ${GALLERY.borderInner}
+                              `,
                             }}
-                            whileHover={{
-                              y: -6,
-                              boxShadow: hoverShadow,
-                            }}
-                            transition={{
-                              duration: 0.38,
-                              ease: [0.22, 1, 0.36, 1],
+                            whileHover={
+                              prefersReducedMotion
+                                ? undefined
+                                : { y: -2, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } }
+                            }
+                            onClick={(e) => openProject(project.siteId, e)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault()
+                                openProject(project.siteId, e)
+                              }
                             }}
                           >
                             <ProjectPreview site={getSiteById(project.siteId)} />
-                            <div className="flex flex-1 flex-col px-5 pb-5 pt-4">
+                            <div className="flex flex-1 flex-col px-6 pb-8 pt-6 md:px-7 md:pb-9">
                               {shell?.portfolioTagline && (
                                 <p
-                                  className="trstn-label mb-2 text-[10px] uppercase tracking-[0.2em] opacity-80"
-                                  style={{ color: t.accent }}
+                                  className="mb-2 text-[10px] uppercase tracking-[0.24em] text-zinc-500"
+                                  style={{ color: GALLERY.accent }}
                                 >
                                   {shell.portfolioTagline}
                                 </p>
                               )}
                               <h3
-                                className="trstn-heading text-lg leading-snug tracking-[-0.02em] sm:text-xl"
-                                style={{ color: t.textHeading }}
+                                className="text-[1.35rem] font-medium leading-snug tracking-[-0.02em] text-white sm:text-[1.45rem]"
+                                style={fontPlayfair}
                               >
                                 {project.title}
                               </h3>
-                              <p className="trstn-label mt-2 flex-1 text-[13px] leading-relaxed md:text-[14px]">
+                              <p className="trstn-label mt-3 flex-1 text-[14px] leading-relaxed text-zinc-500 md:text-[15px]">
                                 {project.description}
                               </p>
-                              <div className="mt-5">
-                                <motion.button
-                                  type="button"
-                                  onClick={(e) => openProject(project.siteId, e)}
-                                  className="trstn-label group inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm tracking-wide sm:w-auto"
-                                  style={{
-                                    backgroundColor: t.accent,
-                                    color: '#0a0a0c',
-                                    boxShadow: `0 8px 24px -8px ${t.accentMuted}`,
-                                  }}
-                                  whileHover={{ scale: 1.03 }}
-                                  whileTap={{ scale: 0.97 }}
-                                  transition={{
-                                    type: 'spring',
-                                    stiffness: 450,
-                                    damping: 28,
-                                  }}
+                              <div className="mt-8">
+                                <span
+                                  className="group inline-flex items-baseline gap-2 text-[13px] tracking-[0.04em] text-zinc-400 transition-[letter-spacing] duration-300 group-hover:tracking-[0.08em] group-hover:text-zinc-200"
+                                  style={fontPlayfair}
+                                  aria-hidden
                                 >
-                                  Voir le projet
-                                  <ArrowRight
-                                    className="h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1"
-                                    strokeWidth={2}
-                                    aria-hidden
-                                  />
-                                </motion.button>
+                                  <span className="font-normal italic">Voir le projet</span>
+                                  <span className="text-[1.1em] font-normal transition-transform duration-300 group-hover:translate-x-0.5">
+                                    →
+                                  </span>
+                                </span>
                               </div>
                             </div>
                           </motion.article>
@@ -348,6 +360,14 @@ export default function PortfolioPage() {
               </motion.div>
             </AnimatePresence>
           </main>
+
+          <p
+            className="pointer-events-none fixed bottom-5 right-6 z-40 select-none text-[9px] font-medium uppercase tracking-[0.42em] text-zinc-600"
+            style={{ fontFamily: '"IBM Plex Sans", system-ui, sans-serif' }}
+            aria-hidden
+          >
+            TrstnWeb
+          </p>
         </div>
       )}
 
