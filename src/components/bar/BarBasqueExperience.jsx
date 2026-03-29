@@ -2,17 +2,10 @@
  * Bar Basque — lieu hybride chaleureux : café, cuisine, bières.
  * Single-page, images `/public/bar-basque/`, réservation par mailto + modal glass.
  */
-import { useCallback, useEffect, useId, useRef, useState } from 'react'
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from 'framer-motion'
-import { Check, X } from 'lucide-react'
-import { SITE } from '../../constants.js'
+import { useCallback, useRef, useState } from 'react'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { BackButton } from '../mini/BackButton.jsx'
+import { ReservationMailtoModal } from '../mini/ReservationMailtoModal.jsx'
 
 const easeLux = [0.22, 1, 0.36, 1]
 
@@ -82,7 +75,6 @@ function ParallaxFigure({ src, alt, className }) {
 
 export function BarBasqueExperience({ site, onBack }) {
   const reduceMotion = useReducedMotion()
-  const modalTitleId = useId()
   const assets = site.barBasqueAssets ?? {
     hero: '/bar-basque/SteakDish.png',
     menuContext: '/bar-basque/Menu.png',
@@ -93,50 +85,14 @@ export function BarBasqueExperience({ site, onBack }) {
   const body = site.fontFamilyBody ?? '"Lora", Georgia, serif'
 
   const [modalOpen, setModalOpen] = useState(false)
-  const [resName, setResName] = useState('')
-  const [resEmail, setResEmail] = useState('')
-  const [resWhen, setResWhen] = useState('')
-  const [resGuests, setResGuests] = useState('2')
-  const [resSuccess, setResSuccess] = useState(false)
 
   const openModal = useCallback(() => {
     setModalOpen(true)
-    setResSuccess(false)
   }, [])
 
   const closeModal = useCallback(() => {
     setModalOpen(false)
-    setResSuccess(false)
   }, [])
-
-  useEffect(() => {
-    if (!modalOpen) return
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = prev
-    }
-  }, [modalOpen])
-
-  const handleReserve = (e) => {
-    e.preventDefault()
-    const n = resName.trim()
-    const em = resEmail.trim()
-    const when = resWhen.trim()
-    const g = resGuests.trim()
-    if (!n || !em || !when) return
-    const to = SITE.contactEmail
-    const subject = encodeURIComponent('[Bar Basque] Demande de réservation')
-    const bodyText = encodeURIComponent(
-      `Nom : ${n}\nE-mail : ${em}\nDate / heure souhaitées : ${when}\nNombre de personnes : ${g || '—'}\n`,
-    )
-    try {
-      window.open(`mailto:${to}?subject=${subject}&body=${bodyText}`, '_blank', 'noopener,noreferrer')
-    } catch {
-      /* ignore */
-    }
-    setResSuccess(true)
-  }
 
   const variants = reduceMotion
     ? { hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0.2 } } }
@@ -380,135 +336,14 @@ export function BarBasqueExperience({ site, onBack }) {
         </motion.footer>
       </motion.div>
 
-      {/* Modal réservation */}
-      <AnimatePresence>
-        {modalOpen && (
-          <motion.div
-            role="presentation"
-            className="fixed inset-0 z-[1100] flex items-end justify-center p-4 sm:items-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-          >
-            <button
-              type="button"
-              className="absolute inset-0 bg-black/65 backdrop-blur-sm"
-              aria-label="Fermer"
-              onClick={closeModal}
-            />
-            <motion.div
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby={modalTitleId}
-              className="relative z-[1] w-full max-w-md overflow-hidden rounded-[8px] border-[0.5px] border-white/[0.14] bg-[#1A1A17]/92 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.55)] backdrop-blur-xl sm:p-8"
-              initial={reduceMotion ? false : { opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 16 }}
-              transition={{ duration: 0.35, ease: easeLux }}
-            >
-              <div className="flex items-start justify-between gap-4">
-                <h2 id={modalTitleId} className="bb-h text-lg text-[#FAF0E6]">
-                  Réserver une table
-                </h2>
-                <button
-                  type="button"
-                  onClick={closeModal}
-                  className="rounded-full p-1 text-[#FAF0E6]/50 transition-colors hover:text-[#FAF0E6]"
-                  aria-label="Fermer"
-                >
-                  <X className="h-5 w-5" strokeWidth={1.5} />
-                </button>
-              </div>
-
-              {!resSuccess ? (
-                <form onSubmit={handleReserve} className="mt-8 space-y-5">
-                  <div>
-                    <label htmlFor="bb-nom" className="block text-[11px] uppercase tracking-[0.2em] text-[#FAF0E6]/50">
-                      Nom
-                    </label>
-                    <input
-                      id="bb-nom"
-                      value={resName}
-                      onChange={(e) => setResName(e.target.value)}
-                      required
-                      className="mt-2 w-full rounded-[4px] border-[0.5px] border-white/[0.14] bg-white/[0.04] px-3 py-2.5 text-[15px] text-[#FAF0E6] outline-none ring-0 transition-[border-color] focus:border-white/35"
-                      style={{ fontFamily: body }}
-                      autoComplete="name"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="bb-email" className="block text-[11px] uppercase tracking-[0.2em] text-[#FAF0E6]/50">
-                      E-mail
-                    </label>
-                    <input
-                      id="bb-email"
-                      type="email"
-                      value={resEmail}
-                      onChange={(e) => setResEmail(e.target.value)}
-                      required
-                      className="mt-2 w-full rounded-[4px] border-[0.5px] border-white/[0.14] bg-white/[0.04] px-3 py-2.5 text-[15px] text-[#FAF0E6] outline-none focus:border-white/35"
-                      style={{ fontFamily: body }}
-                      autoComplete="email"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="bb-when" className="block text-[11px] uppercase tracking-[0.2em] text-[#FAF0E6]/50">
-                      Date & heure souhaitées
-                    </label>
-                    <input
-                      id="bb-when"
-                      type="datetime-local"
-                      value={resWhen}
-                      onChange={(e) => setResWhen(e.target.value)}
-                      required
-                      className="mt-2 w-full rounded-[4px] border-[0.5px] border-white/[0.14] bg-white/[0.04] px-3 py-2.5 text-[15px] text-[#FAF0E6] outline-none focus:border-white/35 [color-scheme:dark]"
-                      style={{ fontFamily: body }}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="bb-guests" className="block text-[11px] uppercase tracking-[0.2em] text-[#FAF0E6]/50">
-                      Nombre de personnes
-                    </label>
-                    <input
-                      id="bb-guests"
-                      type="number"
-                      min={1}
-                      max={24}
-                      value={resGuests}
-                      onChange={(e) => setResGuests(e.target.value)}
-                      className="mt-2 w-full rounded-[4px] border-[0.5px] border-white/[0.14] bg-white/[0.04] px-3 py-2.5 text-[15px] text-[#FAF0E6] outline-none focus:border-white/35"
-                      style={{ fontFamily: body }}
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="bb-h mt-2 w-full rounded-[6px] border-0 bg-white/[0.1] py-3.5 text-[13px] text-[#FAF0E6] backdrop-blur-sm transition-[background-color] hover:bg-white/[0.14]"
-                  >
-                    Réserver
-                  </button>
-                </form>
-              ) : (
-                <div className="mt-10 text-center">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.05]">
-                    <Check className="h-6 w-6" strokeWidth={1.75} style={{ color: SAGE }} aria-hidden />
-                  </div>
-                  <p className="mt-6 text-[15px] leading-relaxed text-[#FAF0E6]/85" style={{ fontFamily: body }}>
-                    Merci. Votre demande de réservation a été envoyée au Bar Basque.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={closeModal}
-                    className="bb-h mt-8 text-[12px] uppercase tracking-[0.2em] text-[#FAF0E6]/55 hover:text-[#FAF0E6]"
-                  >
-                    Fermer
-                  </button>
-                </div>
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <ReservationMailtoModal
+        open={modalOpen}
+        onClose={closeModal}
+        venueName="Bar Basque"
+        accentColor={SAGE}
+        fontFamilyBody={body}
+        fontFamilyHeading={heading}
+      />
     </div>
   )
 }

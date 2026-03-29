@@ -2,17 +2,19 @@
  * Gastronomique — calque « maison étoilée » : rail vertical, hero plein écran,
  * ordre Maison → Menus → Galerie → Citations → FAQ → Contact (pas le même squelette que ProjectView).
  */
+import { useCallback, useState } from 'react'
 import { motion } from 'framer-motion'
 import { BackButton } from '../mini/BackButton.jsx'
 import { ContactForm } from '../mini/ContactForm.jsx'
 import { FakeMap } from '../mini/FakeMap.jsx'
+import { ReservationMailtoModal } from '../mini/ReservationMailtoModal.jsx'
 import {
   BusinessFooter,
   SectionDetailedMenu,
   SectionFAQ,
 } from '../project/businessSections.jsx'
 
-const rail = [
+const railDefault = [
   { href: '#hero', label: 'Entrée' },
   { href: '#maison', label: 'Maison' },
   { href: '#menus', label: 'Menus' },
@@ -20,6 +22,17 @@ const rail = [
   { href: '#paroles', label: 'Citations' },
   { href: '#faq', label: 'Questions' },
   { href: '#contact', label: 'Réservation' },
+]
+
+const railTableConstance = [
+  { href: '#hero', label: 'Entrée' },
+  { href: '#maison', label: 'Maison' },
+  { href: '#menus', label: 'Menus' },
+  { href: '#galerie', label: 'Salle' },
+  { href: '#paroles', label: 'Citations' },
+  { href: '#faq', label: 'Questions' },
+  { href: '#reservation', label: 'Réservation' },
+  { href: '#contact', label: 'Message' },
 ]
 
 /** Logo placeholder — La Table Constance (monogramme + anneaux discrets). */
@@ -64,6 +77,11 @@ export function RestaurantGastronomyExperience({ site, onBack }) {
   const list = site.testimonials ?? []
   const gallery = site.gallery ?? []
   const isTableConstance = site.id === 'table-constance'
+  const rail = isTableConstance ? railTableConstance : railDefault
+
+  const [reservationOpen, setReservationOpen] = useState(false)
+  const openReservation = useCallback(() => setReservationOpen(true), [])
+  const closeReservation = useCallback(() => setReservationOpen(false), [])
 
   return (
     <div
@@ -139,13 +157,14 @@ export function RestaurantGastronomyExperience({ site, onBack }) {
                     transition={{ delay: 0.35, duration: 0.5 }}
                     className="mt-12 flex flex-wrap gap-4"
                   >
-                    <a
-                      href={ctaPrimary.href}
+                    <button
+                      type="button"
+                      onClick={openReservation}
                       className="border px-10 py-3 text-[11px] font-normal uppercase tracking-[0.25em] transition hover:opacity-90"
                       style={{ borderColor: s, color: t }}
                     >
                       {ctaPrimary.label}
-                    </a>
+                    </button>
                     <a
                       href={ctaSecondary.href}
                       className="text-[11px] uppercase tracking-[0.25em] underline decoration-1 underline-offset-8 transition hover:opacity-90"
@@ -315,6 +334,35 @@ export function RestaurantGastronomyExperience({ site, onBack }) {
           <SectionFAQ site={site} />
         </section>
 
+        {isTableConstance && (
+          <section
+            id="reservation"
+            className="scroll-mt-20 border-t border-white/[0.07] px-6 py-24 lg:px-16"
+            style={{ backgroundColor: '#0a1220' }}
+          >
+            <div className="mx-auto max-w-xl text-center">
+              <p className="rg-h text-[10px] uppercase tracking-[0.45em]" style={{ color: s }}>
+                Table
+              </p>
+              <h2 className="rg-h mt-4 text-2xl font-light md:text-3xl" style={{ color: t }}>
+                Réserver une table
+              </h2>
+              <p className="mt-4 text-sm font-light leading-relaxed opacity-85" style={{ color: t }}>
+                Choisissez une date, un créneau et le nombre de convives — nous vous confirmons par
+                e-mail.
+              </p>
+              <button
+                type="button"
+                onClick={openReservation}
+                className="rg-h mt-10 inline-flex min-h-[48px] w-full max-w-sm items-center justify-center border px-10 py-3.5 text-[11px] font-normal uppercase tracking-[0.25em] transition hover:opacity-90 sm:w-auto"
+                style={{ borderColor: s, color: t }}
+              >
+                Ouvrir le formulaire
+              </button>
+            </div>
+          </section>
+        )}
+
         <section id="contact" className="scroll-mt-20 border-t border-white/10 px-6 py-24 lg:px-16" style={{ backgroundColor: '#0a1220' }}>
           <div className="mx-auto grid max-w-5xl gap-16 lg:grid-cols-2">
             <div>
@@ -349,6 +397,17 @@ export function RestaurantGastronomyExperience({ site, onBack }) {
 
         <BusinessFooter site={site} />
       </main>
+
+      {isTableConstance && (
+        <ReservationMailtoModal
+          open={reservationOpen}
+          onClose={closeReservation}
+          venueName="La Table Constance"
+          accentColor={s}
+          fontFamilyBody={site.fontFamilyBody}
+          fontFamilyHeading={site.fontFamilyHeading}
+        />
+      )}
     </div>
   )
 }
