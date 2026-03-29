@@ -3,6 +3,8 @@
  * Phrases uniques par établissement (pas de copier-coller entre sites).
  */
 
+import { TABLE_CONSTANCE_GALLERY } from './tableConstanceGallery.js'
+
 export const BUSINESS_RICH = {
   'maison-lumiere': {
     valueProposition:
@@ -162,12 +164,7 @@ export const BUSINESS_RICH = {
         text: 'Nous avons fêté un anniversaire : table isolée, attention aux détails.',
       },
     ],
-    gallery: [
-      { caption: 'Salle : nappes ivoire, lumière tamisée' },
-      { caption: 'Passage cuisine vers la salle' },
-      { caption: 'Carte des vins au verre' },
-      { caption: 'Chef en finalisation au comptoir' },
-    ],
+    gallery: TABLE_CONSTANCE_GALLERY,
     faq: [
       {
         q: 'Y a-t-il une tenue exigée ?',

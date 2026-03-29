@@ -22,6 +22,38 @@ const rail = [
   { href: '#contact', label: 'Réservation' },
 ]
 
+/** Logo placeholder — La Table Constance (monogramme + anneaux discrets). */
+function HeroLogoPlaceholderTableConstance({ site }) {
+  const s = site.secondaryColor
+  const t = site.textColor
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.97 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      className="relative flex aspect-square w-[5.5rem] shrink-0 items-center justify-center rounded-full sm:w-24 md:w-[6.75rem]"
+      style={{
+        borderWidth: '0.5px',
+        borderColor: `${s}55`,
+        backgroundColor: 'rgba(255,255,255,0.035)',
+        boxShadow: `inset 0 0 0 0.5px ${s}28, 0 12px 40px -20px rgba(0,0,0,0.45)`,
+      }}
+      aria-hidden
+    >
+      <svg className="pointer-events-none absolute inset-[10%] opacity-90" viewBox="0 0 100 100" fill="none" aria-hidden>
+        <circle cx="50" cy="50" r="47" stroke={s} strokeOpacity={0.45} strokeWidth="0.5" />
+        <circle cx="50" cy="50" r="38" stroke={s} strokeOpacity={0.28} strokeWidth="0.5" />
+      </svg>
+      <span
+        className="rg-h relative z-[1] text-[1.5rem] font-light tracking-[0.14em] sm:text-[1.65rem] md:text-[1.85rem]"
+        style={{ color: t }}
+      >
+        TC
+      </span>
+    </motion.div>
+  )
+}
+
 export function RestaurantGastronomyExperience({ site, onBack }) {
   const t = site.textColor
   const s = site.secondaryColor
@@ -31,6 +63,7 @@ export function RestaurantGastronomyExperience({ site, onBack }) {
   const ctaSecondary = site.ctaSecondary ?? { label: 'Accès', href: '#footer-business' }
   const list = site.testimonials ?? []
   const gallery = site.gallery ?? []
+  const isTableConstance = site.id === 'table-constance'
 
   return (
     <div
@@ -69,65 +102,122 @@ export function RestaurantGastronomyExperience({ site, onBack }) {
             background: `radial-gradient(ellipse 90% 70% at 80% 10%, ${s}18 0%, transparent 45%), linear-gradient(160deg, ${site.primaryColor} 0%, ${p} 55%, #070d18 100%)`,
           }}
         >
-          <div className="mx-auto grid max-w-6xl gap-10 px-6 pb-20 pt-24 lg:grid-cols-12 lg:items-end lg:gap-12 lg:px-12 lg:pb-28 lg:pt-32">
-            <div className="lg:col-span-5">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="hidden h-48 w-px lg:block"
-                style={{ background: `linear-gradient(180deg, ${s}, transparent)` }}
-                aria-hidden
-              />
-              <p
-                className="mt-8 text-[10px] font-medium uppercase tracking-[0.5em] lg:mt-12"
-                style={{ color: s }}
-              >
-                {site.tagline}
-              </p>
+          {isTableConstance ? (
+            <div className="mx-auto max-w-6xl px-6 pb-20 pt-24 lg:px-12 lg:pb-28 lg:pt-32">
+              <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10 xl:gap-14">
+                <div className="flex shrink-0 flex-col gap-5 sm:flex-row sm:items-center lg:flex-col lg:items-start lg:gap-6">
+                  <HeroLogoPlaceholderTableConstance site={site} />
+                  <p
+                    className="max-w-[16rem] text-[10px] font-medium uppercase leading-relaxed tracking-[0.45em] sm:max-w-[18rem] lg:max-w-[12rem]"
+                    style={{ color: s }}
+                  >
+                    {site.tagline}
+                  </p>
+                </div>
+                <div className="min-w-0 flex-1">
+                  <motion.h1
+                    initial={{ opacity: 0, y: 28 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.75, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    className="rg-h text-4xl font-light leading-[1.08] tracking-tight md:text-5xl lg:text-[3.15rem]"
+                    style={{ color: t }}
+                  >
+                    {headline}
+                  </motion.h1>
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="mt-8 max-w-xl text-base font-light leading-relaxed md:text-lg"
+                    style={{ color: t, opacity: 0.88 }}
+                  >
+                    {site.hero.subline}
+                  </motion.p>
+                  <motion.div
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.35, duration: 0.5 }}
+                    className="mt-12 flex flex-wrap gap-4"
+                  >
+                    <a
+                      href={ctaPrimary.href}
+                      className="border px-10 py-3 text-[11px] font-normal uppercase tracking-[0.25em] transition hover:opacity-90"
+                      style={{ borderColor: s, color: t }}
+                    >
+                      {ctaPrimary.label}
+                    </a>
+                    <a
+                      href={ctaSecondary.href}
+                      className="text-[11px] uppercase tracking-[0.25em] underline decoration-1 underline-offset-8 transition hover:opacity-90"
+                      style={{ color: s }}
+                    >
+                      {ctaSecondary.label}
+                    </a>
+                  </motion.div>
+                </div>
+              </div>
             </div>
-            <div className="lg:col-span-7">
-              <motion.h1
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className="rg-h text-4xl font-light leading-[1.08] tracking-tight md:text-5xl lg:text-[3.15rem]"
-                style={{ color: t }}
-              >
-                {headline}
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="mt-8 max-w-xl text-base font-light leading-relaxed md:text-lg"
-                style={{ color: t, opacity: 0.88 }}
-              >
-                {site.hero.subline}
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35, duration: 0.5 }}
-                className="mt-12 flex flex-wrap gap-4"
-              >
-                <a
-                  href={ctaPrimary.href}
-                  className="border px-10 py-3 text-[11px] font-normal uppercase tracking-[0.25em] transition hover:opacity-90"
-                  style={{ borderColor: s, color: t }}
-                >
-                  {ctaPrimary.label}
-                </a>
-                <a
-                  href={ctaSecondary.href}
-                  className="text-[11px] uppercase tracking-[0.25em] underline decoration-1 underline-offset-8 transition hover:opacity-90"
+          ) : (
+            <div className="mx-auto grid max-w-6xl gap-10 px-6 pb-20 pt-24 lg:grid-cols-12 lg:items-end lg:gap-12 lg:px-12 lg:pb-28 lg:pt-32">
+              <div className="lg:col-span-5">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                  className="hidden h-48 w-px lg:block"
+                  style={{ background: `linear-gradient(180deg, ${s}, transparent)` }}
+                  aria-hidden
+                />
+                <p
+                  className="mt-8 text-[10px] font-medium uppercase tracking-[0.5em] lg:mt-12"
                   style={{ color: s }}
                 >
-                  {ctaSecondary.label}
-                </a>
-              </motion.div>
+                  {site.tagline}
+                </p>
+              </div>
+              <div className="lg:col-span-7">
+                <motion.h1
+                  initial={{ opacity: 0, y: 28 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.75, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  className="rg-h text-4xl font-light leading-[1.08] tracking-tight md:text-5xl lg:text-[3.15rem]"
+                  style={{ color: t }}
+                >
+                  {headline}
+                </motion.h1>
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="mt-8 max-w-xl text-base font-light leading-relaxed md:text-lg"
+                  style={{ color: t, opacity: 0.88 }}
+                >
+                  {site.hero.subline}
+                </motion.p>
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35, duration: 0.5 }}
+                  className="mt-12 flex flex-wrap gap-4"
+                >
+                  <a
+                    href={ctaPrimary.href}
+                    className="border px-10 py-3 text-[11px] font-normal uppercase tracking-[0.25em] transition hover:opacity-90"
+                    style={{ borderColor: s, color: t }}
+                  >
+                    {ctaPrimary.label}
+                  </a>
+                  <a
+                    href={ctaSecondary.href}
+                    className="text-[11px] uppercase tracking-[0.25em] underline decoration-1 underline-offset-8 transition hover:opacity-90"
+                    style={{ color: s }}
+                  >
+                    {ctaSecondary.label}
+                  </a>
+                </motion.div>
+              </div>
             </div>
-          </div>
+          )}
           <div
             className="pointer-events-none absolute bottom-8 left-1/2 h-12 w-px -translate-x-1/2 lg:left-[calc(4.25rem+2rem)] lg:translate-x-0"
             style={{ background: `linear-gradient(180deg, ${s}88, transparent)` }}
@@ -170,12 +260,28 @@ export function RestaurantGastronomyExperience({ site, onBack }) {
           <div className="mt-10 grid grid-cols-2 gap-px md:grid-cols-4">
             {gallery.map((g, i) => (
               <figure key={i} className="relative aspect-[4/5] overflow-hidden">
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: `linear-gradient(145deg, ${p}cc, ${s}44, ${site.primaryColor})`,
-                  }}
-                />
+                {g.src ? (
+                  <>
+                    <img
+                      src={g.src}
+                      alt={g.caption ?? ''}
+                      className="absolute inset-0 h-full w-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div
+                      className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent"
+                      aria-hidden
+                    />
+                  </>
+                ) : (
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: `linear-gradient(145deg, ${p}cc, ${s}44, ${site.primaryColor})`,
+                    }}
+                  />
+                )}
                 <figcaption className="absolute inset-x-0 bottom-0 bg-black/35 px-3 py-2 text-center text-[10px] font-light leading-snug" style={{ color: t }}>
                   {g.caption}
                 </figcaption>

@@ -559,7 +559,7 @@ export const SITES = [
     },
     location: {
       sectionTitle: 'Nous trouver',
-      street: 'Place du village',
+      street: '1 rue d’Espagne',
       city: 'Bayonne',
       postalCode: '64100',
       country: 'France',
