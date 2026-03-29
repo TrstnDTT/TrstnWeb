@@ -2,7 +2,9 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowLeft, BarChart3, Cpu, Zap } from 'lucide-react'
+import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
 import { SITE } from '../constants.js'
+import { useShellTheme } from '../context/ShellThemeContext.jsx'
 
 const easeOut = [0.22, 1, 0.36, 1]
 const FILM_GRAIN =
@@ -67,6 +69,9 @@ const pillars = [
 ]
 
 export default function AboutPage() {
+  const { effectiveTheme } = useShellTheme()
+  const L = effectiveTheme === 'light'
+
   useEffect(() => {
     const prev = document.title
     document.title = `À propos — ${SITE.title}`
@@ -77,26 +82,45 @@ export default function AboutPage() {
 
   return (
     <div
-      className="trstn-ui min-h-[100dvh] bg-[#050506] text-zinc-200 antialiased"
+      className={[
+        'trstn-ui min-h-[100dvh] antialiased',
+        L ? 'trstn-shell-light bg-[#F5F5F7] text-[#1d1d1f]' : 'bg-[#050506] text-zinc-200',
+      ].join(' ')}
       style={fontBody}
     >
+      <ShellThemeToggle className="fixed right-4 top-4 z-[960] md:right-8 md:top-6" />
+
       <div
-        className="pointer-events-none fixed inset-0 z-[1] opacity-[0.03] mix-blend-overlay"
+        className={[
+          'pointer-events-none fixed inset-0 z-[1] mix-blend-overlay',
+          L ? 'opacity-[0.04] mix-blend-multiply' : 'opacity-[0.03]',
+        ].join(' ')}
         style={{ backgroundImage: FILM_GRAIN }}
         aria-hidden
       />
 
-      <header className="relative z-20 border-b border-white/[0.06] bg-[#050506]/90 backdrop-blur-md">
+      <header
+        className={[
+          'relative z-20 border-b backdrop-blur-md',
+          L ? 'border-black/[0.08] bg-[#F5F5F7]/90' : 'border-white/[0.06] bg-[#050506]/90',
+        ].join(' ')}
+      >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-zinc-500 transition-colors hover:text-zinc-300"
+            className={[
+              'inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] transition-colors',
+              L ? 'text-[#6e6e73] hover:text-[#1d1d1f]' : 'text-zinc-500 hover:text-zinc-300',
+            ].join(' ')}
             style={fontBody}
           >
             <ArrowLeft className="h-3.5 w-3.5" strokeWidth={0.75} aria-hidden />
             Accueil
           </Link>
-          <span className="text-[10px] uppercase tracking-[0.35em] text-zinc-600" style={fontSyne}>
+          <span
+            className={['text-[10px] uppercase tracking-[0.35em]', L ? 'text-[#86868b]' : 'text-zinc-600'].join(' ')}
+            style={fontSyne}
+          >
             {SITE.title}
           </span>
         </div>
@@ -106,7 +130,10 @@ export default function AboutPage() {
         <motion.div variants={containerVariants} initial="hidden" animate="show">
           <motion.h1
             variants={itemVariants}
-            className="max-w-3xl text-left text-[clamp(1.85rem,4.5vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.04em] text-white"
+            className={[
+              'max-w-3xl text-left text-[clamp(1.85rem,4.5vw,2.75rem)] font-extrabold leading-[1.08] tracking-[-0.04em]',
+              L ? 'text-[#1d1d1f]' : 'text-white',
+            ].join(' ')}
             style={fontSyne}
           >
             L&apos;Art de la conversion digitale par TrstnWeb
@@ -125,7 +152,12 @@ export default function AboutPage() {
                 >
                   La passion technique
                 </ParallaxSectionTitle>
-                <p className="mt-4 text-[15px] font-normal leading-[1.75] text-zinc-400 md:text-[16px]">
+                <p
+                  className={[
+                    'mt-4 text-[15px] font-normal leading-[1.75] md:text-[16px]',
+                    L ? 'text-[#424245]' : 'text-zinc-400',
+                  ].join(' ')}
+                >
                   Passionné par l&apos;informatique depuis des années, j&apos;ai transformé cette
                   rigueur technique en une expertise de conception web.
                 </p>
@@ -138,7 +170,12 @@ export default function AboutPage() {
                 >
                   La méthode React
                 </ParallaxSectionTitle>
-                <p className="mt-4 text-[15px] font-normal leading-[1.75] text-zinc-400 md:text-[16px]">
+                <p
+                  className={[
+                    'mt-4 text-[15px] font-normal leading-[1.75] md:text-[16px]',
+                    L ? 'text-[#424245]' : 'text-zinc-400',
+                  ].join(' ')}
+                >
                   Spécialiste de l&apos;écosystème React, je ne conçois pas de simples sites : je
                   bâtis des architectures performantes, fluides et sur-mesure, répondant
                   précisément aux ambitions de mes clients.
@@ -152,7 +189,12 @@ export default function AboutPage() {
                 >
                   La promesse
                 </ParallaxSectionTitle>
-                <p className="mt-4 text-[15px] font-normal leading-[1.75] text-zinc-400 md:text-[16px]">
+                <p
+                  className={[
+                    'mt-4 text-[15px] font-normal leading-[1.75] md:text-[16px]',
+                    L ? 'text-[#424245]' : 'text-zinc-400',
+                  ].join(' ')}
+                >
                   Mon obsession ? Un travail soigné, un rendu esthétique irréprochable et, surtout,
                   un objectif clair : catalyser votre croissance. Augmentez votre clientèle et vos
                   taux de conversion grâce à une présence en ligne attrayante, stratégique et
@@ -162,58 +204,98 @@ export default function AboutPage() {
             </div>
 
             <ul
-              className="mt-14 grid grid-cols-1 gap-8 border-t border-white/[0.06] pt-12 sm:grid-cols-3 sm:gap-6"
+              className={[
+                'mt-14 grid grid-cols-1 gap-8 border-t pt-12 sm:grid-cols-3 sm:gap-6',
+                L ? 'border-black/[0.06]' : 'border-white/[0.06]',
+              ].join(' ')}
               role="list"
             >
               {pillars.map(({ Icon, label, sub }) => (
                 <li key={label} className="flex flex-col gap-2">
                   <Icon
-                    className="h-6 w-6 text-zinc-500"
+                    className={['h-6 w-6', L ? 'text-[#86868b]' : 'text-zinc-500'].join(' ')}
                     strokeWidth={0.5}
                     aria-hidden
                   />
-                  <p className="text-[13px] font-semibold text-zinc-200" style={fontSyne}>
+                  <p
+                    className={['text-[13px] font-semibold', L ? 'text-[#1d1d1f]' : 'text-zinc-200'].join(
+                      ' ',
+                    )}
+                    style={fontSyne}
+                  >
                     {label}
                   </p>
-                  <p className="text-[12px] leading-relaxed text-zinc-500">{sub}</p>
+                  <p className={['text-[12px] leading-relaxed', L ? 'text-[#6e6e73]' : 'text-zinc-500'].join(' ')}>
+                    {sub}
+                  </p>
                 </li>
               ))}
             </ul>
             </div>
 
           <aside className="flex flex-col gap-8 lg:col-span-5 lg:pt-2">
-            <figure className="relative overflow-hidden rounded-sm border border-white/[0.08] bg-zinc-900/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]">
+            <figure
+              className={[
+                'relative overflow-hidden rounded-sm shadow-[inset_0_0_0_1px_rgba(0,0,0,0.04)]',
+                L
+                  ? 'border border-black/[0.08] bg-white/60'
+                  : 'border border-white/[0.08] bg-zinc-900/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]',
+              ].join(' ')}
+            >
               <div
-                className="aspect-[4/5] w-full bg-gradient-to-br from-zinc-800 via-[#12121a] to-[#0a0a10]"
+                className={[
+                  'aspect-[4/5] w-full bg-gradient-to-br',
+                  L
+                    ? 'from-[#e8eaef] via-[#f0f1f4] to-[#e5e6ea]'
+                    : 'from-zinc-800 via-[#12121a] to-[#0a0a10]',
+                ].join(' ')}
                 role="img"
                 aria-label="Espace de travail — placeholder visuel professionnel"
               />
               <div
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/20"
+                className={[
+                  'pointer-events-none absolute inset-0 bg-gradient-to-t',
+                  L ? 'from-black/25 via-black/10 to-transparent' : 'from-black/75 via-black/35 to-black/20',
+                ].join(' ')}
                 aria-hidden
               />
               <div
-                className="pointer-events-none absolute inset-0 opacity-[0.06]"
+                className={['pointer-events-none absolute inset-0', L ? 'opacity-[0.05] mix-blend-multiply' : 'opacity-[0.06]'].join(
+                  ' ',
+                )}
                 style={{ backgroundImage: FILM_GRAIN }}
                 aria-hidden
               />
               <figcaption className="absolute bottom-0 left-0 right-0 p-5">
-                <p className="text-[11px] uppercase tracking-[0.2em] text-zinc-500">Studio</p>
-                <p className="mt-1 text-[13px] italic leading-snug text-zinc-300">
+                <p className={['text-[11px] uppercase tracking-[0.2em]', L ? 'text-[#86868b]' : 'text-zinc-500'].join(' ')}>
+                  Studio
+                </p>
+                <p
+                  className={['mt-1 text-[13px] italic leading-snug', L ? 'text-[#424245]' : 'text-zinc-300'].join(' ')}
+                >
                   Conception & intégration — le détail au service du résultat.
                 </p>
               </figcaption>
             </figure>
 
             <blockquote
-              className="border-l border-[#b8a074]/40 pl-5 text-[15px] leading-relaxed text-zinc-500"
+              className={[
+                'border-l pl-5 text-[15px] leading-relaxed',
+                L
+                  ? 'border-[#6b5c3e]/35 text-[#6e6e73]'
+                  : 'border-[#b8a074]/40 text-zinc-500',
+              ].join(' ')}
               cite={SITE.title}
             >
-              <p className="italic text-zinc-400">
+              <p className={['italic', L ? 'text-[#424245]' : 'text-zinc-400'].join(' ')}>
                 « L&apos;excellence n&apos;est pas un luxe : c&apos;est la seule façon digne de votre
                 marque. »
               </p>
-              <footer className="mt-3 text-[11px] uppercase tracking-[0.22em] text-zinc-600">
+              <footer
+                className={['mt-3 text-[11px] uppercase tracking-[0.22em]', L ? 'text-[#86868b]' : 'text-zinc-600'].join(
+                  ' ',
+                )}
+              >
                 — {SITE.title}
               </footer>
             </blockquote>
@@ -222,17 +304,27 @@ export default function AboutPage() {
 
         <motion.section
           variants={itemVariants}
-          className="mt-20 border-t border-white/[0.06] pt-16 text-center lg:mt-24 lg:pt-20"
+          className={['mt-20 border-t pt-16 text-center lg:mt-24 lg:pt-20', L ? 'border-black/[0.06]' : 'border-white/[0.06]'].join(
+            ' ',
+          )}
         >
           <p
-            className="text-[clamp(1.15rem,2.5vw,1.45rem)] font-semibold tracking-[-0.02em] text-white"
+            className={[
+              'text-[clamp(1.15rem,2.5vw,1.45rem)] font-semibold tracking-[-0.02em]',
+              L ? 'text-[#1d1d1f]' : 'text-white',
+            ].join(' ')}
             style={fontSyne}
           >
             Prêt à transformer votre vision ?
           </p>
           <Link
             to="/contact"
-            className="trstn-entry-btn mt-8 inline-flex items-center justify-center rounded-[6px] border border-white/[0.12] bg-white/[0.05] px-10 py-3.5 text-[14px] text-zinc-200 backdrop-blur-sm transition-[background-color,transform] duration-300 hover:bg-white/[0.09] hover:text-white"
+            className={[
+              'trstn-entry-btn mt-8 inline-flex items-center justify-center rounded-[6px] border px-10 py-3.5 text-[14px] backdrop-blur-sm transition-[background-color,transform] duration-300',
+              L
+                ? 'border-black/[0.1] bg-white/70 text-[#1d1d1f] shadow-[0_2px_16px_rgba(0,0,0,0.05)] hover:bg-white/90 hover:text-[#0a0a0a]'
+                : 'border-white/[0.12] bg-white/[0.05] text-zinc-200 hover:bg-white/[0.09] hover:text-white',
+            ].join(' ')}
           >
             Écrire à {SITE.title}
           </Link>
@@ -240,7 +332,10 @@ export default function AboutPage() {
 
         <motion.p
           variants={itemVariants}
-          className="pointer-events-none mt-16 text-center text-[9px] font-medium uppercase tracking-[0.42em] text-zinc-700"
+          className={[
+            'pointer-events-none mt-16 text-center text-[9px] font-medium uppercase tracking-[0.42em]',
+            L ? 'text-[#aeaeb2]' : 'text-zinc-700',
+          ].join(' ')}
           style={{ fontFamily: '"IBM Plex Sans", system-ui, sans-serif' }}
           aria-hidden
         >

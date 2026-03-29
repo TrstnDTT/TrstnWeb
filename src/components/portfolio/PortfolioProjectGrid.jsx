@@ -77,6 +77,7 @@ function PortfolioProjectGridInner({
   projects,
   isMobile,
   prefersReducedMotion,
+  shellLight = false,
   onOpenProject,
   gallery,
 }) {
@@ -139,7 +140,12 @@ function PortfolioProjectGridInner({
               role="button"
               tabIndex={0}
               aria-label={`Ouvrir le projet ${project.title}`}
-              className="group relative z-0 flex h-full cursor-pointer flex-col overflow-hidden bg-[rgba(255,255,255,0.02)] text-left outline-none ring-offset-2 ring-offset-[#121210] focus-visible:ring-2 focus-visible:ring-white/25 will-change-transform"
+              className={[
+                'group relative z-0 flex h-full cursor-pointer flex-col overflow-hidden text-left outline-none ring-offset-2 will-change-transform',
+                shellLight
+                  ? 'bg-white/[0.72] ring-offset-[#F5F5F7] focus-visible:ring-2 focus-visible:ring-black/15'
+                  : 'bg-[rgba(255,255,255,0.02)] ring-offset-[#121210] focus-visible:ring-2 focus-visible:ring-white/25',
+              ].join(' ')}
               style={{
                 boxShadow: `
                   0 0 0 1px ${gallery.borderOuter},
@@ -163,24 +169,40 @@ function PortfolioProjectGridInner({
               <div className="flex flex-1 flex-col px-6 pb-8 pt-6 md:px-7 md:pb-9">
                 {shell?.portfolioTagline && (
                   <p
-                    className="mb-2 text-[10px] uppercase tracking-[0.24em] text-zinc-500"
+                    className={[
+                      'mb-2 text-[10px] uppercase tracking-[0.24em]',
+                      shellLight ? 'text-[#86868b]' : 'text-zinc-500',
+                    ].join(' ')}
                     style={{ color: gallery.accent }}
                   >
                     {shell.portfolioTagline}
                   </p>
                 )}
                 <h3
-                  className="text-[1.35rem] font-medium leading-snug tracking-[-0.02em] text-white sm:text-[1.45rem]"
+                  className={[
+                    'text-[1.35rem] font-medium leading-snug tracking-[-0.02em] sm:text-[1.45rem]',
+                    shellLight ? 'text-[#1d1d1f]' : 'text-white',
+                  ].join(' ')}
                   style={fontPlayfair}
                 >
                   {project.title}
                 </h3>
-                <p className="trstn-label mt-3 flex-1 text-[14px] leading-relaxed text-zinc-500 md:text-[15px]">
+                <p
+                  className={[
+                    'trstn-label mt-3 flex-1 text-[14px] leading-relaxed md:text-[15px]',
+                    shellLight ? 'text-[#6e6e73]' : 'text-zinc-500',
+                  ].join(' ')}
+                >
                   {project.description}
                 </p>
                 <div className="mt-8">
                   <span
-                    className="group inline-flex items-baseline gap-2 text-[13px] tracking-[0.04em] text-zinc-400 transition-[letter-spacing] duration-300 group-hover:tracking-[0.08em] group-hover:text-zinc-200"
+                    className={[
+                      'group inline-flex items-baseline gap-2 text-[13px] tracking-[0.04em] transition-[letter-spacing] duration-300 group-hover:tracking-[0.08em]',
+                      shellLight
+                        ? 'text-[#86868b] group-hover:text-[#1d1d1f]'
+                        : 'text-zinc-400 group-hover:text-zinc-200',
+                    ].join(' ')}
                     style={fontPlayfair}
                     aria-hidden
                   >
@@ -207,5 +229,6 @@ export const PortfolioProjectGrid = memo(
     prev.prefersReducedMotion === next.prefersReducedMotion &&
     prev.projects === next.projects &&
     prev.onOpenProject === next.onOpenProject &&
-    prev.gallery.borderOuter === next.gallery.borderOuter,
+    prev.gallery.borderOuter === next.gallery.borderOuter &&
+    prev.shellLight === next.shellLight,
 )

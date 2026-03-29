@@ -80,3 +80,25 @@ body {
   background: rgba(255, 255, 255, 0.12);
   border-radius: 999px;
 }
+
+/* —— Mode clair — enveloppe TrstnWeb uniquement (pages avec .trstn-shell-light) —— */
+.trstn-shell-light.scrollbar-thin {
+  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+}
+
+.trstn-shell-light.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * Grain organique sur fond clair : texture sombre très légère (multiply).
+ */
+.trstn-shell-light.trstn-shell::before {
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+}
+
+.trstn-home-light .trstn-home-grain {
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+}

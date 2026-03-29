@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Home, Info, Mail } from 'lucide-react'
 import { PortfolioProjectGrid } from '../components/portfolio/PortfolioProjectGrid.jsx'
+import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
 import { ProjectExperience } from '../components/templates/ProjectExperience.jsx'
 import { CATEGORIES, SITE, getCategoryById } from '../constants.js'
+import { useShellTheme } from '../context/ShellThemeContext.jsx'
 import { getSiteById } from '../data.js'
 
 /** Fond galerie & accent unique (détails discrets). */
@@ -15,6 +17,16 @@ const GALLERY = {
   text: '#e6e4df',
   textMuted: 'rgba(230, 228, 223, 0.55)',
   accent: '#b8a074',
+}
+
+/** Variante enveloppe claire — grille & chrome uniquement (mini-sites inchangés). */
+const GALLERY_LIGHT = {
+  bg: '#F5F5F7',
+  borderOuter: 'rgba(0, 0, 0, 0.08)',
+  borderInner: 'rgba(0, 0, 0, 0.06)',
+  text: '#1d1d1f',
+  textMuted: 'rgba(29, 29, 31, 0.55)',
+  accent: '#6b5c3e',
 }
 
 const fontSyne = { fontFamily: '"Syne", system-ui, sans-serif' }
@@ -189,6 +201,8 @@ function usePortfolioMobileNav(enabled = true, ignoreScrollUntilRef) {
 
 export default function PortfolioPage() {
   const prefersReducedMotion = useReducedMotion()
+  const { effectiveTheme, setProjectViewOpen } = useShellTheme()
+  const L = effectiveTheme === 'light'
   const [activeProject, setActiveProject] = useState(null)
   const navScrollIgnoreUntil = useRef(0)
   const { hidden: navHiddenScroll, navH, navRef } = usePortfolioMobileNav(
@@ -227,6 +241,11 @@ export default function PortfolioPage() {
       document.body.style.overflow = ''
     }
   }, [activeProject])
+
+  useEffect(() => {
+    setProjectViewOpen(!!activeProject)
+    return () => setProjectViewOpen(false)
+  }, [activeProject, setProjectViewOpen])
 
   useEffect(() => {
     navScrollIgnoreUntil.current = Date.now() + 480
@@ -283,17 +302,29 @@ export default function PortfolioPage() {
   const mobileContentTopPad =
     navH > 0 ? navH + 12 : 104
 
+  const galleryTokens = L ? GALLERY_LIGHT : GALLERY
+
   return (
     <>
       {!activeProject && (
         <div
-          className="trstn-ui trstn-shell relative min-h-screen h-auto text-[#e6e4df] overscroll-y-none"
-          style={{ backgroundColor: GALLERY.bg }}
+          className={[
+            'trstn-ui trstn-shell scrollbar-thin relative min-h-screen h-auto overscroll-y-none',
+            L ? 'trstn-shell-light text-[#1d1d1f]' : 'text-[#e6e4df]',
+          ].join(' ')}
+          style={{ backgroundColor: galleryTokens.bg }}
         >
+          <ShellThemeToggle className="fixed right-4 top-4 z-[55] md:right-8 md:top-6" />
+
           <motion.aside
             ref={navRef}
             layout={false}
-            className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.07] bg-[#0d0d0c]/95 backdrop-blur-xl transform-gpu [backface-visibility:hidden] md:inset-x-auto md:bottom-0 md:left-0 md:top-0 md:h-full md:w-[min(11rem,22vw)] md:border-b-0 md:border-r md:border-white/[0.07] md:backdrop-blur-none"
+            className={[
+              'fixed inset-x-0 top-0 z-50 transform-gpu [backface-visibility:hidden] md:inset-x-auto md:bottom-0 md:left-0 md:top-0 md:h-full md:w-[min(11rem,22vw)] md:border-b-0 md:backdrop-blur-none',
+              L
+                ? 'border-b border-black/[0.08] bg-[#F5F5F7]/95 backdrop-blur-xl md:border-r md:border-black/[0.08]'
+                : 'border-b border-white/[0.07] bg-[#0d0d0c]/95 backdrop-blur-xl md:border-r md:border-white/[0.07]',
+            ].join(' ')}
             style={{ willChange: 'transform' }}
             aria-label="Navigation des secteurs"
             initial={false}
@@ -309,14 +340,26 @@ export default function PortfolioPage() {
             }
           >
             <div className="flex max-h-[100svh] flex-col px-4 py-5 md:h-full md:px-5 md:py-10">
-              <div className="mb-8 shrink-0 border-b border-white/[0.05] pb-6">
+              <div
+                className={[
+                  'mb-8 shrink-0 border-b pb-6',
+                  L ? 'border-black/[0.08]' : 'border-white/[0.05]',
+                ].join(' ')}
+              >
                 <p
-                  className="text-[1.05rem] font-semibold leading-none tracking-[-0.06em] text-white/90"
+                  className={[
+                    'text-[1.05rem] font-semibold leading-none tracking-[-0.06em]',
+                    L ? 'text-[#1d1d1f]' : 'text-white/90',
+                  ].join(' ')}
                   style={fontSyne}
                 >
                   TrstnWeb
                 </p>
-                <p className="mt-2 text-[10px] uppercase tracking-[0.28em] text-zinc-500">
+                <p
+                  className={['mt-2 text-[10px] uppercase tracking-[0.28em]', L ? 'text-[#86868b]' : 'text-zinc-500'].join(
+                    ' ',
+                  )}
+                >
                   {SITE.subtitle}
                 </p>
               </div>
@@ -324,21 +367,36 @@ export default function PortfolioPage() {
               <div className="mb-6 flex flex-wrap gap-2">
                 <Link
                   to="/"
-                  className="inline-flex items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] text-zinc-500 transition-[letter-spacing] duration-300 hover:tracking-[0.28em] hover:text-zinc-300"
+                  className={[
+                    'inline-flex items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] transition-[letter-spacing] duration-300 hover:tracking-[0.28em]',
+                    L
+                      ? 'text-[#86868b] hover:text-[#1d1d1f]'
+                      : 'text-zinc-500 hover:text-zinc-300',
+                  ].join(' ')}
                 >
                   <Home className="h-3 w-3 opacity-70" strokeWidth={1.5} aria-hidden />
                   Accueil
                 </Link>
                 <Link
                   to="/about"
-                  className="inline-flex items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] text-zinc-500 transition-[letter-spacing] duration-300 hover:tracking-[0.28em] hover:text-zinc-300"
+                  className={[
+                    'inline-flex items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] transition-[letter-spacing] duration-300 hover:tracking-[0.28em]',
+                    L
+                      ? 'text-[#86868b] hover:text-[#1d1d1f]'
+                      : 'text-zinc-500 hover:text-zinc-300',
+                  ].join(' ')}
                 >
                   <Info className="h-3 w-3 opacity-70" strokeWidth={1.5} aria-hidden />
                   À propos
                 </Link>
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] text-zinc-500 transition-[letter-spacing] duration-300 hover:tracking-[0.28em] hover:text-zinc-300"
+                  className={[
+                    'inline-flex items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] transition-[letter-spacing] duration-300 hover:tracking-[0.28em]',
+                    L
+                      ? 'text-[#86868b] hover:text-[#1d1d1f]'
+                      : 'text-zinc-500 hover:text-zinc-300',
+                  ].join(' ')}
                 >
                   <Mail className="h-3 w-3 opacity-70" strokeWidth={1.5} aria-hidden />
                   Contact
@@ -361,7 +419,10 @@ export default function PortfolioPage() {
                       aria-current={isActive ? 'true' : undefined}
                     >
                       <span
-                        className="absolute bottom-2 left-0 top-2 w-px bg-white/35 transition-opacity duration-300"
+                        className={[
+                          'absolute bottom-2 left-0 top-2 w-px transition-opacity duration-300',
+                          L ? 'bg-[#1d1d1f]/22' : 'bg-white/35',
+                        ].join(' ')}
                         style={{ opacity: isActive ? 1 : 0 }}
                         aria-hidden
                       />
@@ -369,13 +430,20 @@ export default function PortfolioPage() {
                         className="w-7 shrink-0 text-right text-[11px] tabular-nums leading-none transition-colors duration-300"
                         style={{
                           ...fontPlayfair,
-                          color: isActive ? GALLERY.accent : 'rgba(161, 161, 170, 0.85)',
+                          color: isActive
+                            ? galleryTokens.accent
+                            : L
+                              ? 'rgba(100, 100, 110, 0.88)'
+                              : 'rgba(161, 161, 170, 0.85)',
                         }}
                       >
                         {n}
                       </span>
                       <span
-                        className="min-w-0 truncate text-[13px] font-semibold tracking-[-0.02em] text-zinc-400 transition-[letter-spacing] duration-300 group-hover:tracking-[0.12em]"
+                        className={[
+                          'min-w-0 truncate text-[13px] font-semibold tracking-[-0.02em] transition-[letter-spacing] duration-300 group-hover:tracking-[0.12em]',
+                          L ? 'text-[#6e6e73] group-hover:text-[#1d1d1f]' : 'text-zinc-400',
+                        ].join(' ')}
                         style={fontSyne}
                       >
                         {cat.label}
@@ -418,18 +486,28 @@ export default function PortfolioPage() {
                     className="mb-20 max-w-xl scroll-mt-28 md:mb-28 md:scroll-mt-24"
                   >
                     <p
-                      className="text-[11px] uppercase tracking-[0.32em] text-zinc-500"
-                      style={{ color: GALLERY.accent }}
+                      className={['text-[11px] uppercase tracking-[0.32em]', L ? 'text-[#86868b]' : 'text-zinc-500'].join(
+                        ' ',
+                      )}
+                      style={{ color: galleryTokens.accent }}
                     >
                       {active.label}
                     </p>
                     <h2
-                      className="mt-4 text-3xl font-medium leading-[1.15] tracking-[-0.02em] text-white/95 sm:text-[2.1rem] md:text-[2.35rem]"
+                      className={[
+                        'mt-4 text-3xl font-medium leading-[1.15] tracking-[-0.02em] sm:text-[2.1rem] md:text-[2.35rem]',
+                        L ? 'text-[#1d1d1f]' : 'text-white/95',
+                      ].join(' ')}
                       style={fontPlayfair}
                     >
                       Réalisations sélectionnées
                     </h2>
-                    <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-zinc-500 md:text-base">
+                    <p
+                      className={[
+                        'mt-6 max-w-lg text-[15px] leading-relaxed md:text-base',
+                        L ? 'text-[#6e6e73]' : 'text-zinc-500',
+                      ].join(' ')}
+                    >
                       {SITE.footer}
                     </p>
                   </header>
@@ -440,7 +518,8 @@ export default function PortfolioPage() {
                     isMobile={isMobile}
                     prefersReducedMotion={prefersReducedMotion}
                     onOpenProject={openProject}
-                    gallery={GALLERY}
+                    gallery={galleryTokens}
+                    shellLight={L}
                   />
                 </div>
               </motion.div>
@@ -448,7 +527,10 @@ export default function PortfolioPage() {
           </main>
 
           <p
-            className="pointer-events-none fixed bottom-5 right-6 z-40 select-none text-[9px] font-medium uppercase tracking-[0.42em] text-zinc-600"
+            className={[
+              'pointer-events-none fixed bottom-5 right-6 z-40 select-none text-[9px] font-medium uppercase tracking-[0.42em]',
+              L ? 'text-[#a1a1a6]' : 'text-zinc-600',
+            ].join(' ')}
             style={{ fontFamily: '"IBM Plex Sans", system-ui, sans-serif' }}
             aria-hidden
           >
