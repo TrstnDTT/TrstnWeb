@@ -35,13 +35,13 @@ export const PORTFOLIO_TOKENS = {
     backButtonRing: 'rgba(139, 105, 20, 0.38)',
   },
   'pain-dore': {
-    portfolioTagline: 'Traditionnel — beige doré, rustique, levain.',
+    portfolioTagline: 'Manifeste du Grain — horizontal, Anton, journal.',
     cardBorder: 'rgba(139, 111, 71, 0.4)',
     cardGlow: '0 0 34px -10px rgba(212, 165, 116, 0.4)',
     backButtonRing: 'rgba(139, 111, 71, 0.42)',
   },
   'pain-passion': {
-    portfolioTagline: 'Modern — bakery-modern, contraste chaud.',
+    portfolioTagline: 'Maison des Sens — hotspots, verre, murmure.',
     cardBorder: 'rgba(44, 24, 16, 0.35)',
     cardGlow: '0 0 36px -10px rgba(232, 184, 117, 0.35)',
     backButtonRing: 'rgba(44, 24, 16, 0.4)',
@@ -53,7 +53,7 @@ export const PORTFOLIO_TOKENS = {
     backButtonRing: 'rgba(139, 69, 19, 0.4)',
   },
   'four-chocolat': {
-    portfolioTagline: 'Chocolat — fèves, entremets, laboratoire vitré.',
+    portfolioTagline: 'Boulangerie Traditionnelle — levain, Bitter & Merriweather.',
     cardBorder: 'rgba(166, 124, 82, 0.38)',
     cardGlow: '0 0 42px -10px rgba(166, 124, 82, 0.28)',
     backButtonRing: 'rgba(166, 124, 82, 0.4)',

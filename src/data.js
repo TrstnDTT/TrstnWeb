@@ -167,19 +167,19 @@ export const SITES = [
   {
     id: 'pain-dore',
     categoryId: 'boulangerie',
-    name: 'La Boulangerie Traditionnelle',
-    tagline: 'Rustique & chaleureux',
+    name: 'Le Manifeste du Grain',
+    tagline: 'Éditorial — Paris',
     hero: {
-      headline: 'La Boulangerie Traditionnelle',
+      headline: 'Nous refusons le pain sans histoire.',
       subline:
-        'Depuis 1952, l’art du pain artisanal — pétri, fermenté et cuit chaque matin (BakeryClassic / bakery-classic).',
-      cta: 'Découvrir nos produits',
+        'Ni photo produit ni slogan creux : seulement le mot, le geste, la température du four et l’humidité du matin — journal de bord inclus.',
+      cta: 'Lecture',
     },
     about: {
-      title: 'Notre histoire',
+      title: 'Position',
       paragraphs: [
-        'Fondée en 1952 par la famille Martin, La Boulangerie Traditionnelle perpétue depuis trois générations l’art du pain artisanal. Notre grand-père a transmis ses secrets de fabrication à ses enfants, qui les ont transmis à leur tour.',
-        'Mission : offrir chaque jour le meilleur du pain artisanal, avec des ingrédients de qualité et des méthodes traditionnelles. Le pain est un lien entre les générations et un symbole de convivialité.',
+        'Le grain n’est pas une matière neutre : il porte les contrats de culture, les silos, les prix planchers. Ici, on écrit pour déplacer la ligne — une baguette à la fois.',
+        'Pointage, autolyse, grigne : le vocabulaire du métier comme preuve d’exigence contre l’uniformisation du goût.',
       ],
     },
     contact: {
@@ -192,31 +192,31 @@ export const SITES = [
     },
     location: {
       sectionTitle: 'Où nous trouver',
-      street: '12 rue du Pain',
+      street: '22 rue Béranger',
       city: 'Paris',
-      postalCode: '75001',
+      postalCode: '75003',
       country: 'France',
-      hours: 'Lun-Sam: 6h-20h, Dim: 7h-13h',
-      mapArea: 'Centre',
+      hours: 'Sur rendez-vous — lectures le samedi',
+      mapArea: '3e',
     },
-    social: { instagramLabel: 'Coulisses du fournil' },
+    social: { instagramLabel: 'Manifeste du grain' },
   },
   {
     id: 'pain-passion',
     categoryId: 'boulangerie',
-    name: 'Pain & Passion',
-    tagline: 'Boulangerie moderne',
+    name: 'La Maison des Sens',
+    tagline: 'Immersif — Bordeaux',
     hero: {
-      headline: 'Où la tradition rencontre le design.',
+      headline: 'Ce qui se voit à peine compte le plus.',
       subline:
-        'Fournil lumineux, contrastes nets et produits artisanaux — variante « bakery-modern » du meta-portfolio.',
-      cta: 'Voir la carte',
+        'Un seul objet au centre ; le reste est silence, verre dépoli, murmure. La poésie du pain se lit sur le côté — jamais réduite à un bandeau criard.',
+      cta: 'Réserver une dégustation',
     },
     about: {
-      title: 'Notre vision',
+      title: 'Alliance',
       paragraphs: [
-        'Pain & Passion est née d’une vision moderne de la boulangerie artisanale. Deux fondateurs combinent techniques traditionnelles et innovations pour des produits uniques.',
-        'Mission : réinventer l’expérience boulangère dans un lieu accueillant — tradition et modernité dans le même pétrin.',
+        'Nous traitons la mie comme une page blanche : l’œil s’attarde sur la grigne, l’oreille sur le refroidissement, la main sur le poids.',
+        'L’élite du geste n’a pas besoin d’affiche : elle se reconnaît au son de la croûte quand elle cède.',
       ],
     },
     contact: {
@@ -229,14 +229,14 @@ export const SITES = [
     },
     location: {
       sectionTitle: 'Où nous trouver',
-      street: '45 avenue des Arts',
-      city: 'Paris',
-      postalCode: '75013',
+      street: '40 cours de l’Intendance',
+      city: 'Bordeaux',
+      postalCode: '33000',
       country: 'France',
-      hours: 'Mar-Dim: 7h-19h',
-      mapArea: '13e',
+      hours: 'Mer–Dim · 9h30 – 19h30',
+      mapArea: 'Chartrons',
     },
-    social: { instagramLabel: 'Pain & Passion' },
+    social: { instagramLabel: 'Maison des Sens' },
   },
   {
     id: 'artisan-grain',
@@ -277,39 +277,39 @@ export const SITES = [
   {
     id: 'four-chocolat',
     categoryId: 'boulangerie',
-    name: 'Four & Chocolat',
-    tagline: 'Pâtisserie & chocolat',
+    name: 'La Boulangerie Traditionnelle',
+    tagline: 'Levain & terroir — Paris 11e',
     hero: {
-      headline: 'Quand le four rencontre le grand cru.',
+      headline: 'L’art du pain, chaque matin.',
       subline:
-        'Entremets, chocolats bean-to-bar et ateliers dégustation dans notre laboratoire vitré.',
-      cta: 'Réserver un atelier',
+        'Depuis 1952, l’art du pain artisanal — pétri, fermenté et cuit au four à pierre. Farines bio, levain naturel, gestes transmis de génération en génération.',
+      cta: 'Découvrir nos produits',
     },
     about: {
-      title: 'Maison',
+      title: 'Notre histoire',
       paragraphs: [
-        'Four & Chocolat unit un boulanger-pâtissier Meilleur Ouvrier de France et une chocolatière primée. Nous sélectionnons des fèves d’Équateur, Madagascar et Vietnam pour des tablettes aux profils nets.',
-        'Les gâteaux de cérémonie mélangent textures aériennes et décors floraux comestibles. Chaque création est un dialogue entre technique et émotion.',
+        'Depuis trois générations, notre famille perpétue la tradition du pain fait à la main. Chaque matin, nos boulangers pétrissent avec passion des recettes ancestrales pour offrir le meilleur du pain artisanal.',
+        'Nous utilisons uniquement des farines biologiques de qualité supérieure, du levain naturel et des ingrédients soigneusement sélectionnés — autolyse respectée, alvéolage surveillé, grigne ouverte comme il faut.',
       ],
     },
     contact: {
-      sectionTitle: 'Projets sur mesure',
+      sectionTitle: 'Nous écrire',
       nameLabel: 'Nom',
       emailLabel: 'E-mail',
       phoneLabel: 'Téléphone',
-      messageLabel: 'Date d’événement, nombre de parts…',
-      submitLabel: 'Demander un devis',
+      messageLabel: 'Commande groupée, allergies…',
+      submitLabel: 'Envoyer',
     },
     location: {
       sectionTitle: 'Où nous trouver',
-      street: '40 avenue Victor Hugo',
-      city: 'Bordeaux',
-      postalCode: '33000',
+      street: '18 rue de la Roquette',
+      city: 'Paris',
+      postalCode: '75011',
       country: 'France',
-      hours: 'Mercredi au dimanche · 9h00 – 19h30',
-      mapArea: 'Chartrons',
+      hours: 'Mar–Sam : 6h30 – 20h · Dim : 7h – 13h30',
+      mapArea: '11e',
     },
-    social: { instagramLabel: 'Créations du labo' },
+    social: { instagramLabel: 'Boulangerie Traditionnelle' },
   },
   /* —— Salon —— */
   {
@@ -389,18 +389,18 @@ export const SITES = [
     id: 'cheveux-co',
     categoryId: 'salon',
     name: 'Cheveux & Co',
-    tagline: 'Salon familial',
+    tagline: 'Maison de cheveux — Rennes',
     hero: {
-      headline: 'Trois générations, une même passion.',
+      headline: "L'harmonie entre vos cheveux et votre âme.",
       subline:
-        'Accueil chaleureux, tarifs transparents et conseils entre deux coupes pour toute la famille.',
-      cta: 'Appeler le salon',
+        'Nous pratiquons une coiffure silencieuse : moins de bruit, plus d’attention. Chaque rendez-vous commence par le regard, pas par la tondeuse.',
+      cta: 'Écrire une ligne',
     },
     about: {
       title: 'Notre histoire',
       paragraphs: [
-        'Cheveux & Co, c’est d’abord une maison où l’on prend le temps d’écouter. Enfants, parents et grands-parents trouvent une oreille attentive et des coupes adaptées au quotidien.',
-        'Nous formons nos jeunes coiffeurs au respect du cheveu et partageons des astuces simples pour prolonger la couleur entre deux visites.',
+        'La Maison ouverte sur la place de la République accueille trois cabines seulement — pour éviter la rumeur et garder l’air léger. Ici, on ne “refait pas une tête” : on retrouve un équilibre.',
+        'Printemps 2019 : Élodie rapporte de Londres des huiles de soin oubliées par les magazines. Maël, lui, taille au mètre ruban pour des carrés qui tombent comme du papier japonais. Entre deux clientes, on prend le thé dans la même tasse que les grand-mères du quartier.',
       ],
     },
     contact: {
@@ -426,18 +426,18 @@ export const SITES = [
     id: 'au-rasoir',
     categoryId: 'salon',
     name: 'Au Rasoir',
-    tagline: 'Barber shop minimal',
+    tagline: 'Atelier — Paris 10e',
     hero: {
-      headline: 'Précision au millimètre.',
+      headline: 'Pas de chichi. Juste de l’acier et du talent.',
       subline:
-        'Chaise unique face au miroir, lames stériles à l’œil, réservation en ligne — barber shop épuré pour celles et ceux qui veulent le silence avant la coupe.',
-      cta: 'Prendre rendez-vous',
+        'Une chaise, un néon fatigué, des outils rangés comme chez un mécano. Tu réserves, tu t’assieds, tu repars avec une nuque nette et zéro story Instagram imposée.',
+      cta: 'Craquer un créneau',
     },
     about: {
       title: 'Notre promesse',
       paragraphs: [
-        'Au Rasoir, pas de playlist imposée : casque optionnel, bruit blanc ou conversation courte. Nous avons conçu le salon comme un atelier : lumière zénithale, outils rangés, une coupe à la fois.',
-        'Barbiers et coiffeuses partagent la même exigence : peignes désinfectés entre chaque client, finitions au rasoir sur demande, conseils d’entretien sans catalogue produit.',
+        'Ouvert en 2021 après six mois de travaux clandestins : murs grattés à la main, prises électriques apparentes, ventilation bruyante comme un atelier vrai.',
+        'Viktor a exigé des lavabos en fonte récupérés à Saint-Ouen ; Gaspédal a refusé le logo au néon pleine lune — seulement trois tubes orange. Entre deux clients, on astique la crasse : la saleté visible, jamais l’hygiène.',
       ],
     },
     contact: {
@@ -617,7 +617,7 @@ export const SITES = [
       headline: 'L’ancre, l’aiguille, et le silence du bois.',
       subline:
         'Un salon old school à Toulouse : cuir patiné, lumière tamisée, encres noires et rouges. Ici on prend le temps du hand-poked et du respect du motif classique.',
-      cta: 'Réserver une consultation',
+      cta: 'Entrer dans l’Atelier',
     },
     about: {
       title: 'L’atelier',
@@ -691,7 +691,7 @@ export const SITES = [
       headline: 'L’hygiène comme premier bijou.',
       subline:
         'Cabinet de perçage haut de gamme à Nantes : titane implant-grade, or 18k, protocole visible à chaque étape — pour une pose aussi sereine que précise.',
-      cta: 'Voir le catalogue bijoux',
+      cta: 'Réserver mon bijou',
     },
     about: {
       title: 'Notre promesse',

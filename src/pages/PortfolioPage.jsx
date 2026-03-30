@@ -1,11 +1,17 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from 'framer-motion'
 import { Home, Info, Mail } from 'lucide-react'
 import { PortfolioProjectGrid } from '../components/portfolio/PortfolioProjectGrid.jsx'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
 import { ProjectExperience } from '../components/templates/ProjectExperience.jsx'
-import { CATEGORIES, SITE, getCategoryById } from '../constants.js'
+import { CATEGORIES, CATEGORY_CANVAS_HOVER, SITE, getCategoryById } from '../constants.js'
 import { useShellTheme } from '../context/ShellThemeContext.jsx'
 import { getSiteById } from '../data.js'
 
@@ -31,6 +37,53 @@ const GALLERY_LIGHT = {
 
 const fontSyne = { fontFamily: '"Syne", system-ui, sans-serif' }
 const fontPlayfair = { fontFamily: '"Playfair Display", Georgia, serif' }
+/** Titres de section portfolio — serif éditorial, moins « tech » que le corps UI. */
+const fontSectionSerif = { fontFamily: '"Cormorant Garamond", Georgia, serif' }
+
+function MagneticCategoryLabel({ children, className, style, enabled }) {
+  const ref = useRef(null)
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+  const springX = useSpring(x, { stiffness: 280, damping: 24, mass: 0.32 })
+  const springY = useSpring(y, { stiffness: 280, damping: 24, mass: 0.32 })
+
+  const onMove = (e) => {
+    if (!enabled) return
+    const el = ref.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    const cx = r.left + r.width / 2
+    const cy = r.top + r.height / 2
+    const k = 0.2
+    x.set((e.clientX - cx) * k)
+    y.set((e.clientY - cy) * k)
+  }
+  const onLeave = () => {
+    x.set(0)
+    y.set(0)
+  }
+
+  if (!enabled) {
+    return (
+      <span className={className} style={style} ref={ref}>
+        {children}
+      </span>
+    )
+  }
+
+  return (
+    <span
+      ref={ref}
+      className="inline-flex min-w-0 flex-1 touch-none"
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+    >
+      <motion.span style={{ x: springX, y: springY, ...style }} className={className}>
+        {children}
+      </motion.span>
+    </span>
+  )
+}
 
 function computeOpenOrigin(event) {
   if (typeof window === 'undefined') return { x: 50, y: 42 }
@@ -225,6 +278,7 @@ export default function PortfolioPage() {
 
   const [openOrigin, setOpenOrigin] = useState(null)
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0].id)
+  const [hoverCategoryId, setHoverCategoryId] = useState(null)
 
   const active = useMemo(
     () => getCategoryById(activeCategory),
@@ -304,15 +358,25 @@ export default function PortfolioPage() {
 
   const galleryTokens = L ? GALLERY_LIGHT : GALLERY
 
+  const canvasBg = useMemo(() => {
+    const palette = L ? CATEGORY_CANVAS_HOVER.light : CATEGORY_CANVAS_HOVER.dark
+    if (hoverCategoryId && palette[hoverCategoryId]) {
+      return palette[hoverCategoryId]
+    }
+    return galleryTokens.bg
+  }, [hoverCategoryId, galleryTokens.bg, L])
+
   return (
     <>
       {!activeProject && (
-        <div
+        <motion.div
           className={[
             'trstn-ui trstn-shell scrollbar-thin relative min-h-screen h-auto overscroll-y-none',
             L ? 'trstn-shell-light text-[#1d1d1f]' : 'text-[#e6e4df]',
           ].join(' ')}
-          style={{ backgroundColor: galleryTokens.bg }}
+          initial={false}
+          animate={{ backgroundColor: canvasBg }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
           <ShellThemeToggle className="fixed right-4 top-4 z-[55] md:right-8 md:top-6" />
 
@@ -406,6 +470,7 @@ export default function PortfolioPage() {
               <nav
                 className="scrollbar-thin flex gap-1 overflow-x-auto pb-2 md:flex-1 md:flex-col md:overflow-y-auto md:pb-0"
                 role="navigation"
+                onMouseLeave={() => setHoverCategoryId(null)}
               >
                 {CATEGORIES.map((cat, idx) => {
                   const n = String(idx + 1).padStart(2, '0')
@@ -415,6 +480,7 @@ export default function PortfolioPage() {
                       key={cat.id}
                       type="button"
                       onClick={() => setActiveCategory(cat.id)}
+                      onMouseEnter={() => setHoverCategoryId(cat.id)}
                       className="group relative flex min-w-0 shrink-0 items-baseline gap-2.5 py-3 pl-1 pr-2 text-left md:w-full"
                       aria-current={isActive ? 'true' : undefined}
                     >
@@ -439,15 +505,16 @@ export default function PortfolioPage() {
                       >
                         {n}
                       </span>
-                      <span
+                      <MagneticCategoryLabel
+                        enabled={!prefersReducedMotion}
                         className={[
                           'min-w-0 truncate text-[13px] font-semibold tracking-[-0.02em] transition-[letter-spacing] duration-300 group-hover:tracking-[0.12em]',
-                          L ? 'text-[#6e6e73] group-hover:text-[#1d1d1f]' : 'text-zinc-400',
+                          L ? 'text-[#6e6e73] group-hover:text-[#1d1d1f]' : 'text-zinc-400 group-hover:text-zinc-200',
                         ].join(' ')}
                         style={fontSyne}
                       >
                         {cat.label}
-                      </span>
+                      </MagneticCategoryLabel>
                     </button>
                   )
                 })}
@@ -495,10 +562,10 @@ export default function PortfolioPage() {
                     </p>
                     <h2
                       className={[
-                        'mt-4 text-3xl font-medium leading-[1.15] tracking-[-0.02em] sm:text-[2.1rem] md:text-[2.35rem]',
-                        L ? 'text-[#1d1d1f]' : 'text-white/95',
+                        'mt-4 text-[2rem] font-semibold leading-[1.12] tracking-[-0.01em] sm:text-[2.25rem] md:text-[2.5rem]',
+                        L ? 'text-[#1a1a1a]' : 'text-white/[0.96]',
                       ].join(' ')}
-                      style={fontPlayfair}
+                      style={fontSectionSerif}
                     >
                       Réalisations sélectionnées
                     </h2>
@@ -536,7 +603,7 @@ export default function PortfolioPage() {
           >
             TrstnWeb
           </p>
-        </div>
+        </motion.div>
       )}
 
       <AnimatePresence>

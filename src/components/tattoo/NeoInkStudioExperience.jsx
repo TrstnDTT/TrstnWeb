@@ -1,203 +1,187 @@
 /**
- * Neo-Ink Studio — brutaliste, néon, géométrie & réalisme, guest-spots dynamiques.
+ * Neo-Ink Studio — bento CSS grid, néon cyan, monospace, glitch au survol.
+ * Aucun composant partagé avec Atelier 1920 ni Le Labo.
  */
-import { useCallback, useRef, useState } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
-import { Zap } from 'lucide-react'
-import { BackButton } from '../mini/BackButton.jsx'
-import { ReservationMailtoModal } from '../mini/ReservationMailtoModal.jsx'
+import { useCallback } from 'react'
 
-const VOID = '#030303'
-const NEON = '#39ff14'
-const OSWALD = '"Oswald", system-ui, sans-serif'
-const GROTESK = '"Space Grotesk", system-ui, sans-serif'
+const VOID = '#000000'
+const NEON = '#22d3ee'
+const GLOW = '#67e8f9'
+const MONO = '"IBM Plex Mono", ui-monospace, monospace'
 
-const ease = [0.16, 1, 0.3, 1]
+const TP = '/stock-photos/tattoo-piercing'
+
+const DEFAULT_SIM = {
+  headline: 'Maquette numérique avant la première piqûre.',
+  body:
+    'Relief simulé, stencil calibré au millimètre, validation écran avant peau. Chaque ligne est tracée comme du code versionné.',
+  services: ['Tracé fin DPI peau', 'Warp mesh sur volumes', 'Export stencil double couche'],
+}
+
+function NeoRetour({ onBack }) {
+  return (
+    <button
+      type="button"
+      onClick={onBack}
+      className="fixed left-3 top-3 z-[1001] border border-[#22d3ee]/50 bg-black px-3 py-2 text-[10px] uppercase tracking-[0.2em] text-[#ecfeff] hover:bg-[#22d3ee]/20"
+      style={{ fontFamily: MONO }}
+      aria-label="Retour au portfolio"
+    >
+      [ ← ]
+    </button>
+  )
+}
 
 export function NeoInkStudioExperience({ site, onBack }) {
-  const reduceMotion = useReducedMotion()
-  const [modalOpen, setModalOpen] = useState(false)
-  const heroRef = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  })
-  const glow = useTransform(scrollYProgress, [0, 1], [1, 0.35])
-  const shift = useTransform(scrollYProgress, [0, 1], [0, -40])
-
-  const openModal = useCallback(() => setModalOpen(true), [])
-  const closeModal = useCallback(() => setModalOpen(false), [])
-
+  const sim = site.simulation3d ?? DEFAULT_SIM
   const artists = site.cyberArtists ?? []
   const guests = site.guestSpots ?? []
 
+  const scrollTo = useCallback((id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [])
+
   return (
     <div
-      className="min-h-[100dvh] overflow-x-hidden antialiased selection:bg-[#39ff14] selection:text-black"
-      style={{ backgroundColor: VOID, color: '#f0fff0', fontFamily: GROTESK }}
+      className="min-h-[100dvh] overflow-x-hidden selection:bg-[#22d3ee] selection:text-black"
+      style={{ backgroundColor: VOID, color: '#ecfeff', fontFamily: MONO, fontSize: '13px' }}
     >
       <style>{`
-        .neo-h { font-family: ${OSWALD}; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+        @keyframes neo-glitch {
+          0% { transform: translate(0); text-shadow: 0 0 #22d3ee; }
+          20% { transform: translate(-2px, 1px); text-shadow: 2px 0 #f472b6, -2px 0 #22d3ee; }
+          40% { transform: translate(2px, -1px); text-shadow: -1px 0 #22d3ee; }
+          60% { transform: translate(-1px, 2px); text-shadow: 1px 0 #67e8f9; }
+          100% { transform: translate(0); text-shadow: none; }
+        }
+        .neo-glitch-hover:hover {
+          animation: neo-glitch 0.35s linear 1;
+        }
       `}</style>
 
-      <BackButton onClick={onBack} site={site} />
+      <NeoRetour onBack={onBack} />
 
-      <ReservationMailtoModal
-        open={modalOpen}
-        onClose={closeModal}
-        venueName={site.name}
-        accentColor={NEON}
-        fontFamilyBody={GROTESK}
-        fontFamilyHeading={OSWALD}
-      />
+      <nav
+        className="fixed right-3 top-3 z-[1000] flex flex-col items-end gap-1 md:right-5 md:top-5"
+        aria-label="Sections"
+      >
+        {[
+          ['neo-top', '00_TOP'],
+          ['neo-precision', '01_PRÉCISION'],
+          ['neo-sim', '02_3D'],
+          ['neo-artists', '03_RÉSIDENTS'],
+          ['neo-book', '04_BOOK'],
+        ].map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            onClick={() => scrollTo(id)}
+            className="border border-white/10 bg-black/80 px-3 py-1.5 text-[9px] uppercase tracking-widest text-[#67e8f9]/90 hover:border-[#22d3ee] hover:text-[#22d3ee]"
+            style={{ fontFamily: MONO }}
+          >
+            {label}
+          </button>
+        ))}
+      </nav>
 
-      <section ref={heroRef} className="relative min-h-[92dvh] w-full">
-        <motion.div style={{ opacity: glow }} className="absolute inset-0 pointer-events-none">
-          <div
-            className="absolute inset-0 opacity-40"
-            style={{
-              background: `radial-gradient(ellipse 80% 50% at 50% 0%, ${NEON}33, transparent 70%)`,
-            }}
+      {/* Bento : grille 6 colonnes, zones asymétriques */}
+      <div id="neo-top" className="grid auto-rows-min grid-cols-6 gap-2 p-3 pt-16 md:gap-3 md:p-4 md:pt-20">
+        <div className="relative col-span-6 min-h-[42dvh] overflow-hidden border border-white/10 md:col-span-4 md:row-span-2 md:min-h-[52dvh]">
+          <img
+            src={`${TP}/neotraditional-tattoo-mask-graffiti.webp`}
+            alt="Tatouage néo-traditionnel masque, aplats et contours graphiques"
+            className="absolute inset-0 h-full w-full object-cover opacity-50"
+            loading="eager"
           />
-        </motion.div>
-        <motion.div style={{ y: reduceMotion ? 0 : shift }} className="relative z-[2] flex min-h-[92dvh] flex-col justify-end px-5 pb-16 pt-28 md:px-16 md:pb-24">
-          <div className="w-full max-w-[100vw]">
-            <p className="neo-h flex items-center gap-2 text-[11px] md:text-xs" style={{ color: NEON }}>
-              <Zap className="h-4 w-4" aria-hidden />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+          <div className="relative flex h-full flex-col justify-end p-5 md:p-8">
+            <p className="text-[10px] uppercase tracking-[0.45em]" style={{ color: GLOW }}>
               {site.tagline}
             </p>
-            <h1 className="neo-h mt-6 max-w-[18ch] text-[clamp(2.5rem,12vw,7rem)] leading-[0.92] tracking-tight text-white">
+            <h1 className="neo-glitch-hover mt-4 max-w-[14ch] text-[clamp(1.75rem,5.5vw,3.2rem)] font-medium leading-[0.95] tracking-tight text-white">
               {site.name}
             </h1>
-            <p className="mt-8 max-w-2xl text-lg font-medium leading-snug md:text-2xl" style={{ color: '#b8ffb8' }}>
-              {site.hero?.headline}
-            </p>
-            <p className="mt-6 max-w-xl text-[15px] leading-relaxed md:text-base" style={{ color: 'rgba(200,255,200,0.72)' }}>
-              {site.hero?.subline}
-            </p>
-            <div className="mt-12 flex flex-wrap gap-4">
-              <button
-                type="button"
-                onClick={openModal}
-                className="neo-h rounded-none border-2 bg-[#39ff14] px-8 py-4 text-[13px] text-black transition-transform hover:scale-[1.02] active:scale-[0.98]"
-                style={{ borderColor: NEON, boxShadow: `0 0 32px ${NEON}44` }}
-              >
-                Réserver une consultation
-              </button>
-              <a
-                href="#guest-spot"
-                className="neo-h inline-flex items-center border-2 border-white/20 px-8 py-4 text-[13px] text-white/90 transition-colors hover:border-[#39ff14]/60"
-              >
-                Guest-spot
-              </a>
-            </div>
+            <p className="mt-5 max-w-xl text-[13px] leading-relaxed text-white/80">{site.hero?.headline}</p>
           </div>
-        </motion.div>
-        <div
-          className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
-          style={{ background: 'linear-gradient(to top, #030303, transparent)' }}
-        />
-      </section>
-
-      <section className="relative z-[2] w-full border-y py-20 md:py-28" style={{ borderColor: `${NEON}22` }}>
-        <div className="mx-auto max-w-6xl px-5 md:px-12">
-          <h2 className="neo-h text-3xl text-white md:text-4xl">Géométrie · Réalisme · Gros format</h2>
-          <p className="mt-6 max-w-3xl text-[16px] leading-relaxed md:text-lg" style={{ color: 'rgba(200,255,200,0.75)' }}>
-            {site.about?.paragraphs?.[0]}
-          </p>
         </div>
-      </section>
 
-      <section className="w-full px-5 py-16 md:px-12 md:py-24">
-        <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-2 md:gap-16">
-          {artists.map((a, i) => (
-            <motion.div
-              key={a.name}
-              initial={reduceMotion ? false : { opacity: 0, x: i % 2 ? 24 : -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, ease }}
-              className="border-l-4 pl-6 md:pl-8"
-              style={{ borderColor: NEON }}
-            >
-              <h3 className="neo-h text-xl text-white md:text-2xl">{a.name}</h3>
-              <p className="mt-2 text-[12px] uppercase tracking-widest" style={{ color: `${NEON}cc` }}>
-                {a.specialty}
-              </p>
-              <p className="mt-5 text-[15px] leading-relaxed" style={{ color: 'rgba(220,255,220,0.82)' }}>
-                {a.bio}
-              </p>
-            </motion.div>
-          ))}
+        <div className="col-span-6 flex flex-col justify-between border border-white/10 bg-[#050505] p-4 md:col-span-2">
+          <p className="text-[10px] uppercase tracking-[0.35em] text-[#22d3ee]/70">Statut</p>
+          <p className="mt-3 text-[11px] leading-relaxed text-white/65">{site.hero?.subline}</p>
+          <a
+            href={`mailto:pipeline@neoink-marseille.fr?subject=${encodeURIComponent('Lancer le projet — Neo-Ink')}`}
+            className="mt-4 inline-block border-2 border-[#22d3ee] bg-[#22d3ee] px-4 py-2.5 text-center text-[11px] font-medium uppercase tracking-[0.15em] text-black hover:bg-transparent hover:text-[#22d3ee]"
+          >
+            Lancer le projet
+          </a>
         </div>
-      </section>
 
-      <section id="guest-spot" className="scroll-mt-24 border-t py-20 md:py-28" style={{ borderColor: `${NEON}22`, background: '#050805' }}>
-        <div className="mx-auto max-w-6xl px-5 md:px-12">
-          <h2 className="neo-h text-3xl text-[#39ff14] md:text-4xl">Guest-spot — calendrier live</h2>
-          <p className="mt-4 max-w-2xl text-[15px] leading-relaxed" style={{ color: 'rgba(200,255,200,0.7)' }}>
-            Artistes invités, styles pointus, créneaux limités. Réservez tôt : les créneaux partent sur prévisualisation
-            Instagram.
-          </p>
-          <ul className="mt-12 space-y-4">
-            {guests.map((g, i) => (
-              <motion.li
-                key={`${g.artist}-${g.date}`}
-                initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05, duration: 0.35 }}
-                className="flex flex-col gap-2 border-b border-white/10 py-5 md:flex-row md:items-center md:justify-between"
-              >
-                <div>
-                  <span className="neo-h text-lg text-white">{g.artist}</span>
-                  <span className="ml-3 text-[13px]" style={{ color: `${NEON}aa` }}>
-                    {g.style}
-                  </span>
-                </div>
-                <div className="neo-h text-[13px] tracking-wider" style={{ color: 'rgba(255,255,255,0.85)' }}>
-                  {g.date} · {g.city}
-                </div>
-              </motion.li>
+        <div id="neo-precision" className="col-span-6 scroll-mt-20 border border-white/10 bg-[#080808] p-5 md:col-span-3">
+          <h2 className="neo-glitch-hover text-[11px] uppercase tracking-[0.4em]" style={{ color: NEON }}>
+            La précision
+          </h2>
+          <div className="mt-4 space-y-3 text-[12px] leading-relaxed text-white/72">
+            {site.about?.paragraphs?.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+        </div>
+
+        <div id="neo-sim" className="col-span-6 scroll-mt-20 border border-[#22d3ee]/35 bg-gradient-to-br from-[#0a0a0a] to-black p-5 md:col-span-3">
+          <h2 className="neo-glitch-hover text-[11px] uppercase tracking-[0.4em] text-[#67e8f9]">
+            Simulation 3D de votre projet
+          </h2>
+          <p className="mt-4 text-[13px] font-medium text-white/90">{sim.headline}</p>
+          <p className="mt-3 text-[12px] leading-relaxed text-white/65">{sim.body}</p>
+          <ul className="mt-4 space-y-2 border-l-2 border-[#22d3ee]/50 pl-4 text-[11px] text-white/55">
+            {(sim.services ?? []).map((s) => (
+              <li key={s}>{s}</li>
             ))}
           </ul>
         </div>
-      </section>
 
-      <section className="relative overflow-hidden py-20 md:py-28">
-        <div className="pointer-events-none absolute inset-0 opacity-30" style={{ background: `linear-gradient(90deg, transparent, ${NEON}14, transparent)` }} />
-        <div className="relative mx-auto max-w-6xl px-5 md:px-12">
-          <div className="grid gap-8 md:grid-cols-2 md:items-center">
-            <img
-              src="https://images.pexels.com/photos/3740287/pexels-photo-3740287.jpeg?auto=compress&cs=tinysrgb&w=1400"
-              alt="Tatouage géométrique et lignes fines sur avant-bras, rendu net"
-              className="aspect-[4/3] w-full object-cover md:aspect-video"
-              style={{ filter: 'contrast(1.1) saturate(1.15)' }}
-              loading="lazy"
-            />
-            <div>
-              <h2 className="neo-h text-2xl text-white md:text-3xl">Précision digitale, peau réelle</h2>
-              <p className="mt-6 text-[15px] leading-relaxed" style={{ color: 'rgba(200,255,200,0.78)' }}>
-                {site.about?.paragraphs?.[1]}
-              </p>
-            </div>
+        <div id="neo-artists" className="col-span-6 scroll-mt-20 md:col-span-4">
+          <h2 className="neo-glitch-hover mb-3 px-1 text-[11px] uppercase tracking-[0.4em]" style={{ color: NEON }}>
+            Artistes résidents
+          </h2>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {artists.map((a) => (
+              <div key={a.name} className="border border-white/10 bg-[#060606] p-4">
+                <p className="text-sm font-medium text-white">{a.name}</p>
+                <p className="mt-1 text-[10px] uppercase tracking-wider text-[#22d3ee]/80">{a.specialty}</p>
+                <p className="mt-3 text-[11px] leading-relaxed text-white/60">{a.bio}</p>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
 
-      <footer className="border-t py-16 text-center" style={{ borderColor: `${NEON}22` }}>
-        <p className="text-[11px] uppercase tracking-[0.3em]" style={{ color: 'rgba(200,255,200,0.45)' }}>
-          {site.location?.city} — {site.location?.hours}
-        </p>
-        <button
-          type="button"
-          onClick={openModal}
-          className="neo-h mt-8 inline-block border-2 px-10 py-4 text-[12px]"
-          style={{ borderColor: NEON, color: NEON }}
-        >
-          Réserver une consultation
-        </button>
-      </footer>
+        <div className="col-span-6 flex flex-col gap-2 md:col-span-2">
+          <div className="flex-1 border border-white/10 bg-[#050505] p-4">
+            <p className="text-[10px] uppercase tracking-[0.35em] text-white/40">Guests</p>
+            <ul className="mt-3 space-y-2 text-[10px] leading-snug text-white/70">
+              {guests.slice(0, 4).map((g) => (
+                <li key={`${g.artist}-${g.date}`}>
+                  <span className="text-[#22d3ee]/90">{g.artist}</span> · {g.date}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="overflow-hidden border border-white/10">
+            <img
+              src={`${TP}/mandala-robin.jpg`}
+              alt="Tatouage mandala détaillé, référence géométrique et précision"
+              className="h-32 w-full object-cover opacity-80 md:h-40"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <footer id="neo-book" className="col-span-6 scroll-mt-24 border border-white/10 bg-black px-5 py-6 text-center md:px-8">
+          <p className="text-[10px] uppercase tracking-[0.35em] text-white/35">{site.location?.city}</p>
+          <p className="mt-2 text-[12px] text-white/60">{site.location?.hours}</p>
+          <p className="mt-1 text-[11px] text-white/45">{site.location?.street}</p>
+        </footer>
+      </div>
     </div>
   )
 }

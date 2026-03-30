@@ -554,9 +554,16 @@ export const BUSINESS_RICH = {
   },
   'pain-dore': {
     valueProposition:
-      'Textes issus de sitesInfo bakery-classic : trois générations, pain artisanal, ingrédients de qualité.',
-    ctaPrimary: { label: 'Commander', href: '#contact' },
-    ctaSecondary: { label: 'Horaires & accès', href: '#footer-business' },
+      'Manifeste éditorial : grain, alvéole, four — texte comme matière première.',
+    ctaPrimary: { label: 'Écrire au rédacteur', href: '#contact' },
+    ctaSecondary: { label: 'Lecture', href: '#footer-business' },
+    manifestJournal: {
+      lignes: [
+        '6h12 — humidité 64 %, le levain sent le yaourt et la pomme verte.',
+        '6h40 — four à 238 °C ; la pierre vibre avant la première bouchée.',
+        '7h05 — grigne qui s’ouvre comme une coquille : le boulanger sourit sans bruit.',
+      ],
+    },
     menuSections: [
       {
         title: 'Pains (prix au kg)',
@@ -643,9 +650,35 @@ export const BUSINESS_RICH = {
   },
   'pain-passion': {
     valueProposition:
-      'Pain & Passion (sitesInfo bakery-modern) : artisanat, lieu clair, carte qui évolue chaque semaine.',
-    ctaPrimary: { label: 'Commander', href: '#contact' },
+      'Maison des sens : un produit, un regard, l’oreille du pain en texte.',
+    ctaPrimary: { label: 'Réserver une dégustation', href: '#contact' },
     ctaSecondary: { label: 'Itinéraire', href: '#footer-business' },
+    maisonSensProduits: [
+      {
+        id: 'a',
+        nom: 'Baguette de tradition croustillante',
+        vers:
+          'Elle se tient droite comme une phrase de Bossuet ; sous le doigt, la grigne résiste puis cède — alvéolage régulier, mémoire du levain de la veille.',
+        detail:
+          'Autolyse douze minutes, pointage en deux temps, fermentation contrôlée à 24 °C. La croûte chante avant la mie.',
+      },
+      {
+        id: 'b',
+        nom: 'Pain au levain T80',
+        vers:
+          'Mie ocre, bulles étirées comme du velours froissé : le silence du four quand la buée retombe.',
+        detail:
+          'Hydratation 78 %, pétrissage lent, grigne ouverte en « oreille » — le son du refroidissement est une mesure.',
+      },
+      {
+        id: 'c',
+        nom: 'Éclair au chocolat noir 70 %',
+        vers:
+          'Glaçage miroir sans cri : le cacao parle bas, la pâte à choux ne se vante pas.',
+        detail:
+          'Crème pâtissière infusée, tempérage à la main — précision de joaillier.',
+      },
+    ],
     menuSections: [
       {
         title: 'Pains & fougasses',
@@ -821,32 +854,67 @@ export const BUSINESS_RICH = {
   },
   'four-chocolat': {
     valueProposition:
-      'Laboratoire vitré, fèves tracées, entremets qui tiennent la route jusqu’au dernier café.',
-    ctaPrimary: { label: 'Demander un devis gâteau', href: '#contact' },
-    ctaSecondary: { label: 'Venir sur place', href: '#footer-business' },
+      'Depuis trois générations : levain, farines bio, four à pierre — le pain comme le matin.',
+    ctaPrimary: { label: 'Découvrir nos produits', href: '#trad-specialites' },
+    ctaSecondary: { label: 'Nous trouver', href: '#trad-venir' },
     menuSections: [
       {
-        title: 'Pâtisserie',
+        title: 'Pains traditionnels',
         items: [
           {
-            name: 'Éclair Venezuela 72 %',
-            price: '7,50€',
-            ingredients: 'Ganache montée, glaçage brillant, pâte à choux craquante',
+            name: 'Baguette tradition',
+            price: '1,30€',
+            ingredients: 'Pointage lent, grigne ouverte',
           },
           {
-            name: 'Tarte citron meringuée',
-            price: '6,80€',
-            ingredients: 'Crème citron confite, meringue italienne',
+            name: 'Pain de campagne',
+            price: '4,20€',
+            ingredients: 'Autolyse, levain du père',
+          },
+          {
+            name: 'Pain aux céréales',
+            price: '4,80€',
+            ingredients: 'Alvéolage serré, mie tenue',
           },
         ],
       },
       {
-        title: 'Chocolat de dégustation',
+        title: 'Viennoiseries',
         items: [
           {
-            name: 'Tablette Madagascar',
-            price: '8€',
-            ingredients: 'Fruité rouge, acidité légère',
+            name: 'Croissant pur beurre',
+            price: '1,40€',
+            ingredients: 'Tourage 3×3, beurre AOP',
+          },
+          {
+            name: 'Pain au chocolat',
+            price: '1,60€',
+            ingredients: 'Barres 44 %, croustillant',
+          },
+          {
+            name: 'Chausson aux pommes',
+            price: '2,10€',
+            ingredients: 'Compote maison, cannelle',
+          },
+        ],
+      },
+      {
+        title: 'Pâtisseries',
+        items: [
+          {
+            name: 'Tarte aux fruits',
+            price: '4,50€',
+            ingredients: 'Crème d’amande, fruits de saison',
+          },
+          {
+            name: 'Éclair au chocolat',
+            price: '4,20€',
+            ingredients: 'Pâte à choux, glaçage fondant',
+          },
+          {
+            name: 'Mille-feuille',
+            price: '5,50€',
+            ingredients: 'Crème mousseline, feuilletage',
           },
         ],
       },
@@ -855,47 +923,47 @@ export const BUSINESS_RICH = {
       {
         name: 'Camille D.',
         rating: 5,
-        text: 'Marriage de textures : l’éclair ne s’affaisse pas, même après transport.',
+        text: 'La baguette du samedi : croûte qui chante, mie qui ne s’effrite pas.',
       },
       {
         name: 'Pierre-Olivier M.',
         rating: 5,
-        text: 'Dégustation guidée au comptoir : on repart avec des notes comme pour un vin.',
+        text: 'On sent le levain au quartier — file le dimanche, mais ça vaut.',
       },
       {
         name: 'Nora S.',
         rating: 5,
-        text: 'Gâteau de mariage commandé ici : invités encore en train d’en parler.',
+        text: 'Campagne au levain : alvéolage parfait pour les tartines du petit-déj.',
       },
     ],
     gallery: [
-      { caption: 'Vitrine pâtissière' },
-      { caption: 'Tempérage du chocolat' },
-      { caption: 'Entremets en cours de montage' },
-      { caption: 'Salle avec vue sur le labo' },
+      { caption: 'Four à pierre' },
+      { caption: 'Façonnage au banc' },
+      { caption: 'Viennoiseries du matin' },
+      { caption: 'Vitrine pains & pâtisseries' },
     ],
     faq: [
       {
-        q: 'Combien de temps à l’avance pour un gâteau événement ?',
-        a: 'Deux semaines minimum en haute saison ; une semaine hors vacances scolaires.',
+        q: 'Proposez-vous du pain sans gluten ?',
+        a: 'Une ligne dédiée le mercredi sur commande ; pas de contamination en cuisine ce jour-là.',
       },
       {
-        q: 'Proposez-vous des ateliers ?',
-        a: 'Oui, un samedi par mois, 6 places, réservation en ligne.',
+        q: 'À quelle heure sort la première fournée ?',
+        a: '6h30 — baguettes et viennoiseries ; le campagne sort vers 9h.',
       },
       {
-        q: 'Avez-vous des créations sans lactose ?',
-        a: 'Une ligne limitée le mercredi ; liste des ingrédients remise à l’achat.',
+        q: 'Farines locales ?',
+        a: 'Priorité aux meuniers français ; liste affichée au comptoir.',
       },
     ],
     openingHours: {
       lundi: 'Fermé',
-      mardi: '09h00 – 19h30',
-      mercredi: '09h00 – 19h30',
-      jeudi: '09h00 – 19h30',
-      vendredi: '09h00 – 19h30',
-      samedi: '09h00 – 19h30',
-      dimanche: '09h30 – 13h30',
+      mardi: '06h30 – 20h00',
+      mercredi: '06h30 – 20h00',
+      jeudi: '06h30 – 20h00',
+      vendredi: '06h30 – 20h00',
+      samedi: '06h30 – 20h00',
+      dimanche: '07h00 – 13h30',
     },
   },
   'studio-eclipse': {
@@ -1068,33 +1136,71 @@ export const BUSINESS_RICH = {
   },
   'cheveux-co': {
     valueProposition:
-      'Trois générations sur la place : tarifs affichés, tondu sans surprise, conseils entre deux visites.',
-    ctaPrimary: { label: 'Appeler le salon', href: '#contact' },
-    ctaSecondary: { label: 'Nous rendre visite', href: '#footer-business' },
+      'Coiffure magazine : diagnostic avant cisaille, maison calme face à la République.',
+    ctaPrimary: { label: 'Écrire une ligne', href: '#venir' },
+    ctaSecondary: { label: 'Le diagnostic', href: '#diagnostic' },
+    diagnosticPillars: [
+      {
+        id: 'texture',
+        title: 'Texture',
+        verse: 'Sous les doigts, la mèche révèle son humeur du jour.',
+        detail:
+          'Maël passe la lumière rasante du nord sur votre nuque : il cherche la mémoire des anciens brushings, la fatigue du silicone. On choisit le séchage comme on choisit un tempo — jamais la violence.',
+      },
+      {
+        id: 'couleur',
+        title: 'Couleur',
+        verse: 'Une buée de thé sur vos épaules, puis la nuance juste.',
+        detail:
+          'Élodie mélange les pigments dans des bols de grès. Elle raconte comment sa grand-mère teignait les foulards : même patience, même refus du “plus clair coûte plus cher”. Le balayage est une phrase entre deux respirations.',
+      },
+      {
+        id: 'volume',
+        title: 'Volume',
+        verse: 'L’air doit circuler entre vous et le monde.',
+        detail:
+          'Nous dessinons la masse au crayon wash sur papier calque avant la coupe. Le volume est traité comme une architecture légère : poutres invisibles, courbes qui soutiennent le regard sans alourdir.',
+      },
+      {
+        id: 'sante',
+        title: 'Santé',
+        verse: 'L’harmonie entre vos cheveux et votre âme.',
+        detail:
+          'Quand le cuir chevelu rougit, on arrête tout : massage froid, huile cameline, rendez-vous retardé sans frais. La beauté ici n’est pas une promesse — c’est une trêve négociée avec votre corps.',
+      },
+    ],
+    salonMuses: [
+      {
+        name: 'Élodie Marchand',
+        role: 'Coloriste — patines & silence',
+        anecdote:
+          'Ancienne peintre sur porcelaine, elle a découvert la coiffure après avoir sauvé une amie d’une décoloration “express” à Pigalle. À Rennes, on raconte qu’elle reconnaît une nuance à la seule odeur du développant.',
+      },
+      {
+        name: 'Maël Le Goff',
+        role: 'Architecte des coupes',
+        anecdote:
+          'Il mesure les lobes d’oreilles au pied à coulisse : “Un carré, c’est une niche en plâtre.” Cliente fidèle depuis 2018 : la même professeure de cello qui refuse tout fondant et revient tous les solstices.',
+      },
+      {
+        name: 'Souad Benali',
+        role: 'Réception & thé',
+        anecdote:
+          'Elle tient le carnet manuscrit des rendez-vous depuis l’ouverture : une écriture inclinée qui calme les retards. Offre secrète : si vous pleurez après une rupture, elle glisse un macaron dans votre manche avant la coupe.',
+      },
+    ],
     menuSections: [
       {
-        title: 'Forfaits famille',
+        title: 'Forfaits doux',
         items: [
-          {
-            name: 'Coupe enfant (-12 ans)',
-            price: '18€',
-            ingredients: 'Durée ~25 min',
-          },
-          {
-            name: 'Coupe + shampoing adulte',
-            price: '32€',
-            ingredients: 'Durée ~40 min',
-          },
+          { name: 'Coupe enfant (-12 ans)', price: '18€', ingredients: 'Après l’école, mercredi prioritaire' },
+          { name: 'Coupe + shampoing', price: '34€', ingredients: 'Eau filtrée, serviette tiède' },
         ],
       },
       {
-        title: 'Coloration',
+        title: 'Couleur',
         items: [
-          {
-            name: 'Mèches ou couleur + coupe',
-            price: 'dès 65€',
-            ingredients: 'Devis au salon selon longueur',
-          },
+          { name: 'Patine ou balayage + coupe', price: 'dès 68€', ingredients: 'Devis après diagnostic' },
         ],
       },
     ],
@@ -1147,38 +1253,94 @@ export const BUSINESS_RICH = {
   },
   'au-rasoir': {
     valueProposition:
-      'Barber shop minimal au cœur du 10e : une chaise, des outils stériles, réservation en ligne — entre salon de coiffure et barbier de précision.',
-    ctaPrimary: { label: 'Prendre rendez-vous', href: '#contact' },
-    ctaSecondary: { label: 'Itinéraire', href: '#footer-business' },
+      'Garage à nuques : ardoise des tarifs, néon orange, zéro langue de bois.',
+    ctaPrimary: { label: 'Craquer un créneau', href: '#bas' },
+    ctaSecondary: { label: 'Menu ardoise', href: '#ardoise' },
+    ardoiseMenu: [
+      {
+        rubrique: 'Ça coupe net',
+        lignes: [
+          {
+            plat: 'Fade “ticket de métro”',
+            prix: '38€',
+            fil: 'Machine au cran qu’il faut, lignes droites comme un rail.',
+          },
+          {
+            plat: 'Dégradé haut de façades',
+            prix: '42€',
+            fil: 'On marque l’os, on descend propre, finition pierre ponce.',
+          },
+          {
+            plat: 'Nuque au rasoir',
+            prix: '+12€',
+            fil: 'Serviette bouillante, lame neuve, pacte de pas bouger.',
+          },
+        ],
+      },
+      {
+        rubrique: 'Barbe & métal',
+        lignes: [
+          {
+            plat: 'Barbe terrain vague',
+            prix: '28€',
+            fil: 'Carte IGN sur la mâchoire, huile fumée maison.',
+          },
+          {
+            plat: 'Combo coupe + barbe “full tank”',
+            prix: '58€',
+            fil: 'Une seule pause, pas deux histoires.',
+          },
+        ],
+      },
+      {
+        rubrique: 'Autres gabarits',
+        lignes: [
+          {
+            plat: 'Carré femme “lame d’Imoca”',
+            prix: '52€',
+            fil: 'Gaspédal attaque au peigne fin, zéro brushing gadget.',
+          },
+          {
+            plat: 'Mioche discipliné (-10 ans)',
+            prix: '24€',
+            fil: 'Mercredi et samedi avant 11h. Parent qui mate son téléphone : supplément regard noir gratuit.',
+          },
+        ],
+      },
+    ],
+    garageCrew: [
+      {
+        name: 'Viktor Salic',
+        role: 'Barbier — fades & râleur',
+        story:
+          'Formé à Trieste sur des lames d’armurerie, il a débarqué à Paris avec une valise de pierres à aiguiser. Raconte encore le client journaliste qui a dormi sur la chaise pendant une retouche : “meilleure critique qu’on m’ait faite”.',
+      },
+      {
+        name: 'Gaspédal (Sarah H.)',
+        role: 'Coupe femme & carrés',
+        story:
+          'Surnom hérité d’un ancien atelier moto : elle roule en vintage et coupe au ciseau comme on change une courroie — sec, juste, sans apology. Sa tante tenait un salon à Belleville dans les 90s ; elle a gardé seulement les insultes tendres et les ciseaux.',
+      },
+      {
+        name: 'Inès Muñoz',
+        role: 'Stérilisation & ordre',
+        story:
+          'Ancienne volontaire en bloc opératoire simulé : elle trace les cycles UV au marqueur indélébile sur le plexi. C’est elle qui a imposé le panneau “Pas de podcasts à fond” à l’entrée.',
+      },
+    ],
     menuSections: [
       {
         title: 'Barbier',
         items: [
-          {
-            name: 'Coupe homme fade ou dégradé',
-            price: '38€',
-            ingredients: 'Durée ~40 min',
-          },
-          {
-            name: 'Contour barbe + huile',
-            price: '28€',
-            ingredients: 'Durée ~25 min',
-          },
+          { name: 'Fade ou dégradé', price: '38€', ingredients: '~40 min, machine calibrée' },
+          { name: 'Contour barbe', price: '28€', ingredients: 'Huile fumée maison' },
         ],
       },
       {
         title: 'Coiffure',
         items: [
-          {
-            name: 'Coupe femme courte ou carré',
-            price: '52€',
-            ingredients: 'Brushing léger inclus',
-          },
-          {
-            name: 'Coupe enfant (-10 ans)',
-            price: '24€',
-            ingredients: 'Sur rendez-vous mercredi & samedi matin',
-          },
+          { name: 'Carré femme', price: '52€', ingredients: 'Ciseaux, cheveux secs' },
+          { name: 'Enfant (-10 ans)', price: '24€', ingredients: 'Créneaux mer / sam matin' },
         ],
       },
     ],
@@ -1474,8 +1636,30 @@ export const BUSINESS_RICH = {
   'atelier-1920': {
     valueProposition:
       'Old school & hand-poked : bois sombre, encres nobles, le temps du geste juste.',
-    ctaPrimary: { label: 'Réserver une consultation', href: '#contact' },
+    ctaPrimary: { label: 'Entrer dans l’Atelier', href: '#contact' },
     ctaSecondary: { label: 'Instagram', href: '#' },
+    organicInks: [
+      {
+        name: 'Noir Tradition — charbon végétal',
+        desc:
+          'Pigment suspendu dans une base glycérinée douce, sans additif superflu. Idéal pour les aplats old school qui doivent vieillir en douceur sur la peau claire.',
+      },
+      {
+        name: 'Rouge Brique — oxyde de fer micronisé',
+        desc:
+          'Teinte tirée des encres d’imprimerie du XIXe ; tracé fin sans saignement. Nous la réservons aux contours et lettrages sur peau tolérante aux tests cutanés.',
+      },
+      {
+        name: 'Vert Forêt — à partir de terre verte pure',
+        desc:
+          'Pigment minéral tamisé, réchauffé nos mélanges pour limiter la granulométrie. Conseillé pour feuillages et motifs naturels où la brillance doit rester mate.',
+      },
+      {
+        name: 'Chair & terres pour ombrage',
+        desc:
+          'Dilutions stériles maison pour dégradés type gravure : trois tons du sable au taupe, posés au shader lent pour éviter la « bouillie grise » au guérison.',
+      },
+    ],
     tattooArtists: [
       {
         name: 'Marc Delmas',
@@ -1522,8 +1706,18 @@ export const BUSINESS_RICH = {
   'neo-ink-studio': {
     valueProposition:
       'Néon, contraste, précision — géométrie et réalisme pour une peau qui affiche le futur.',
-    ctaPrimary: { label: 'Réserver une consultation', href: '#contact' },
+    ctaPrimary: { label: 'Lancer le projet', href: '#contact' },
     ctaSecondary: { label: 'Guest-spot', href: '#guest-spot' },
+    simulation3d: {
+      headline: 'Maquette numérique avant la première piqûre.',
+      body:
+        'Votre projet est modélisé en relief sur avatar calibré à votre morphologie : nous calculons la courbure de l’avant-bras, du mollet ou du dos pour anticiper la déformation des motifs géométriques. Export STL pour validation, ajustement des lignes au millimètre, puis transfert vectoriel vers le stencil autocollant. Le tatouage ne commence qu’après validation écran + papier calque sur peau.',
+      services: [
+        'Tracé fin vectoriel calibré DPI peau',
+        'Relief simulé (ombre portée sur volumes)',
+        'Export stencil double couche pour grandes pièces',
+      ],
+    },
     cyberArtists: [
       {
         name: 'Jordan « Jax » Meyer',
@@ -1570,8 +1764,22 @@ export const BUSINESS_RICH = {
   'le-labo-de-peau': {
     valueProposition:
       'Titane, or 18k, protocole visible — le piercing comme acte médical esthétique.',
-    ctaPrimary: { label: 'Voir le catalogue bijoux', href: '#catalogue' },
+    ctaPrimary: { label: 'Réserver mon bijou', href: '#catalogue' },
     ctaSecondary: { label: 'Prendre rendez-vous', href: '#contact' },
+    piercingTeam: [
+      {
+        name: 'Camille Renard',
+        role: 'Pierceuse senior — cartilage & arcade',
+        bio:
+          'Diplômée infirmière puis spécialisée en piercing de précision, Camille pratique depuis douze ans. Elle cartographie chaque oreille comme un bijou unique et refuse les poses à risque d’anatomie.',
+      },
+      {
+        name: 'Thomas El-Khoury',
+        role: 'Bijoutier clinique / titane & or',
+        bio:
+          'Ancien prototypiste joaillier, Thomas assemble nos commandes F-136 et or 18k : filetages, longueurs de tige et sertissage sont vérifiés au microscope avant stérilisation.',
+      },
+    ],
     jewelryCatalog: [
       { name: 'Stud titane poli — diamètre 3 / 4 mm', material: 'ASTM F-136, anodisation au choix', price: 'à partir de 38€' },
       { name: 'Anneau segmenté titane — clicker', material: 'Ouverture fluide, finition miroir', price: 'à partir de 52€' },
@@ -1581,24 +1789,29 @@ export const BUSINESS_RICH = {
     ],
     hygieneProtocol: [
       {
+        title: 'Cabine ventilée & enrobage mains',
+        detail:
+          'Avant toute piqûre : lavage chirurgical, gant stérile par étape, surface traitée à la classe médicale. Aération continue — nous refusons la procédure en boîte close.',
+      },
+      {
         title: 'Stérilité traçable',
         detail:
-          'Aiguilles et bijoux ouverts devant vous ; lots notés, autoclave affiché en salle d’attente. Pas de boîte mystère.',
+          'Aiguilles cannulaires ou à bec ouvert américain, emballage intact ouvert sous vos yeux ; lots enregistrés. Autoclave classe B affiché, journaux d’incubation consultables.',
       },
       {
-        title: 'Peau désinfectée & repérée',
+        title: 'Peau cartographiée',
         detail:
-          'Antiseptique cutané, marquage anatomique au stylo stérile, validation miroir avant toute piqûre.',
+          'Désinfection cutanée, repérage anatomique au marqueur stérile ou à l’iode dilué selon zone, validation miroir à trois angles avant engagement.',
       },
       {
-        title: 'Pose sans choc thermique',
+        title: 'Perçage à l’aiguille américaine',
         detail:
-          'Bijoux tempérés à température ambiante, insertion guidée pour limiter l’œdème — la douleur reste brève et nette.',
+          'Passage guidé sans pistolet : perçage à l’aiguille américaine stérile homologuée CE, huile lubrifiante médicale sur demande pour les muqueuses autorisées.',
       },
       {
-        title: 'Suivi J+1 & J+42',
+        title: 'Pose du bijou & l’éclat durable',
         detail:
-          'Message de contrôle, rappel des signes d’alerte, retour offert si irritation persistante.',
+          'Insertion titane F-136 ou or 18k tempéré pièce à pièce, sans choc thermique. Fiche aseptie illustrée, contrôle J+7 offert, rappel SMS des signes d’alerte.',
       },
     ],
     testimonials: [

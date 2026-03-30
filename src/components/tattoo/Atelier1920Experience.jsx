@@ -1,212 +1,254 @@
 /**
- * Atelier 1920 — dark & traditionnel, old school, hand-poked, galerie N&B.
+ * Atelier 1920 — speakeasy tattoo, flex-col centré, gravures, curseur aiguille.
+ * Aucun composant partagé avec Neo-Ink ni Le Labo.
  */
-import { useCallback, useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
-import { BackButton } from '../mini/BackButton.jsx'
-import { ReservationMailtoModal } from '../mini/ReservationMailtoModal.jsx'
+import { useEffect, useState } from 'react'
 
-const BG = '#0a0908'
-const LEATHER = '#6b4f3a'
-const PARCHMENT = '#e8e0d5'
-const PLAYFAIR = '"Playfair Display", Georgia, serif'
-const CORMORANT = '"Cormorant Garamond", Georgia, serif'
+const VELVET = '#1a0f0c'
+const WOOD = '#3d2918'
+const BRASS = '#c9a227'
+const PARCH = '#ede4d3'
+const DISPLAY = '"Bodoni Moda", Georgia, serif'
+const BODY = '"Crimson Text", Georgia, serif'
 
-const ease = [0.22, 1, 0.36, 1]
+/** Photos locales : PicFolder/TattooPiercing → public/stock-photos/tattoo-piercing */
+const TP = '/stock-photos/tattoo-piercing'
 
-/** Pexels CDN — URLs stables (plusieurs IDs Unsplash du projet renvoient 404 côté imgix). */
-const px = (id, w = 1200) =>
-  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${w}`
-
-const GALLERY = [
-  { src: px(4611934, 900), alt: 'Artiste au travail sur un tatouage, mise au point sur la zone encrée' },
-  { src: px(6144290, 900), alt: 'Machine rotative et pigments sur un poste de travail sombre' },
-  { src: px(2683376, 900), alt: 'Gros plan sur des lignes de tatouage en cours de réalisation' },
-  { src: px(3998429, 900), alt: 'Ambiance studio : contraste marqué, lumière dirigée sur la peau' },
-  { src: px(3740287, 900), alt: 'Motif graphique net sur avant-bras, style contemporain' },
-  { src: px(9941979, 900), alt: 'Détails d’un flash et feuilles de référence sur une table en bois' },
+const FLASH_DEFAULT = [
+  { src: `${TP}/mandala-robin.jpg`, alt: 'Tatouage mandala détaillé sur peau, lignes fines et ombrages' },
+  { src: `${TP}/neotraditional-tattoo-mask-graffiti.webp`, alt: 'Masque néo-traditionnel, style graffiti et aplats colorés' },
+  { src: `${TP}/thomas-pineiro-tattoo.webp`, alt: 'Composition tattoo réaliste, travail d’artiste en studio' },
+  { src: `${TP}/piercing.jpg`, alt: 'Piercing en cours de pose, matériel stérile visible' },
+  { src: `${TP}/piercing.webp`, alt: 'Gros plan sur bijou et zone percée' },
+  { src: `${TP}/piercingg.webp`, alt: 'Détail piercing, reflets métalliques sur peau' },
+  { src: `${TP}/nosepiercing.webp`, alt: 'Piercing nasal, bijou discret et anatomie du nez' },
+  { src: `${TP}/nosepiercing2.webp`, alt: 'Vue rapprochée piercing nez, finition bijou' },
+  { src: `${TP}/mandala-robin.jpg`, alt: 'Tatouage mandala — variation lumière et contraste' },
 ]
 
-export function Atelier1920Experience({ site, onBack }) {
-  const reduceMotion = useReducedMotion()
-  const [modalOpen, setModalOpen] = useState(false)
-  const openModal = useCallback(() => setModalOpen(true), [])
-  const closeModal = useCallback(() => setModalOpen(false), [])
+function FiligreeRule() {
+  return (
+    <div className="flex w-full max-w-lg justify-center py-10" aria-hidden="true">
+      <svg viewBox="0 0 420 32" className="h-8 w-full max-w-md" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M210 16 L210 28" stroke={BRASS} strokeWidth="0.6" opacity="0.9" />
+        <path
+          d="M0 16h160 M260 16h160 M160 16c20-10 30-10 50 0s30 10 50 0 30-10 50 0"
+          stroke={BRASS}
+          strokeWidth="0.5"
+          opacity="0.75"
+        />
+        <circle cx="210" cy="16" r="3.5" stroke={BRASS} strokeWidth="0.6" fill="none" />
+        <path d="M190 8l10 16 20-32 20 32 10-16" stroke={PARCH} strokeWidth="0.35" opacity="0.35" />
+      </svg>
+    </div>
+  )
+}
 
+function CrossNeedleCursor({ active }) {
+  const [p, setP] = useState({ x: -100, y: -100 })
+  useEffect(() => {
+    if (!active) return undefined
+    const m = (e) => setP({ x: e.clientX, y: e.clientY })
+    window.addEventListener('pointermove', m, { passive: true })
+    return () => window.removeEventListener('pointermove', m)
+  }, [active])
+  if (!active) return null
+  return (
+    <div
+      className="pointer-events-none fixed z-[9998] h-8 w-8 -translate-x-1/2 -translate-y-1/2 mix-blend-difference"
+      style={{ left: p.x, top: p.y }}
+      aria-hidden="true"
+    >
+      <svg width="32" height="32" viewBox="0 0 32 32" className="drop-shadow-md">
+        <g transform="rotate(45 16 16)" stroke={BRASS} strokeWidth="1.1" fill="none">
+          <line x1="16" y1="4" x2="16" y2="28" />
+          <line x1="4" y1="16" x2="28" y2="16" />
+          <circle cx="16" cy="16" r="2.2" fill={PARCH} opacity="0.4" />
+        </g>
+      </svg>
+    </div>
+  )
+}
+
+function RetourSpeakeasy({ onBack }) {
+  return (
+    <button
+      type="button"
+      onClick={onBack}
+      className="fixed left-4 top-4 z-[9999] rounded-sm border px-4 py-2 text-[11px] uppercase tracking-[0.22em] transition hover:bg-white/5"
+      style={{
+        borderColor: `${BRASS}88`,
+        backgroundColor: `${VELVET}ee`,
+        backdropFilter: 'blur(8px)',
+        color: PARCH,
+        fontFamily: BODY,
+      }}
+      aria-label="Retour au portfolio"
+    >
+      ← Sortir
+    </button>
+  )
+}
+
+export function Atelier1920Experience({ site, onBack }) {
+  const [finePointer, setFinePointer] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia('(pointer: fine)')
+    const sync = () => setFinePointer(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
+
+  const encres = site.organicInks?.length ? site.organicInks : []
   const artists = site.tattooArtists ?? []
-  const gallery = site.tattooGallery?.length ? site.tattooGallery : GALLERY
+  const gallery = site.tattooGallery?.length ? site.tattooGallery : FLASH_DEFAULT
 
   return (
     <div
-      className="min-h-[100dvh] overflow-x-hidden antialiased"
+      className={`atelier1920-root min-h-[100dvh] overflow-x-hidden ${finePointer ? 'cursor-none' : ''}`}
       style={{
-        backgroundColor: BG,
+        backgroundColor: VELVET,
         backgroundImage: `
-          linear-gradient(165deg, rgba(107,79,58,0.12) 0%, transparent 42%),
-          linear-gradient(#0f0e0c 0%, #0a0908 100%)
+          radial-gradient(ellipse 120% 80% at 50% -20%, ${WOOD}99 0%, transparent 55%),
+          url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E")
         `,
-        color: PARCHMENT,
-        fontFamily: CORMORANT,
+        color: PARCH,
+        fontFamily: BODY,
+        fontSize: '17px',
       }}
     >
-      <style>{`
-        .a1920-h { font-family: ${PLAYFAIR}; font-weight: 600; letter-spacing: 0.02em; }
-      `}</style>
+      <CrossNeedleCursor active={finePointer} />
+      <RetourSpeakeasy onBack={onBack} />
 
-      <BackButton onClick={onBack} site={site} />
+      <div className="mx-auto flex max-w-2xl flex-col items-center px-6 pb-28 pt-24 md:px-10 md:pt-32">
+        <p
+          className="text-center text-[10px] uppercase tracking-[0.5em]"
+          style={{ color: `${BRASS}dd`, fontFamily: DISPLAY }}
+        >
+          {site.tagline}
+        </p>
+        <h1
+          className="mt-10 text-center text-[clamp(2.1rem,6.5vw,3.4rem)] font-normal leading-[1.05]"
+          style={{ fontFamily: DISPLAY, color: PARCH }}
+        >
+          {site.name}
+        </h1>
+        <p className="mt-8 max-w-lg text-center font-light italic leading-relaxed" style={{ color: `${PARCH}dd` }}>
+          {site.hero?.headline}
+        </p>
+        <p className="mt-6 max-w-md text-center text-[15px] leading-[1.85]" style={{ color: `${PARCH}aa` }}>
+          {site.hero?.subline}
+        </p>
 
-      <ReservationMailtoModal
-        open={modalOpen}
-        onClose={closeModal}
-        venueName={site.name}
-        accentColor={LEATHER}
-        fontFamilyBody={CORMORANT}
-        fontFamilyHeading={PLAYFAIR}
-      />
+        <a
+          href={`mailto:sceller@atelier1920-toulouse.fr?subject=${encodeURIComponent('Entrer dans l’Atelier — prise de contact')}`}
+          className="mt-12 rounded-full border-2 px-10 py-3 text-center text-[11px] uppercase tracking-[0.28em] transition hover:border-[#e8d9b0]"
+          style={{ borderColor: BRASS, color: PARCH, fontFamily: DISPLAY }}
+        >
+          Entrer dans l’Atelier
+        </a>
 
-      <header className="relative z-[2] px-5 pb-20 pt-24 md:px-12 md:pb-28 md:pt-28">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid items-end gap-10 lg:grid-cols-12 lg:gap-8">
-            <div className="lg:col-span-5 lg:col-start-1 lg:row-start-1">
-              <motion.p
-                initial={reduceMotion ? false : { opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="a1920-h text-[10px] uppercase tracking-[0.45em]"
-                style={{ color: `${PARCHMENT}99` }}
-              >
-                {site.tagline}
-              </motion.p>
-              <motion.h1
-                initial={reduceMotion ? false : { opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.06, duration: 0.55, ease }}
-                className="a1920-h mt-5 text-4xl leading-[1.08] tracking-tight md:text-5xl lg:text-[3.25rem]"
-              >
-                {site.name}
-              </motion.h1>
-            </div>
-            <motion.div
-              initial={reduceMotion ? false : { opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.12, duration: 0.6, ease }}
-              className="relative aspect-[4/5] overflow-hidden rounded-sm border lg:col-span-6 lg:col-start-7 lg:row-start-1"
-              style={{ borderColor: `${LEATHER}55`, boxShadow: '0 40px 100px -40px rgba(0,0,0,0.85)' }}
-            >
-              <img
-                src={px(4611934, 1400)}
-                alt="Intérieur d’atelier tattoo : bois sombre, lumière chaude, ambiance feutrée"
-                className="h-full w-full object-cover"
-                style={{ filter: 'contrast(1.05) saturate(0.85)' }}
-                loading="eager"
-              />
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{ background: 'linear-gradient(200deg, rgba(10,9,8,0.2) 0%, rgba(10,9,8,0.65) 100%)' }}
-              />
-            </motion.div>
-            <motion.div
-              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.5, ease }}
-              className="max-w-xl lg:col-span-7 lg:col-start-1 lg:row-start-2 lg:pt-4"
-            >
-              <p className="text-lg leading-relaxed md:text-xl" style={{ color: `${PARCHMENT}ee` }}>
-                {site.hero?.headline}
+        <FiligreeRule />
+
+        <section className="w-full" aria-labelledby="heritage-h">
+          <h2 id="heritage-h" className="text-center text-xl md:text-2xl" style={{ fontFamily: DISPLAY }}>
+            L’héritage
+          </h2>
+          <p className="mx-auto mt-4 max-w-sm text-center text-[11px] uppercase tracking-[0.35em]" style={{ color: `${BRASS}aa` }}>
+            Noble · historique · artisanal
+          </p>
+          <div className="mt-10 flex flex-col gap-8">
+            {site.about?.paragraphs?.map((para, i) => (
+              <p key={i} className="text-justify text-[15px] leading-[1.95]" style={{ color: `${PARCH}b8` }}>
+                {para}
               </p>
-              <p className="mt-6 text-[15px] leading-[1.85] md:text-[17px]" style={{ color: `${PARCHMENT}aa` }}>
-                {site.hero?.subline}
-              </p>
-              <button
-                type="button"
-                onClick={openModal}
-                className="a1920-h mt-10 inline-flex items-center border-b-2 pb-1 text-[12px] uppercase tracking-[0.28em] transition-opacity hover:opacity-90"
-                style={{ borderColor: LEATHER, color: PARCHMENT }}
-              >
-                Réserver une consultation
-              </button>
-            </motion.div>
+            ))}
           </div>
-        </div>
-      </header>
-
-      <section className="relative z-[2] border-t px-5 py-20 md:px-12" style={{ borderColor: `${LEATHER}33` }}>
-        <div className="mx-auto max-w-6xl">
-          <div className="grid gap-12 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <h2 className="a1920-h text-2xl md:text-3xl">Artisanat & main</h2>
-              <p className="mt-5 text-[15px] leading-[1.85]" style={{ color: `${PARCHMENT}aa` }}>
-                {site.about?.paragraphs?.[0]}
-              </p>
-            </div>
-            <div className="space-y-10 lg:col-span-7 lg:col-start-6">
-              {artists.map((a, i) => (
-                <motion.article
-                  key={a.name}
-                  initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-60px' }}
-                  transition={{ delay: i * 0.06, duration: 0.45, ease }}
-                  className="border-l-2 pl-6 md:pl-8"
-                  style={{ borderColor: LEATHER }}
-                >
-                  <h3 className="a1920-h text-xl">{a.name}</h3>
-                  <p className="mt-1 text-[11px] uppercase tracking-[0.2em]" style={{ color: `${LEATHER}cc` }}>
+          {artists.length > 0 && (
+            <div className="mt-12 flex flex-col gap-10 border-t border-white/10 pt-12">
+              {artists.map((a) => (
+                <div key={a.name} className="text-center md:text-left">
+                  <p style={{ fontFamily: DISPLAY, fontSize: '1.15rem' }}>{a.name}</p>
+                  <p className="mt-1 text-[11px] uppercase tracking-[0.2em]" style={{ color: BRASS }}>
                     {a.role}
                   </p>
-                  <p className="mt-4 text-[15px] leading-relaxed" style={{ color: `${PARCHMENT}bb` }}>
+                  <p className="mt-4 text-[14px] leading-relaxed" style={{ color: `${PARCH}99` }}>
                     {a.bio}
                   </p>
-                </motion.article>
+                </div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
+          )}
+        </section>
 
-      <section className="relative z-[2] px-5 py-16 md:px-12 md:py-24" aria-labelledby="galerie-1920">
-        <div className="mx-auto max-w-6xl">
-          <h2 id="galerie-1920" className="a1920-h text-center text-2xl md:text-3xl">
-            Mur d’atelier — noir & blanc
+        <FiligreeRule />
+
+        <section className="w-full" aria-labelledby="encres-h">
+          <h2 id="encres-h" className="text-center text-xl md:text-2xl" style={{ fontFamily: DISPLAY }}>
+            Nos encres organiques
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-center text-[14px]" style={{ color: `${PARCHMENT}88` }}>
-            Extraits de séances et de flash : grain volontaire, comme un fil Instagram éditorial.
+          <p className="mx-auto mt-4 max-w-md text-center text-[14px] leading-relaxed" style={{ color: `${PARCH}99` }}>
+            Pigments choisis comme on choisit un millésime : transparence sur la composition, test cutané avant
+            pose des rouges et verts historiques.
           </p>
-          <div className="mt-12 grid grid-cols-2 gap-1 md:grid-cols-3 md:gap-2">
+          <div className="mt-10 flex flex-col gap-8">
+            {encres.map((e) => (
+              <div
+                key={e.name}
+                className="rounded-2xl border px-6 py-6"
+                style={{ borderColor: `${WOOD}cc`, backgroundColor: 'rgba(0,0,0,0.18)' }}
+              >
+                <h3 className="text-lg" style={{ fontFamily: DISPLAY, color: `${PARCH}ee` }}>
+                  {e.name}
+                </h3>
+                <p className="mt-3 text-[14px] leading-[1.85]" style={{ color: `${PARCH}b3` }}>
+                  {e.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <FiligreeRule />
+
+        <section className="w-full" aria-labelledby="flash-h">
+          <h2 id="flash-h" className="text-center text-xl md:text-2xl" style={{ fontFamily: DISPLAY }}>
+            Galerie de flashs
+          </h2>
+          <p className="mx-auto mt-3 max-w-sm text-center text-[12px]" style={{ color: `${PARCH}88` }}>
+            Grille dense : mêmes proportions que les murs de nos aïeux à la Nation.
+          </p>
+          <div className="mt-8 grid grid-cols-3 gap-1 sm:gap-1.5">
             {gallery.map((g, i) => (
-              <motion.figure
-                key={`${g.src}-${i}`}
-                initial={reduceMotion ? false : { opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: (i % 6) * 0.04, duration: 0.35 }}
-                className={`overflow-hidden ${i === 0 ? 'col-span-2 row-span-1 md:col-span-1' : ''}`}
+              <div
+                key={`${g.src || g.alt}-${i}`}
+                className="overflow-hidden rounded-full border"
+                style={{ borderColor: `${WOOD}99` }}
               >
                 <img
                   src={g.src}
                   alt={g.alt}
-                  className="aspect-square w-full object-cover md:aspect-[4/5]"
-                  style={{ filter: 'grayscale(1) contrast(1.08)' }}
-                  loading="lazy"
+                  className="aspect-square w-full object-cover"
+                  style={{ filter: 'sepia(0.12) contrast(1.05)' }}
+                  loading={i < 3 ? 'eager' : 'lazy'}
                 />
-              </motion.figure>
+              </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <footer className="relative z-[2] border-t px-5 py-16 text-center md:px-12" style={{ borderColor: `${LEATHER}33` }}>
-        <p className="text-[12px] uppercase tracking-[0.25em]" style={{ color: `${PARCHMENT}66` }}>
-          {site.location?.city} · {site.location?.hours}
-        </p>
-        <button
-          type="button"
-          onClick={openModal}
-          className="a1920-h mt-8 inline-block rounded-sm border px-8 py-3 text-[11px] uppercase tracking-[0.22em]"
-          style={{ borderColor: `${LEATHER}88`, color: PARCHMENT }}
-        >
-          Réserver une consultation
-        </button>
-      </footer>
+        <FiligreeRule />
+
+        <footer className="w-full pb-8 text-center">
+          <p className="text-[12px] uppercase tracking-[0.25em]" style={{ color: `${PARCH}66` }}>
+            {site.location?.street} · {site.location?.postalCode} {site.location?.city}
+          </p>
+          <p className="mt-2 text-[11px]" style={{ color: `${PARCH}55` }}>
+            {site.location?.hours}
+          </p>
+        </footer>
+      </div>
     </div>
   )
 }

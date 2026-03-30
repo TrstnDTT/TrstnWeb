@@ -1,30 +1,9 @@
-import { memo, useCallback, useEffect, useMemo, useState } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { ProjectPreview } from '../ProjectPreview.jsx'
 import { getSiteById } from '../../data.js'
 
 const fontPlayfair = { fontFamily: '"Playfair Display", Georgia, serif' }
-
-function ProjectCardSkeleton({ siteId }) {
-  const site = getSiteById(siteId)
-  const p = site?.primaryColor ?? '#1c1c1e'
-  const s = site?.secondaryColor ?? '#3f3f46'
-  return (
-    <div
-      className="relative aspect-[3/4] w-full min-h-[220px] overflow-hidden sm:min-h-[260px] md:min-h-[300px]"
-      aria-hidden
-    >
-      <div
-        className="absolute inset-0 animate-pulse"
-        style={{
-          background: `linear-gradient(155deg, ${p} 0%, ${p} 42%, ${s} 100%)`,
-        }}
-      />
-      <div className="absolute inset-x-4 top-1/3 h-4 rounded bg-white/[0.06]" />
-      <div className="absolute inset-x-4 top-[42%] h-3 w-2/3 rounded bg-white/[0.04]" />
-    </div>
-  )
-}
 
 function getCardGridStyle(index, total, asymmetric) {
   if (!asymmetric) {
@@ -48,27 +27,44 @@ function getCardGridStyle(index, total, asymmetric) {
   return { gridColumn: col, gridRow: row, marginTop }
 }
 
+function getListRevealVariants(reduced) {
+  if (reduced) {
+    return {
+      hidden: {},
+      show: {
+        transition: { staggerChildren: 0.05, delayChildren: 0.02 },
+      },
+    }
+  }
+  return {
+    hidden: {},
+    show: {
+      transition: { staggerChildren: 0.1, delayChildren: 0.06 },
+    },
+  }
+}
+
 function getCardRevealVariants(reduced) {
   if (reduced) {
     return {
       hidden: { opacity: 0 },
-      show: (i) => ({
+      show: {
         opacity: 1,
-        transition: { delay: 0.04 + i * 0.03, duration: 0.28 },
-      }),
+        transition: { duration: 0.3 },
+      },
     }
   }
   return {
-    hidden: { opacity: 0, y: 16 },
-    show: (i) => ({
+    hidden: { opacity: 0, y: 28, filter: 'blur(4px)' },
+    show: {
       opacity: 1,
       y: 0,
+      filter: 'blur(0px)',
       transition: {
-        delay: 0.04 + i * 0.04,
-        duration: 0.38,
+        duration: 0.48,
         ease: [0.2, 1, 0.36, 1],
       },
-    }),
+    },
   }
 }
 
@@ -81,28 +77,14 @@ function PortfolioProjectGridInner({
   onOpenProject,
   gallery,
 }) {
-  const [visibleCount, setVisibleCount] = useState(1)
+  const listReveal = useMemo(
+    () => getListRevealVariants(prefersReducedMotion),
+    [prefersReducedMotion],
+  )
   const cardReveal = useMemo(
     () => getCardRevealVariants(prefersReducedMotion),
     [prefersReducedMotion],
   )
-
-  useEffect(() => {
-    setVisibleCount(1)
-    let raf2 = 0
-    let t = 0
-    const raf1 = requestAnimationFrame(() => {
-      raf2 = requestAnimationFrame(() => {
-        setVisibleCount((c) => Math.max(c, 2))
-        t = window.setTimeout(() => setVisibleCount(projects.length), 0)
-      })
-    })
-    return () => {
-      cancelAnimationFrame(raf1)
-      cancelAnimationFrame(raf2)
-      clearTimeout(t)
-    }
-  }, [categoryId, projects.length])
 
   const handleKey = useCallback(
     (siteId, e) => {
@@ -115,11 +97,16 @@ function PortfolioProjectGridInner({
   )
 
   return (
-    <ul className="m-0 grid list-none grid-cols-1 gap-16 p-0 md:grid-cols-2 md:gap-x-10 md:gap-y-24">
+    <motion.ul
+      className="m-0 grid list-none grid-cols-1 gap-16 p-0 md:grid-cols-2 md:gap-x-10 md:gap-y-24"
+      variants={listReveal}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.08, margin: '0px 0px -8% 0px' }}
+    >
       {projects.map((project, i) => {
         const shell = getSiteById(project.siteId)?.portfolio
         const gridStyle = getCardGridStyle(i, projects.length, !isMobile)
-        const showBody = i < visibleCount
         const isLast = i === projects.length - 1
         const snapClass = isLast
           ? 'max-md:snap-end max-md:snap-always'
@@ -130,10 +117,7 @@ function PortfolioProjectGridInner({
             key={`${categoryId}-${project.siteId}`}
             className={`list-none relative z-0 ${snapClass}`}
             style={gridStyle}
-            custom={i}
             variants={cardReveal}
-            initial="hidden"
-            animate="show"
           >
             <motion.article
               data-project-card
@@ -161,11 +145,22 @@ function PortfolioProjectGridInner({
               onClick={(e) => onOpenProject(project.siteId, e)}
               onKeyDown={(e) => handleKey(project.siteId, e)}
             >
-              {showBody ? (
+              <div className="relative">
+                {project.styleTag ? (
+                  <span
+                    className={[
+                      'absolute left-4 top-4 z-20 max-w-[calc(100%-2rem)] rounded-full border px-2.5 py-1 text-[9px] font-medium uppercase tracking-[0.18em] backdrop-blur-sm',
+                      shellLight
+                        ? 'border-black/[0.08] bg-white/80 text-[#6e6e73]'
+                        : 'border-white/[0.12] bg-black/35 text-zinc-300',
+                    ].join(' ')}
+                    style={fontPlayfair}
+                  >
+                    Style : {project.styleTag}
+                  </span>
+                ) : null}
                 <ProjectPreview site={getSiteById(project.siteId)} />
-              ) : (
-                <ProjectCardSkeleton siteId={project.siteId} />
-              )}
+              </div>
               <div className="flex flex-1 flex-col px-6 pb-8 pt-6 md:px-7 md:pb-9">
                 {shell?.portfolioTagline && (
                   <p
@@ -217,7 +212,7 @@ function PortfolioProjectGridInner({
           </motion.li>
         )
       })}
-    </ul>
+    </motion.ul>
   )
 }
 

@@ -16,7 +16,7 @@ export const SITE = {
     instagramUrl: 'https://www.instagram.com/',
   },
   footer:
-    'Chaque vignette ouvre une expérience plein écran : même exigence que sur mes livrables client — hiérarchie, matière, mouvement.',
+    'Immersion sectorielle : Des interfaces conçues pour capturer l’essence de chaque métier.',
   /** Page d’accueil (/) — hero + accroche, aligné sur l’ancien « Meta Portfolio ». */
   home: {
     heroEyebrow: 'Portfolio',
@@ -32,6 +32,30 @@ export const SITE = {
       'Je conçois et développe des interfaces web (React, UI soignée) orientées identité de marque et conversion. Six expériences sont alignées sur le projet local trstnportfolio (sitesConfig / sitesInfo) ; les autres suivent la même exigence (parcours complet, avis, FAQ, contact).',
       'Tout est réalisé en solo : design, prototypage, intégration et animations. Ouvrez un projet pour parcourir l’expérience plein écran ; chaque univers reste distinct, avec la même exigence de finition.',
     ],
+  },
+}
+
+/** Teinte de fond du canvas portfolio au survol d’une catégorie (sidebar). */
+export const CATEGORY_CANVAS_HOVER = {
+  light: {
+    restaurant: '#FFF5F0',
+    boulangerie: '#FFF7ED',
+    salon: '#FFF8FA',
+    bar: '#F0F9F6',
+    tattoo: '#111827',
+    evenementiel: '#FFF5F8',
+    photographie: '#F4F4F5',
+    'artisans-services': '#FFF4E8',
+  },
+  dark: {
+    restaurant: '#1a1412',
+    boulangerie: '#1c1710',
+    salon: '#161014',
+    bar: '#0e1618',
+    tattoo: '#111827',
+    evenementiel: '#161014',
+    photographie: '#131313',
+    'artisans-services': '#1a140e',
   },
 }
 
@@ -59,24 +83,28 @@ export const CATEGORIES = [
         title: 'La Table Constance',
         description:
           'Expérience dédiée : rail de navigation, hero plein écran, Maison avant le menu, citations en exergue — pas le même squelette que les autres.',
+        styleTag: 'Gastronomique luxe',
       },
       {
         siteId: 'atelier-sept',
         title: 'Atelier Sept',
         description:
           'Expérience dédiée : fond papier, en-tête centré, histoire en carte puis ardoise — tout le zinc sans la grille ProjectView.',
+        styleTag: 'Éditorial bistro',
       },
       {
         siteId: 'carre-rouge',
         title: 'Le Carré Rouge',
         description:
           'Expérience dédiée : bandeau défilant, header comptoir, barre d’action fixe en bas — rythme appli de commande.',
+        styleTag: 'Fast casual',
       },
       {
         siteId: 'influences',
         title: 'Influences',
         description:
           'Inspiré du restaurant bayonnais — expertise humaine, relation clientèle, témoignages et FAQ ; carte interactive et réservation.',
+        styleTag: 'Territoire & accueil',
       },
     ],
   },
@@ -100,21 +128,24 @@ export const CATEGORIES = [
     projects: [
       {
         siteId: 'pain-dore',
-        title: 'La Boulangerie Traditionnelle',
+        title: 'Le Manifeste du Grain',
         description:
-          'Ancien portfolio — bakery-classic : rustique, tons beige / doré, template BakeryClassic.',
+          'Éditorial brutal : scroll horizontal, titres géants Anton, journal manuscrit, sans hero classique.',
+        styleTag: 'Brutaliste',
       },
       {
         siteId: 'pain-passion',
-        title: 'Pain & Passion',
+        title: 'La Maison des Sens',
         description:
-          'Ancien portfolio — bakery-modern : contraste chaud / blanc, Inter & Playfair, boulangerie actuelle.',
+          'Minimal luxe : hotspots, un produit au centre, verre & oreille du pain en texte.',
+        styleTag: 'Minimaliste luxe',
       },
       {
         siteId: 'four-chocolat',
-        title: 'Four & Chocolat',
+        title: 'La Boulangerie Traditionnelle',
         description:
-          'Laboratoire chocolat : Playfair, vert profond et barres or comme une couverture magazine.',
+          'Terroir & levain : navigation en reliure, spécialités au détail, histoire de famille.',
+        styleTag: 'Artisanal classique',
       },
     ],
   },
@@ -141,18 +172,21 @@ export const CATEGORIES = [
         title: 'Urban Cuts',
         description:
           'Ancien portfolio — barber-urban : barber shop street, noir / rouge / blanc, template BarberUrban.',
+        styleTag: 'Street & néon',
       },
       {
         siteId: 'cheveux-co',
         title: 'Cheveux & Co',
         description:
           'Salon de coiffure familial : Cormorant, beige pierre, tarifs enfants / adultes lisibles.',
+        styleTag: 'Salon lumineux',
       },
       {
         siteId: 'au-rasoir',
         title: 'Au Rasoir',
         description:
           'Barber shop minimal : noir & or fin, file d’attente virtuelle, typo sans serif serrée.',
+        styleTag: 'Noir & or',
       },
     ],
   },
@@ -179,24 +213,28 @@ export const CATEGORIES = [
         title: 'Velvet Room',
         description:
           'Expérience speakeasy : hero cinéma, rail latéral cuivre, galerie bandeau — jazz & velours.',
+        styleTag: 'Speakeasy cinéma',
       },
       {
         siteId: 'zinc-bleu',
         title: 'Le Zinc Bleu',
         description:
           'Expérience craft : néon cyan, marquee, grille de fûts animée, barre fixe — énergie canal.',
+        styleTag: 'Craft néon',
       },
       {
         siteId: 'nuit-jour',
         title: 'Nuit & Jour',
         description:
           'Expérience brasserie : split jour/nuit, sable & mer, cartes en cartouches — Nice sans néon.',
+        styleTag: 'Côte & lumière',
       },
       {
         siteId: 'bar-basque',
         title: 'Bar Basque',
         description:
           'Lieu hybride chaleureux : café, cuisine basque, bières — hero immersif, menu à pointillés, réservation glass.',
+        styleTag: 'Hybride convivial',
       },
     ],
   },
@@ -223,18 +261,21 @@ export const CATEGORIES = [
         title: 'Atelier 1920',
         description:
           'Dark & traditionnel : bois, cuir, Playfair, galerie N&B, hand-poked — démo « L’Encre Noire ».',
+        styleTag: 'Atelier heritage',
       },
       {
         siteId: 'neo-ink-studio',
         title: 'Neo-Ink Studio',
         description:
           'Brutaliste néon : pleine largeur, scroll, guest-spots, géométrie & réalisme — démo « Cyber-Skin ».',
+        styleTag: 'Brutaliste néon',
       },
       {
         siteId: 'le-labo-de-peau',
         title: 'Le Labo de Peau',
         description:
           'Minimal médical : blanc, or, catalogue bijoux titane/or, protocole d’hygiène — démo « Pureté ».',
+        styleTag: 'Clinique premium',
       },
     ],
   },
@@ -261,6 +302,7 @@ export const CATEGORIES = [
         title: 'Rêves & Unions',
         description:
           'Données trstnportfolio (event-wedding) : ambiance romantique pour mariages de rêve.',
+        styleTag: 'Romantique couture',
       },
     ],
   },
@@ -287,6 +329,7 @@ export const CATEGORIES = [
         title: 'Pure Gallery',
         description:
           'Données trstnportfolio (photo-minimalist) : minimalisme absolu, focus sur les images.',
+        styleTag: 'Galerie minimaliste',
       },
     ],
   },
@@ -313,6 +356,7 @@ export const CATEGORIES = [
         title: 'Ébénisterie Tradition',
         description:
           'Données trstnportfolio (service-woodworker) : textures bois, tons terreux, authenticité.',
+        styleTag: 'Matériau & métier',
       },
     ],
   },
