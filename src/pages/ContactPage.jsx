@@ -251,7 +251,7 @@ export default function ContactPage() {
         </div>
       </header>
 
-      <main className="relative z-10 mx-auto max-w-6xl px-5 pb-24 pt-10 sm:px-8 md:pt-14 lg:pb-32">
+      <main className="relative z-10 mx-auto max-w-6xl px-5 pb-[calc(6.5rem+env(safe-area-inset-bottom))] pt-10 sm:px-8 md:pb-24 md:pt-14 lg:pb-32">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-x-16 lg:gap-y-0">
           <div className="lg:col-span-5">
             <motion.h1

@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { ProjectPreview } from '../components/ProjectPreview.jsx'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
-import { SITE } from '../constants.js'
+import { HOME_FEATURED_SITE_IDS, SITE } from '../constants.js'
 import { useShellTheme } from '../context/ShellThemeContext.jsx'
+import { getSiteById } from '../data.js'
 
 /** Courbes « fluides » — lourd, organique, pas mécanique */
 const easeLux = [0.22, 1, 0.36, 1]
@@ -35,12 +37,138 @@ export default function HomePage() {
         L ? 'trstn-home-light bg-[#F5F5F7] text-[#1D1D1F]' : 'bg-[#050506] text-[#fafafa]',
       ].join(' ')}
     >
-      <ShellThemeToggle className="fixed right-4 top-4 z-[960] md:right-8 md:top-6" />
+      <ShellThemeToggle className="fixed right-4 top-4 z-[300] md:right-8 md:top-6" />
 
-      {/* Grain global */}
+      {/* —— Mobile : app native — plein écran, carrousel, CTA unique —— */}
+      <section
+        className="relative block min-h-[100dvh] md:hidden"
+        aria-label="Accueil TrstnWeb — mobile"
+      >
+        {L ? (
+          <>
+            <div
+              className="pointer-events-none absolute inset-0 scale-110 bg-[conic-gradient(from_200deg_at_50%_40%,#f2f0f8_0%,#e8ecf4_30%,#eef2ea_60%,#f4f1ec_100%)]"
+              aria-hidden
+            />
+            <div
+              className="absolute inset-0 backdrop-blur-[48px]"
+              style={{ backgroundColor: 'rgba(245, 245, 247, 0.78)' }}
+              aria-hidden
+            />
+          </>
+        ) : (
+          <>
+            <div
+              className="pointer-events-none absolute inset-0 scale-110 bg-[conic-gradient(from_200deg_at_50%_40%,#1a0a2e_0%,#0a1628_25%,#0d2838_45%,#1a3d32_65%,#2d1f3d_85%,#1a0a2e_100%)]"
+              aria-hidden
+            />
+            <div
+              className="absolute inset-0 backdrop-blur-[48px]"
+              style={{ backgroundColor: 'rgba(10, 10, 10, 0.82)' }}
+              aria-hidden
+            />
+          </>
+        )}
+        <div
+          className={[
+            'pointer-events-none absolute inset-0 z-[1] opacity-[0.035]',
+            L ? 'trstn-home-grain' : '',
+          ].join(' ')}
+          style={{ backgroundImage: FILM_GRAIN_SVG }}
+          aria-hidden
+        />
+        <div className="relative z-10 flex min-h-[100dvh] flex-col px-5 pb-[calc(6.25rem+env(safe-area-inset-bottom))] pt-[calc(3.25rem+env(safe-area-inset-top))]">
+          <div className="flex min-h-0 flex-1 flex-col justify-center py-6">
+            <motion.h1
+              className={[
+                'w-full text-center text-[clamp(2.25rem,8vw,3rem)] leading-[0.95]',
+                L ? 'text-[#1d1d1f]' : 'text-[#fafafa]',
+              ].join(' ')}
+              style={{
+                fontFamily: "'Syne', ui-sans-serif, system-ui, sans-serif",
+                fontWeight: 800,
+                letterSpacing: '-0.05em',
+              }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, ease: easeLux }}
+            >
+              {SITE.title}
+            </motion.h1>
+            <p
+              className={[
+                'mx-auto mt-4 max-w-sm text-center text-[16px] leading-relaxed',
+                L ? 'text-[#5c5c61]' : 'text-zinc-400',
+              ].join(' ')}
+            >
+              Interfaces sur-mesure — un swipe, un univers.
+            </p>
+          </div>
+          <div className="min-h-0 shrink-0">
+            <div
+              className="trstn-scroll-hide flex min-h-[46vh] snap-x snap-mandatory gap-4 overflow-x-auto pb-2"
+              style={{ WebkitOverflowScrolling: 'touch' }}
+            >
+              {HOME_FEATURED_SITE_IDS.map((siteId) => {
+                const site = getSiteById(siteId)
+                if (!site) return null
+                return (
+                  <article
+                    key={siteId}
+                    className="w-[86vw] max-w-md shrink-0 snap-center first:ml-1 last:mr-1"
+                  >
+                    <div
+                      className={[
+                        'overflow-hidden rounded-[1.65rem] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.35)]',
+                        L ? 'border border-black/[0.06]' : 'border border-white/[0.08]',
+                      ].join(' ')}
+                    >
+                      <ProjectPreview
+                        site={site}
+                        className="min-h-[40vh] sm:min-h-[44vh]"
+                      />
+                    </div>
+                    <p
+                      className={[
+                        'mt-4 text-center text-[16px] font-medium leading-snug',
+                        L ? 'text-[#3d3d41]' : 'text-zinc-300',
+                      ].join(' ')}
+                      style={fontBtnSerif}
+                    >
+                      {site.name}
+                    </p>
+                  </article>
+                )
+              })}
+            </div>
+          </div>
+          <Link
+            to="/portfolio"
+            className={[
+              'mt-5 flex min-h-[48px] w-full shrink-0 items-center justify-center rounded-2xl text-[16px] font-medium tracking-wide transition active:scale-[0.98]',
+              L
+                ? 'border border-black/[0.08] bg-white/85 text-[#1d1d1f] shadow-lg backdrop-blur-xl'
+                : 'border border-white/[0.12] bg-white/[0.08] text-white shadow-xl backdrop-blur-xl',
+            ].join(' ')}
+            style={{ fontFamily: "'Plus Jakarta Sans', ui-sans-serif, sans-serif" }}
+          >
+            Découvrir
+          </Link>
+          <p
+            className={[
+              'mt-5 text-center text-[15px]',
+              L ? 'text-[#86868b]' : 'text-zinc-500',
+            ].join(' ')}
+          >
+            Glissez horizontalement pour parcourir les aperçus.
+          </p>
+        </div>
+      </section>
+
+      {/* Grain global — desktop uniquement (mobile : grain dans la section dédiée) */}
       <div
         className={[
-          'pointer-events-none fixed inset-0 z-[5] mix-blend-overlay',
+          'pointer-events-none fixed inset-0 z-[5] hidden mix-blend-overlay md:block',
           L ? 'trstn-home-grain opacity-[0.04]' : 'opacity-[0.03]',
         ].join(' ')}
         style={{ backgroundImage: FILM_GRAIN_SVG }}
@@ -48,8 +176,8 @@ export default function HomePage() {
       />
 
       <section
-        className="relative flex min-h-[100dvh] w-full flex-col overflow-hidden"
-        aria-label="Accueil TrstnWeb"
+        className="relative hidden min-h-[100dvh] w-full flex-col overflow-hidden md:flex"
+        aria-label="Accueil TrstnWeb — bureau"
       >
         {L ? (
           <>
@@ -200,7 +328,7 @@ export default function HomePage() {
 
       <section
         className={[
-          'relative border-t px-5 py-16 sm:px-10',
+          'relative hidden border-t px-5 py-16 sm:px-10 md:block',
           L ? 'border-black/[0.06] bg-[#ececee]' : 'border-white/[0.06] bg-[#08080a]',
         ].join(' ')}
       >

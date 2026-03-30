@@ -8,6 +8,7 @@ import {
   useSpring,
 } from 'framer-motion'
 import { Home, Info, Mail } from 'lucide-react'
+import { MobileCategoryRail } from '../components/portfolio/MobileCategoryRail.jsx'
 import { PortfolioProjectGrid } from '../components/portfolio/PortfolioProjectGrid.jsx'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
 import { ProjectExperience } from '../components/templates/ProjectExperience.jsx'
@@ -115,13 +116,6 @@ const categoryRegionVariants = {
     filter: 'blur(6px)',
     transition: { duration: 0.32, ease: [0.4, 0, 0.2, 1] },
   },
-}
-
-/** Barre mobile : uniquement transform (GPU) — pas d’animation sur padding du contenu. */
-const MOBILE_NAV_TRANSITION = {
-  type: 'tween',
-  ease: [0.4, 0, 0.2, 1],
-  duration: 0.35,
 }
 
 const SCROLL_NAV_THROTTLE_MS = 80
@@ -258,17 +252,12 @@ export default function PortfolioPage() {
   const L = effectiveTheme === 'light'
   const [activeProject, setActiveProject] = useState(null)
   const navScrollIgnoreUntil = useRef(0)
-  const { hidden: navHiddenScroll, navH, navRef } = usePortfolioMobileNav(
-    !activeProject,
-    navScrollIgnoreUntil,
-  )
+  usePortfolioMobileNav(false, navScrollIgnoreUntil)
   const [isMobile, setIsMobile] = useState(() =>
     typeof window !== 'undefined'
       ? window.matchMedia('(max-width: 767px)').matches
       : false,
   )
-  const mobileNavHidden = prefersReducedMotion ? false : navHiddenScroll
-
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 767px)')
     const fn = () => setIsMobile(mq.matches)
@@ -353,10 +342,11 @@ export default function PortfolioPage() {
       }
     : categoryRegionVariants
 
-  const mobileContentTopPad =
-    navH > 0 ? navH + 12 : 104
-
   const galleryTokens = L ? GALLERY_LIGHT : GALLERY
+
+  const handleCategorySelect = useCallback((id) => {
+    setActiveCategory(id)
+  }, [])
 
   const canvasBg = useMemo(() => {
     const palette = L ? CATEGORY_CANVAS_HOVER.light : CATEGORY_CANVAS_HOVER.dark
@@ -381,29 +371,17 @@ export default function PortfolioPage() {
           <ShellThemeToggle className="fixed right-4 top-4 z-[55] md:right-8 md:top-6" />
 
           <motion.aside
-            ref={navRef}
             layout={false}
             className={[
-              'fixed inset-x-0 top-0 z-50 transform-gpu [backface-visibility:hidden] md:inset-x-auto md:bottom-0 md:left-0 md:top-0 md:h-full md:w-[min(11rem,22vw)] md:border-b-0 md:backdrop-blur-none',
+              'hidden transform-gpu [backface-visibility:hidden] md:fixed md:inset-x-auto md:bottom-0 md:left-0 md:top-0 md:z-50 md:flex md:h-full md:w-[min(11rem,22vw)] md:flex-col md:border-b-0 md:backdrop-blur-none',
               L
-                ? 'border-b border-black/[0.08] bg-[#F5F5F7]/95 backdrop-blur-xl md:border-r md:border-black/[0.08]'
-                : 'border-b border-white/[0.07] bg-[#0d0d0c]/95 backdrop-blur-xl md:border-r md:border-white/[0.07]',
+                ? 'md:border-r md:border-black/[0.08] md:bg-[#F5F5F7]/95 md:backdrop-blur-xl'
+                : 'md:border-r md:border-white/[0.07] md:bg-[#0d0d0c]/95 md:backdrop-blur-xl',
             ].join(' ')}
             style={{ willChange: 'transform' }}
             aria-label="Navigation des secteurs"
-            initial={false}
-            animate={
-              prefersReducedMotion || !isMobile
-                ? { y: 0 }
-                : { y: mobileNavHidden ? '-100%' : 0 }
-            }
-            transition={
-              prefersReducedMotion
-                ? { duration: 0 }
-                : MOBILE_NAV_TRANSITION
-            }
           >
-            <div className="flex max-h-[100svh] flex-col px-4 py-5 md:h-full md:px-5 md:py-10">
+            <div className="flex max-h-[100svh] flex-col px-4 py-5 md:h-full md:max-h-none md:px-5 md:py-10">
               <div
                 className={[
                   'mb-8 shrink-0 border-b pb-6',
@@ -428,11 +406,11 @@ export default function PortfolioPage() {
                 </p>
               </div>
 
-              <div className="mb-6 flex flex-wrap gap-2">
+              <div className="mb-6 hidden flex-wrap gap-2 md:flex">
                 <Link
                   to="/"
                   className={[
-                    'inline-flex items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] transition-[letter-spacing] duration-300 hover:tracking-[0.28em]',
+                    'inline-flex min-h-[44px] min-w-[44px] items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] transition-[letter-spacing] duration-300 hover:tracking-[0.28em]',
                     L
                       ? 'text-[#86868b] hover:text-[#1d1d1f]'
                       : 'text-zinc-500 hover:text-zinc-300',
@@ -444,7 +422,7 @@ export default function PortfolioPage() {
                 <Link
                   to="/about"
                   className={[
-                    'inline-flex items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] transition-[letter-spacing] duration-300 hover:tracking-[0.28em]',
+                    'inline-flex min-h-[44px] min-w-[44px] items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] transition-[letter-spacing] duration-300 hover:tracking-[0.28em]',
                     L
                       ? 'text-[#86868b] hover:text-[#1d1d1f]'
                       : 'text-zinc-500 hover:text-zinc-300',
@@ -456,7 +434,7 @@ export default function PortfolioPage() {
                 <Link
                   to="/contact"
                   className={[
-                    'inline-flex items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] transition-[letter-spacing] duration-300 hover:tracking-[0.28em]',
+                    'inline-flex min-h-[44px] min-w-[44px] items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] transition-[letter-spacing] duration-300 hover:tracking-[0.28em]',
                     L
                       ? 'text-[#86868b] hover:text-[#1d1d1f]'
                       : 'text-zinc-500 hover:text-zinc-300',
@@ -528,29 +506,23 @@ export default function PortfolioPage() {
                 key={active.id}
                 role="region"
                 aria-label={`Projets — ${active.label}`}
-                className={[
-                  'relative z-10 w-full px-5 pb-20 sm:px-10 md:px-14 md:pb-32 lg:px-20 md:pt-16',
-                  prefersReducedMotion
-                    ? 'max-md:pt-[calc(6.5rem+env(safe-area-inset-top))]'
-                    : 'max-md:pt-0',
-                ].join(' ')}
+                className="relative z-10 w-full px-5 pb-24 pt-[calc(4rem+env(safe-area-inset-top))] sm:px-10 md:px-14 md:pb-32 md:pt-16 lg:px-20"
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 variants={reducedCategoryVariants}
-                style={
-                  !prefersReducedMotion && isMobile
-                    ? {
-                        paddingTop: mobileNavHidden ? 12 : mobileContentTopPad,
-                        transition: 'none',
-                      }
-                    : undefined
-                }
               >
                 <div className="relative mx-auto max-w-6xl">
+                  <MobileCategoryRail
+                    activeCategory={activeCategory}
+                    onSelectCategory={handleCategorySelect}
+                    onHoverCategory={setHoverCategoryId}
+                    light={L}
+                    accentColor={galleryTokens.accent}
+                  />
                   <header
                     id="portfolio-top"
-                    className="mb-20 max-w-xl scroll-mt-28 md:mb-28 md:scroll-mt-24"
+                    className="mb-12 mt-8 max-w-xl scroll-mt-28 md:mb-28 md:mt-0 md:scroll-mt-24"
                   >
                     <p
                       className={['text-[11px] uppercase tracking-[0.32em]', L ? 'text-[#86868b]' : 'text-zinc-500'].join(
@@ -571,7 +543,7 @@ export default function PortfolioPage() {
                     </h2>
                     <p
                       className={[
-                        'mt-6 max-w-lg text-[15px] leading-relaxed md:text-base',
+                        'mt-6 max-w-lg text-[16px] leading-relaxed md:text-base',
                         L ? 'text-[#6e6e73]' : 'text-zinc-500',
                       ].join(' ')}
                     >
@@ -595,7 +567,7 @@ export default function PortfolioPage() {
 
           <p
             className={[
-              'pointer-events-none fixed bottom-5 right-6 z-40 select-none text-[9px] font-medium uppercase tracking-[0.42em]',
+              'pointer-events-none fixed bottom-5 right-6 z-40 hidden select-none text-[9px] font-medium uppercase tracking-[0.42em] md:block',
               L ? 'text-[#a1a1a6]' : 'text-zinc-600',
             ].join(' ')}
             style={{ fontFamily: '"IBM Plex Sans", system-ui, sans-serif' }}

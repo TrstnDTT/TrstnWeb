@@ -126,7 +126,7 @@ export default function AboutPage() {
         </div>
       </header>
 
-      <main className="relative z-10 mx-auto max-w-6xl px-5 pb-24 pt-10 sm:px-8 md:pt-14 lg:pb-32">
+      <main className="relative z-10 mx-auto max-w-6xl px-5 pb-[calc(6.5rem+env(safe-area-inset-bottom))] pt-10 sm:px-8 md:pb-24 md:pt-14 lg:pb-32">
         <motion.div variants={containerVariants} initial="hidden" animate="show">
           <motion.h1
             variants={itemVariants}

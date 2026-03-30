@@ -142,6 +142,11 @@ function PortfolioProjectGridInner({
                   ? undefined
                   : { y: -2, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }
               }
+              whileTap={
+                isMobile && !prefersReducedMotion
+                  ? { scale: 0.97, transition: { duration: 0.15 } }
+                  : undefined
+              }
               onClick={(e) => onOpenProject(project.siteId, e)}
               onKeyDown={(e) => handleKey(project.siteId, e)}
             >
@@ -184,7 +189,7 @@ function PortfolioProjectGridInner({
                 </h3>
                 <p
                   className={[
-                    'trstn-label mt-3 flex-1 text-[14px] leading-relaxed md:text-[15px]',
+                    'trstn-label mt-3 flex-1 text-[16px] leading-relaxed md:text-[15px]',
                     shellLight ? 'text-[#6e6e73]' : 'text-zinc-500',
                   ].join(' ')}
                 >

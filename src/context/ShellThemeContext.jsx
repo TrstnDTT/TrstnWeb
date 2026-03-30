@@ -48,9 +48,10 @@ export function ShellThemeProvider({ children }) {
       setTheme,
       toggleTheme,
       setProjectViewOpen,
+      projectViewOpen,
       isLight: effectiveTheme === 'light',
     }),
-    [theme, effectiveTheme, setTheme, toggleTheme, setProjectViewOpen],
+    [theme, effectiveTheme, setTheme, toggleTheme, setProjectViewOpen, projectViewOpen],
   )
 
   return <ShellThemeContext.Provider value={value}>{children}</ShellThemeContext.Provider>

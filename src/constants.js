@@ -5,6 +5,15 @@
  * Chaque projet : `siteId` → fusion dans `getSiteById()` (`siteIdentity.js` : couleurs, typo, layoutStructure).
  */
 
+/** Accueil mobile : carrousel d’aperçus (siteId → getSiteById). */
+export const HOME_FEATURED_SITE_IDS = [
+  'table-constance',
+  'pain-dore',
+  'velvet-room',
+  'neo-ink-studio',
+  'cheveux-co',
+]
+
 export const SITE = {
   title: 'TrstnWeb',
   subtitle: 'Portfolio — identités UI/UX par secteur',

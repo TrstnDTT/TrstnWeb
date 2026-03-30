@@ -98,6 +98,15 @@ body {
   mix-blend-mode: multiply;
 }
 
+/* Scroll horizontal sans barre visible (rails mobile) */
+.trstn-scroll-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.trstn-scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
 .trstn-home-light .trstn-home-grain {
   opacity: 0.04;
   mix-blend-mode: multiply;
