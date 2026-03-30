@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion'
 import { Home, Info, Mail } from 'lucide-react'
 import { MobileCategoryRail } from '../components/portfolio/MobileCategoryRail.jsx'
 import { PortfolioProjectGrid } from '../components/portfolio/PortfolioProjectGrid.jsx'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
+import { TrstnWebLogo } from '../components/shell/TrstnWebLogo.jsx'
 import { ProjectExperience } from '../components/templates/ProjectExperience.jsx'
 import { CATEGORIES, CATEGORY_CANVAS_HOVER, SITE } from '../constants.js'
 import { useShellTheme } from '../context/ShellThemeContext.jsx'
@@ -36,6 +37,19 @@ const fontSectionSerif = { fontFamily: '"Cormorant Garamond", Georgia, serif' }
 /** Ancre stable par catégorie (ex. #category-restaurant). */
 function portfolioCategoryAnchorId(categoryId) {
   return `category-${categoryId}`
+}
+
+const SS_LIST_SCROLL = 'portfolio:listScrollY'
+const SS_LIST_CATEGORY = 'portfolio:listCategory'
+
+function applyMainScrollInstant(main, y) {
+  if (!main || typeof y !== 'number' || Number.isNaN(y)) return
+  main.scrollTop = y
+  try {
+    main.scrollTo({ top: y, behavior: 'instant' })
+  } catch {
+    main.scrollTop = y
+  }
 }
 
 function MagneticCategoryLabel({ children, className, style, enabled }) {
@@ -208,6 +222,9 @@ export default function PortfolioPage() {
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0].id)
   const [hoverCategoryId, setHoverCategoryId] = useState(null)
 
+  /** Position du `<main>` liste avant ouverture mini-site (le main est démonté sous l’overlay). */
+  const listScrollRestoreRef = useRef(null)
+
   const scrollProgress = usePortfolioScrollSpy(mainScrollRef, setActiveCategory, isMobile)
 
   const activeSite = useMemo(
@@ -231,15 +248,69 @@ export default function PortfolioPage() {
     return () => setProjectViewOpen(false)
   }, [activeProject, setProjectViewOpen])
 
-  const openProject = useCallback((siteId, event) => {
-    setOpenOrigin(computeOpenOrigin(event))
-    setActiveProject(siteId)
-  }, [])
+  const openProject = useCallback(
+    (siteId, event) => {
+      const main = mainScrollRef.current
+      const y = main?.scrollTop ?? 0
+      listScrollRestoreRef.current = y
+      try {
+        sessionStorage.setItem(SS_LIST_SCROLL, String(y))
+        sessionStorage.setItem(SS_LIST_CATEGORY, activeCategory)
+      } catch {
+        /* quota / mode privé */
+      }
+      setOpenOrigin(computeOpenOrigin(event))
+      setActiveProject(siteId)
+    },
+    [activeCategory],
+  )
 
-  const closeProject = () => {
+  const closeProject = useCallback(() => {
     setActiveProject(null)
     setOpenOrigin(null)
-  }
+  }, [])
+
+  /**
+   * Restaure la liste là où l’utilisateur était (mémoire de scroll).
+   * useLayoutEffect : avant paint pour éviter le flash en haut de page.
+   * sessionStorage : reprise après rafraîchissement pendant l’overlay.
+   */
+  useLayoutEffect(() => {
+    if (activeProject) return
+    const main = mainScrollRef.current
+    if (!main) return
+
+    let y = listScrollRestoreRef.current
+    if (y == null || y === undefined) {
+      try {
+        const raw = sessionStorage.getItem(SS_LIST_SCROLL)
+        if (raw != null) y = Number(raw)
+      } catch {
+        /* ignore */
+      }
+    }
+    if (y == null || Number.isNaN(y)) return
+
+    applyMainScrollInstant(main, y)
+
+    try {
+      const cat = sessionStorage.getItem(SS_LIST_CATEGORY)
+      if (cat && CATEGORIES.some((c) => c.id === cat)) {
+        setActiveCategory(cat)
+      }
+      sessionStorage.removeItem(SS_LIST_SCROLL)
+      sessionStorage.removeItem(SS_LIST_CATEGORY)
+    } catch {
+      /* ignore */
+    }
+
+    listScrollRestoreRef.current = null
+
+    requestAnimationFrame(() => {
+      const m = mainScrollRef.current
+      if (m) applyMainScrollInstant(m, y)
+    })
+  }, [activeProject])
 
   const shellOrigin = openOrigin ?? { x: 50, y: 42 }
 
@@ -330,7 +401,7 @@ export default function PortfolioPage() {
                   ].join(' ')}
                   style={fontSyne}
                 >
-                  TrstnWeb
+                  <TrstnWebLogo className="inline" />
                 </p>
                 <p
                   className={['mt-2 text-[10px] uppercase tracking-[0.28em]', L ? 'text-[#86868b]' : 'text-zinc-500'].join(
@@ -564,7 +635,7 @@ export default function PortfolioPage() {
             style={{ fontFamily: '"IBM Plex Sans", system-ui, sans-serif' }}
             aria-hidden
           >
-            TrstnWeb
+            <TrstnWebLogo className="inline" />
           </p>
         </motion.div>
       )}

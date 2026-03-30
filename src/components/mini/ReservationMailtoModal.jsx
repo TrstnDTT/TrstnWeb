@@ -111,22 +111,7 @@ export function ReservationMailtoModal({
               </button>
             </div>
 
-            {confirmFlash ? (
-              <motion.div
-                initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.35, ease: easeLux }}
-                className="mt-14 flex flex-col items-center justify-center py-6 text-center"
-              >
-                <p
-                  className="text-[15px] font-medium tracking-wide text-[#FAF0E6]"
-                  style={headingStyle}
-                >
-                  Demande envoyée
-                </p>
-              </motion.div>
-            ) : !success ? (
+            {!success ? (
               <form onSubmit={handleSubmit} className="mt-8 space-y-5">
                 <div>
                   <label

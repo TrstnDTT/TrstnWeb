@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowLeft, BarChart3, Cpu, Zap } from 'lucide-react'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
+import { TrstnWebLogo } from '../components/shell/TrstnWebLogo.jsx'
 import { SITE } from '../constants.js'
 import { useShellTheme } from '../context/ShellThemeContext.jsx'
 
@@ -121,7 +122,7 @@ export default function AboutPage() {
             className={['text-[10px] uppercase tracking-[0.35em]', L ? 'text-[#86868b]' : 'text-zinc-600'].join(' ')}
             style={fontSyne}
           >
-            {SITE.title}
+            <TrstnWebLogo className="inline" />
           </span>
         </div>
       </header>
@@ -136,7 +137,7 @@ export default function AboutPage() {
             ].join(' ')}
             style={fontSyne}
           >
-            L&apos;Art de la conversion digitale par TrstnWeb
+            L&apos;Art de la conversion digitale par <TrstnWebLogo as="span" className="inline text-inherit" />
           </motion.h1>
 
           <motion.div

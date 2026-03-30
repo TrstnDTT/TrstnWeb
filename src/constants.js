@@ -9,7 +9,7 @@
 export const HOME_FEATURED_SITE_IDS = [
   'table-constance',
   'pain-dore',
-  'velvet-room',
+  'bar-basque',
   'neo-ink-studio',
   'cheveux-co',
 ]
@@ -218,32 +218,25 @@ export const CATEGORIES = [
     },
     projects: [
       {
-        siteId: 'velvet-room',
-        title: 'Velvet Room',
-        description:
-          'Expérience speakeasy : hero cinéma, rail latéral cuivre, galerie bandeau — jazz & velours.',
-        styleTag: 'Speakeasy cinéma',
-      },
-      {
-        siteId: 'zinc-bleu',
-        title: 'Le Zinc Bleu',
-        description:
-          'Expérience craft : néon cyan, marquee, grille de fûts animée, barre fixe — énergie canal.',
-        styleTag: 'Craft néon',
-      },
-      {
-        siteId: 'nuit-jour',
-        title: 'Nuit & Jour',
-        description:
-          'Expérience brasserie : split jour/nuit, sable & mer, cartes en cartouches — Nice sans néon.',
-        styleTag: 'Côte & lumière',
-      },
-      {
         siteId: 'bar-basque',
         title: 'Bar Basque',
         description:
-          'Lieu hybride chaleureux : café, cuisine basque, bières — hero immersif, menu à pointillés, réservation glass.',
-        styleTag: 'Hybride convivial',
+          'L’ancre du portfolio : storytelling vertical, pintxos au survol, cave — rouge basque, bois sombre, blanc cassé.',
+        styleTag: 'Terroir & zinc',
+      },
+      {
+        siteId: 'neon-shaker',
+        title: 'Neon Shaker',
+        description:
+          'Cocktail bar high-tech : scroll horizontal, glassmorphism, mixologie expérimentale & DJ sets — néons violet & bleu.',
+        styleTag: 'Nocturne cyber',
+      },
+      {
+        siteId: 'zinc-des-amis',
+        title: 'Le Zinc des Amis',
+        description:
+          'Bistrot de quartier : une page typographique massive, plat du jour ardoise, témoignages des habitués — kraft & noir.',
+        styleTag: 'Brut & sincère',
       },
     ],
   },

@@ -1,7 +1,6 @@
 import { BarBasqueExperience } from '../bar/BarBasqueExperience.jsx'
-import { BarCoastalBrasserieExperience } from '../bar/BarCoastalBrasserieExperience.jsx'
-import { BarCraftTaproomExperience } from '../bar/BarCraftTaproomExperience.jsx'
-import { BarSpeakeasyExperience } from '../bar/BarSpeakeasyExperience.jsx'
+import { NeonShakerExperience } from '../bar/NeonShakerExperience.jsx'
+import { ZincDesAmisExperience } from '../bar/ZincDesAmisExperience.jsx'
 import { ProjectView } from '../project/ProjectView.jsx'
 import { InfluencesExperience } from '../restaurant/InfluencesExperience.jsx'
 import { RestaurantBistroExperience } from '../restaurant/RestaurantBistroExperience.jsx'
@@ -25,10 +24,9 @@ const RESTAURANT_EXPERIENCE = {
 }
 
 const BAR_EXPERIENCE = {
-  'velvet-room': BarSpeakeasyExperience,
-  'zinc-bleu': BarCraftTaproomExperience,
-  'nuit-jour': BarCoastalBrasserieExperience,
   'bar-basque': BarBasqueExperience,
+  'neon-shaker': NeonShakerExperience,
+  'zinc-des-amis': ZincDesAmisExperience,
 }
 
 const TATTOO_EXPERIENCE = {

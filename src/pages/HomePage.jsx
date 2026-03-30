@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ProjectPreview } from '../components/ProjectPreview.jsx'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
+import { TrstnWebLogo } from '../components/shell/TrstnWebLogo.jsx'
 import { HOME_FEATURED_SITE_IDS, SITE } from '../constants.js'
 import { useShellTheme } from '../context/ShellThemeContext.jsx'
 import { getSiteById } from '../data.js'
@@ -93,7 +94,7 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: easeLux }}
             >
-              {SITE.title}
+              <TrstnWebLogo className="block w-full" />
             </motion.h1>
             <p
               className={[
@@ -246,7 +247,7 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: easeLux }}
             >
-              {SITE.title}
+              <TrstnWebLogo className="block w-full" />
             </motion.h1>
 
             <div className="flex w-full flex-col gap-5">
@@ -355,7 +356,10 @@ export default function HomePage() {
           </Link>
           <p className={['trstn-label text-[12px]', L ? 'text-[#6e6e73]' : 'text-zinc-600'].join(' ')}>
             Conçu par{' '}
-            <span className={L ? 'text-[#424245]' : 'text-zinc-500'}>{SITE.title}</span>
+            <TrstnWebLogo
+              as="span"
+              className={L ? 'text-[#424245]' : 'text-zinc-500'}
+            />
           </p>
         </div>
       </section>

@@ -461,131 +461,20 @@ export const SITES = [
   },
   /* —— Bar —— */
   {
-    id: 'velvet-room',
-    categoryId: 'bar',
-    name: 'Velvet Room',
-    tagline: 'Cocktails & live',
-    hero: {
-      headline: 'La nuit a un velours à elle seule.',
-      subline:
-        'Signatures alcoolisées, programmation jazz et cabines privées derrière rideau.',
-      cta: 'Réserver une table',
-    },
-    about: {
-      title: 'L’expérience',
-      paragraphs: [
-        'Velvet Room mélange l’élégance d’un speakeasy et l’énergie d’une scène live. Barmen primés, glaçons sculptés, playlist soul jusqu’à l’aube.',
-        'Nous travaillons des spiritueux français, des bitters maison et des sirops infusés aux épices rares. Chaque cocktail est servi dans un verre choisi pour sa texture.',
-      ],
-    },
-    contact: {
-      sectionTitle: 'Privatisation & VIP',
-      nameLabel: 'Nom',
-      emailLabel: 'E-mail',
-      phoneLabel: 'Téléphone',
-      messageLabel: 'Date, nombre de personnes…',
-      submitLabel: 'Envoyer',
-    },
-    location: {
-      sectionTitle: 'Où nous trouver',
-      street: '2 impasse des Lumières',
-      city: 'Paris',
-      postalCode: '75011',
-      country: 'France',
-      hours: 'Mercredi au samedi · 20h00 – 4h00',
-      mapArea: 'Oberkampf',
-    },
-    social: { instagramLabel: 'Line-up & cocktails' },
-  },
-  {
-    id: 'zinc-bleu',
-    categoryId: 'bar',
-    name: 'Le Zinc Bleu',
-    tagline: 'Bières & DJ sets',
-    hero: {
-      headline: 'Bleu électrique, mousse dorée.',
-      subline:
-        'Vingt tireuses craft, DJ résidents et terrasse chauffée face au canal.',
-      cta: 'Voir la carte',
-    },
-    about: {
-      title: 'Esprit Zinc',
-      paragraphs: [
-        'Le Zinc Bleu est le QG des amateurs de houblon : IPAs américaines, lambics belges, stouts impériaux et collaborations françaises en rotation hebdomadaire.',
-        'Ambiance club sans snobisme : son système immersif, néons bleus, staff passionné. Happy hour étudié pour découvrir sans se ruiner.',
-      ],
-    },
-    contact: {
-      sectionTitle: 'Événements',
-      nameLabel: 'Nom',
-      emailLabel: 'E-mail',
-      phoneLabel: 'Téléphone',
-      messageLabel: 'Privatisation, anniversaire…',
-      submitLabel: 'Envoyer',
-    },
-    location: {
-      sectionTitle: 'Où nous trouver',
-      street: 'Quai de la Loire 45',
-      city: 'Paris',
-      postalCode: '75019',
-      country: 'France',
-      hours: 'Tous les jours · 17h00 – 2h00',
-      mapArea: 'Canal',
-    },
-    social: { instagramLabel: 'Soirées & tap takeover' },
-  },
-  {
-    id: 'nuit-jour',
-    categoryId: 'bar',
-    name: 'Nuit & Jour',
-    tagline: 'Brasserie-bar',
-    hero: {
-      headline: 'Du matin au soir, une même exigence.',
-      subline:
-        'Brunch lumineux, tapas du midi, cocktails au coucher du soleil sur le port de Nice.',
-      cta: 'Choisir un moment',
-    },
-    about: {
-      title: 'Concept',
-      paragraphs: [
-        'Nuit & Jour assume la double vie d’un lieu : terrasse ensoleillée le jour, bar à cocktails aromatiques la nuit. Cuisine méditerranéenne, vins locaux, spiritueux maison.',
-        'Nous aimons les familles le week-end et les noctambules en semaine : deux cartes, une équipe soudée, vue sur la mer.',
-      ],
-    },
-    contact: {
-      sectionTitle: 'Contact',
-      nameLabel: 'Nom',
-      emailLabel: 'E-mail',
-      phoneLabel: 'Téléphone',
-      messageLabel: 'Réservation groupe',
-      submitLabel: 'Envoyer',
-    },
-    location: {
-      sectionTitle: 'Où nous trouver',
-      street: 'Promenade des Anglais 100',
-      city: 'Nice',
-      postalCode: '06000',
-      country: 'France',
-      hours: 'Tous les jours · 8h00 – 1h00',
-      mapArea: 'Promenade',
-    },
-    social: { instagramLabel: 'Brunch & sunsets' },
-  },
-  {
     id: 'bar-basque',
     categoryId: 'bar',
     name: 'Bar Basque',
-    tagline: 'Café, cuisine & bières',
+    tagline: 'Pintxos, terroir & zinc',
     hero: {
-      headline:
-        'Café, Cuisine, Bière. Bar Basque — Un lieu de rencontres humaines.',
-      subline: '',
-      cta: 'Réserver une table',
+      headline: 'Là où le rouge basque rencontre le bois sombre.',
+      subline:
+        'Entre café de quartier et table du soir : pintxos, vins du sud-ouest et cidres du pays.',
+      cta: 'Réserver au zinc',
     },
     about: {
-      title: 'L’esprit du lieu',
+      title: 'L’Esprit du Zinc',
       paragraphs: [
-        'Bienvenue au Bar Basque, où le savoir-faire artisanal de la cuisine rencontre la convivialité d’un café de quartier. Depuis 2018, nous priorisons un accueil soigné et des produits locaux. Que ce soit pour un expresso matinal, un déjeuner d’affaires ou une soirée bières entre amis, nous avons pensé à chaque détail pour votre confort.',
+        'Le Bar Basque est né d’un pari simple : faire tenir un comptoir de village dans une ville qui court. Ici, le verre s’arrête au bord du zinc, le jambon de Bayonne se coupe au couteau, et personne ne regarde l’heure.',
       ],
     },
     contact: {
@@ -602,10 +491,82 @@ export const SITES = [
       city: 'Bayonne',
       postalCode: '64100',
       country: 'France',
-      hours: 'Lun–Dim> · 8h00 – 1h00',
+      hours: 'Lun–Dim · 8h00 – 1h00',
       mapArea: 'Centre',
     },
     social: { instagramLabel: 'Bar Basque' },
+  },
+  {
+    id: 'neon-shaker',
+    categoryId: 'bar',
+    name: 'Neon Shaker',
+    tagline: 'Mixologie & nuit électrique',
+    hero: {
+      headline: 'Le verre devient prisme — la nuit, circuit fermé.',
+      subline:
+        'Shakers glacés, zeste torréfié, bassline qui colle au comptoir. Mixologie expérimentale & DJ sets jusqu’à l’aube.',
+      cta: 'Voir la lineup',
+    },
+    about: {
+      title: 'Laboratoire nocturne',
+      paragraphs: [
+        'Neon Shaker assume le contraste : silence du verre, chaos contrôlé du shaker. Chaque signature est calibrée au centilitre — tanins maîtrisés, amertume longue, glace qui fond au bon millimètre.',
+      ],
+    },
+    contact: {
+      sectionTitle: 'Privatisation & VIP',
+      nameLabel: 'Nom',
+      emailLabel: 'E-mail',
+      phoneLabel: 'Téléphone',
+      messageLabel: 'Date, format table ou debout…',
+      submitLabel: 'Envoyer',
+    },
+    location: {
+      sectionTitle: 'Accès',
+      street: '14 rue des Arcades',
+      city: 'Lyon',
+      postalCode: '69002',
+      country: 'France',
+      hours: 'Mer–Dim · 18h00 – 4h00',
+      mapArea: 'Presqu’île',
+    },
+    social: { instagramLabel: 'Neon Shaker Lyon' },
+  },
+  {
+    id: 'zinc-des-amis',
+    categoryId: 'bar',
+    name: 'Le Zinc des Amis',
+    tagline: 'Bistrot — le plat du jour',
+    hero: {
+      headline: 'Pas de menu à dix pages. Juste le jour, le plat, le quartier.',
+      subline:
+        'Ardoise au feutre, vin au pichet, habitués qui s’installent sans demander la carte.',
+      cta: 'Passer au zinc',
+    },
+    about: {
+      title: 'Le quartier autour d’un verre',
+      paragraphs: [
+        'Le Zinc des Amis, c’est le bar où l’on croise le boulanger et l’étudiant : même tabouret, même planche, même respect du silence quand le plat arrive.',
+      ],
+    },
+    contact: {
+      sectionTitle: 'Réserver une table',
+      nameLabel: 'Nom',
+      emailLabel: 'E-mail',
+      phoneLabel: 'Téléphone',
+      messageLabel: 'Midi ou soir, nombre de couverts…',
+      submitLabel: 'Envoyer',
+    },
+    location: {
+      sectionTitle: 'Nous trouver',
+      street: '4 rue du Marché',
+      city: 'Bordeaux',
+      postalCode: '33000',
+      country: 'France',
+      hours: 'Lun–Sam · 11h30 – 23h30',
+      mapArea: 'Chartrons',
+    },
+    social: { instagramLabel: 'Zinc des Amis' },
   },
   /* —— Tattoo / piercing —— */
   {

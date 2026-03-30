@@ -1,8 +1,10 @@
 /**
  * Neo-Ink Studio — bento CSS grid, néon cyan, monospace, glitch au survol.
+ * Parallax titres + cartes illuminées au scroll (framer-motion).
  * Aucun composant partagé avec Atelier 1920 ni Le Labo.
  */
-import { useCallback } from 'react'
+import { useCallback, useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 const VOID = '#000000'
 const NEON = '#22d3ee'
@@ -32,10 +34,53 @@ function NeoRetour({ onBack }) {
   )
 }
 
+function ScrollGlow({ children, className = '', id }) {
+  return (
+    <motion.div
+      id={id}
+      className={className}
+      initial={{ opacity: 0.75, boxShadow: '0 0 0 rgba(34,211,238,0)' }}
+      whileInView={{
+        opacity: 1,
+        boxShadow: '0 0 0 1px rgba(34,211,238,0.35), 0 0 28px rgba(34,211,238,0.12)',
+      }}
+      viewport={{ once: false, margin: '-12% 0px -12% 0px' }}
+      transition={{ duration: 0.45 }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+const NAV = [
+  ['neo-top', '00_TOP'],
+  ['neo-process', '01_FLOW'],
+  ['neo-hygiene', '02_SAFE'],
+  ['neo-zoom', '03_ZOOM'],
+  ['neo-digital', '04_AR'],
+  ['neo-precision', '05_TEXT'],
+  ['neo-sim', '06_3D'],
+  ['neo-artists', '07_CREW'],
+  ['neo-guest', '08_GUEST'],
+  ['neo-book', '09_BOOK'],
+]
+
 export function NeoInkStudioExperience({ site, onBack }) {
   const sim = site.simulation3d ?? DEFAULT_SIM
-  const artists = site.cyberArtists ?? []
+  const artists = site.cyberArtistsNarrative?.length ? site.cyberArtistsNarrative : site.cyberArtists ?? []
   const guests = site.guestSpots ?? []
+  const digital = site.digitalExperience
+  const processSteps = site.clientProcessSteps ?? []
+  const hygiene = site.hygieneLuxury
+  const zoom = site.zoomPortfolio
+
+  const heroRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 48])
+  const heroOp = useTransform(scrollYProgress, [0, 0.8], [1, 0.35])
 
   const scrollTo = useCallback((id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -43,7 +88,7 @@ export function NeoInkStudioExperience({ site, onBack }) {
 
   return (
     <div
-      className="min-h-[100dvh] overflow-x-hidden selection:bg-[#22d3ee] selection:text-black"
+      className="min-h-[100dvh] overflow-x-hidden scroll-smooth selection:bg-[#22d3ee] selection:text-black"
       style={{ backgroundColor: VOID, color: '#ecfeff', fontFamily: MONO, fontSize: '13px' }}
     >
       <style>{`
@@ -62,16 +107,10 @@ export function NeoInkStudioExperience({ site, onBack }) {
       <NeoRetour onBack={onBack} />
 
       <nav
-        className="fixed right-3 top-3 z-[1000] flex flex-col items-end gap-1 md:right-5 md:top-5"
+        className="fixed right-3 top-3 z-[1000] flex max-h-[75dvh] flex-col items-end gap-1 overflow-y-auto pr-0.5 md:right-5 md:top-5"
         aria-label="Sections"
       >
-        {[
-          ['neo-top', '00_TOP'],
-          ['neo-precision', '01_PRÉCISION'],
-          ['neo-sim', '02_3D'],
-          ['neo-artists', '03_RÉSIDENTS'],
-          ['neo-book', '04_BOOK'],
-        ].map(([id, label]) => (
+        {NAV.map(([id, label]) => (
           <button
             key={id}
             type="button"
@@ -84,9 +123,12 @@ export function NeoInkStudioExperience({ site, onBack }) {
         ))}
       </nav>
 
-      {/* Bento : grille 6 colonnes, zones asymétriques */}
-      <div id="neo-top" className="grid auto-rows-min grid-cols-6 gap-2 p-3 pt-16 md:gap-3 md:p-4 md:pt-20">
-        <div className="relative col-span-6 min-h-[42dvh] overflow-hidden border border-white/10 md:col-span-4 md:row-span-2 md:min-h-[52dvh]">
+      <div className="grid auto-rows-min grid-cols-6 gap-2 p-3 pt-16 md:gap-3 md:p-4 md:pt-20">
+        <div
+          ref={heroRef}
+          id="neo-top"
+          className="relative col-span-6 min-h-[42dvh] overflow-hidden border border-white/10 md:col-span-4 md:row-span-2 md:min-h-[52dvh]"
+        >
           <img
             src={`${TP}/neotraditional-tattoo-mask-graffiti.webp`}
             alt="Tatouage néo-traditionnel masque, aplats et contours graphiques"
@@ -94,7 +136,7 @@ export function NeoInkStudioExperience({ site, onBack }) {
             loading="eager"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
-          <div className="relative flex h-full flex-col justify-end p-5 md:p-8">
+          <motion.div style={{ y: heroY, opacity: heroOp }} className="relative flex h-full flex-col justify-end p-5 md:p-8">
             <p className="text-[10px] uppercase tracking-[0.45em]" style={{ color: GLOW }}>
               {site.tagline}
             </p>
@@ -102,7 +144,7 @@ export function NeoInkStudioExperience({ site, onBack }) {
               {site.name}
             </h1>
             <p className="mt-5 max-w-xl text-[13px] leading-relaxed text-white/80">{site.hero?.headline}</p>
-          </div>
+          </motion.div>
         </div>
 
         <div className="col-span-6 flex flex-col justify-between border border-white/10 bg-[#050505] p-4 md:col-span-2">
@@ -116,10 +158,116 @@ export function NeoInkStudioExperience({ site, onBack }) {
           </a>
         </div>
 
-        <div id="neo-precision" className="col-span-6 scroll-mt-20 border border-white/10 bg-[#080808] p-5 md:col-span-3">
-          <h2 className="neo-glitch-hover text-[11px] uppercase tracking-[0.4em]" style={{ color: NEON }}>
+        <ScrollGlow id="neo-process" className="col-span-6 scroll-mt-24 border border-white/10 bg-[#050505] p-5 md:col-span-6">
+          <motion.h2
+            className="text-[11px] uppercase tracking-[0.4em]"
+            style={{ color: NEON }}
+            initial={{ y: 12, opacity: 0.5 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, margin: '-10% 0px' }}
+            transition={{ duration: 0.5 }}
+          >
+            Le processus
+          </motion.h2>
+          <p className="mt-3 max-w-2xl text-[11px] leading-relaxed text-white/55">
+            Consultation → dessin vectoriel → séance rotative → cicatrisation pilotée. Chaque phase est documentée.
+          </p>
+          <ol className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-2">
+            {processSteps.map((step, i) => (
+              <li key={step.title} className="border border-white/10 bg-black/80 p-4">
+                <span className="text-[#22d3ee]/90" aria-hidden="true">
+                  {step.icon}
+                </span>
+                <span className="ml-2 text-[10px] text-white/35">0{i + 1}</span>
+                <p className="mt-2 text-[12px] font-medium text-white/90">{step.title}</p>
+                <p className="mt-2 text-[11px] leading-relaxed text-white/55">{step.copy}</p>
+              </li>
+            ))}
+          </ol>
+        </ScrollGlow>
+
+        <ScrollGlow id="neo-hygiene" className="col-span-6 scroll-mt-24 border border-white/10 bg-[#050505] p-5 md:col-span-3">
+          <motion.h2
+            className="text-[11px] uppercase tracking-[0.4em]"
+            style={{ color: NEON }}
+            initial={{ y: 12, opacity: 0.5 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+          >
+            Hygiène &amp; sécurité
+          </motion.h2>
+          {hygiene?.intro && <p className="mt-4 text-[11px] leading-relaxed text-white/65">{hygiene.intro}</p>}
+          <ul className="mt-4 space-y-3 border-l-2 border-[#22d3ee]/40 pl-4">
+            {(hygiene?.points ?? []).map((pt) => (
+              <li key={pt.title}>
+                <p className="text-[11px] font-medium text-white/85">{pt.title}</p>
+                <p className="mt-1 text-[10px] leading-relaxed text-white/50">{pt.detail}</p>
+              </li>
+            ))}
+          </ul>
+        </ScrollGlow>
+
+        <ScrollGlow id="neo-zoom" className="col-span-6 scroll-mt-24 border border-white/10 bg-[#050505] p-5 md:col-span-3">
+          <motion.h2
+            className="text-[11px] uppercase tracking-[0.4em]"
+            style={{ color: NEON }}
+            initial={{ y: 12, opacity: 0.5 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45 }}
+          >
+            Zoom portfolio
+          </motion.h2>
+          {zoom?.intro && <p className="mt-4 text-[11px] leading-relaxed text-white/60">{zoom.intro}</p>}
+          <div className="mt-4 grid grid-flow-dense grid-cols-2 gap-2 md:grid-cols-3">
+            {(zoom?.items ?? []).map((item, i) => (
+              <div key={`${item.src}-${i}`} className={`overflow-hidden border border-white/10 ${item.span ?? ''}`}>
+                <img src={item.src} alt={item.alt} className="h-full min-h-[100px] w-full object-cover" loading="lazy" />
+              </div>
+            ))}
+          </div>
+        </ScrollGlow>
+
+        <ScrollGlow id="neo-digital" className="col-span-6 scroll-mt-24 border border-[#22d3ee]/50 bg-gradient-to-br from-[#0a0a0a] to-black p-5 md:col-span-6">
+          <motion.h2
+            className="text-[11px] uppercase tracking-[0.4em] text-[#67e8f9]"
+            initial={{ y: 20, opacity: 0.4 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55 }}
+          >
+            L’expérience digitale
+          </motion.h2>
+          {digital && (
+            <>
+              <p className="mt-4 text-[13px] font-medium text-white/90">{digital.headline}</p>
+              <p className="mt-3 text-[12px] leading-relaxed text-white/65">{digital.intro}</p>
+              {(digital.paragraphs ?? []).map((p, i) => (
+                <p key={i} className="mt-3 text-[12px] leading-relaxed text-white/65">
+                  {p}
+                </p>
+              ))}
+              <ul className="mt-4 space-y-2 border-l-2 border-[#22d3ee]/50 pl-4 text-[11px] text-white/55">
+                {(digital.bullets ?? []).map((b) => (
+                  <li key={b}>{b}</li>
+                ))}
+              </ul>
+            </>
+          )}
+        </ScrollGlow>
+
+        <div id="neo-precision" className="col-span-6 scroll-mt-24 border border-white/10 bg-[#080808] p-5 md:col-span-3">
+          <motion.h2
+            className="neo-glitch-hover text-[11px] uppercase tracking-[0.4em]"
+            style={{ color: NEON }}
+            initial={{ y: 16, opacity: 0.5 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
             La précision
-          </h2>
+          </motion.h2>
           <div className="mt-4 space-y-3 text-[12px] leading-relaxed text-white/72">
             {site.about?.paragraphs?.map((p, i) => (
               <p key={i}>{p}</p>
@@ -127,7 +275,7 @@ export function NeoInkStudioExperience({ site, onBack }) {
           </div>
         </div>
 
-        <div id="neo-sim" className="col-span-6 scroll-mt-20 border border-[#22d3ee]/35 bg-gradient-to-br from-[#0a0a0a] to-black p-5 md:col-span-3">
+        <div id="neo-sim" className="col-span-6 scroll-mt-24 border border-[#22d3ee]/35 bg-gradient-to-br from-[#0a0a0a] to-black p-5 md:col-span-3">
           <h2 className="neo-glitch-hover text-[11px] uppercase tracking-[0.4em] text-[#67e8f9]">
             Simulation 3D de votre projet
           </h2>
@@ -140,22 +288,22 @@ export function NeoInkStudioExperience({ site, onBack }) {
           </ul>
         </div>
 
-        <div id="neo-artists" className="col-span-6 scroll-mt-20 md:col-span-4">
+        <ScrollGlow id="neo-artists" className="col-span-6 scroll-mt-24 md:col-span-4">
           <h2 className="neo-glitch-hover mb-3 px-1 text-[11px] uppercase tracking-[0.4em]" style={{ color: NEON }}>
-            Artistes résidents
+            L’artiste — récits
           </h2>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             {artists.map((a) => (
               <div key={a.name} className="border border-white/10 bg-[#060606] p-4">
                 <p className="text-sm font-medium text-white">{a.name}</p>
                 <p className="mt-1 text-[10px] uppercase tracking-wider text-[#22d3ee]/80">{a.specialty}</p>
-                <p className="mt-3 text-[11px] leading-relaxed text-white/60">{a.bio}</p>
+                <p className="mt-3 text-[11px] leading-relaxed text-white/60">{a.story ?? a.bio}</p>
               </div>
             ))}
           </div>
-        </div>
+        </ScrollGlow>
 
-        <div className="col-span-6 flex flex-col gap-2 md:col-span-2">
+        <div id="neo-guest" className="col-span-6 flex flex-col gap-2 scroll-mt-24 md:col-span-2">
           <div className="flex-1 border border-white/10 bg-[#050505] p-4">
             <p className="text-[10px] uppercase tracking-[0.35em] text-white/40">Guests</p>
             <ul className="mt-3 space-y-2 text-[10px] leading-snug text-white/70">
@@ -176,7 +324,7 @@ export function NeoInkStudioExperience({ site, onBack }) {
           </div>
         </div>
 
-        <footer id="neo-book" className="col-span-6 scroll-mt-24 border border-white/10 bg-black px-5 py-6 text-center md:px-8">
+        <footer id="neo-book" className="col-span-6 scroll-mt-28 border border-white/10 bg-black px-5 py-6 text-center md:px-8">
           <p className="text-[10px] uppercase tracking-[0.35em] text-white/35">{site.location?.city}</p>
           <p className="mt-2 text-[12px] text-white/60">{site.location?.hours}</p>
           <p className="mt-1 text-[11px] text-white/45">{site.location?.street}</p>

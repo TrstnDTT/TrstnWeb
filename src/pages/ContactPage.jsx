@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowLeft, Mail, MapPin } from 'lucide-react'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
+import { TrstnWebLogo } from '../components/shell/TrstnWebLogo.jsx'
 import { CONTACT_PROJECT_TYPES, SITE } from '../constants.js'
 import { useShellTheme } from '../context/ShellThemeContext.jsx'
 
@@ -246,7 +247,7 @@ export default function ContactPage() {
             className={['text-[10px] uppercase tracking-[0.35em]', L ? 'text-[#86868b]' : 'text-zinc-600'].join(' ')}
             style={fontSyne}
           >
-            {SITE.title}
+            <TrstnWebLogo className="inline" />
           </span>
         </div>
       </header>

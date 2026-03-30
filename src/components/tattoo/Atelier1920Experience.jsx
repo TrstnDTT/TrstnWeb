@@ -2,7 +2,7 @@
  * Atelier 1920 — speakeasy tattoo, flex-col centré, gravures, curseur aiguille.
  * Aucun composant partagé avec Neo-Ink ni Le Labo.
  */
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 const VELVET = '#1a0f0c'
 const WOOD = '#3d2918'
@@ -40,6 +40,17 @@ function FiligreeRule() {
         <circle cx="210" cy="16" r="3.5" stroke={BRASS} strokeWidth="0.6" fill="none" />
         <path d="M190 8l10 16 20-32 20 32 10-16" stroke={PARCH} strokeWidth="0.35" opacity="0.35" />
       </svg>
+    </div>
+  )
+}
+
+function DoubleFrame({ children, className = '' }) {
+  return (
+    <div
+      className={`rounded-2xl border-4 border-double p-6 md:p-8 ${className}`}
+      style={{ borderColor: `${BRASS}99`, backgroundColor: 'rgba(0,0,0,0.2)' }}
+    >
+      {children}
     </div>
   )
 }
@@ -90,6 +101,17 @@ function RetourSpeakeasy({ onBack }) {
   )
 }
 
+const NAV = [
+  ['atelier-intro', 'Entrée'],
+  ['atelier-heritage', 'Héritage'],
+  ['atelier-process', 'Processus'],
+  ['atelier-hygiene', 'Hygiène'],
+  ['atelier-zoom', 'Zoom'],
+  ['atelier-materiel', 'Matériel'],
+  ['atelier-encres', 'Encres'],
+  ['atelier-flash', 'Flashs'],
+]
+
 export function Atelier1920Experience({ site, onBack }) {
   const [finePointer, setFinePointer] = useState(false)
   useEffect(() => {
@@ -100,13 +122,21 @@ export function Atelier1920Experience({ site, onBack }) {
     return () => mq.removeEventListener('change', sync)
   }, [])
 
+  const scrollTo = useCallback((id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [])
+
   const encres = site.organicInks?.length ? site.organicInks : []
-  const artists = site.tattooArtists ?? []
   const gallery = site.tattooGallery?.length ? site.tattooGallery : FLASH_DEFAULT
+  const artists = site.tattooArtistsNarrative?.length ? site.tattooArtistsNarrative : site.tattooArtists ?? []
+  const processSteps = site.clientProcessSteps ?? []
+  const hygiene = site.hygieneLuxury
+  const zoom = site.zoomPortfolio
+  const materiel = site.materialHeritage
 
   return (
     <div
-      className={`atelier1920-root min-h-[100dvh] overflow-x-hidden ${finePointer ? 'cursor-none' : ''}`}
+      className={`atelier1920-root min-h-[100dvh] overflow-x-hidden scroll-smooth ${finePointer ? 'cursor-none' : ''}`}
       style={{
         backgroundColor: VELVET,
         backgroundImage: `
@@ -121,37 +151,56 @@ export function Atelier1920Experience({ site, onBack }) {
       <CrossNeedleCursor active={finePointer} />
       <RetourSpeakeasy onBack={onBack} />
 
-      <div className="mx-auto flex max-w-2xl flex-col items-center px-6 pb-28 pt-24 md:px-10 md:pt-32">
-        <p
-          className="text-center text-[10px] uppercase tracking-[0.5em]"
-          style={{ color: `${BRASS}dd`, fontFamily: DISPLAY }}
-        >
-          {site.tagline}
-        </p>
-        <h1
-          className="mt-10 text-center text-[clamp(2.1rem,6.5vw,3.4rem)] font-normal leading-[1.05]"
-          style={{ fontFamily: DISPLAY, color: PARCH }}
-        >
-          {site.name}
-        </h1>
-        <p className="mt-8 max-w-lg text-center font-light italic leading-relaxed" style={{ color: `${PARCH}dd` }}>
-          {site.hero?.headline}
-        </p>
-        <p className="mt-6 max-w-md text-center text-[15px] leading-[1.85]" style={{ color: `${PARCH}aa` }}>
-          {site.hero?.subline}
-        </p>
+      <nav
+        className="fixed right-3 top-14 z-[9997] hidden max-h-[70dvh] flex-col gap-1 overflow-y-auto pr-1 md:flex"
+        aria-label="Sections de l’atelier"
+      >
+        {NAV.map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            onClick={() => scrollTo(id)}
+            className="border border-white/10 bg-black/50 px-2.5 py-1.5 text-left text-[9px] uppercase tracking-[0.2em] text-[#ede4d3]/80 backdrop-blur-sm transition hover:border-[#c9a227]/60 hover:text-[#ede4d3]"
+            style={{ fontFamily: DISPLAY }}
+          >
+            {label}
+          </button>
+        ))}
+      </nav>
 
-        <a
-          href={`mailto:sceller@atelier1920-toulouse.fr?subject=${encodeURIComponent('Entrer dans l’Atelier — prise de contact')}`}
-          className="mt-12 rounded-full border-2 px-10 py-3 text-center text-[11px] uppercase tracking-[0.28em] transition hover:border-[#e8d9b0]"
-          style={{ borderColor: BRASS, color: PARCH, fontFamily: DISPLAY }}
-        >
-          Entrer dans l’Atelier
-        </a>
+      <div className="mx-auto flex max-w-2xl flex-col items-center px-6 pb-28 pt-24 md:px-10 md:pt-32">
+        <div id="atelier-intro" className="scroll-mt-28 w-full">
+          <p
+            className="text-center text-[10px] uppercase tracking-[0.5em]"
+            style={{ color: `${BRASS}dd`, fontFamily: DISPLAY }}
+          >
+            {site.tagline}
+          </p>
+          <h1
+            className="mt-10 text-center text-[clamp(2.1rem,6.5vw,3.4rem)] font-normal leading-[1.05]"
+            style={{ fontFamily: DISPLAY, color: PARCH }}
+          >
+            {site.name}
+          </h1>
+          <p className="mt-8 max-w-lg text-center font-light italic leading-relaxed" style={{ color: `${PARCH}dd` }}>
+            {site.hero?.headline}
+          </p>
+          <p className="mt-6 max-w-md text-center text-[15px] leading-[1.85]" style={{ color: `${PARCH}aa` }}>
+            {site.hero?.subline}
+          </p>
+
+          <a
+            href={`mailto:sceller@atelier1920-toulouse.fr?subject=${encodeURIComponent('Entrer dans l’Atelier — prise de contact')}`}
+            className="mt-12 block rounded-full border-2 px-10 py-3 text-center text-[11px] uppercase tracking-[0.28em] transition hover:border-[#e8d9b0]"
+            style={{ borderColor: BRASS, color: PARCH, fontFamily: DISPLAY }}
+          >
+            Entrer dans l’Atelier
+          </a>
+        </div>
 
         <FiligreeRule />
 
-        <section className="w-full" aria-labelledby="heritage-h">
+        <section id="atelier-heritage" className="scroll-mt-28 w-full" aria-labelledby="heritage-h">
           <h2 id="heritage-h" className="text-center text-xl md:text-2xl" style={{ fontFamily: DISPLAY }}>
             L’héritage
           </h2>
@@ -160,23 +209,29 @@ export function Atelier1920Experience({ site, onBack }) {
           </p>
           <div className="mt-10 flex flex-col gap-8">
             {site.about?.paragraphs?.map((para, i) => (
-              <p key={i} className="text-justify text-[15px] leading-[1.95]" style={{ color: `${PARCH}b8` }}>
-                {para}
-              </p>
+              <DoubleFrame key={i}>
+                <p className="text-justify text-[15px] leading-[1.95]" style={{ color: `${PARCH}b8` }}>
+                  {para}
+                </p>
+              </DoubleFrame>
             ))}
           </div>
+
           {artists.length > 0 && (
-            <div className="mt-12 flex flex-col gap-10 border-t border-white/10 pt-12">
+            <div className="mt-14 flex flex-col gap-12 border-t border-double border-white/15 pt-14">
+              <h3 className="text-center text-lg md:text-xl" style={{ fontFamily: DISPLAY }}>
+                L’artiste — récits
+              </h3>
               {artists.map((a) => (
-                <div key={a.name} className="text-center md:text-left">
-                  <p style={{ fontFamily: DISPLAY, fontSize: '1.15rem' }}>{a.name}</p>
+                <DoubleFrame key={a.name} className="text-center md:text-left">
+                  <p style={{ fontFamily: DISPLAY, fontSize: '1.2rem' }}>{a.name}</p>
                   <p className="mt-1 text-[11px] uppercase tracking-[0.2em]" style={{ color: BRASS }}>
                     {a.role}
                   </p>
-                  <p className="mt-4 text-[14px] leading-relaxed" style={{ color: `${PARCH}99` }}>
-                    {a.bio}
+                  <p className="mt-5 text-[14px] leading-[1.95]" style={{ color: `${PARCH}aa` }}>
+                    {a.story ?? a.bio}
                   </p>
-                </div>
+                </DoubleFrame>
               ))}
             </div>
           )}
@@ -184,27 +239,94 @@ export function Atelier1920Experience({ site, onBack }) {
 
         <FiligreeRule />
 
-        <section className="w-full" aria-labelledby="encres-h">
-          <h2 id="encres-h" className="text-center text-xl md:text-2xl" style={{ fontFamily: DISPLAY }}>
-            Nos encres organiques
+        <section id="atelier-process" className="scroll-mt-28 w-full" aria-labelledby="process-h">
+          <h2 id="process-h" className="text-center text-xl md:text-2xl" style={{ fontFamily: DISPLAY }}>
+            Le processus
           </h2>
-          <p className="mx-auto mt-4 max-w-md text-center text-[14px] leading-relaxed" style={{ color: `${PARCH}99` }}>
-            Pigments choisis comme on choisit un millésime : transparence sur la composition, test cutané avant
-            pose des rouges et verts historiques.
+          <p className="mx-auto mt-4 max-w-md text-center text-[13px] leading-relaxed" style={{ color: `${PARCH}99` }}>
+            Consultation, dessin, séance, cicatrisation — un chemin clair, sans jargon inutile. Chaque étape mérite son
+            silence.
           </p>
-          <div className="mt-10 flex flex-col gap-8">
-            {encres.map((e) => (
-              <div
-                key={e.name}
-                className="rounded-2xl border px-6 py-6"
-                style={{ borderColor: `${WOOD}cc`, backgroundColor: 'rgba(0,0,0,0.18)' }}
-              >
-                <h3 className="text-lg" style={{ fontFamily: DISPLAY, color: `${PARCH}ee` }}>
-                  {e.name}
+          <ol className="mt-12 flex flex-col gap-8">
+            {processSteps.map((step, i) => (
+              <li key={step.title}>
+                <DoubleFrame>
+                  <div className="flex flex-col gap-3 md:flex-row md:items-start md:gap-6">
+                    <span
+                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-double text-lg"
+                      style={{ borderColor: `${BRASS}88`, color: BRASS, fontFamily: DISPLAY }}
+                      aria-hidden="true"
+                    >
+                      {step.icon}
+                    </span>
+                    <div>
+                      <p className="text-[10px] uppercase tracking-[0.35em]" style={{ color: `${BRASS}aa` }}>
+                        Étape {i + 1}
+                      </p>
+                      <h3 className="mt-1 text-lg" style={{ fontFamily: DISPLAY }}>
+                        {step.title}
+                      </h3>
+                      <p className="mt-3 text-[14px] leading-[1.9]" style={{ color: `${PARCH}b3` }}>
+                        {step.copy}
+                      </p>
+                    </div>
+                  </div>
+                </DoubleFrame>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <FiligreeRule />
+
+        <section id="atelier-hygiene" className="scroll-mt-28 w-full" aria-labelledby="hygiene-h">
+          <h2 id="hygiene-h" className="text-center text-xl md:text-2xl" style={{ fontFamily: DISPLAY }}>
+            Hygiène &amp; sécurité
+          </h2>
+          {hygiene?.intro && (
+            <p className="mx-auto mt-6 max-w-lg text-center text-[14px] leading-relaxed" style={{ color: `${PARCH}aa` }}>
+              {hygiene.intro}
+            </p>
+          )}
+          <ul className="mt-10 flex flex-col gap-6">
+            {(hygiene?.points ?? []).map((pt) => (
+              <DoubleFrame key={pt.title}>
+                <h3 className="text-base" style={{ fontFamily: DISPLAY, color: `${PARCH}ee` }}>
+                  {pt.title}
                 </h3>
                 <p className="mt-3 text-[14px] leading-[1.85]" style={{ color: `${PARCH}b3` }}>
-                  {e.desc}
+                  {pt.detail}
                 </p>
+              </DoubleFrame>
+            ))}
+          </ul>
+        </section>
+
+        <FiligreeRule />
+
+        <section id="atelier-zoom" className="scroll-mt-28 w-full" aria-labelledby="zoom-h">
+          <h2 id="zoom-h" className="text-center text-xl md:text-2xl" style={{ fontFamily: DISPLAY }}>
+            Zoom portfolio
+          </h2>
+          {zoom?.intro && (
+            <p className="mx-auto mt-5 max-w-md text-center text-[14px] leading-relaxed" style={{ color: `${PARCH}99` }}>
+              {zoom.intro}
+            </p>
+          )}
+          <div className="mt-10 grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-3">
+            {(zoom?.items ?? []).map((item, i) => (
+              <div
+                key={`${item.src}-${i}`}
+                className={`overflow-hidden rounded-lg border-4 border-double ${item.span ?? ''}`}
+                style={{ borderColor: `${WOOD}aa` }}
+              >
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  className="h-full min-h-[140px] w-full object-cover md:min-h-[180px]"
+                  style={{ filter: 'sepia(0.08) contrast(1.06)' }}
+                  loading={i < 2 ? 'eager' : 'lazy'}
+                />
               </div>
             ))}
           </div>
@@ -212,7 +334,67 @@ export function Atelier1920Experience({ site, onBack }) {
 
         <FiligreeRule />
 
-        <section className="w-full" aria-labelledby="flash-h">
+        <section id="atelier-materiel" className="scroll-mt-28 w-full" aria-labelledby="mat-h">
+          <h2 id="mat-h" className="text-center text-xl md:text-2xl" style={{ fontFamily: DISPLAY }}>
+            Le matériel
+          </h2>
+          {materiel?.intro && (
+            <p className="mx-auto mt-6 max-w-lg text-center text-[14px] leading-relaxed" style={{ color: `${PARCH}aa` }}>
+              {materiel.intro}
+            </p>
+          )}
+          <div className="mt-8 flex flex-col gap-6">
+            {(materiel?.paragraphs ?? []).map((p, i) => (
+              <DoubleFrame key={i}>
+                <p className="text-justify text-[15px] leading-[1.95]" style={{ color: `${PARCH}b5` }}>
+                  {p}
+                </p>
+              </DoubleFrame>
+            ))}
+          </div>
+          <ul className="mt-8 space-y-4">
+            {(materiel?.bullets ?? []).map((b) => (
+              <li key={b.label}>
+                <DoubleFrame>
+                  <p className="text-[11px] uppercase tracking-[0.25em]" style={{ color: BRASS }}>
+                    {b.label}
+                  </p>
+                  <p className="mt-2 text-[14px] leading-[1.85]" style={{ color: `${PARCH}b0` }}>
+                    {b.text}
+                  </p>
+                </DoubleFrame>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <FiligreeRule />
+
+        <section id="atelier-encres" className="scroll-mt-28 w-full" aria-labelledby="encres-h">
+          <h2 id="encres-h" className="text-center text-xl md:text-2xl" style={{ fontFamily: DISPLAY }}>
+            Nos encres organiques
+          </h2>
+          <p className="mx-auto mt-4 max-w-md text-center text-[14px] leading-relaxed" style={{ color: `${PARCH}99` }}>
+            Pigments choisis comme on choisit un millésime : transparence sur la composition, test cutané avant pose des
+            rouges et verts historiques.
+          </p>
+          <div className="mt-10 flex flex-col gap-8">
+            {encres.map((e) => (
+              <DoubleFrame key={e.name}>
+                <h3 className="text-lg" style={{ fontFamily: DISPLAY, color: `${PARCH}ee` }}>
+                  {e.name}
+                </h3>
+                <p className="mt-3 text-[14px] leading-[1.85]" style={{ color: `${PARCH}b3` }}>
+                  {e.desc}
+                </p>
+              </DoubleFrame>
+            ))}
+          </div>
+        </section>
+
+        <FiligreeRule />
+
+        <section id="atelier-flash" className="scroll-mt-28 w-full" aria-labelledby="flash-h">
           <h2 id="flash-h" className="text-center text-xl md:text-2xl" style={{ fontFamily: DISPLAY }}>
             Galerie de flashs
           </h2>
@@ -223,7 +405,7 @@ export function Atelier1920Experience({ site, onBack }) {
             {gallery.map((g, i) => (
               <div
                 key={`${g.src || g.alt}-${i}`}
-                className="overflow-hidden rounded-full border"
+                className="overflow-hidden rounded-full border-4 border-double"
                 style={{ borderColor: `${WOOD}99` }}
               >
                 <img
@@ -240,7 +422,7 @@ export function Atelier1920Experience({ site, onBack }) {
 
         <FiligreeRule />
 
-        <footer className="w-full pb-8 text-center">
+        <footer id="atelier-footer" className="w-full scroll-mt-28 pb-8 text-center">
           <p className="text-[12px] uppercase tracking-[0.25em]" style={{ color: `${PARCH}66` }}>
             {site.location?.street} · {site.location?.postalCode} {site.location?.city}
           </p>

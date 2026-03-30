@@ -4,6 +4,12 @@
  */
 
 import { TABLE_CONSTANCE_GALLERY } from './tableConstanceGallery.js'
+import {
+  BAR_BASQUE_BUSINESS,
+  NEON_SHAKER_BUSINESS,
+  ZINC_DES_AMIS_BUSINESS,
+} from './barExperienceContent.js'
+import { ATELIER_1920_EXT, NEO_INK_EXT, LEBO_PEAU_EXT } from './tattooExtendedContent.js'
 
 export const BUSINESS_RICH = {
   'maison-lumiere': {
@@ -1391,248 +1397,9 @@ export const BUSINESS_RICH = {
       dimanche: 'Fermé',
     },
   },
-  'velvet-room': {
-    valueProposition:
-      'Cocktails au verre choisi pour la texture, jazz jusqu’à l’aube, cabines velours derrière rideau.',
-    ctaPrimary: { label: 'Réserver une table', href: '#contact' },
-    ctaSecondary: { label: 'Voir l’emplacement', href: '#footer-business' },
-    menuSections: [
-      {
-        title: 'Signatures',
-        items: [
-          {
-            name: 'Velvet Old Fashioned',
-            price: '16€',
-            ingredients: 'Bourbon 8 ans, bitters maison, zestes brûlés',
-          },
-          {
-            name: 'French 75 revisité',
-            price: '15€',
-            ingredients: 'Gin local, effervescent, citron confit',
-          },
-        ],
-      },
-      {
-        title: 'Partages',
-        items: [
-          {
-            name: 'Plateau fromages affinés (2 pers.)',
-            price: '24€',
-            ingredients: 'Sélection du caviste du jour',
-          },
-        ],
-      },
-    ],
-    testimonials: [
-      {
-        name: 'Isabelle Q.',
-        rating: 5,
-        text: 'Le verre à cocktail n’est pas un gadget : le Old Fashioned tient la route deux gorgées.',
-      },
-      {
-        name: 'Fabien E.',
-        rating: 5,
-        text: 'Cabine pour quatre : parfait pour conclure un dossier sans crier.',
-      },
-      {
-        name: 'Léa T.',
-        rating: 5,
-        text: 'Playlist soul, volume juste — on entend encore le shaker en sortant.',
-      },
-    ],
-    gallery: [
-      { caption: 'Bar en laiton brossé' },
-      { caption: 'Rideaux velours bordeaux' },
-      { caption: 'Scène jazz discrets projecteurs' },
-      { caption: 'Glaçons sculptés au comptoir' },
-    ],
-    faq: [
-      {
-        q: 'Code vestimentaire le week-end ?',
-        a: 'Tenue soignée appréciée ; shorts et claquettes refusés après 22h.',
-      },
-      {
-        q: 'Puis-je privatiser une cabine ?',
-        a: 'Oui, forfait boissons à partir de 350 € pour 2 h, hors week-end férié.',
-      },
-      {
-        q: 'Avez-vous une carte sans alcool ?',
-        a: 'Oui, trois signatures mocktails à base d’infusions maison.',
-      },
-    ],
-    openingHours: {
-      lundi: 'Fermé',
-      mardi: 'Fermé',
-      mercredi: '20h00 – 04h00',
-      jeudi: '20h00 – 04h00',
-      vendredi: '20h00 – 04h00',
-      samedi: '20h00 – 04h00',
-      dimanche: 'Fermé',
-    },
-  },
-  'zinc-bleu': {
-    valueProposition:
-      'Vingt pressions qui tournent, terrace face au canal, happy hour qui ne sacrifie pas le houblon.',
-    ctaPrimary: { label: 'Réserver une table', href: '#contact' },
-    ctaSecondary: { label: 'S’y rendre', href: '#footer-business' },
-    menuSections: [
-      {
-        title: 'Pressions',
-        items: [
-          {
-            name: 'IPA Houblon Nord',
-            price: '7,50€',
-            ingredients: 'Pinte · IBU modérée, finale résineuse',
-          },
-          {
-            name: 'Stout café torréfié',
-            price: '8€',
-            ingredients: 'Pinte · Notes cacao, mousse crémeuse',
-          },
-        ],
-      },
-      {
-        title: 'Assiettes',
-        items: [
-          {
-            name: 'Planche charcuterie & pickles',
-            price: '16€',
-            ingredients: 'À partager, cornichons maison',
-          },
-        ],
-      },
-    ],
-    testimonials: [
-      {
-        name: 'Matthieu C.',
-        rating: 5,
-        text: 'Rotation des fûts affichée au mur — on sait pourquoi la pinte change chaque semaine.',
-      },
-      {
-        name: 'Julie B.',
-        rating: 4,
-        text: 'Un peu bruyant quand le DJ monte, mais la terrasse sauve la soirée.',
-      },
-      {
-        name: 'Omar S.',
-        rating: 5,
-        text: 'Meilleure IPA du canal pour moi — amertume longue sans sécher la gorge.',
-      },
-    ],
-    gallery: [
-      { caption: 'Tireuses alignées sous néons bleus' },
-      { caption: 'Terrasse chauffée face à l’eau' },
-      { caption: 'Ardoise des bières du jour' },
-      { caption: 'Intérieur brut métal et bois' },
-    ],
-    faq: [
-      {
-        q: 'Peut-on goûter avant de commander une pinte ?',
-        a: 'Oui, 2 cl offerts sur les références du jour avant 21h.',
-      },
-      {
-        q: 'Les groupes sont-ils acceptés ?',
-        a: 'Au-delà de 8 personnes, prévenez-nous pour bloquer des tabourets hauts.',
-      },
-      {
-        q: 'Avez-vous des options sans gluten ?',
-        a: 'Deux bières sans gluten en bouteille, liste à la carte.',
-      },
-    ],
-    openingHours: {
-      lundi: '17h00 – 02h00',
-      mardi: '17h00 – 02h00',
-      mercredi: '17h00 – 02h00',
-      jeudi: '17h00 – 02h00',
-      vendredi: '17h00 – 02h30',
-      samedi: '16h00 – 02h30',
-      dimanche: '16h00 – 01h00',
-    },
-  },
-  'nuit-jour': {
-    valueProposition:
-      'Du flat white du matin au spritz du soir : une même équipe, deux cartes, vue mer.',
-    ctaPrimary: { label: 'Réserver', href: '#contact' },
-    ctaSecondary: { label: 'Voir sur la carte', href: '#footer-business' },
-    menuSections: [
-      {
-        title: 'Cafés & extraits',
-        items: [
-          {
-            name: 'Espresso',
-            price: '2,50€',
-            ingredients: 'Notes chocolat noir, corps dense',
-          },
-          {
-            name: 'Flat White',
-            price: '4,50€',
-            ingredients: 'Lait micro-mousse, équilibre noisette',
-          },
-          {
-            name: 'V60 Colombia',
-            price: '5€',
-            ingredients: 'Floral jasmin, acidité citron vert',
-          },
-        ],
-      },
-      {
-        title: 'Soir — partages',
-        items: [
-          {
-            name: 'Assiette tapas méditerranéennes',
-            price: '19€',
-            ingredients: 'Poivrons, anchois, huile d’olive locale',
-          },
-        ],
-      },
-    ],
-    testimonials: [
-      {
-        name: 'Chantal R.',
-        rating: 5,
-        text: 'Le V60 est servi avec une carte des arômes : rare sur la Promenade.',
-      },
-      {
-        name: 'Steve K.',
-        rating: 5,
-        text: 'Brunch dimanche : jus pressé à l’orange qui vaut le détour à lui seul.',
-      },
-      {
-        name: 'Manon P.',
-        rating: 4,
-        text: 'Un peu de vent en terrasse, mais le spritz compense la bise.',
-      },
-    ],
-    gallery: [
-      { caption: 'Lever de soleil sur la terrasse' },
-      { caption: 'Machine espresso chromée' },
-      { caption: 'Bar la nuit, lumières tamisées' },
-      { caption: 'Assiettes tapas colorées' },
-    ],
-    faq: [
-      {
-        q: 'Le brunch est-il servi toute l’année ?',
-        a: 'Oui le dimanche 10h–15h ; carte réduite en janvier.',
-      },
-      {
-        q: 'Réservation obligatoire en été ?',
-        a: 'Conseillée pour la terrasse mer ; intérieur souvent dispo sans.',
-      },
-      {
-        q: 'Proposez-vous des grains à emporter ?',
-        a: 'Oui, trois origines en rotation, moulus sur demande.',
-      },
-    ],
-    openingHours: {
-      lundi: '08h00 – 01h00',
-      mardi: '08h00 – 01h00',
-      mercredi: '08h00 – 01h00',
-      jeudi: '08h00 – 01h00',
-      vendredi: '08h00 – 01h00',
-      samedi: '08h00 – 01h00',
-      dimanche: '08h00 – 01h00',
-    },
-  },
+  'bar-basque': BAR_BASQUE_BUSINESS,
+  'neon-shaker': NEON_SHAKER_BUSINESS,
+  'zinc-des-amis': ZINC_DES_AMIS_BUSINESS,
   'atelier-1920': {
     valueProposition:
       'Old school & hand-poked : bois sombre, encres nobles, le temps du geste juste.',
@@ -1702,12 +1469,13 @@ export const BUSINESS_RICH = {
       samedi: '10h00 – 20h00',
       dimanche: 'Fermé',
     },
+    ...ATELIER_1920_EXT,
   },
   'neo-ink-studio': {
     valueProposition:
       'Néon, contraste, précision — géométrie et réalisme pour une peau qui affiche le futur.',
     ctaPrimary: { label: 'Lancer le projet', href: '#contact' },
-    ctaSecondary: { label: 'Guest-spot', href: '#guest-spot' },
+    ctaSecondary: { label: 'Guest-spot', href: '#neo-guest' },
     simulation3d: {
       headline: 'Maquette numérique avant la première piqûre.',
       body:
@@ -1760,6 +1528,7 @@ export const BUSINESS_RICH = {
       samedi: '10h00 – 21h00',
       dimanche: 'Fermé',
     },
+    ...NEO_INK_EXT,
   },
   'le-labo-de-peau': {
     valueProposition:
@@ -1842,5 +1611,6 @@ export const BUSINESS_RICH = {
       samedi: '10h00 – 18h30',
       dimanche: 'Fermé',
     },
+    ...LEBO_PEAU_EXT,
   },
 }
