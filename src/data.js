@@ -1,5 +1,5 @@
 /**
- * Contenu narratif unique pour chaque mini-site (18 expériences).
+ * Contenu narratif unique pour chaque mini-site (19 expériences).
  * Clé `id` alignée sur `siteId` dans `constants.js`.
  * Identité visuelle & contenus métiers fusionnés depuis `siteIdentity.js` dans getSiteById().
  * Six projets calés sur l’ancien trstnportfolio : voir `data/legacyPortfolioSource.js`.
@@ -123,6 +123,45 @@ export const SITES = [
       mapArea: 'Gerland',
     },
     social: { instagramLabel: 'Insta & promos' },
+  },
+  {
+    id: 'influences',
+    categoryId: 'restaurant',
+    name: 'Influences',
+    tagline: 'Bistronomique — Bayonne',
+    hero: {
+      headline: 'Restaurant bistronomique au cœur de Bayonne.',
+      subline:
+        'Un cadre intimiste et feutré, à deux pas du centre : assez à l’écart pour la quiétude. Faustine et Quentin ont façonné la maison — 24 couverts, pierre bayonnaise et touche contemporaine.',
+      cta: 'Réserver',
+    },
+    about: {
+      title: 'Nos influences',
+      paragraphs: [
+        '« On ne peut faire de cuisine si l’on n’aime pas les gens. » En salle, Faustine partage sa passion pour le vin — une matière vivante qu’elle adapte aux saisons et aux plats, avec des bouteilles choisies pour leur cohérence avec la cuisine.',
+        'En cuisine, Quentin mélange ses voyages et le respect de la nature : la carte suit les producteurs locaux ; chaque plat trouve sa sauce — patience, justesse, relief. « En mélangeant les bonnes influences, on obtient l’alchimie. »',
+        'Ici, l’engagement client ne se décrète pas : il se vit — écoute, conseil, fidélité au fil des repas. Même en démo portfolio, l’intention est la même : mettre l’humain au centre du parcours.',
+      ],
+    },
+    contact: {
+      sectionTitle: 'Réservation',
+      nameLabel: 'Nom',
+      emailLabel: 'E-mail',
+      phoneLabel: 'Téléphone',
+      messageLabel: 'Date, nombre de couverts, allergies…',
+      submitLabel: 'Envoyer',
+    },
+    location: {
+      sectionTitle: 'Nous trouver',
+      street: '19 rue Vieille Boucherie',
+      city: 'Bayonne',
+      postalCode: '64100',
+      country: 'France',
+      hours: 'Soir : mar.–sam. · Midi : mer.–sam. · Fermé dim. & lun. (détail sur restaurant-influences.fr)',
+      mapArea: 'Petit Bayonne',
+      phone: '05 59 01 75 04',
+    },
+    social: { instagramLabel: 'Influences Bayonne' },
   },
   /* —— Boulangerie —— */
   {
@@ -563,102 +602,65 @@ export const SITES = [
       city: 'Bayonne',
       postalCode: '64100',
       country: 'France',
-      hours: 'Lun–Dim · 8h00 – 1h00',
+      hours: 'Lun–Dim> · 8h00 – 1h00',
       mapArea: 'Centre',
     },
     social: { instagramLabel: 'Bar Basque' },
   },
   /* —— Tattoo / piercing —— */
   {
-    id: 'aiguille-noire',
+    id: 'atelier-1920',
     categoryId: 'tattoo',
-    name: 'INK & IRON',
-    tagline: 'Piercing & tattoo',
+    name: 'Atelier 1920',
+    tagline: 'Tattoo traditionnel & hand-poked',
     hero: {
-      headline: 'Une équipe stable, un shop calme, une hygiène stricte.',
+      headline: 'L’ancre, l’aiguille, et le silence du bois.',
       subline:
-        'Ici on prend le temps : conseils, placement, composition bijoux, et suivi aftercare — résultat propre et durable (TattooNoir / tattoo-noir).',
-      cta: 'Soumettre un projet',
+        'Un salon old school à Toulouse : cuir patiné, lumière tamisée, encres noires et rouges. Ici on prend le temps du hand-poked et du respect du motif classique.',
+      cta: 'Réserver une consultation',
     },
     about: {
-      title: 'Le studio',
+      title: 'L’atelier',
       paragraphs: [
-        'INK & IRON est né d’une obsession : un studio où l’esthétique est forte, mais où l’hygiène et la pédagogie sont encore plus irréprochables. Après des années en guest spots, l’équipe a posé ses machines à deux pas de République.',
-        'Mission : proposer tatouages et piercings de haute qualité dans un cadre sécurisé, avec une vraie direction artistique. Un bon tattoo, c’est un design qui vous ressemble, une exécution propre, et un studio qui rassure du brief à la cicatrisation.',
+        'Fondé sur l’idée du métier « comme avant » : machines à piston, flashs dessinés à la main, et une pièce dédiée au piquetage manuel pour les petits formats et les lignes d’une finesse rare.',
+        'Chaque séance commence par un entretien — peau, tenue dans le temps, lisibilité du dessin — pour que le tattoo vieillisse avec le même caractère que le jour où il a été posé.',
       ],
     },
     contact: {
-      sectionTitle: 'Projet sur mesure',
+      sectionTitle: 'Consultation',
       nameLabel: 'Nom',
       emailLabel: 'E-mail',
       phoneLabel: 'Téléphone',
-      messageLabel: 'Style, zone corporelle, références…',
+      messageLabel: 'Style souhaité, zone corporelle, disponibilités…',
       submitLabel: 'Envoyer',
     },
     location: {
       sectionTitle: 'Où nous trouver',
-      street: '18 rue du Trait',
-      city: 'Paris',
-      postalCode: '75011',
+      street: '8 rue des Paradoux',
+      city: 'Toulouse',
+      postalCode: '31000',
       country: 'France',
-      hours: 'Mar-Sam: 11h-20h • Piercing sans RDV: 14h-18h',
-      mapArea: 'République',
+      hours: 'Mar–Sam · 11h00 – 19h00',
+      mapArea: 'Carmes',
     },
-    social: { instagramLabel: 'Flash & guests' },
+    social: { instagramLabel: 'Atelier 1920' },
   },
   {
-    id: 'lobe-aiguille',
+    id: 'neo-ink-studio',
     categoryId: 'tattoo',
-    name: 'Lobe & Aiguille',
-    tagline: 'Piercing & bijoux',
+    name: 'Neo-Ink Studio',
+    tagline: 'Géométrie · Réalisme · Urbain',
     hero: {
-      headline: 'Percer. Choisir. Assumer.',
+      headline: 'La peau comme écran — précision chirurgicale, énergie de rue.',
       subline:
-        'Piercing médicalisé, bijoux titane implant-grade et suivi post-perçage inclus.',
-      cta: 'Prendre rendez-vous',
+        'Studio à Marseille : gros formats, tatouage géométrique et réalisme noir & gris, machines rotatives et guest artists internationaux toute l’année.',
+      cta: 'Réserver une consultation',
     },
     about: {
-      title: 'Approche',
+      title: 'L’approche',
       paragraphs: [
-        'Lobe & Aiguille place l’anatomie au centre : angle, matériau, temps de cicatrisation expliqués avant toute intervention. Pas de piercing express sans consentement éclairé.',
-        'Notre bijouterie propose des pièces en titane ASTM F-136, niobium et or 14k pour les lobes sensibles.',
-      ],
-    },
-    contact: {
-      sectionTitle: 'Contact',
-      nameLabel: 'Nom',
-      emailLabel: 'E-mail',
-      phoneLabel: 'Téléphone',
-      messageLabel: 'Zone souhaitée',
-      submitLabel: 'Envoyer',
-    },
-    location: {
-      sectionTitle: 'Où nous trouver',
-      street: '22 cours Lafayette',
-      city: 'Lyon',
-      postalCode: '69003',
-      country: 'France',
-      hours: 'Mardi au samedi · 11h00 – 19h00',
-      mapArea: 'Part-Dieu',
-    },
-    social: { instagramLabel: 'Bijoux & soins' },
-  },
-  {
-    id: 'peau-encre',
-    categoryId: 'tattoo',
-    name: 'Peau & Encre',
-    tagline: 'Collectif tattoo & piercing',
-    hero: {
-      headline: 'UN COLLECTIF. UNE SCÈNE.',
-      subline:
-        'Galerie, boutique d’art et ateliers tattoo / piercing sous le même toit à Montpellier.',
-      cta: 'Voir les artistes',
-    },
-    about: {
-      title: 'Collectif',
-      paragraphs: [
-        'Peau & Encre réunit des tatoueurs aux styles variés et une équipe piercing dédiée. Le rez-de-chaussée accueille expositions et pop-up créateurs.',
-        'Nous organisons des conventions locales et des masterclass pour faire vivre la scène régionale.',
+        'Nous poussons le contraste, la netteté du trait et la cohérence du projet : de la référence photo au rendu sur peau, chaque étape est calibrée.',
+        'Le collectif travaille en binôme artiste / assistant pour les séances longues — confort, breaks, hygiène renforcée et suivi photo à J+30.',
       ],
     },
     contact: {
@@ -666,19 +668,56 @@ export const SITES = [
       nameLabel: 'Nom',
       emailLabel: 'E-mail',
       phoneLabel: 'Téléphone',
-      messageLabel: 'Artiste souhaité, idée de motif…',
+      messageLabel: 'Référence visuelle, taille, ville du guest…',
       submitLabel: 'Envoyer',
     },
     location: {
-      sectionTitle: 'Où nous trouver',
-      street: '11 rue de l’Université',
-      city: 'Montpellier',
-      postalCode: '34000',
+      sectionTitle: 'Studio',
+      street: '24 la Canebière',
+      city: 'Marseille',
+      postalCode: '13001',
       country: 'France',
-      hours: 'Mercredi au dimanche · 12h00 – 20h00',
-      mapArea: 'Écusson',
+      hours: 'Lun–Sam · 10h00 – 20h00',
+      mapArea: 'Vieux-Port',
     },
-    social: { instagramLabel: 'Événements & guests' },
+    social: { instagramLabel: 'Neo-Ink Marseille' },
+  },
+  {
+    id: 'le-labo-de-peau',
+    categoryId: 'tattoo',
+    name: 'Le Labo de Peau',
+    tagline: 'Piercing médical & bijoux premium',
+    hero: {
+      headline: 'L’hygiène comme premier bijou.',
+      subline:
+        'Cabinet de perçage haut de gamme à Nantes : titane implant-grade, or 18k, protocole visible à chaque étape — pour une pose aussi sereine que précise.',
+      cta: 'Voir le catalogue bijoux',
+    },
+    about: {
+      title: 'Notre promesse',
+      paragraphs: [
+        'Nous avons conçu un espace clinique sans froideur : lumière douce, fauteuils médicaux discrets, et une équipe formée à l’anatomie et à la cicatrisation.',
+        'Chaque client repart avec une fiche d’entretien illustrée, un numéro d’urgence et une invitation au contrôle à six semaines — inclus dans la prestation.',
+      ],
+    },
+    contact: {
+      sectionTitle: 'Rendez-vous',
+      nameLabel: 'Nom',
+      emailLabel: 'E-mail',
+      phoneLabel: 'Téléphone',
+      messageLabel: 'Zone à percer, bijou souhaité…',
+      submitLabel: 'Envoyer',
+    },
+    location: {
+      sectionTitle: 'Adresse',
+      street: '3 place du Commerce',
+      city: 'Nantes',
+      postalCode: '44000',
+      country: 'France',
+      hours: 'Mar–Sam · 10h00 – 18h30',
+      mapArea: 'Centre-ville',
+    },
+    social: { instagramLabel: 'Le Labo de Peau' },
   },
   /* —— Événementiel (legacy event-wedding / sitesInfo) —— */
   {

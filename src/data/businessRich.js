@@ -278,6 +278,196 @@ export const BUSINESS_RICH = {
       dimanche: '12h00 – 21h30',
     },
   },
+  influences: {
+    valueProposition:
+      'Bistronomie bayonnaise — « en mélangeant les bonnes influences, on obtient l’alchimie » (carte & horaires indicatifs, démo portfolio).',
+    ctaPrimary: { label: 'Réserver', href: '#carte' },
+    ctaSecondary: { label: 'Nous appeler', href: 'tel:+33559017504' },
+    /** Piliers d’expertise humaine (démo UI — contenus alignés sur l’esprit du lieu). */
+    humanExpertise: [
+      {
+        title: 'Sauces & patience',
+        text:
+          'On reconnaît un cuisinier à ses sauces : elles demandent temps, justesse et écoute du produit. Chaque plat mérite la sienne — c’est le fil rouge du travail en cuisine.',
+      },
+      {
+        title: 'Vivant & cohérent',
+        text:
+          'Le vin est une matière vivante : la carte évolue avec les saisons et avec ce qui sort des fourneaux. Cohérence avant effet — pour que le verre prolonge l’émotion de l’assiette.',
+      },
+      {
+        title: 'Producteurs d’abord',
+        text:
+          'La carte s’inspire de ce que les agriculteurs et artisans ont prêt à offrir — mûr, de saison, digne d’être mis en scène. Le respect du vivant guide les choix.',
+      },
+    ],
+    /** Engagement clientèle : relation, accueil, fidélisation. */
+    clientEngagement: [
+      {
+        role: 'Faustine — salle & vins',
+        lead: 'L’accueil comme premier plat',
+        text:
+          'Elle accueille avec son naturel, explique la maison et ses valeurs, et vous guide dans les accords — sans jargon inutile. Ici, le conseil est une conversation : allergies, envies, occasion ; tout compte pour composer une table à votre mesure.',
+      },
+      {
+        role: 'Quentin — cuisine',
+        lead: 'Une assiette par histoire',
+        text:
+          'Il écoute les retours du service et ajuste : la cuisine reste en dialogue avec la salle. Habitués ou première visite, l’objectif est le même — que vous partiez avec l’envie de revenir goûter la prochaine évolution de l’ardoise.',
+      },
+    ],
+    trustLine:
+      '24 couverts : une taille humaine pour garder le contact — chaque service est une rencontre, pas une chaîne.',
+    hallmarkQuote: {
+      quote: '« En mélangeant les bonnes influences, on obtient l’alchimie. »',
+      context: 'Le fil entre le geste en cuisine et l’émotion en salle.',
+    },
+    menuSections: [
+      {
+        title: 'Pour commencer',
+        items: [
+          {
+            name: 'Velouté de saison, huile infusée & graines',
+            price: '16€',
+            ingredients: 'Légumes du potager ou des maraîchers ; texture soyeuse, herbes fraîches, croûtons ou chips selon l’humeur du marché.',
+          },
+          {
+            name: 'Légumes du moment, condiment & herbes fraîches',
+            price: '18€',
+            ingredients:
+              'Produits des producteurs du jour — la carte suit la nature ; dressage et sauce légère selon arrivage.',
+            badge: 'Du marché',
+          },
+          {
+            name: 'Tartare de poisson ou de bœuf, condiment acidulé',
+            price: '22€',
+            ingredients: 'Couteau à la minute, huile d’olive fruitée, pickles ou capres ; accord possible selon Faustine.',
+          },
+          {
+            name: 'Foie gras poêlé, chutney de fruits & pain brioché',
+            price: '26€',
+            ingredients: 'Cuisson rosée, réduction douce, pain toasté maison ; le plat peut être partagé en entrée.',
+          },
+        ],
+      },
+      {
+        title: 'Au cœur de l’assiette',
+        items: [
+          {
+            name: 'Poisson de ligne, beurre ou nage parfumée',
+            price: '32€',
+            ingredients: 'Pêche atlantique ; citron, vin blanc ou crustacés selon l’ardoise du moment.',
+          },
+          {
+            name: 'Saint-Jacques snackées, légumes glacés',
+            price: '38€',
+            ingredients: 'Cuisson courte, jus corsé, purée ou émulsion légère — selon arrivage des coquilles.',
+            badge: 'Arrivage',
+          },
+          {
+            name: 'Viande du terroir, accompagnement raciné',
+            price: '36€',
+            ingredients: 'Blonde d’Aquitaine ou gibier selon période ; sauce longue, garniture du marché.',
+          },
+          {
+            name: 'Pigeon ou canette, jus réduit & légumes oubliés',
+            price: '42€',
+            ingredients: 'Volaille fermière ; cuisson rosée, sauce au sang ou vin rouge, tubercules rôtis.',
+          },
+          {
+            name: 'Agneau confit, herbes du maquis & polenta',
+            price: '40€',
+            ingredients: 'Mijoté lent, réduction parfumée, polenta crémeuse ou écrasé de pommes de terre.',
+          },
+        ],
+      },
+      {
+        title: 'Douceurs',
+        items: [
+          {
+            name: 'Dessert gourmand maison',
+            price: '14€',
+            ingredients: 'Chocolat, fruits ou sablé — la carte des desserts évolue avec les saisons.',
+          },
+          {
+            name: 'Soufflé chaud ou entremets glacé du moment',
+            price: '15€',
+            ingredients: 'Préparation minute ou dressage froid ; parfait pour finir sur une note légère ou intense.',
+          },
+          {
+            name: 'Assiette de fromages affinés',
+            price: '16€',
+            ingredients: 'Sélection courte, confiture maison, pain aux noix ; demandez la suggestion du jour.',
+          },
+        ],
+      },
+      {
+        title: 'Pour accompagner',
+        items: [
+          {
+            name: 'Suggestion de vin au verre',
+            price: '8–14€',
+            ingredients: 'Carte vivante, cohérente avec les plats — Faustine conseille selon votre menu et vos envies.',
+          },
+          {
+            name: 'Accord mets & vins (menu)',
+            price: 'sur demande',
+            ingredients: 'Parcours en plusieurs verres — idéal pour découvrir des petits producteurs et des cuvées d’exception.',
+          },
+        ],
+      },
+    ],
+    testimonials: [
+      {
+        name: 'Raphaël',
+        rating: 5,
+        text: 'Une magnifique soirée — menu dégustation surprenant et délicieux. Le service était à notre écoute du début à la fin ; les accords vins racontaient la même histoire que l’assiette.',
+      },
+      {
+        name: 'Marie-Pierre',
+        rating: 5,
+        text: 'Terrasse de rêve, équipe attentionnée sans être envahissante. On sent qu’on peut poser des questions : le menu est abordable et chaque plat a un vrai soin du détail.',
+      },
+      {
+        name: 'Céline',
+        rating: 5,
+        text: 'Accueil tout en douceur — on ose les mélanges de saveurs parce qu’on nous rassure. Conseils œnologiques précis ; on a envie de revenir pour la prochaine carte.',
+      },
+    ],
+    gallery: [
+      { caption: 'Maison bayonnaise — salle feutrée' },
+      { caption: 'Faustine en salle' },
+      { caption: 'Quentin au dressage' },
+      { caption: 'Carte des vins' },
+    ],
+    faq: [
+      {
+        q: 'Première visite : comment se déroule le service ?',
+        a: 'Faustine présente la maison et peut adapter les accords à vos goûts ; en cuisine, chaque plat est expliqué si vous le souhaitez. N’hésitez pas à signaler allergies ou envies — c’est le cœur de l’accueil.',
+      },
+      {
+        q: 'Menu dégustation ?',
+        a: 'Proposé selon les soirs — renseignez-vous par téléphone ou sur le site officiel pour les créneaux.',
+      },
+      {
+        q: 'Bon cadeau ?',
+        a: 'L’établissement propose des cartes cadeaux via leur application dédiée (voir restaurant-influences.fr).',
+      },
+      {
+        q: 'Pourquoi 24 couverts ?',
+        a: 'Une taille volontairement humaine : garder le lien avec chaque table, le temps d’écouter et de conseiller sans précipitation.',
+      },
+    ],
+    openingHours: {
+      lundi: 'Fermé',
+      mardi: 'Soir (pas de service midi)',
+      mercredi: 'Midi & soir',
+      jeudi: 'Midi & soir',
+      vendredi: 'Midi & soir',
+      samedi: 'Midi & soir',
+      dimanche: 'Fermé',
+    },
+  },
   'atelier-sept': {
     valueProposition:
       'Sept soirs sur sept, une ardoise courte qui sent le marché et le vieux port.',
@@ -1281,73 +1471,42 @@ export const BUSINESS_RICH = {
       dimanche: '08h00 – 01h00',
     },
   },
-  'aiguille-noire': {
+  'atelier-1920': {
     valueProposition:
-      'INK & IRON (sitesInfo tattoo-noir) : hygiène, direction artistique, transparence.',
-    ctaPrimary: { label: 'Demander un projet', href: '#contact' },
-    ctaSecondary: { label: 'Consignes & accès', href: '#footer-business' },
-    menuSections: [
+      'Old school & hand-poked : bois sombre, encres nobles, le temps du geste juste.',
+    ctaPrimary: { label: 'Réserver une consultation', href: '#contact' },
+    ctaSecondary: { label: 'Instagram', href: '#' },
+    tattooArtists: [
       {
-        title: 'Styles & formats',
-        items: [
-          {
-            name: 'Blackwork floral',
-            price: 'dès 180€',
-            ingredients: 'Format 15×20 cm, séance unique ou deux passages',
-          },
-          {
-            name: 'Lettrage script',
-            price: 'dès 120€',
-            ingredients: 'Poignet, retouches incluses 3 mois',
-          },
-        ],
+        name: 'Marc Delmas',
+        role: 'Dotwork & traditionnel américain',
+        bio:
+          'Expert en dotwork depuis dix ans, Marc a débuté à Paris avant d’ouvrir l’Atelier 1920. Il privilégie les motifs à fort contraste et les séances de hand-poked pour les lignes d’une finesse que la machine n’atteint pas toujours.',
       },
       {
-        title: 'Soins & suivi',
-        items: [
-          {
-            name: 'Kit pansement + crème',
-            price: '12€',
-            ingredients: 'Filme second peau, notice illustrée',
-          },
-        ],
+        name: 'Sophie Arnaud',
+        role: 'Old school & lettrage',
+        bio:
+          'Ancienne illustratrice de presse, Sophie compose des flashs inspirés des années 30–50 : roses, panthers, bannières. Elle accompagne les clients du premier croquis au pansement, avec une pédagogie calme.',
       },
     ],
     testimonials: [
       {
-        name: 'Roxane M.',
+        name: 'Hugo V.',
         rating: 5,
-        text: 'Projet sur plusieurs mois : chaque passage, la pièce respire un peu plus.',
+        text: 'Ambiance de bar à whisky sans le bruit — on entend presque l’aiguille. Mon flash a dix ans et les aplats sont restés d’encre.',
       },
       {
-        name: 'Gaspard L.',
+        name: 'Léa K.',
         rating: 5,
-        text: 'Hygiène visible : jeunes fermés, pigments étiquetés — ça rassure.',
-      },
-      {
-        name: 'Nina K.',
-        rating: 5,
-        text: 'Guest artist annoncé deux mois à l’avance : j’ai pu bloquer congés.',
+        text: 'Le hand-poked avec Sophie : douceur surprenante, motif d’une netteté folle.',
       },
     ],
-    gallery: [
-      { caption: 'Postes de travail sous hotte' },
-      { caption: 'Rouleaux de flash au mur' },
-      { caption: 'Espace stérilisation vitré' },
-      { caption: 'Salon d’attente discret' },
-    ],
+    gallery: [{ caption: 'Mur de flashs vintage' }, { caption: 'Salle hand-poked' }],
     faq: [
       {
-        q: 'Quel âge minimum pour se faire tatouer ?',
-        a: '18 ans révolus, pièce d’identité obligatoire, sans exception.',
-      },
-      {
-        q: 'Puis-je venir avec un dessin trouvé en ligne ?',
-        a: 'Oui, l’artiste l’adapte pour éviter le copier-coller et respecter l’anatomie.',
-      },
-      {
-        q: 'Que faire si la zone rougit après trois jours ?',
-        a: 'Contactez-nous avec photo ; nous orientons vers un professionnel de santé si besoin.',
+        q: 'Proposez-vous le hand-poked pour tout le corps ?',
+        a: 'Privilégiez petits et moyens formats ; au-delà, nous basculons sur machine pour garder un temps de séance raisonnable.',
       },
     ],
     openingHours: {
@@ -1360,162 +1519,115 @@ export const BUSINESS_RICH = {
       dimanche: 'Fermé',
     },
   },
-  'lobe-aiguille': {
+  'neo-ink-studio': {
     valueProposition:
-      'Titane implant-grade, angle anatomique expliqué avant toute piqûre, bijouterie derrière vitre blindée.',
-    ctaPrimary: { label: 'Prendre rendez-vous', href: '#contact' },
-    ctaSecondary: { label: 'Trouver le studio', href: '#footer-business' },
-    menuSections: [
+      'Néon, contraste, précision — géométrie et réalisme pour une peau qui affiche le futur.',
+    ctaPrimary: { label: 'Réserver une consultation', href: '#contact' },
+    ctaSecondary: { label: 'Guest-spot', href: '#guest-spot' },
+    cyberArtists: [
       {
-        title: 'Piercing',
-        items: [
-          {
-            name: 'Lobe + soin',
-            price: '45€',
-            ingredients: 'Titane ASTM F-136, suivi 15 jours inclus',
-          },
-          {
-            name: 'Hélix / flat',
-            price: '55€',
-            ingredients: 'Bijou premium, durée ~40 min',
-          },
-        ],
+        name: 'Jordan « Jax » Meyer',
+        specialty: 'Géométrie & mandalas XL',
+        bio:
+          'Ancien dessinateur industriel, Jordan transpose les grilles vectorielles sur la peau depuis huit ans. Il travaille exclusivement à la machine rotative pour des aplats d’encre d’une densité homogène.',
       },
       {
-        title: 'Bijoux',
-        items: [
-          {
-            name: 'Or 14k (pièce seule)',
-            price: 'dès 45€',
-            ingredients: 'Choix au présentoir stérile',
-          },
-        ],
+        name: 'Inès Carvalho',
+        specialty: 'Réalisme noir & gris',
+        bio:
+          'Portraitiste reconnue, Inès sculpte les volumes au shader — portraits, animaux, textures. Elle exige une photo HD de référence et un second rendez-vous validation avant la grande séance.',
       },
+    ],
+    guestSpots: [
+      { artist: 'Kai Watanabe', style: 'Irezumi contemporain', date: '12–18 avril 2026', city: 'Marseille' },
+      { artist: 'Nina Frost', style: 'Blackwork abstrait', date: '3–9 mai 2026', city: 'Marseille' },
+      { artist: 'Theo V.', style: 'Lettering brutal', date: 'Juin 2026', city: 'Invité surprise' },
     ],
     testimonials: [
       {
-        name: 'Éva D.',
+        name: 'Maya R.',
         rating: 5,
-        text: 'Schéma de l’oreille dessiné avant : je savais où allait l’aiguille.',
-      },
-      {
-        name: 'Théo P.',
-        rating: 5,
-        text: 'Douleur courte, explications longues — exactement ce que je voulais.',
-      },
-      {
-        name: 'Lina S.',
-        rating: 4,
-        text: 'Un peu d’attente le samedi, mais la stérilité du plateau rassure.',
+        text: 'Le guest japonais était annoncé avec un moodboard — j’ai booké en ligne en trois minutes.',
       },
     ],
-    gallery: [
-      { caption: 'Vitrine bijoux sous lumière neutre' },
-      { caption: 'Fiche d’information anatomique' },
-      { caption: 'Chaise inclinable médicalisée' },
-      { caption: 'Poste de stérilisation visible' },
-    ],
+    gallery: [{ caption: 'Salle néon' }, { caption: 'Séance réalisme' }],
     faq: [
       {
-        q: 'Puis-je me faire percer si je suis mineur ?',
-        a: 'Oreilles uniquement avec autorisation parentale et présence du titulaire de l’autorité parentale.',
-      },
-      {
-        q: 'Combien de temps sans nager après un nombril ?',
-        a: 'Six semaines minimum ; feuille récapitulative remise à la sortie.',
-      },
-      {
-        q: 'Acceptez-vous les bijoux ramenés de l’extérieur ?',
-        a: 'Non, uniquement notre sélection certifiée pour garantir la qualité du métal.',
+        q: 'Les guests sont-ils payés à l’heure ou au projet ?',
+        a: 'Chaque artiste fixe son tarif ; nous vous envoyons la grille avant de bloquer l’acompte.',
       },
     ],
     openingHours: {
-      lundi: 'Fermé',
-      mardi: '11h00 – 19h00',
-      mercredi: '11h00 – 19h00',
-      jeudi: '11h00 – 19h00',
-      vendredi: '11h00 – 19h00',
-      samedi: '11h00 – 19h00',
+      lundi: '11h00 – 20h00',
+      mardi: '11h00 – 20h00',
+      mercredi: '11h00 – 20h00',
+      jeudi: '11h00 – 20h00',
+      vendredi: '11h00 – 21h00',
+      samedi: '10h00 – 21h00',
       dimanche: 'Fermé',
     },
   },
-  'peau-encre': {
+  'le-labo-de-peau': {
     valueProposition:
-      'Collectif : conventions, guests internationaux, galerie street-art au rez-de-chaussée.',
-    ctaPrimary: { label: 'Réserver une place', href: '#contact' },
-    ctaSecondary: { label: 'Plan Montpellier', href: '#footer-business' },
-    menuSections: [
+      'Titane, or 18k, protocole visible — le piercing comme acte médical esthétique.',
+    ctaPrimary: { label: 'Voir le catalogue bijoux', href: '#catalogue' },
+    ctaSecondary: { label: 'Prendre rendez-vous', href: '#contact' },
+    jewelryCatalog: [
+      { name: 'Stud titane poli — diamètre 3 / 4 mm', material: 'ASTM F-136, anodisation au choix', price: 'à partir de 38€' },
+      { name: 'Anneau segmenté titane — clicker', material: 'Ouverture fluide, finition miroir', price: 'à partir de 52€' },
+      { name: 'Labret or 18k — pierre sertie', material: 'Or jaune / blanc, pierres synthétiques certifiées', price: 'à partir de 95€' },
+      { name: 'Hélix curated set (2 pièces)', material: 'Titane + boîte stérile double', price: 'offre 108€' },
+      { name: 'Barbell industriel sur mesure', material: 'Longueur ajustée après anatomie', price: 'sur devis' },
+    ],
+    hygieneProtocol: [
       {
-        title: 'Événements',
-        items: [
-          {
-            name: 'Pass journée convention',
-            price: '15€',
-            ingredients: 'Accès animations, stands invités',
-          },
-          {
-            name: 'Flash guest (liste mensuelle)',
-            price: 'variable',
-            ingredients: 'Annoncé sur nos réseaux chaque 1er du mois',
-          },
-        ],
+        title: 'Stérilité traçable',
+        detail:
+          'Aiguilles et bijoux ouverts devant vous ; lots notés, autoclave affiché en salle d’attente. Pas de boîte mystère.',
       },
       {
-        title: 'Shop',
-        items: [
-          {
-            name: 'Sérigraphie édition limitée',
-            price: '35€',
-            ingredients: 'Format A3, numérotée',
-          },
-        ],
+        title: 'Peau désinfectée & repérée',
+        detail:
+          'Antiseptique cutané, marquage anatomique au stylo stérile, validation miroir avant toute piqûre.',
+      },
+      {
+        title: 'Pose sans choc thermique',
+        detail:
+          'Bijoux tempérés à température ambiante, insertion guidée pour limiter l’œdème — la douleur reste brève et nette.',
+      },
+      {
+        title: 'Suivi J+1 & J+42',
+        detail:
+          'Message de contrôle, rappel des signes d’alerte, retour offert si irritation persistante.',
       },
     ],
     testimonials: [
       {
-        name: 'Wesley H.',
+        name: 'Chloé B.',
         rating: 5,
-        text: 'Ambiance festival sans la boue : stands propres, file fluide.',
+        text: 'On m’a expliqué chaque geste — j’ai rarement autant fait confiance à une piqûre.',
       },
       {
-        name: 'Amélie C.',
+        name: 'Arthur M.',
         rating: 5,
-        text: 'J’ai pris un print plutôt qu’un tattoo : qualité papier au top.',
-      },
-      {
-        name: 'Idriss B.',
-        rating: 4,
-        text: 'Son un peu fort dans la cour intérieure, mais l’organisation compense.',
+        text: 'Le catalogue or est sublime ; le titane pour le quotidien. Zéro migration en six mois.',
       },
     ],
-    gallery: [
-      { caption: 'Mur de flash invités' },
-      { caption: 'Galerie street-art rez-de-chaussée' },
-      { caption: 'Queue convention sous chapiteau' },
-      { caption: 'Stand sérigraphie en direct' },
-    ],
+    gallery: [{ caption: 'Vitrine stérile' }, { caption: 'Fiche de suivi' }],
     faq: [
       {
-        q: 'Les mineurs peuvent-ils assister à la convention ?',
-        a: 'Oui avec adulte ; zones tattoo réservées aux majeurs munis de pièce d’identité.',
-      },
-      {
-        q: 'Remboursement si l’artiste annule ?',
-        a: 'Oui, intégralité du pass ou report sur la prochaine date annoncée.',
-      },
-      {
-        q: 'Puis-je apporter mon matériel de dessin ?',
-        a: 'Oui pour la partie galerie ; côté tattoo, matériel du studio uniquement.',
+        q: 'Puis-je ramener mon bijou ?',
+        a: 'Non — nous posons uniquement des pièces certifiées ouvertes sous vos yeux pour garantir la traçabilité.',
       },
     ],
     openingHours: {
       lundi: 'Fermé',
-      mardi: '12h00 – 20h00',
-      mercredi: '12h00 – 20h00',
-      jeudi: '12h00 – 20h00',
-      vendredi: '12h00 – 21h00',
-      samedi: '11h00 – 21h00',
-      dimanche: '12h00 – 19h00',
+      mardi: '10h00 – 18h30',
+      mercredi: '10h00 – 18h30',
+      jeudi: '10h00 – 18h30',
+      vendredi: '10h00 – 18h30',
+      samedi: '10h00 – 18h30',
+      dimanche: 'Fermé',
     },
   },
 }

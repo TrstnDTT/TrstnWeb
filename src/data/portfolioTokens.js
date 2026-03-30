@@ -22,6 +22,12 @@ export const PORTFOLIO_TOKENS = {
     cardGlow: '0 0 42px -10px rgba(251, 191, 36, 0.35)',
     backButtonRing: 'rgba(251, 191, 36, 0.45)',
   },
+  influences: {
+    portfolioTagline: 'Bistronomique Bayonne — pierre, rose & or, 24 couverts.',
+    cardBorder: 'rgba(184, 138, 144, 0.42)',
+    cardGlow: '0 0 40px -12px rgba(184, 138, 144, 0.2)',
+    backButtonRing: 'rgba(184, 138, 144, 0.4)',
+  },
   'atelier-sept': {
     portfolioTagline: 'Bistro — zinc, marché, ardoise courte.',
     cardBorder: 'rgba(139, 105, 20, 0.35)',
@@ -100,22 +106,22 @@ export const PORTFOLIO_TOKENS = {
     cardGlow: '0 0 40px -12px rgba(136, 156, 129, 0.22)',
     backButtonRing: 'rgba(195, 107, 70, 0.38)',
   },
-  'aiguille-noire': {
-    portfolioTagline: 'INK & IRON — clair, hygiène, Oswald.',
-    cardBorder: 'rgba(17, 17, 17, 0.25)',
-    cardGlow: '0 0 34px -10px rgba(107, 114, 128, 0.25)',
-    backButtonRing: 'rgba(17, 17, 17, 0.3)',
+  'atelier-1920': {
+    portfolioTagline: 'Old school — bois sombre, Playfair, hand-poked.',
+    cardBorder: 'rgba(107, 79, 58, 0.4)',
+    cardGlow: '0 0 38px -12px rgba(107, 79, 58, 0.22)',
+    backButtonRing: 'rgba(107, 79, 58, 0.42)',
   },
-  'lobe-aiguille': {
-    portfolioTagline: 'Piercing — titane, anatomie, suivi.',
-    cardBorder: 'rgba(196, 92, 92, 0.4)',
-    cardGlow: '0 0 34px -10px rgba(196, 92, 92, 0.28)',
-    backButtonRing: 'rgba(196, 92, 92, 0.42)',
+  'neo-ink-studio': {
+    portfolioTagline: 'Cyber-skin — néon vert, brutaliste, guests.',
+    cardBorder: 'rgba(57, 255, 20, 0.35)',
+    cardGlow: '0 0 44px -10px rgba(57, 255, 20, 0.18)',
+    backButtonRing: 'rgba(57, 255, 20, 0.4)',
   },
-  'peau-encre': {
-    portfolioTagline: 'Collectif — galerie, guests, scène locale.',
-    cardBorder: 'rgba(139, 0, 0, 0.45)',
-    cardGlow: '0 0 40px -12px rgba(139, 0, 0, 0.3)',
-    backButtonRing: 'rgba(139, 0, 0, 0.45)',
+  'le-labo-de-peau': {
+    portfolioTagline: 'Labo piercing — beige, or fin, protocole zen.',
+    cardBorder: 'rgba(184, 149, 106, 0.38)',
+    cardGlow: '0 0 36px -12px rgba(184, 149, 106, 0.18)',
+    backButtonRing: 'rgba(184, 149, 106, 0.4)',
   },
 }

@@ -14,7 +14,6 @@
 /** Mapping id TrstnWeb → id variante dans sitesConfig / sitesInfo */
 export const LEGACY_VARIANT_IDS = {
   'pain-dore': 'bakery-classic',
-  'aiguille-noire': 'tattoo-noir',
   'atelier-m': 'barber-urban',
   'maison-lumiere': 'event-wedding',
   'studio-eclipse': 'photo-minimalist',

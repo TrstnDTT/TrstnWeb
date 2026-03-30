@@ -22,7 +22,7 @@ export const SITE = {
     heroEyebrow: 'Portfolio',
     heroTitle: 'Sites vitrines & identités UI/UX',
     heroLead:
-      'Dix-huit mini-sites : trois restaurants et trois bars en expériences dédiées (speakeasy, craft néon, brasserie côte). Boulangeries et salons / barber complètent le panorama.',
+      'Dix-neuf mini-sites : quatre restaurants et trois bars en expériences dédiées (speakeasy, craft néon, brasserie côte). Boulangeries et salons / barber complètent le panorama.',
     ctaProjects: 'Voir les projets',
   },
   /** Texte « À propos » — auteur solo (remplace l’ancien collectif étudiant). */
@@ -71,6 +71,12 @@ export const CATEGORIES = [
         title: 'Le Carré Rouge',
         description:
           'Expérience dédiée : bandeau défilant, header comptoir, barre d’action fixe en bas — rythme appli de commande.',
+      },
+      {
+        siteId: 'influences',
+        title: 'Influences',
+        description:
+          'Inspiré du restaurant bayonnais — expertise humaine, relation clientèle, témoignages et FAQ ; carte interactive et réservation.',
       },
     ],
   },
@@ -213,22 +219,22 @@ export const CATEGORIES = [
     },
     projects: [
       {
-        siteId: 'aiguille-noire',
-        title: 'INK & IRON',
+        siteId: 'atelier-1920',
+        title: 'Atelier 1920',
         description:
-          'Tattoo sobre : studio clair, Oswald + serif, hygiène lisible — esprit INK & IRON.',
+          'Dark & traditionnel : bois, cuir, Playfair, galerie N&B, hand-poked — démo « L’Encre Noire ».',
       },
       {
-        siteId: 'lobe-aiguille',
-        title: 'Lobe & Aiguille',
+        siteId: 'neo-ink-studio',
+        title: 'Neo-Ink Studio',
         description:
-          'Piercing médicalisé : bento gris / corail, titane et grilles tarifaires sans bruit.',
+          'Brutaliste néon : pleine largeur, scroll, guest-spots, géométrie & réalisme — démo « Cyber-Skin ».',
       },
       {
-        siteId: 'peau-encre',
-        title: 'Peau & Encre',
+        siteId: 'le-labo-de-peau',
+        title: 'Le Labo de Peau',
         description:
-          'Collectif : Bebas en bannière, rouge profond et blocs qui se croisent comme une affiche.',
+          'Minimal médical : blanc, or, catalogue bijoux titane/or, protocole d’hygiène — démo « Pureté ».',
       },
     ],
   },

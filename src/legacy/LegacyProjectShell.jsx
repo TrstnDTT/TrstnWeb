@@ -5,11 +5,8 @@ import BarberUrban from './templates/barber/BarberUrban.jsx'
 import EventWedding from './templates/events/EventWedding.jsx'
 import PhotoMinimalist from './templates/photography/PhotoMinimalist.jsx'
 import ServiceWoodworker from './templates/services/ServiceWoodworker.jsx'
-import TattooNoir from './templates/tattoo/TattooNoir.jsx'
-
 const TEMPLATE_BY_SITE = {
   'pain-dore': BakeryClassic,
-  'aiguille-noire': TattooNoir,
   'atelier-m': BarberUrban,
   'maison-lumiere': EventWedding,
   'studio-eclipse': PhotoMinimalist,
