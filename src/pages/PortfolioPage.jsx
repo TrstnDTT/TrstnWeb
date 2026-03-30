@@ -1,18 +1,12 @@
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-} from 'framer-motion'
+import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion'
 import { Home, Info, Mail } from 'lucide-react'
 import { MobileCategoryRail } from '../components/portfolio/MobileCategoryRail.jsx'
 import { PortfolioProjectGrid } from '../components/portfolio/PortfolioProjectGrid.jsx'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
 import { ProjectExperience } from '../components/templates/ProjectExperience.jsx'
-import { CATEGORIES, CATEGORY_CANVAS_HOVER, SITE, getCategoryById } from '../constants.js'
+import { CATEGORIES, CATEGORY_CANVAS_HOVER, SITE } from '../constants.js'
 import { useShellTheme } from '../context/ShellThemeContext.jsx'
 import { getSiteById } from '../data.js'
 
@@ -26,7 +20,6 @@ const GALLERY = {
   accent: '#b8a074',
 }
 
-/** Variante enveloppe claire — grille & chrome uniquement (mini-sites inchangés). */
 const GALLERY_LIGHT = {
   bg: '#F5F5F7',
   borderOuter: 'rgba(0, 0, 0, 0.08)',
@@ -38,8 +31,12 @@ const GALLERY_LIGHT = {
 
 const fontSyne = { fontFamily: '"Syne", system-ui, sans-serif' }
 const fontPlayfair = { fontFamily: '"Playfair Display", Georgia, serif' }
-/** Titres de section portfolio — serif éditorial, moins « tech » que le corps UI. */
 const fontSectionSerif = { fontFamily: '"Cormorant Garamond", Georgia, serif' }
+
+/** Ancre stable par catégorie (ex. #category-restaurant). */
+function portfolioCategoryAnchorId(categoryId) {
+  return `category-${categoryId}`
+}
 
 function MagneticCategoryLabel({ children, className, style, enabled }) {
   const ref = useRef(null)
@@ -99,151 +96,58 @@ function computeOpenOrigin(event) {
   }
 }
 
-const categoryRegionVariants = {
-  initial: { opacity: 0, y: 32, filter: 'blur(6px)' },
-  animate: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: {
-      opacity: { duration: 0.38, delay: 0.04 },
-      filter: { duration: 0.35 },
-      y: { duration: 0.42, ease: [0.2, 1, 0.36, 1] },
-    },
-  },
-  exit: {
-    opacity: 0,
-    filter: 'blur(6px)',
-    transition: { duration: 0.32, ease: [0.4, 0, 0.2, 1] },
-  },
-}
-
-const SCROLL_NAV_THROTTLE_MS = 80
-/** Zone bas de page : pas de réapparition barre sur micro-mouvements / rebond. */
-const SCROLL_BOTTOM_SAFE_PX = 50
-/** Scroll vers le haut requis pour réafficher la barre depuis le bas. */
-const SCROLL_SIGNIFICANT_UP_PX = 18
-
-function usePortfolioMobileNav(enabled = true, ignoreScrollUntilRef) {
-  const [hidden, setHidden] = useState(false)
-  const hiddenRef = useRef(false)
-  const [navH, setNavH] = useState(0)
-  const navRef = useRef(null)
-  const lastY = useRef(0)
+function usePortfolioScrollSpy(mainRef, setActiveCategory) {
   const ticking = useRef(false)
-  const lastHiddenEmit = useRef(0)
+  const [scrollProgress, setScrollProgress] = useState(0)
 
-  useEffect(() => {
-    hiddenRef.current = hidden
-  }, [hidden])
+  const updateFromScroll = useCallback(() => {
+    const main = mainRef.current
+    if (!main) return
+    const { scrollTop, scrollHeight, clientHeight } = main
+    const max = Math.max(0, scrollHeight - clientHeight)
+    setScrollProgress(max <= 0 ? 0 : Math.min(100, (scrollTop / max) * 100))
 
-  useLayoutEffect(() => {
-    if (!enabled) {
-      setNavH(0)
-      return
-    }
-    const el = navRef.current
-    if (!el) return
-
-    let debounceId = 0
-    const DEBOUNCE_MS = 120
-
-    const applyMeasure = () => {
-      if (window.matchMedia('(min-width: 768px)').matches) {
-        setNavH(0)
-        return
+    const centerY = main.getBoundingClientRect().top + clientHeight * 0.38
+    let bestId = CATEGORIES[0]?.id
+    let bestDist = Infinity
+    for (const cat of CATEGORIES) {
+      const el = document.getElementById(portfolioCategoryAnchorId(cat.id))
+      if (!el) continue
+      const r = el.getBoundingClientRect()
+      const mid = (r.top + r.bottom) / 2
+      const d = Math.abs(mid - centerY)
+      if (d < bestDist) {
+        bestDist = d
+        bestId = cat.id
       }
-      setNavH(el.offsetHeight)
     }
-
-    const measure = () => {
-      window.clearTimeout(debounceId)
-      debounceId = window.setTimeout(applyMeasure, DEBOUNCE_MS)
-    }
-
-    applyMeasure()
-    const ro = new ResizeObserver(measure)
-    ro.observe(el)
-    window.addEventListener('resize', measure)
-    return () => {
-      window.clearTimeout(debounceId)
-      ro.disconnect()
-      window.removeEventListener('resize', measure)
-    }
-  }, [enabled])
+    if (bestId) setActiveCategory((prev) => (prev === bestId ? prev : bestId))
+  }, [mainRef, setActiveCategory])
 
   useEffect(() => {
-    if (!enabled) {
-      setHidden(false)
-      return
-    }
+    const main = mainRef.current
+    if (!main) return
 
     const onScroll = () => {
       if (ticking.current) return
       ticking.current = true
       requestAnimationFrame(() => {
         ticking.current = false
-        if (!window.matchMedia('(max-width: 767px)').matches) {
-          hiddenRef.current = false
-          setHidden(false)
-          return
-        }
-        const scrollHeight = Math.max(
-          document.documentElement.scrollHeight,
-          document.body.scrollHeight,
-        )
-        const maxY = Math.max(0, scrollHeight - window.innerHeight)
-        const yRaw = window.scrollY || document.documentElement.scrollTop
-        const y = Math.min(Math.max(0, yRaw), maxY)
-
-        if (ignoreScrollUntilRef?.current && Date.now() < ignoreScrollUntilRef.current) {
-          lastY.current = y
-          return
-        }
-
-        const delta = y - lastY.current
-        lastY.current = y
-        const threshold = 6
-        const nearBottom =
-          maxY > 0 && y >= maxY - SCROLL_BOTTOM_SAFE_PX
-
-        let next = hiddenRef.current
-        if (y < 16) {
-          next = false
-        } else if (delta > threshold) {
-          next = true
-        } else if (delta < -threshold) {
-          if (nearBottom && delta > -SCROLL_SIGNIFICANT_UP_PX) {
-            return
-          }
-          next = false
-        }
-
-        if (next === hiddenRef.current) return
-
-        const now = Date.now()
-        if (now - lastHiddenEmit.current < SCROLL_NAV_THROTTLE_MS) return
-        lastHiddenEmit.current = now
-        hiddenRef.current = next
-        setHidden(next)
+        updateFromScroll()
       })
     }
 
-    const clampY = () => {
-      const sh = Math.max(
-        document.documentElement.scrollHeight,
-        document.body.scrollHeight,
-      )
-      const maxY = Math.max(0, sh - window.innerHeight)
-      const raw = window.scrollY || 0
-      return Math.min(Math.max(0, raw), maxY)
+    updateFromScroll()
+    main.addEventListener('scroll', onScroll, { passive: true })
+    const ro = new ResizeObserver(() => updateFromScroll())
+    ro.observe(main)
+    return () => {
+      main.removeEventListener('scroll', onScroll)
+      ro.disconnect()
     }
-    lastY.current = clampY()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [enabled, ignoreScrollUntilRef])
+  }, [mainRef, updateFromScroll])
 
-  return { hidden, navH, navRef }
+  return scrollProgress
 }
 
 export default function PortfolioPage() {
@@ -251,13 +155,11 @@ export default function PortfolioPage() {
   const { effectiveTheme, setProjectViewOpen } = useShellTheme()
   const L = effectiveTheme === 'light'
   const [activeProject, setActiveProject] = useState(null)
-  const navScrollIgnoreUntil = useRef(0)
-  usePortfolioMobileNav(false, navScrollIgnoreUntil)
+  const mainScrollRef = useRef(null)
   const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== 'undefined'
-      ? window.matchMedia('(max-width: 767px)').matches
-      : false,
+    typeof window !== 'undefined' ? window.matchMedia('(max-width: 767px)').matches : false,
   )
+
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 767px)')
     const fn = () => setIsMobile(mq.matches)
@@ -269,48 +171,28 @@ export default function PortfolioPage() {
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0].id)
   const [hoverCategoryId, setHoverCategoryId] = useState(null)
 
-  const active = useMemo(
-    () => getCategoryById(activeCategory),
-    [activeCategory],
-  )
+  const scrollProgress = usePortfolioScrollSpy(mainScrollRef, setActiveCategory)
+
   const activeSite = useMemo(
     () => (activeProject ? getSiteById(activeProject) : null),
     [activeProject],
   )
 
   useEffect(() => {
-    document.body.style.overflow = activeProject ? 'hidden' : ''
+    const prevHtml = document.documentElement.style.overflow
+    const prevBody = document.body.style.overflow
+    document.documentElement.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden'
     return () => {
-      document.body.style.overflow = ''
+      document.documentElement.style.overflow = prevHtml
+      document.body.style.overflow = prevBody
     }
-  }, [activeProject])
+  }, [])
 
   useEffect(() => {
     setProjectViewOpen(!!activeProject)
     return () => setProjectViewOpen(false)
   }, [activeProject, setProjectViewOpen])
-
-  useEffect(() => {
-    navScrollIgnoreUntil.current = Date.now() + 480
-    window.scrollTo({ top: 0, behavior: 'auto' })
-  }, [activeCategory])
-
-  useEffect(() => {
-    if (activeProject) {
-      document.documentElement.style.scrollSnapType = ''
-      document.documentElement.style.overscrollBehaviorY = ''
-      document.body.style.overscrollBehaviorY = ''
-      return
-    }
-    document.documentElement.style.scrollSnapType = 'y proximity'
-    document.documentElement.style.overscrollBehaviorY = 'none'
-    document.body.style.overscrollBehaviorY = 'none'
-    return () => {
-      document.documentElement.style.scrollSnapType = ''
-      document.documentElement.style.overscrollBehaviorY = ''
-      document.body.style.overscrollBehaviorY = ''
-    }
-  }, [activeProject])
 
   const openProject = useCallback((siteId, event) => {
     setOpenOrigin(computeOpenOrigin(event))
@@ -334,19 +216,20 @@ export default function PortfolioPage() {
     ? { opacity: 0 }
     : { scale: 0.97, opacity: 0, borderRadius: 18 }
 
-  const reducedCategoryVariants = prefersReducedMotion
-    ? {
-        initial: { opacity: 0 },
-        animate: { opacity: 1, transition: { duration: 0.35 } },
-        exit: { opacity: 0, transition: { duration: 0.25 } },
-      }
-    : categoryRegionVariants
-
   const galleryTokens = L ? GALLERY_LIGHT : GALLERY
 
-  const handleCategorySelect = useCallback((id) => {
-    setActiveCategory(id)
-  }, [])
+  const scrollToCategory = useCallback(
+    (id) => {
+      const el = document.getElementById(portfolioCategoryAnchorId(id))
+      if (!el || !mainScrollRef.current) return
+      setActiveCategory(id)
+      el.scrollIntoView({
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+        block: 'start',
+      })
+    },
+    [prefersReducedMotion],
+  )
 
   const canvasBg = useMemo(() => {
     const palette = L ? CATEGORY_CANVAS_HOVER.light : CATEGORY_CANVAS_HOVER.dark
@@ -361,12 +244,12 @@ export default function PortfolioPage() {
       {!activeProject && (
         <motion.div
           className={[
-            'trstn-ui trstn-shell scrollbar-thin relative min-h-screen h-auto overscroll-y-none',
+            'trstn-ui trstn-shell relative flex h-[100dvh] w-full flex-col overflow-hidden overscroll-none md:flex-row',
             L ? 'trstn-shell-light text-[#1d1d1f]' : 'text-[#e6e4df]',
           ].join(' ')}
           initial={false}
           animate={{ backgroundColor: canvasBg }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
         >
           <ShellThemeToggle className="fixed right-4 top-4 z-[55] md:right-8 md:top-6" />
 
@@ -378,10 +261,25 @@ export default function PortfolioPage() {
                 ? 'md:border-r md:border-black/[0.08] md:bg-[#F5F5F7]/95 md:backdrop-blur-xl'
                 : 'md:border-r md:border-white/[0.07] md:bg-[#0d0d0c]/95 md:backdrop-blur-xl',
             ].join(' ')}
-            style={{ willChange: 'transform' }}
             aria-label="Navigation des secteurs"
           >
-            <div className="flex max-h-[100svh] flex-col px-4 py-5 md:h-full md:max-h-none md:px-5 md:py-10">
+            <div className="relative flex h-full max-h-[100svh] flex-col px-4 py-5 md:max-h-none md:px-5 md:py-10">
+              <div
+                className={[
+                  'mb-6 h-1 w-full shrink-0 overflow-hidden rounded-full transition-[height] duration-300 md:mb-8',
+                  L ? 'bg-black/[0.06]' : 'bg-white/[0.08]',
+                ].join(' ')}
+                aria-hidden
+              >
+                <div
+                  className="h-full rounded-full transition-[width] duration-100 ease-out"
+                  style={{
+                    backgroundColor: galleryTokens.accent,
+                    width: `${scrollProgress}%`,
+                  }}
+                />
+              </div>
+
               <div
                 className={[
                   'mb-8 shrink-0 border-b pb-6',
@@ -457,21 +355,21 @@ export default function PortfolioPage() {
                     <button
                       key={cat.id}
                       type="button"
-                      onClick={() => setActiveCategory(cat.id)}
+                      onClick={() => scrollToCategory(cat.id)}
                       onMouseEnter={() => setHoverCategoryId(cat.id)}
                       className="group relative flex min-w-0 shrink-0 items-baseline gap-2.5 py-3 pl-1 pr-2 text-left md:w-full"
                       aria-current={isActive ? 'true' : undefined}
                     >
                       <span
                         className={[
-                          'absolute bottom-2 left-0 top-2 w-px transition-opacity duration-300',
+                          'absolute bottom-2 left-0 top-2 w-px transition-opacity duration-300 ease-in-out',
                           L ? 'bg-[#1d1d1f]/22' : 'bg-white/35',
                         ].join(' ')}
                         style={{ opacity: isActive ? 1 : 0 }}
                         aria-hidden
                       />
                       <span
-                        className="w-7 shrink-0 text-right text-[11px] tabular-nums leading-none transition-colors duration-300"
+                        className="w-7 shrink-0 text-right text-[11px] tabular-nums leading-none transition-colors duration-300 ease-in-out"
                         style={{
                           ...fontPlayfair,
                           color: isActive
@@ -486,8 +384,14 @@ export default function PortfolioPage() {
                       <MagneticCategoryLabel
                         enabled={!prefersReducedMotion}
                         className={[
-                          'min-w-0 truncate text-[13px] font-semibold tracking-[-0.02em] transition-[letter-spacing] duration-300 group-hover:tracking-[0.12em]',
-                          L ? 'text-[#6e6e73] group-hover:text-[#1d1d1f]' : 'text-zinc-400 group-hover:text-zinc-200',
+                          'min-w-0 truncate text-[13px] font-semibold tracking-[-0.02em] transition-[letter-spacing,color] duration-300 ease-in-out group-hover:tracking-[0.12em]',
+                          isActive
+                            ? L
+                              ? 'text-[#1d1d1f]'
+                              : 'text-white'
+                            : L
+                              ? 'text-[#6e6e73] group-hover:text-[#1d1d1f]'
+                              : 'text-zinc-400 group-hover:text-zinc-200',
                         ].join(' ')}
                         style={fontSyne}
                       >
@@ -500,69 +404,106 @@ export default function PortfolioPage() {
             </div>
           </motion.aside>
 
-          <main className="relative h-auto min-h-0 overflow-x-hidden overflow-y-visible md:min-h-[100svh] md:pl-[min(11rem,22vw)]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={active.id}
-                role="region"
-                aria-label={`Projets — ${active.label}`}
-                className="relative z-10 w-full px-5 pb-24 pt-[calc(4rem+env(safe-area-inset-top))] sm:px-10 md:px-14 md:pb-32 md:pt-16 lg:px-20"
-                initial="initial"
-                animate="animate"
-                exit="exit"
-                variants={reducedCategoryVariants}
+          <main
+            ref={mainScrollRef}
+            className="relative z-10 min-h-0 w-full flex-1 overflow-x-hidden overflow-y-auto overscroll-y-contain md:pl-[min(11rem,22vw)]"
+            style={{ WebkitOverflowScrolling: 'touch' }}
+          >
+            <div
+              className={[
+                'pointer-events-none sticky top-0 z-20 h-[3px] w-full md:hidden',
+                L ? 'bg-black/[0.04]' : 'bg-white/[0.06]',
+              ].join(' ')}
+              aria-hidden
+            >
+              <div
+                className="h-full transition-[width] duration-100 ease-out"
+                style={{
+                  backgroundColor: galleryTokens.accent,
+                  width: `${scrollProgress}%`,
+                }}
+              />
+            </div>
+
+            <div className="relative mx-auto max-w-6xl px-5 pb-24 pt-[calc(4rem+env(safe-area-inset-top))] sm:px-10 md:px-14 md:pb-32 md:pt-16 lg:px-20">
+              <MobileCategoryRail
+                activeCategory={activeCategory}
+                onSelectCategory={scrollToCategory}
+                onHoverCategory={setHoverCategoryId}
+                light={L}
+                accentColor={galleryTokens.accent}
+              />
+
+              <header
+                id="portfolio-top"
+                className="mb-14 max-w-xl scroll-mt-28 md:mb-20 md:scroll-mt-24"
               >
-                <div className="relative mx-auto max-w-6xl">
-                  <MobileCategoryRail
-                    activeCategory={activeCategory}
-                    onSelectCategory={handleCategorySelect}
-                    onHoverCategory={setHoverCategoryId}
-                    light={L}
-                    accentColor={galleryTokens.accent}
-                  />
-                  <header
-                    id="portfolio-top"
-                    className="mb-12 mt-8 max-w-xl scroll-mt-28 md:mb-28 md:mt-0 md:scroll-mt-24"
-                  >
-                    <p
-                      className={['text-[11px] uppercase tracking-[0.32em]', L ? 'text-[#86868b]' : 'text-zinc-500'].join(
-                        ' ',
-                      )}
-                      style={{ color: galleryTokens.accent }}
-                    >
-                      {active.label}
-                    </p>
+                <p
+                  className={['text-[11px] uppercase tracking-[0.32em]', L ? 'text-[#86868b]' : 'text-zinc-500'].join(
+                    ' ',
+                  )}
+                  style={{ color: galleryTokens.accent }}
+                >
+                  Portfolio
+                </p>
+                <h2
+                  className={[
+                    'mt-4 text-[2rem] font-semibold leading-[1.12] tracking-[-0.01em] sm:text-[2.25rem] md:text-[2.5rem]',
+                    L ? 'text-[#1a1a1a]' : 'text-white/[0.96]',
+                  ].join(' ')}
+                  style={fontSectionSerif}
+                >
+                  Réalisations sélectionnées
+                </h2>
+                <p
+                  className={[
+                    'mt-6 max-w-lg text-[16px] leading-relaxed md:text-base',
+                    L ? 'text-[#6e6e73]' : 'text-zinc-500',
+                  ].join(' ')}
+                >
+                  {SITE.footer}
+                </p>
+              </header>
+
+              {CATEGORIES.map((cat) => (
+                <motion.section
+                  key={cat.id}
+                  id={portfolioCategoryAnchorId(cat.id)}
+                  data-category-id={cat.id}
+                  className="scroll-mt-[calc(5rem+env(safe-area-inset-top))] md:scroll-mt-28"
+                  initial={prefersReducedMotion ? false : { opacity: 0.82, filter: 'blur(8px)' }}
+                  whileInView={prefersReducedMotion ? undefined : { opacity: 1, filter: 'blur(0px)' }}
+                  viewport={
+                    prefersReducedMotion
+                      ? undefined
+                      : { once: false, amount: 0.12, margin: '-8% 0px -8% 0px' }
+                  }
+                  transition={{ duration: 0.3, ease: [0.42, 0, 0.58, 1] }}
+                >
+                  <header className="mb-10 max-w-xl md:mb-14">
                     <h2
                       className={[
-                        'mt-4 text-[2rem] font-semibold leading-[1.12] tracking-[-0.01em] sm:text-[2.25rem] md:text-[2.5rem]',
-                        L ? 'text-[#1a1a1a]' : 'text-white/[0.96]',
+                        'text-[11px] font-medium uppercase tracking-[0.32em]',
+                        L ? 'text-[#86868b]' : 'text-zinc-500',
                       ].join(' ')}
-                      style={fontSectionSerif}
+                      style={{ color: galleryTokens.accent }}
                     >
-                      Réalisations sélectionnées
+                      {cat.label}
                     </h2>
-                    <p
-                      className={[
-                        'mt-6 max-w-lg text-[16px] leading-relaxed md:text-base',
-                        L ? 'text-[#6e6e73]' : 'text-zinc-500',
-                      ].join(' ')}
-                    >
-                      {SITE.footer}
-                    </p>
                   </header>
 
                   <PortfolioProjectGrid
-                    categoryId={active.id}
-                    projects={active.projects}
+                    categoryId={cat.id}
+                    projects={cat.projects}
                     isMobile={isMobile}
                     prefersReducedMotion={prefersReducedMotion}
                     onOpenProject={openProject}
                     gallery={galleryTokens}
                     shellLight={L}
                   />
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                </motion.section>
+              ))}
+            </div>
           </main>
 
           <p
