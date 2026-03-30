@@ -96,17 +96,24 @@ function computeOpenOrigin(event) {
   }
 }
 
-function usePortfolioScrollSpy(mainRef, setActiveCategory) {
+function usePortfolioScrollSpy(mainRef, setActiveCategory, isMobile) {
   const ticking = useRef(false)
   const [scrollProgress, setScrollProgress] = useState(0)
 
-  const updateFromScroll = useCallback(() => {
+  const updateProgress = useCallback(() => {
     const main = mainRef.current
     if (!main) return
     const { scrollTop, scrollHeight, clientHeight } = main
     const max = Math.max(0, scrollHeight - clientHeight)
     setScrollProgress(max <= 0 ? 0 : Math.min(100, (scrollTop / max) * 100))
+  }, [mainRef])
 
+  /** Bureau : catégorie active suivie par position du « centre » de lecture. */
+  const updateActiveDesktop = useCallback(() => {
+    if (isMobile) return
+    const main = mainRef.current
+    if (!main) return
+    const { clientHeight } = main
     const centerY = main.getBoundingClientRect().top + clientHeight * 0.38
     let bestId = CATEGORIES[0]?.id
     let bestDist = Infinity
@@ -122,30 +129,60 @@ function usePortfolioScrollSpy(mainRef, setActiveCategory) {
       }
     }
     if (bestId) setActiveCategory((prev) => (prev === bestId ? prev : bestId))
-  }, [mainRef, setActiveCategory])
+  }, [mainRef, setActiveCategory, isMobile])
+
+  useEffect(() => {
+    const main = mainRef.current
+    if (!main || !isMobile) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const strong = entries.filter((e) => e.intersectionRatio >= 0.6)
+        if (strong.length === 0) return
+        const best = strong.reduce((a, b) =>
+          a.intersectionRatio >= b.intersectionRatio ? a : b,
+        )
+        const id = best.target.getAttribute('data-category-id')
+        if (id) setActiveCategory((prev) => (prev === id ? prev : id))
+      },
+      {
+        root: main,
+        threshold: [0, 0.25, 0.5, 0.6, 0.75, 1],
+        rootMargin: '0px',
+      },
+    )
+
+    CATEGORIES.forEach((cat) => {
+      const el = document.getElementById(portfolioCategoryAnchorId(cat.id))
+      if (el) observer.observe(el)
+    })
+
+    return () => observer.disconnect()
+  }, [isMobile, mainRef, setActiveCategory])
 
   useEffect(() => {
     const main = mainRef.current
     if (!main) return
 
-    const onScroll = () => {
+    const tick = () => {
       if (ticking.current) return
       ticking.current = true
       requestAnimationFrame(() => {
         ticking.current = false
-        updateFromScroll()
+        updateProgress()
+        if (!isMobile) updateActiveDesktop()
       })
     }
 
-    updateFromScroll()
-    main.addEventListener('scroll', onScroll, { passive: true })
-    const ro = new ResizeObserver(() => updateFromScroll())
+    tick()
+    main.addEventListener('scroll', tick, { passive: true })
+    const ro = new ResizeObserver(() => tick())
     ro.observe(main)
     return () => {
-      main.removeEventListener('scroll', onScroll)
+      main.removeEventListener('scroll', tick)
       ro.disconnect()
     }
-  }, [mainRef, updateFromScroll])
+  }, [mainRef, updateProgress, updateActiveDesktop, isMobile])
 
   return scrollProgress
 }
@@ -171,7 +208,7 @@ export default function PortfolioPage() {
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0].id)
   const [hoverCategoryId, setHoverCategoryId] = useState(null)
 
-  const scrollProgress = usePortfolioScrollSpy(mainScrollRef, setActiveCategory)
+  const scrollProgress = usePortfolioScrollSpy(mainScrollRef, setActiveCategory, isMobile)
 
   const activeSite = useMemo(
     () => (activeProject ? getSiteById(activeProject) : null),
@@ -406,37 +443,47 @@ export default function PortfolioPage() {
 
           <main
             ref={mainScrollRef}
-            className="relative z-10 min-h-0 w-full flex-1 overflow-x-hidden overflow-y-auto overscroll-y-contain md:pl-[min(11rem,22vw)]"
+            className={[
+              'relative z-10 min-h-0 w-full flex-1 overflow-x-hidden overflow-y-auto overscroll-y-contain md:pl-[min(11rem,22vw)]',
+              'max-md:snap-y max-md:snap-mandatory',
+            ].join(' ')}
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
             <div
               className={[
-                'pointer-events-none sticky top-0 z-20 h-[3px] w-full md:hidden',
-                L ? 'bg-black/[0.04]' : 'bg-white/[0.06]',
+                'sticky top-0 z-30 md:static',
+                L ? '' : '',
               ].join(' ')}
-              aria-hidden
             >
               <div
-                className="h-full transition-[width] duration-100 ease-out"
-                style={{
-                  backgroundColor: galleryTokens.accent,
-                  width: `${scrollProgress}%`,
-                }}
-              />
+                className={[
+                  'pointer-events-none h-[3px] w-full md:hidden',
+                  L ? 'bg-black/[0.04]' : 'bg-white/[0.06]',
+                ].join(' ')}
+                aria-hidden
+              >
+                <div
+                  className="h-full transition-[width] duration-100 ease-out"
+                  style={{
+                    backgroundColor: galleryTokens.accent,
+                    width: `${scrollProgress}%`,
+                  }}
+                />
+              </div>
+              <div className="px-3 sm:px-5 md:px-0">
+                <MobileCategoryRail
+                  activeCategory={activeCategory}
+                  onSelectCategory={scrollToCategory}
+                  onHoverCategory={setHoverCategoryId}
+                  light={L}
+                />
+              </div>
             </div>
 
-            <div className="relative mx-auto max-w-6xl px-5 pb-24 pt-[calc(4rem+env(safe-area-inset-top))] sm:px-10 md:px-14 md:pb-32 md:pt-16 lg:px-20">
-              <MobileCategoryRail
-                activeCategory={activeCategory}
-                onSelectCategory={scrollToCategory}
-                onHoverCategory={setHoverCategoryId}
-                light={L}
-                accentColor={galleryTokens.accent}
-              />
-
+            <div className="relative mx-auto max-w-6xl px-5 pb-24 pt-6 sm:px-10 md:px-14 md:pb-32 md:pt-16 lg:px-20">
               <header
                 id="portfolio-top"
-                className="mb-14 max-w-xl scroll-mt-28 md:mb-20 md:scroll-mt-24"
+                className="mb-14 max-w-xl scroll-mt-[calc(7rem+env(safe-area-inset-top))] md:mb-20 md:scroll-mt-24"
               >
                 <p
                   className={['text-[11px] uppercase tracking-[0.32em]', L ? 'text-[#86868b]' : 'text-zinc-500'].join(
@@ -470,7 +517,10 @@ export default function PortfolioPage() {
                   key={cat.id}
                   id={portfolioCategoryAnchorId(cat.id)}
                   data-category-id={cat.id}
-                  className="scroll-mt-[calc(5rem+env(safe-area-inset-top))] md:scroll-mt-28"
+                  className={[
+                    'max-md:snap-start',
+                    'scroll-mt-[calc(7.5rem+env(safe-area-inset-top))] md:scroll-mt-28',
+                  ].join(' ')}
                   initial={prefersReducedMotion ? false : { opacity: 0.82, filter: 'blur(8px)' }}
                   whileInView={prefersReducedMotion ? undefined : { opacity: 1, filter: 'blur(0px)' }}
                   viewport={
