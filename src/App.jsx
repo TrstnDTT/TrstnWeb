@@ -5,6 +5,7 @@ import AboutPage from './pages/AboutPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
 import HomePage from './pages/HomePage.jsx'
 import PortfolioPage from './pages/PortfolioPage.jsx'
+import CheveuxCoReservationPage from './pages/CheveuxCoReservationPage.jsx'
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
+        <Route path="/portfolio/cheveux-co/reservation" element={<CheveuxCoReservationPage />} />
       </Routes>
       <MobileLuxTabBar />
     </>

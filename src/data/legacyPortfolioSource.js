@@ -49,7 +49,7 @@ export const LEGACY_THEMES = {
     style: 'bold',
   },
   'barber-urban': {
-    name: 'Urban Barber',
+    name: 'Barbier urbain',
     primaryColor: '#C41E3A',
     secondaryColor: '#0A0A0A',
     accentColor: '#FAFAFA',

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion'
 import { Home, Info, Mail } from 'lucide-react'
 import { MobileCategoryRail } from '../components/portfolio/MobileCategoryRail.jsx'
@@ -203,6 +203,8 @@ function usePortfolioScrollSpy(mainRef, setActiveCategory, isMobile) {
 
 export default function PortfolioPage() {
   const prefersReducedMotion = useReducedMotion()
+  const location = useLocation()
+  const navigate = useNavigate()
   const { effectiveTheme, setProjectViewOpen } = useShellTheme()
   const L = effectiveTheme === 'light'
   const [activeProject, setActiveProject] = useState(null)
@@ -247,6 +249,14 @@ export default function PortfolioPage() {
     setProjectViewOpen(!!activeProject)
     return () => setProjectViewOpen(false)
   }, [activeProject, setProjectViewOpen])
+
+  /** Retour depuis la page réservation Cheveux & Co : rouvrir le mini-site. */
+  useEffect(() => {
+    const id = location.state?.openProject
+    if (typeof id !== 'string') return
+    setActiveProject(id)
+    navigate('/portfolio', { replace: true, state: {} })
+  }, [location.state, navigate])
 
   const openProject = useCallback(
     (siteId, event) => {

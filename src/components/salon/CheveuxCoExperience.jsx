@@ -3,6 +3,7 @@
  * Aucun composant partagé avec Au Rasoir.
  */
 import { useCallback, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const CREME = '#F5F5DC'
 const SAGE = '#6b8f71'
@@ -118,6 +119,13 @@ export function CheveuxCoExperience({ site, onBack }) {
                 {label}
               </button>
             ))}
+            <Link
+              to="/portfolio/cheveux-co/reservation"
+              className="rounded-full border px-5 py-2.5 text-left text-[11px] uppercase tracking-[0.18em] transition hover:bg-white/50"
+              style={{ borderColor: `${SAGE}99`, color: INK }}
+            >
+              Réserver
+            </Link>
           </nav>
           <p className="hidden text-[11px] leading-relaxed lg:block" style={{ color: `${INK}99`, fontFamily: TYPE }}>
             {site.location?.city} · {site.location?.hours}
@@ -136,10 +144,17 @@ export function CheveuxCoExperience({ site, onBack }) {
                   {site.hero?.subline}
                 </p>
                 <div className="flex flex-wrap items-center gap-4">
+                  <Link
+                    to="/portfolio/cheveux-co/reservation"
+                    className="ch-type inline-flex rounded-full border-2 px-8 py-3 text-[11px] uppercase tracking-[0.22em] transition hover:bg-white/50"
+                    style={{ borderColor: SAGE, color: INK }}
+                  >
+                    Prendre rendez-vous
+                  </Link>
                   <a
                     href={`mailto:bonjour@cheveux-co-rennes.fr?subject=${encodeURIComponent('Pause cheveux — question douce')}`}
                     className="ch-type inline-flex rounded-full border-2 px-8 py-3 text-[11px] uppercase tracking-[0.22em] transition hover:bg-white/50"
-                    style={{ borderColor: SAGE, color: INK }}
+                    style={{ borderColor: `${SAGE_MUTE}cc`, color: INK }}
                   >
                     Écrire une ligne
                   </a>
@@ -282,7 +297,7 @@ export function CheveuxCoExperience({ site, onBack }) {
                 className="ch-type mt-10 inline-flex rounded-full border-2 px-10 py-3 text-[11px] uppercase tracking-[0.22em] transition hover:bg-white/60"
                 style={{ borderColor: SAGE, color: INK }}
               >
-                Demander une silenceuse
+                Demander un rendez-vous
               </a>
             </div>
           </section>

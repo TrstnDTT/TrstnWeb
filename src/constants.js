@@ -180,7 +180,7 @@ export const CATEGORIES = [
         siteId: 'atelier-m',
         title: 'Urban Cuts',
         description:
-          'Ancien portfolio — barber-urban : barber shop street, noir / rouge / blanc, template BarberUrban.',
+          'Ancien portfolio — barber-urban : salon barbier street, noir / rouge / blanc, template BarberUrban.',
         styleTag: 'Street & néon',
       },
       {

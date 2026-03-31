@@ -1058,7 +1058,7 @@ export const BUSINESS_RICH = {
   },
   'atelier-m': {
     valueProposition:
-      'Urban Cuts (sitesInfo barber-urban) : street culture × techniques classiques.',
+      'Urban Cuts (barber-urban) : culture street et techniques de barbier classiques.',
     ctaPrimary: { label: 'Réserver un créneau', href: '#contact' },
     ctaSecondary: { label: 'Plan d’accès', href: '#footer-business' },
     menuSections: [

@@ -356,7 +356,8 @@ export const SITES = [
     tagline: 'Barbier × street',
     hero: {
       headline: 'URBAN CUTS',
-      subline: 'Real Men. Real Cuts. — barbier moderne (BarberUrban / barber-urban).',
+      subline:
+        'Des coupes qui assument — barbier urbain, street culture et techniques de salon (template BarberUrban).',
       cta: 'Réserver',
     },
     about: {
@@ -376,12 +377,12 @@ export const SITES = [
     },
     location: {
       sectionTitle: 'Où nous trouver',
-      street: '125 Brooklyn Ave',
-      city: 'New York',
-      postalCode: '11211',
-      country: 'USA',
-      hours: 'Mon-Sun: 9AM-9PM',
-      mapArea: 'Brooklyn',
+      street: '42 rue Oberkampf',
+      city: 'Paris',
+      postalCode: '75011',
+      country: 'France',
+      hours: 'Lun–dim : 9h – 21h',
+      mapArea: '11e',
     },
     social: { instagramLabel: 'Portfolio coupes' },
   },
