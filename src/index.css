@@ -35,6 +35,35 @@ body {
   font-weight: 500;
 }
 
+/**
+ * WCAG 2 AA — texte secondaire (petit corps / légendes shell).
+ * Ratio visé ≥ 4.5:1 sur fond clair (#fff / #F5F5F7) ou sombre (#050506 / #0d0d0c).
+ */
+.trstn-a11y-muted-light {
+  color: #575757;
+}
+
+.trstn-a11y-muted-dark {
+  color: #a1a1a1;
+}
+
+/**
+ * Liens navigation shell — contraste maximal (WCAG AA, petit texte).
+ * Clair : quasi-noir ; sombre : blanc pur ; survol inchangé pour garder le ratio.
+ */
+.trstn-a11y-nav-link-light {
+  color: #0a0a0a;
+}
+.trstn-a11y-nav-link-light:hover {
+  color: #000000;
+}
+.trstn-a11y-nav-link-dark {
+  color: #ffffff;
+}
+.trstn-a11y-nav-link-dark:hover {
+  color: #ffffff;
+}
+
 /* Les mini-sites (plein écran) ne sont pas dans `.trstn-ui` : leurs `font-family` inline restent prioritaires. */
 
 /* Accueil — boutons glass (Plus Jakarta Sans, medium) */

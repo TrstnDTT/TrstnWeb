@@ -54,9 +54,9 @@ export function ShellThemeToggle({ className = '' }) {
         transition={{ duration: 0.45, ease }}
       >
         {light ? (
-          <Moon className="h-[18px] w-[18px]" strokeWidth={1.5} aria-hidden />
+          <Moon className="h-[18px] w-[18px]" strokeWidth={1.5} aria-hidden tabIndex={-1} focusable="false" />
         ) : (
-          <Sun className="h-[18px] w-[18px]" strokeWidth={1.5} aria-hidden />
+          <Sun className="h-[18px] w-[18px]" strokeWidth={1.5} aria-hidden tabIndex={-1} focusable="false" />
         )}
       </motion.span>
     </motion.button>

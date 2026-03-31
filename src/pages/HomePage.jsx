@@ -40,6 +40,7 @@ export default function HomePage() {
     >
       <ShellThemeToggle className="fixed right-4 top-4 z-[300] md:right-8 md:top-6" />
 
+      <main id="contenu-principal">
       {/* —— Mobile : app native — plein écran, carrousel, CTA unique —— */}
       <section
         className="relative block min-h-[100dvh] md:hidden"
@@ -50,11 +51,13 @@ export default function HomePage() {
             <div
               className="pointer-events-none absolute inset-0 scale-110 bg-[conic-gradient(from_200deg_at_50%_40%,#f2f0f8_0%,#e8ecf4_30%,#eef2ea_60%,#f4f1ec_100%)]"
               aria-hidden
+              tabIndex={-1}
             />
             <div
               className="absolute inset-0 backdrop-blur-[48px]"
               style={{ backgroundColor: 'rgba(245, 245, 247, 0.78)' }}
               aria-hidden
+              tabIndex={-1}
             />
           </>
         ) : (
@@ -62,11 +65,13 @@ export default function HomePage() {
             <div
               className="pointer-events-none absolute inset-0 scale-110 bg-[conic-gradient(from_200deg_at_50%_40%,#1a0a2e_0%,#0a1628_25%,#0d2838_45%,#1a3d32_65%,#2d1f3d_85%,#1a0a2e_100%)]"
               aria-hidden
+              tabIndex={-1}
             />
             <div
               className="absolute inset-0 backdrop-blur-[48px]"
               style={{ backgroundColor: 'rgba(10, 10, 10, 0.82)' }}
               aria-hidden
+              tabIndex={-1}
             />
           </>
         )}
@@ -77,6 +82,7 @@ export default function HomePage() {
           ].join(' ')}
           style={{ backgroundImage: FILM_GRAIN_SVG }}
           aria-hidden
+          tabIndex={-1}
         />
         <div className="relative z-10 flex min-h-[100dvh] flex-col px-5 pb-[calc(6.25rem+env(safe-area-inset-bottom))] pt-[calc(3.25rem+env(safe-area-inset-top))]">
           <div className="flex min-h-0 flex-1 flex-col justify-center py-6">
@@ -99,7 +105,7 @@ export default function HomePage() {
             <p
               className={[
                 'mx-auto mt-4 max-w-sm text-center text-[16px] leading-relaxed',
-                L ? 'text-[#5c5c61]' : 'text-zinc-400',
+                L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark',
               ].join(' ')}
             >
               Interfaces sur-mesure — un swipe, un univers.
@@ -132,7 +138,7 @@ export default function HomePage() {
                     <p
                       className={[
                         'mt-4 text-center text-[16px] font-medium leading-snug',
-                        L ? 'text-[#3d3d41]' : 'text-zinc-300',
+                        L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark',
                       ].join(' ')}
                       style={fontBtnSerif}
                     >
@@ -148,8 +154,8 @@ export default function HomePage() {
             className={[
               'mt-5 flex min-h-[48px] w-full shrink-0 items-center justify-center rounded-2xl text-[16px] font-medium tracking-wide transition active:scale-[0.98]',
               L
-                ? 'border border-black/[0.08] bg-white/85 text-[#1d1d1f] shadow-lg backdrop-blur-xl'
-                : 'border border-white/[0.12] bg-white/[0.08] text-white shadow-xl backdrop-blur-xl',
+                ? 'border border-black/[0.08] bg-white/85 text-[#0a0a0a] shadow-lg backdrop-blur-xl hover:text-black'
+                : 'border border-white/[0.12] bg-white/[0.08] text-white shadow-xl backdrop-blur-xl hover:text-white',
             ].join(' ')}
             style={{ fontFamily: "'Plus Jakarta Sans', ui-sans-serif, sans-serif" }}
           >
@@ -158,7 +164,7 @@ export default function HomePage() {
           <p
             className={[
               'mt-5 text-center text-[15px]',
-              L ? 'text-[#86868b]' : 'text-zinc-500',
+              L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark',
             ].join(' ')}
           >
             Glissez horizontalement pour parcourir les aperçus.
@@ -174,6 +180,7 @@ export default function HomePage() {
         ].join(' ')}
         style={{ backgroundImage: FILM_GRAIN_SVG }}
         aria-hidden
+        tabIndex={-1}
       />
 
       <section
@@ -185,19 +192,23 @@ export default function HomePage() {
             <div
               className="pointer-events-none absolute inset-0 scale-110 bg-[conic-gradient(from_200deg_at_50%_40%,#f2f0f8_0%,#e8ecf4_30%,#eef2ea_60%,#f4f1ec_100%)]"
               aria-hidden
+              tabIndex={-1}
             />
             <div
               className="pointer-events-none absolute -left-[10%] -top-[5%] h-[55%] w-[55%] rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(180,160,120,0.12),transparent_62%)] blur-3xl"
               aria-hidden
+              tabIndex={-1}
             />
             <div
               className="pointer-events-none absolute -bottom-[8%] -right-[12%] h-[58%] w-[58%] rounded-full bg-[radial-gradient(circle_at_70%_70%,rgba(100,120,160,0.1),transparent_58%)] blur-3xl"
               aria-hidden
+              tabIndex={-1}
             />
             <div
               className="absolute inset-0 backdrop-blur-[80px]"
               style={{ backgroundColor: 'rgba(245, 245, 247, 0.72)' }}
               aria-hidden
+              tabIndex={-1}
             />
           </>
         ) : (
@@ -205,19 +216,23 @@ export default function HomePage() {
             <div
               className="pointer-events-none absolute inset-0 scale-110 bg-[conic-gradient(from_200deg_at_50%_40%,#1a0a2e_0%,#0a1628_25%,#0d2838_45%,#1a3d32_65%,#2d1f3d_85%,#1a0a2e_100%)]"
               aria-hidden
+              tabIndex={-1}
             />
             <div
               className="pointer-events-none absolute -left-[10%] -top-[5%] h-[55%] w-[55%] rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(210,165,90,0.14),transparent_62%)] blur-3xl"
               aria-hidden
+              tabIndex={-1}
             />
             <div
               className="pointer-events-none absolute -bottom-[8%] -right-[12%] h-[58%] w-[58%] rounded-full bg-[radial-gradient(circle_at_70%_70%,rgba(35,55,120,0.18),transparent_58%)] blur-3xl"
               aria-hidden
+              tabIndex={-1}
             />
             <div
               className="absolute inset-0 backdrop-blur-[80px]"
               style={{ backgroundColor: 'rgba(10, 10, 10, 0.78)' }}
               aria-hidden
+              tabIndex={-1}
             />
           </>
         )}
@@ -229,6 +244,7 @@ export default function HomePage() {
           ].join(' ')}
           style={{ backgroundImage: FILM_GRAIN_SVG }}
           aria-hidden
+          tabIndex={-1}
         />
 
         <div className="relative z-10 flex min-h-[100dvh] w-full flex-col items-center justify-center px-5 py-16 sm:px-8">
@@ -268,6 +284,7 @@ export default function HomePage() {
                       className="inline-block max-w-0 overflow-hidden text-[15px] opacity-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:max-w-[1.25em] group-hover:opacity-100 md:text-base"
                       style={fontBtnSerif}
                       aria-hidden
+                      tabIndex={-1}
                     >
                       →
                     </span>
@@ -292,6 +309,7 @@ export default function HomePage() {
                       className="inline-block max-w-0 overflow-hidden text-[15px] opacity-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:max-w-[1.25em] group-hover:opacity-100 md:text-base"
                       style={fontBtnSerif}
                       aria-hidden
+                      tabIndex={-1}
                     >
                       →
                     </span>
@@ -316,6 +334,7 @@ export default function HomePage() {
                       className="inline-block max-w-0 overflow-hidden text-[15px] opacity-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:max-w-[1.25em] group-hover:opacity-100 md:text-base"
                       style={fontBtnSerif}
                       aria-hidden
+                      tabIndex={-1}
                     >
                       →
                     </span>
@@ -337,7 +356,7 @@ export default function HomePage() {
           <p
             className={[
               'trstn-label max-w-lg text-[15px] leading-relaxed md:text-base',
-              L ? 'text-[#3d3d41]' : 'text-zinc-400',
+              L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark',
             ].join(' ')}
           >
             Studio indépendant — interfaces React sur-mesure, identité et conversion. Le récit
@@ -348,21 +367,19 @@ export default function HomePage() {
             className={[
               'trstn-entry-btn inline-flex rounded-[6px] px-8 py-3 text-[13px] transition-colors',
               L
-                ? 'border border-black/[0.1] bg-white/75 text-[#1d1d1f] shadow-[0_2px_16px_rgba(0,0,0,0.05)] hover:bg-white hover:text-[#0a0a0a]'
-                : 'border border-white/[0.1] bg-white/[0.04] text-zinc-300 hover:bg-white/[0.08] hover:text-white',
+                ? 'border border-black/[0.1] bg-white/75 text-[#0a0a0a] shadow-[0_2px_16px_rgba(0,0,0,0.05)] hover:bg-white hover:text-black'
+                : 'border border-white/[0.1] bg-white/[0.04] text-white hover:bg-white/[0.08] hover:text-white',
             ].join(' ')}
           >
             Lire la présentation
           </Link>
-          <p className={['trstn-label text-[12px]', L ? 'text-[#6e6e73]' : 'text-zinc-600'].join(' ')}>
+          <p className={['trstn-label text-[12px]', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}>
             Conçu par{' '}
-            <TrstnWebLogo
-              as="span"
-              className={L ? 'text-[#424245]' : 'text-zinc-500'}
-            />
+            <TrstnWebLogo as="span" className={L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'} />
           </p>
         </div>
       </section>
+      </main>
     </div>
   )
 }

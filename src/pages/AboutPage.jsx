@@ -98,6 +98,7 @@ export default function AboutPage() {
         ].join(' ')}
         style={{ backgroundImage: FILM_GRAIN }}
         aria-hidden
+        tabIndex={-1}
       />
 
       <header
@@ -111,15 +112,15 @@ export default function AboutPage() {
             to="/"
             className={[
               'inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] transition-colors',
-              L ? 'text-[#6e6e73] hover:text-[#1d1d1f]' : 'text-zinc-500 hover:text-zinc-300',
+              L ? 'trstn-a11y-nav-link-light' : 'trstn-a11y-nav-link-dark',
             ].join(' ')}
             style={fontBody}
           >
-            <ArrowLeft className="h-3.5 w-3.5" strokeWidth={0.75} aria-hidden />
+            <ArrowLeft className="h-3.5 w-3.5" strokeWidth={0.75} aria-hidden tabIndex={-1} focusable="false" />
             Accueil
           </Link>
           <span
-            className={['text-[10px] uppercase tracking-[0.35em]', L ? 'text-[#86868b]' : 'text-zinc-600'].join(' ')}
+            className={['text-[10px] uppercase tracking-[0.35em]', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}
             style={fontSyne}
           >
             <TrstnWebLogo className="inline" />
@@ -214,9 +215,11 @@ export default function AboutPage() {
               {pillars.map(({ Icon, label, sub }) => (
                 <li key={label} className="flex flex-col gap-2">
                   <Icon
-                    className={['h-6 w-6', L ? 'text-[#86868b]' : 'text-zinc-500'].join(' ')}
+                    className={['h-6 w-6', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}
                     strokeWidth={0.5}
                     aria-hidden
+                    tabIndex={-1}
+                    focusable="false"
                   />
                   <p
                     className={['text-[13px] font-semibold', L ? 'text-[#1d1d1f]' : 'text-zinc-200'].join(
@@ -226,7 +229,7 @@ export default function AboutPage() {
                   >
                     {label}
                   </p>
-                  <p className={['text-[12px] leading-relaxed', L ? 'text-[#6e6e73]' : 'text-zinc-500'].join(' ')}>
+                  <p className={['text-[12px] leading-relaxed', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}>
                     {sub}
                   </p>
                 </li>
@@ -259,6 +262,7 @@ export default function AboutPage() {
                   L ? 'from-black/25 via-black/10 to-transparent' : 'from-black/75 via-black/35 to-black/20',
                 ].join(' ')}
                 aria-hidden
+                tabIndex={-1}
               />
               <div
                 className={['pointer-events-none absolute inset-0', L ? 'opacity-[0.05] mix-blend-multiply' : 'opacity-[0.06]'].join(
@@ -266,9 +270,10 @@ export default function AboutPage() {
                 )}
                 style={{ backgroundImage: FILM_GRAIN }}
                 aria-hidden
+                tabIndex={-1}
               />
               <figcaption className="absolute bottom-0 left-0 right-0 p-5">
-                <p className={['text-[11px] uppercase tracking-[0.2em]', L ? 'text-[#86868b]' : 'text-zinc-500'].join(' ')}>
+                <p className={['text-[11px] uppercase tracking-[0.2em]', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}>
                   Studio
                 </p>
                 <p
@@ -283,8 +288,8 @@ export default function AboutPage() {
               className={[
                 'border-l pl-5 text-[15px] leading-relaxed',
                 L
-                  ? 'border-[#6b5c3e]/35 text-[#6e6e73]'
-                  : 'border-[#b8a074]/40 text-zinc-500',
+                  ? 'border-[#6b5c3e]/35 trstn-a11y-muted-light'
+                  : 'border-[#b8a074]/40 trstn-a11y-muted-dark',
               ].join(' ')}
               cite={SITE.title}
             >
@@ -293,7 +298,7 @@ export default function AboutPage() {
                 marque. »
               </p>
               <footer
-                className={['mt-3 text-[11px] uppercase tracking-[0.22em]', L ? 'text-[#86868b]' : 'text-zinc-600'].join(
+                className={['mt-3 text-[11px] uppercase tracking-[0.22em]', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(
                   ' ',
                 )}
               >
@@ -335,10 +340,11 @@ export default function AboutPage() {
           variants={itemVariants}
           className={[
             'pointer-events-none mt-16 text-center text-[9px] font-medium uppercase tracking-[0.42em]',
-            L ? 'text-[#aeaeb2]' : 'text-zinc-700',
+            L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark',
           ].join(' ')}
           style={{ fontFamily: '"IBM Plex Sans", system-ui, sans-serif' }}
           aria-hidden
+          tabIndex={-1}
         >
           {SITE.title}
         </motion.p>

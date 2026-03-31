@@ -44,15 +44,15 @@ export function MobileLuxTabBar() {
                   'flex min-h-[48px] min-w-[48px] flex-1 flex-col items-center justify-center gap-1 rounded-xl px-2 py-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] transition-[transform,background-color,color] duration-200 active:scale-[0.96]',
                   isActive
                     ? L
-                      ? 'bg-black/[0.06] text-[#1d1d1f]'
+                      ? 'bg-black/[0.06] text-[#000000]'
                       : 'bg-white/[0.12] text-white'
                     : L
-                      ? 'text-[#86868b] hover:text-[#1d1d1f]'
-                      : 'text-zinc-500 hover:text-zinc-200',
+                      ? 'trstn-a11y-nav-link-light'
+                      : 'trstn-a11y-nav-link-dark',
                 ].join(' ')
               }
             >
-              <Icon className="h-[22px] w-[22px] shrink-0" strokeWidth={1.35} aria-hidden />
+              <Icon className="h-[22px] w-[22px] shrink-0" strokeWidth={1.35} aria-hidden tabIndex={-1} focusable="false" />
               <span>{label}</span>
             </NavLink>
           ))}

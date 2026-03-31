@@ -388,6 +388,7 @@ export default function PortfolioPage() {
                   L ? 'bg-black/[0.06]' : 'bg-white/[0.08]',
                 ].join(' ')}
                 aria-hidden
+                tabIndex={-1}
               >
                 <div
                   className="h-full rounded-full transition-[width] duration-100 ease-out"
@@ -414,7 +415,7 @@ export default function PortfolioPage() {
                   <TrstnWebLogo className="inline" />
                 </p>
                 <p
-                  className={['mt-2 text-[10px] uppercase tracking-[0.28em]', L ? 'text-[#86868b]' : 'text-zinc-500'].join(
+                  className={['mt-2 text-[10px] uppercase tracking-[0.28em]', L ? 'text-[#0a0a0a]' : 'text-white'].join(
                     ' ',
                   )}
                 >
@@ -426,37 +427,31 @@ export default function PortfolioPage() {
                 <Link
                   to="/"
                   className={[
-                    'inline-flex min-h-[44px] min-w-[44px] items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] transition-[letter-spacing] duration-300 hover:tracking-[0.28em]',
-                    L
-                      ? 'text-[#86868b] hover:text-[#1d1d1f]'
-                      : 'text-zinc-500 hover:text-zinc-300',
+                    'inline-flex min-h-[44px] min-w-[44px] items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] transition-[letter-spacing,color] duration-300 hover:tracking-[0.28em]',
+                    L ? 'trstn-a11y-nav-link-light' : 'trstn-a11y-nav-link-dark',
                   ].join(' ')}
                 >
-                  <Home className="h-3 w-3 opacity-70" strokeWidth={1.5} aria-hidden />
+                  <Home className="h-3 w-3 shrink-0" strokeWidth={1.5} aria-hidden tabIndex={-1} focusable="false" />
                   Accueil
                 </Link>
                 <Link
                   to="/about"
                   className={[
-                    'inline-flex min-h-[44px] min-w-[44px] items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] transition-[letter-spacing] duration-300 hover:tracking-[0.28em]',
-                    L
-                      ? 'text-[#86868b] hover:text-[#1d1d1f]'
-                      : 'text-zinc-500 hover:text-zinc-300',
+                    'inline-flex min-h-[44px] min-w-[44px] items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] transition-[letter-spacing,color] duration-300 hover:tracking-[0.28em]',
+                    L ? 'trstn-a11y-nav-link-light' : 'trstn-a11y-nav-link-dark',
                   ].join(' ')}
                 >
-                  <Info className="h-3 w-3 opacity-70" strokeWidth={1.5} aria-hidden />
+                  <Info className="h-3 w-3 shrink-0" strokeWidth={1.5} aria-hidden tabIndex={-1} focusable="false" />
                   À propos
                 </Link>
                 <Link
                   to="/contact"
                   className={[
-                    'inline-flex min-h-[44px] min-w-[44px] items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] transition-[letter-spacing] duration-300 hover:tracking-[0.28em]',
-                    L
-                      ? 'text-[#86868b] hover:text-[#1d1d1f]'
-                      : 'text-zinc-500 hover:text-zinc-300',
+                    'inline-flex min-h-[44px] min-w-[44px] items-center gap-1.5 border-b border-transparent pb-0.5 text-[10px] uppercase tracking-[0.22em] transition-[letter-spacing,color] duration-300 hover:tracking-[0.28em]',
+                    L ? 'trstn-a11y-nav-link-light' : 'trstn-a11y-nav-link-dark',
                   ].join(' ')}
                 >
-                  <Mail className="h-3 w-3 opacity-70" strokeWidth={1.5} aria-hidden />
+                  <Mail className="h-3 w-3 shrink-0" strokeWidth={1.5} aria-hidden tabIndex={-1} focusable="false" />
                   Contact
                 </Link>
               </div>
@@ -485,6 +480,7 @@ export default function PortfolioPage() {
                         ].join(' ')}
                         style={{ opacity: isActive ? 1 : 0 }}
                         aria-hidden
+                        tabIndex={-1}
                       />
                       <span
                         className="w-7 shrink-0 text-right text-[11px] tabular-nums leading-none transition-colors duration-300 ease-in-out"
@@ -508,8 +504,8 @@ export default function PortfolioPage() {
                               ? 'text-[#1d1d1f]'
                               : 'text-white'
                             : L
-                              ? 'text-[#6e6e73] group-hover:text-[#1d1d1f]'
-                              : 'text-zinc-400 group-hover:text-zinc-200',
+                              ? 'trstn-a11y-muted-light group-hover:text-[#1d1d1f]'
+                              : 'trstn-a11y-muted-dark group-hover:text-zinc-200',
                         ].join(' ')}
                         style={fontSyne}
                       >
@@ -542,6 +538,7 @@ export default function PortfolioPage() {
                   L ? 'bg-black/[0.04]' : 'bg-white/[0.06]',
                 ].join(' ')}
                 aria-hidden
+                tabIndex={-1}
               >
                 <div
                   className="h-full transition-[width] duration-100 ease-out"
@@ -567,7 +564,7 @@ export default function PortfolioPage() {
                 className="mb-14 max-w-xl scroll-mt-[calc(7rem+env(safe-area-inset-top))] md:mb-20 md:scroll-mt-24"
               >
                 <p
-                  className={['text-[11px] uppercase tracking-[0.32em]', L ? 'text-[#86868b]' : 'text-zinc-500'].join(
+                  className={['text-[11px] uppercase tracking-[0.32em]', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(
                     ' ',
                   )}
                   style={{ color: galleryTokens.accent }}
@@ -586,7 +583,7 @@ export default function PortfolioPage() {
                 <p
                   className={[
                     'mt-6 max-w-lg text-[16px] leading-relaxed md:text-base',
-                    L ? 'text-[#6e6e73]' : 'text-zinc-500',
+                    L ? 'text-[#0a0a0a]' : 'text-white',
                   ].join(' ')}
                 >
                   {SITE.footer}
@@ -615,7 +612,7 @@ export default function PortfolioPage() {
                     <h2
                       className={[
                         'text-[11px] font-medium uppercase tracking-[0.32em]',
-                        L ? 'text-[#86868b]' : 'text-zinc-500',
+                        L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark',
                       ].join(' ')}
                       style={{ color: galleryTokens.accent }}
                     >
@@ -640,10 +637,11 @@ export default function PortfolioPage() {
           <p
             className={[
               'pointer-events-none fixed bottom-5 right-6 z-40 hidden select-none text-[9px] font-medium uppercase tracking-[0.42em] md:block',
-              L ? 'text-[#a1a1a6]' : 'text-zinc-600',
+              L ? 'text-[#0a0a0a]' : 'text-white',
             ].join(' ')}
             style={{ fontFamily: '"IBM Plex Sans", system-ui, sans-serif' }}
             aria-hidden
+            tabIndex={-1}
           >
             <TrstnWebLogo className="inline" />
           </p>

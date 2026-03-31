@@ -21,16 +21,16 @@ const inputBaseLight =
   'peer w-full rounded-[4px] border-[0.5px] border-black/[0.1] bg-white/[0.78] px-3 pb-2.5 pt-5 text-[14px] text-[#1d1d1f] outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-transparent focus:border-black/25 focus:shadow-[0_2px_12px_rgba(0,0,0,0.04)] [color-scheme:light]'
 
 const labelFloatingDark =
-  'pointer-events-none absolute left-3 top-1/2 z-[1] origin-left -translate-y-1/2 text-[13px] text-zinc-500 transition-all duration-300 peer-focus:top-2 peer-focus:translate-y-0 peer-focus:scale-[0.72] peer-focus:text-zinc-400 peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:scale-[0.72]'
+  'pointer-events-none absolute left-3 top-1/2 z-[1] origin-left -translate-y-1/2 text-[13px] trstn-a11y-muted-dark transition-all duration-300 peer-focus:top-2 peer-focus:translate-y-0 peer-focus:scale-[0.72] peer-focus:text-zinc-300 peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:scale-[0.72]'
 
 const labelFloatingLight =
-  'pointer-events-none absolute left-3 top-1/2 z-[1] origin-left -translate-y-1/2 text-[13px] text-[#86868b] transition-all duration-300 peer-focus:top-2 peer-focus:translate-y-0 peer-focus:scale-[0.72] peer-focus:text-[#424245] peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:scale-[0.72]'
+  'pointer-events-none absolute left-3 top-1/2 z-[1] origin-left -translate-y-1/2 text-[13px] trstn-a11y-muted-light transition-all duration-300 peer-focus:top-2 peer-focus:translate-y-0 peer-focus:scale-[0.72] peer-focus:text-[#424245] peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:scale-[0.72]'
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 function InstagramGlyph({ className }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden tabIndex={-1} focusable="false">
       <path
         fill="currentColor"
         d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
@@ -145,11 +145,11 @@ export default function ContactPage() {
         'pointer-events-none absolute left-3 z-[1] text-[13px] transition-all duration-300',
         projectType
           ? L
-            ? 'top-2 scale-[0.72] text-[#6e6e73]'
-            : 'top-2 scale-[0.72] text-zinc-400'
+            ? 'top-2 scale-[0.72] trstn-a11y-muted-light'
+            : 'top-2 scale-[0.72] trstn-a11y-muted-dark'
           : L
-            ? 'top-1/2 -translate-y-1/2 text-[#86868b] group-focus-within:top-2 group-focus-within:translate-y-0 group-focus-within:scale-[0.72] group-focus-within:text-[#424245]'
-            : 'top-1/2 -translate-y-1/2 text-zinc-500 group-focus-within:top-2 group-focus-within:translate-y-0 group-focus-within:scale-[0.72] group-focus-within:text-zinc-400',
+            ? 'top-1/2 -translate-y-1/2 trstn-a11y-muted-light group-focus-within:top-2 group-focus-within:translate-y-0 group-focus-within:scale-[0.72] group-focus-within:text-[#424245]'
+            : 'top-1/2 -translate-y-1/2 trstn-a11y-muted-dark group-focus-within:top-2 group-focus-within:translate-y-0 group-focus-within:scale-[0.72] group-focus-within:text-zinc-300',
       ].join(' '),
     [projectType, L],
   )
@@ -174,6 +174,7 @@ export default function ContactPage() {
         ].join(' ')}
         style={{ backgroundImage: FILM_GRAIN }}
         aria-hidden
+        tabIndex={-1}
       />
 
       {L ? (
@@ -181,19 +182,23 @@ export default function ContactPage() {
           <div
             className="pointer-events-none fixed inset-0 z-0 scale-110 bg-[conic-gradient(from_200deg_at_50%_40%,#f0eef5_0%,#e8ecf2_35%,#eef0e8_65%,#f4f1ec_100%)]"
             aria-hidden
+            tabIndex={-1}
           />
           <div
             className="pointer-events-none fixed -left-[10%] -top-[5%] z-0 h-[55%] w-[55%] rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(180,160,120,0.1),transparent_62%)] blur-3xl"
             aria-hidden
+            tabIndex={-1}
           />
           <div
             className="pointer-events-none fixed -bottom-[8%] -right-[12%] z-0 h-[58%] w-[58%] rounded-full bg-[radial-gradient(circle_at_70%_70%,rgba(100,120,160,0.08),transparent_58%)] blur-3xl"
             aria-hidden
+            tabIndex={-1}
           />
           <div
             className="pointer-events-none fixed inset-0 z-0 backdrop-blur-[72px]"
             style={{ backgroundColor: 'rgba(245, 245, 247, 0.75)' }}
             aria-hidden
+            tabIndex={-1}
           />
         </>
       ) : (
@@ -201,19 +206,23 @@ export default function ContactPage() {
           <div
             className="pointer-events-none fixed inset-0 z-0 scale-110 bg-[conic-gradient(from_200deg_at_50%_40%,#1a0a2e_0%,#0a1628_25%,#0d2838_45%,#1a3d32_65%,#2d1f3d_85%,#1a0a2e_100%)]"
             aria-hidden
+            tabIndex={-1}
           />
           <div
             className="pointer-events-none fixed -left-[10%] -top-[5%] z-0 h-[55%] w-[55%] rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(210,165,90,0.12),transparent_62%)] blur-3xl"
             aria-hidden
+            tabIndex={-1}
           />
           <div
             className="pointer-events-none fixed -bottom-[8%] -right-[12%] z-0 h-[58%] w-[58%] rounded-full bg-[radial-gradient(circle_at_70%_70%,rgba(35,55,120,0.16),transparent_58%)] blur-3xl"
             aria-hidden
+            tabIndex={-1}
           />
           <div
             className="pointer-events-none fixed inset-0 z-0 backdrop-blur-[72px]"
             style={{ backgroundColor: 'rgba(8, 8, 10, 0.82)' }}
             aria-hidden
+            tabIndex={-1}
           />
         </>
       )}
@@ -223,6 +232,7 @@ export default function ContactPage() {
         )}
         style={{ backgroundImage: FILM_GRAIN }}
         aria-hidden
+        tabIndex={-1}
       />
 
       <header
@@ -236,15 +246,15 @@ export default function ContactPage() {
             to="/"
             className={[
               'inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] transition-colors',
-              L ? 'text-[#6e6e73] hover:text-[#1d1d1f]' : 'text-zinc-500 hover:text-zinc-300',
+              L ? 'trstn-a11y-nav-link-light' : 'trstn-a11y-nav-link-dark',
             ].join(' ')}
             style={fontBody}
           >
-            <ArrowLeft className="h-3.5 w-3.5" strokeWidth={0.75} aria-hidden />
+            <ArrowLeft className="h-3.5 w-3.5" strokeWidth={0.75} aria-hidden tabIndex={-1} focusable="false" />
             Accueil
           </Link>
           <span
-            className={['text-[10px] uppercase tracking-[0.35em]', L ? 'text-[#86868b]' : 'text-zinc-600'].join(' ')}
+            className={['text-[10px] uppercase tracking-[0.35em]', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}
             style={fontSyne}
           >
             <TrstnWebLogo className="inline" />
@@ -267,7 +277,7 @@ export default function ContactPage() {
             >
               Parlons de votre projet
             </motion.h1>
-            <p className={['mt-5 max-w-md text-[15px] leading-relaxed', L ? 'text-[#6e6e73]' : 'text-zinc-500'].join(' ')}>
+            <p className={['mt-5 max-w-md text-[15px] leading-relaxed', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}>
               Un brief clair, une réponse sous 24h. Partagez votre secteur et vos attentes — le
               reste, on le construit ensemble.
             </p>
@@ -275,12 +285,14 @@ export default function ContactPage() {
             <ul className="mt-10 space-y-6" role="list">
               <li className="flex items-start gap-3">
                 <Mail
-                  className={['mt-0.5 h-4 w-4 shrink-0', L ? 'text-[#86868b]' : 'text-zinc-600'].join(' ')}
+                  className={['mt-0.5 h-4 w-4 shrink-0', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}
                   strokeWidth={1.5}
                   aria-hidden
+                  tabIndex={-1}
+                  focusable="false"
                 />
                 <div>
-                  <p className={['text-[10px] uppercase tracking-[0.22em]', L ? 'text-[#86868b]' : 'text-zinc-600'].join(' ')}>
+                  <p className={['text-[10px] uppercase tracking-[0.22em]', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}>
                     E-mail
                   </p>
                   <ContactLink href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</ContactLink>
@@ -288,21 +300,23 @@ export default function ContactPage() {
               </li>
               <li className="flex items-start gap-3">
                 <MapPin
-                  className={['mt-0.5 h-4 w-4 shrink-0', L ? 'text-[#86868b]' : 'text-zinc-600'].join(' ')}
+                  className={['mt-0.5 h-4 w-4 shrink-0', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}
                   strokeWidth={1.5}
                   aria-hidden
+                  tabIndex={-1}
+                  focusable="false"
                 />
                 <div>
-                  <p className={['text-[10px] uppercase tracking-[0.22em]', L ? 'text-[#86868b]' : 'text-zinc-600'].join(' ')}>
+                  <p className={['text-[10px] uppercase tracking-[0.22em]', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}>
                     Localisation
                   </p>
                   <p className={['text-[14px]', L ? 'text-[#424245]' : 'text-zinc-400'].join(' ')}>{locationLabel}</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <InstagramGlyph className={['mt-0.5 h-4 w-4 shrink-0', L ? 'text-[#86868b]' : 'text-zinc-600'].join(' ')} />
+                <InstagramGlyph className={['mt-0.5 h-4 w-4 shrink-0', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')} />
                 <div>
-                  <p className={['text-[10px] uppercase tracking-[0.22em]', L ? 'text-[#86868b]' : 'text-zinc-600'].join(' ')}>
+                  <p className={['text-[10px] uppercase tracking-[0.22em]', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}>
                     Instagram
                   </p>
                   <ContactLink href={ig} external>
@@ -408,10 +422,11 @@ export default function ContactPage() {
                         Type de projet
                       </label>
                       <span
-                        className={['pointer-events-none absolute right-3 top-1/2 -translate-y-1/2', L ? 'text-[#86868b]' : 'text-zinc-500'].join(
+                        className={['pointer-events-none absolute right-3 top-1/2 -translate-y-1/2', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(
                           ' ',
                         )}
                         aria-hidden
+                        tabIndex={-1}
                       >
                         ▾
                       </span>
@@ -450,7 +465,7 @@ export default function ContactPage() {
                     </button>
 
                     <p
-                      className={['pt-2 text-center text-[12px] leading-relaxed', L ? 'text-[#86868b]' : 'text-zinc-600'].join(' ')}
+                      className={['pt-2 text-center text-[12px] leading-relaxed', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}
                       style={fontBody}
                     >
                       Chaque projet commence par une conversation.
@@ -480,7 +495,7 @@ export default function ContactPage() {
                     >
                       Merci. Votre message a été transmis à TrstnWeb. Réponse sous 24h.
                     </p>
-                    <p className={['mt-4 max-w-sm text-[14px] leading-relaxed', L ? 'text-[#6e6e73]' : 'text-zinc-500'].join(' ')}>
+                    <p className={['mt-4 max-w-sm text-[14px] leading-relaxed', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}>
                       Si votre messagerie ne s’est pas ouverte, écrivez directement à{' '}
                       <a
                         href={`mailto:${SITE.contactEmail}`}
@@ -498,8 +513,8 @@ export default function ContactPage() {
                       to="/"
                       className={
                         L
-                          ? 'trstn-entry-btn mt-10 inline-flex rounded-[6px] border border-black/[0.1] bg-white/80 px-8 py-3 text-[13px] text-[#1d1d1f] shadow-[0_2px_12px_rgba(0,0,0,0.05)] backdrop-blur-sm transition-colors hover:bg-white'
-                          : 'trstn-entry-btn mt-10 inline-flex rounded-[6px] border border-white/[0.12] bg-white/[0.05] px-8 py-3 text-[13px] text-zinc-200 backdrop-blur-sm transition-colors hover:bg-white/[0.09] hover:text-white'
+                          ? 'trstn-entry-btn mt-10 inline-flex rounded-[6px] border border-black/[0.1] bg-white/80 px-8 py-3 text-[13px] text-[#0a0a0a] shadow-[0_2px_12px_rgba(0,0,0,0.05)] backdrop-blur-sm transition-colors hover:bg-white hover:text-black'
+                          : 'trstn-entry-btn mt-10 inline-flex rounded-[6px] border border-white/[0.12] bg-white/[0.05] px-8 py-3 text-[13px] text-white backdrop-blur-sm transition-colors hover:bg-white/[0.09] hover:text-white'
                       }
                     >
                       Retour à l’accueil

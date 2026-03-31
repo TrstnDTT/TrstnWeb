@@ -25,7 +25,7 @@ export function BackButton({ onClick, site }) {
       transition={{ type: 'spring', stiffness: 420, damping: 28 }}
       aria-label="Retour au portfolio"
     >
-      <ArrowLeft className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden />
+      <ArrowLeft className="h-4 w-4 shrink-0" strokeWidth={2} aria-hidden tabIndex={-1} focusable="false" />
       <span className="hidden sm:inline">Retour au portfolio</span>
       <span className="sm:hidden">Retour</span>
     </motion.button>

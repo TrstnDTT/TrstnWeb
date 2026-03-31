@@ -156,7 +156,7 @@ function PortfolioProjectGridInner({
                     className={[
                       'absolute left-4 top-4 z-20 max-w-[calc(100%-2rem)] rounded-full border px-2.5 py-1 text-[9px] font-medium uppercase tracking-[0.18em] backdrop-blur-sm',
                       shellLight
-                        ? 'border-black/[0.08] bg-white/80 text-[#6e6e73]'
+                        ? 'border-black/[0.08] bg-white/80 trstn-a11y-muted-light'
                         : 'border-white/[0.12] bg-black/35 text-zinc-300',
                     ].join(' ')}
                     style={fontPlayfair}
@@ -190,7 +190,7 @@ function PortfolioProjectGridInner({
                 <p
                   className={[
                     'trstn-label mt-3 flex-1 text-[16px] leading-relaxed md:text-[15px]',
-                    shellLight ? 'text-[#6e6e73]' : 'text-zinc-500',
+                    shellLight ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark',
                   ].join(' ')}
                 >
                   {project.description}
@@ -200,14 +200,17 @@ function PortfolioProjectGridInner({
                     className={[
                       'group inline-flex items-baseline gap-2 text-[13px] tracking-[0.04em] transition-[letter-spacing] duration-300 group-hover:tracking-[0.08em]',
                       shellLight
-                        ? 'text-[#86868b] group-hover:text-[#1d1d1f]'
-                        : 'text-zinc-400 group-hover:text-zinc-200',
+                        ? 'text-[#0a0a0a] group-hover:text-black'
+                        : 'text-white group-hover:text-white',
                     ].join(' ')}
                     style={fontPlayfair}
-                    aria-hidden
                   >
                     <span className="font-normal italic">Voir le projet</span>
-                    <span className="text-[1.1em] font-normal transition-transform duration-300 group-hover:translate-x-0.5">
+                    <span
+                      className="text-[1.1em] font-normal transition-transform duration-300 group-hover:translate-x-0.5"
+                      aria-hidden
+                      tabIndex={-1}
+                    >
                       →
                     </span>
                   </span>

@@ -7,6 +7,7 @@ export function GlobalViewportNoise() {
     <div
       className="trstn-viewport-noise pointer-events-none fixed inset-0 z-[52] mix-blend-soft-light"
       aria-hidden
+      tabIndex={-1}
     />
   )
 }

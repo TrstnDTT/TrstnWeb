@@ -56,6 +56,7 @@ export function BarExperienceChrome({
         className={`pointer-events-none fixed left-0 right-0 z-[118] h-[3px] ${track}`}
         style={{ top: topOffset }}
         aria-hidden
+        tabIndex={-1}
       >
         <div
           className="h-full transition-[width] duration-150 ease-out"

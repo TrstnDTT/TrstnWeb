@@ -267,6 +267,7 @@ function SectionDetailedMenuFast({ site }) {
                         background: `linear-gradient(90deg, ${site.primaryColor}, ${s}, ${site.primaryColor})`,
                       }}
                       aria-hidden
+                      tabIndex={-1}
                     />
                     <div className="flex flex-1 flex-col p-4">
                       <p
@@ -545,12 +546,12 @@ export function BusinessFooter({ site }) {
             Instagram →
           </a>
           <p
-            className="mt-8 text-[10px] font-medium uppercase tracking-[0.35em] opacity-70"
-            style={{ color: t }}
+            className="mt-8 text-[10px] font-medium uppercase tracking-[0.35em]"
+            style={{ color: t, opacity: 0.92 }}
           >
             Conçu par TrstnWeb
           </p>
-          <p className="mt-2 text-xs opacity-60" style={{ color: t }}>
+          <p className="mt-2 text-xs" style={{ color: t, opacity: 0.88 }}>
             © {new Date().getFullYear()} {site.name}
           </p>
         </div>
@@ -569,20 +570,20 @@ function TrstnFooterVariant({ site }) {
   const s = site.secondaryColor
   if (v === 'center-italic') {
     return (
-      <p className="text-center text-[8px] italic opacity-40" style={{ color: t }}>
+      <p className="text-center text-[8px] italic" style={{ color: t, opacity: 0.88 }}>
         Designé par TrstnWeb
       </p>
     )
   }
   if (v === 'footer-bar') {
     return (
-      <p className="text-center text-[8px] font-bold uppercase tracking-[0.2em] opacity-50" style={{ color: s }}>
+      <p className="text-center text-[8px] font-bold uppercase tracking-[0.2em]" style={{ color: s, opacity: 0.9 }}>
         Designé par TrstnWeb
       </p>
     )
   }
   return (
-    <p className="text-right text-[8px] font-medium uppercase tracking-[0.35em] opacity-60" style={{ color: t }}>
+    <p className="text-right text-[8px] font-medium uppercase tracking-[0.35em]" style={{ color: t, opacity: 0.88 }}>
       Designé par TrstnWeb
     </p>
   )

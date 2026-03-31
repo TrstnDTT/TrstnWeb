@@ -64,7 +64,7 @@ export default function CheveuxCoReservationPage() {
         >
           Réserver votre parenthèse
         </h1>
-        <p className="ccr-type mx-auto mt-6 max-w-md text-center text-[11px] uppercase tracking-[0.32em]" style={{ color: `${SAGE}bb` }}>
+        <p className="ccr-type mx-auto mt-6 max-w-md text-center text-[11px] uppercase tracking-[0.32em]" style={{ color: INK }}>
           Cheveux & Co — Rennes
         </p>
         <p className="mx-auto mt-8 max-w-lg text-center text-[15px] leading-[1.9]" style={{ color: `${INK}99` }}>
