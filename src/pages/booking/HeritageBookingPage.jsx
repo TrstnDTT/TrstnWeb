@@ -31,9 +31,8 @@ export default function HeritageBookingPage() {
     }
   }, [site])
 
-  if (!site) return null
-
   const mailtoHref = useMemo(() => {
+    if (!site) return '#'
     const body = [
       `— L'Héritage — demande atelier`,
       ``,
@@ -44,7 +43,9 @@ export default function HeritageBookingPage() {
       histoire,
     ].join('\n')
     return `mailto:${SITE.contactEmail}?subject=${encodeURIComponent(`Demande atelier — ${site.name}`)}&body=${encodeURIComponent(body)}`
-  }, [nom, histoire, premierPassage, site.name])
+  }, [nom, histoire, premierPassage, site])
+
+  if (!site) return null
 
   const onSubmit = (e) => {
     e.preventDefault()

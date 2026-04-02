@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
 import { SITE } from '../constants.js'
 import { SITE_METADATA } from '../seo.js'
-import { useShellTheme } from '../context/ShellThemeContext.jsx'
+import { useShellTheme } from '../context/useShellTheme.js'
 
 export default function MentionsLegalesPage() {
   const { effectiveTheme } = useShellTheme()

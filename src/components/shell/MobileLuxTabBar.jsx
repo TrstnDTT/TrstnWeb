@@ -4,7 +4,7 @@
 import { NavLink, useLocation } from 'react-router-dom'
 import { Info, LayoutGrid, Mail } from 'lucide-react'
 import { SITE } from '../../constants.js'
-import { useShellTheme } from '../../context/ShellThemeContext.jsx'
+import { useShellTheme } from '../../context/useShellTheme.js'
 
 const tabs = [
   { to: '/portfolio', label: 'Projets', Icon: LayoutGrid, end: false },
@@ -44,7 +44,10 @@ export function MobileLuxTabBar() {
               : 'border-white/[0.12] bg-[rgba(12,12,14,0.65)]',
           ].join(' ')}
         >
-          {tabs.map(({ to, label, ariaLabel, Icon, end }) => (
+          {tabs.map((tab) => {
+            const { to, label, ariaLabel, end } = tab
+            const TabIcon = tab.Icon
+            return (
             <NavLink
               key={to}
               to={to}
@@ -63,10 +66,11 @@ export function MobileLuxTabBar() {
                 ].join(' ')
               }
             >
-              <Icon className="h-[22px] w-[22px] shrink-0" strokeWidth={1.35} aria-hidden tabIndex={-1} focusable="false" />
+              <TabIcon className="h-[22px] w-[22px] shrink-0" strokeWidth={1.35} aria-hidden tabIndex={-1} focusable="false" />
               <span>{label}</span>
             </NavLink>
-          ))}
+            )
+          })}
         </div>
       </div>
     </nav>

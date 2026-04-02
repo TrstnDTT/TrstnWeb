@@ -11,6 +11,7 @@ import {
 } from './barExperienceContent.js'
 import { ATELIER_1920_EXT, NEO_INK_EXT, LEBO_PEAU_EXT } from './tattooExtendedContent.js'
 import { ATELIER_SUCRE_DEFAULT } from './atelierSucreContent.js'
+import { unsplashPhoto } from '../lib/unsplash.js'
 
 export const BUSINESS_RICH = {
   'maison-lumiere': {
@@ -657,8 +658,7 @@ export const BUSINESS_RICH = {
   },
   'pain-passion': {
     bakeryImmersive: {
-      heroImage:
-        'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=2000&q=88',
+      heroImage: unsplashPhoto('1558961363-fa8fdf82db35', { w: 1200, q: 80 }),
     },
     atelierSucre: {
       ...ATELIER_SUCRE_DEFAULT,

@@ -4,7 +4,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Moon, Sun } from 'lucide-react'
-import { useShellTheme } from '../../context/ShellThemeContext.jsx'
+import { useShellTheme } from '../../context/useShellTheme.js'
 
 const ease = [0.22, 1, 0.36, 1]
 

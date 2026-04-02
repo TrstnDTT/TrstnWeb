@@ -6,7 +6,7 @@ import { ShellLegalFooter } from '../components/shell/ShellLegalFooter.jsx'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
 import { TrstnWebLogo } from '../components/shell/TrstnWebLogo.jsx'
 import { HOME_FEATURED_SITE_IDS, SITE } from '../constants.js'
-import { useShellTheme } from '../context/ShellThemeContext.jsx'
+import { useShellTheme } from '../context/useShellTheme.js'
 import { getSiteById } from '../data.js'
 import { SITE_METADATA } from '../seo.js'
 

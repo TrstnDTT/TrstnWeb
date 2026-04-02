@@ -5,9 +5,11 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
-import { BarExperienceChrome, useMiniSiteScrollProgress } from './BarExperienceChrome.jsx'
+import { BarExperienceChrome } from './BarExperienceChrome.jsx'
+import { useMiniSiteScrollProgress } from '../../hooks/useMiniSiteScrollProgress.js'
 import { BackButton } from '../mini/BackButton.jsx'
 import { SITE } from '../../constants.js'
+import { UNSPLASH_APOTHICAIRE } from '../../lib/unsplash.js'
 
 const LEATHER = '#14100c'
 const AMBER = '#c9a86c'
@@ -17,9 +19,10 @@ const ease = [0.22, 1, 0.36, 1]
 const warmMacro =
   'sepia(0.12) saturate(1.18) contrast(1.12) brightness(0.94)'
 
-function LetterReveal({ children, className = '', as: Tag = 'h2', delay = 0 }) {
+function LetterReveal({ children, className = '', as = 'h2', delay = 0 }) {
+  const Element = as
   return (
-    <Tag className={className}>
+    <Element className={className}>
       <motion.span
         className="inline-block"
         initial={{ letterSpacing: '0.32em', opacity: 0 }}
@@ -29,7 +32,7 @@ function LetterReveal({ children, className = '', as: Tag = 'h2', delay = 0 }) {
       >
         {children}
       </motion.span>
-    </Tag>
+    </Element>
   )
 }
 
@@ -54,11 +57,7 @@ export function ApothicaireBarExperience({ site, onBack }) {
   const rootRef = useRef(null)
   const progress = useMiniSiteScrollProgress(rootRef)
 
-  const assets = site.apothicaireAssets ?? {
-    hero: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=1600&q=85',
-    macro: 'https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=1600&q=85',
-    bar: 'https://images.unsplash.com/photo-1514362546517-6272a9329d52?w=1600&q=85',
-  }
+  const assets = site.apothicaireAssets ?? { ...UNSPLASH_APOTHICAIRE }
 
   const geste = site.artDuGeste ?? [
     {

@@ -4,7 +4,8 @@
  */
 import { useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { SafeImg, SALON_IMG_FALLBACK } from '../mini/SafeImg.jsx'
+import { SafeImg } from '../mini/SafeImg.jsx'
+import { SALON_IMG_FALLBACK } from '../mini/safeImgConstants.js'
 
 const CREME = '#F5F5DC'
 const SAGE = '#6b8f71'

@@ -131,11 +131,11 @@ export function OrEtPeauExperience({ site, onBack }) {
           >
             <SafeImg
               src={`${P}/nosepiercing2.webp`}
-              alt="Macro bijou et peau — Le Labo de Peau"
+              alt="Macro bijou et peau — Le Labo de Peau, piercing studio luxe"
               width={1200}
               height={1600}
-              className="labo-sparkle h-full w-full object-cover object-center brightness-[0.92] contrast-[1.05]"
-              loading="eager"
+              priority
+              className="labo-sparkle h-full w-full object-cover object-center brightness-[1.02] contrast-[1.06] saturate-[0.95]"
             />
           </motion.div>
           <div

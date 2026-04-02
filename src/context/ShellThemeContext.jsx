@@ -1,8 +1,8 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+
+import { ShellThemeContext } from './shellThemeContext.js'
 
 const STORAGE_KEY = 'trstnweb-shell-theme'
-
-const ShellThemeContext = createContext(null)
 
 /**
  * Thème enveloppe TrstnWeb uniquement (accueil, portfolio grille, à propos, contact).
@@ -55,12 +55,4 @@ export function ShellThemeProvider({ children }) {
   )
 
   return <ShellThemeContext.Provider value={value}>{children}</ShellThemeContext.Provider>
-}
-
-export function useShellTheme() {
-  const ctx = useContext(ShellThemeContext)
-  if (!ctx) {
-    throw new Error('useShellTheme must be used within ShellThemeProvider')
-  }
-  return ctx
 }

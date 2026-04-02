@@ -3,7 +3,8 @@
  * Aucun composant partagé avec Cheveux & Co.
  */
 import { useCallback } from 'react'
-import { BARBER_IMG_FALLBACK, SafeImg } from '../mini/SafeImg.jsx'
+import { SafeImg } from '../mini/SafeImg.jsx'
+import { BARBER_IMG_FALLBACK } from '../mini/safeImgConstants.js'
 
 const CHARCOAL = '#141210'
 const CARBON = '#0d0c0b'

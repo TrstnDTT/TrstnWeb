@@ -5,9 +5,10 @@
 import { useCallback, useId, useMemo, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { CalendarClock, HeartHandshake, MessageCircle, Sparkles, Wine } from 'lucide-react'
-import { useShellTheme } from '../../context/ShellThemeContext.jsx'
+import { useShellTheme } from '../../context/useShellTheme.js'
 import { BackButton } from '../mini/BackButton.jsx'
 import { ReservationMailtoModal } from '../mini/ReservationMailtoModal.jsx'
+import { unsplashPhoto } from '../../lib/unsplash.js'
 
 /** Or chaleureux — accord mets & vins */
 const GOLD = '#c9a961'
@@ -15,8 +16,7 @@ const PLAYFAIR = '"Playfair Display", Georgia, serif'
 const easeLux = [0.22, 1, 0.36, 1]
 
 /** Ambiance salle feutrée (démo visuelle) */
-const HERO_IMG =
-  'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=82'
+const HERO_IMG = unsplashPhoto('1517248135467-4c7edcad34c4', { w: 1200, q: 80 })
 
 function phoneToTelHref(phone) {
   if (!phone || typeof phone !== 'string') return undefined

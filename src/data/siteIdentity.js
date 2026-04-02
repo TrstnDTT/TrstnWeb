@@ -3,6 +3,7 @@
  * Fusionné dans getSiteById() (voir data.js).
  */
 import { BAR_BASQUE_IMAGES } from '../constants/barBasqueImages.js'
+import { UNSPLASH_APOTHICAIRE, UNSPLASH_CHAI } from '../lib/unsplash.js'
 
 export const SITE_IDENTITIES = {
   'maison-lumiere': {
@@ -345,11 +346,7 @@ export const SITE_IDENTITIES = {
     layoutStructure: 'bar-apothicaire-minimal',
     previewKey: 'editorial',
     trstnSignature: 'footer-bar',
-    apothicaireAssets: {
-      hero: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=1600&q=85',
-      macro: 'https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=1600&q=85',
-      bar: 'https://images.unsplash.com/photo-1514362546517-6272a9329d52?w=1600&q=85',
-    },
+    apothicaireAssets: { ...UNSPLASH_APOTHICAIRE },
     menu: {
       sectionTitle: 'Créations',
       items: [
@@ -368,12 +365,7 @@ export const SITE_IDENTITIES = {
     layoutStructure: 'bar-chai-bento',
     previewKey: 'bento',
     trstnSignature: 'inline-serif',
-    chaiAssets: {
-      hero: 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=1800&q=88',
-      terroir1: 'https://images.unsplash.com/photo-1504274066651-8d31a536b11a?auto=format&fit=crop&w=1400&q=85',
-      terroir2: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1400&q=85',
-      tapas: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1400&q=85',
-    },
+    chaiAssets: { ...UNSPLASH_CHAI },
     menu: {
       sectionTitle: 'Sélection du chai',
       items: [

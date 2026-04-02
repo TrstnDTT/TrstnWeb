@@ -105,11 +105,12 @@ export function BakeryImmersiveExperience({ site, onBack }) {
       >
         {/* Hero */}
         <section className="relative mt-2 overflow-hidden rounded-2xl border border-[#1A1A1A]/10 shadow-[0_20px_50px_-24px_rgba(0,0,0,0.25)]">
-          <div className="relative min-h-[min(72dvh,520px)] w-full">
+          <div className="relative min-h-[min(72dvh,520px)] w-full bg-stone-200">
             <SafeImg
               src={heroImage}
               fallback={BAKERY_HERO_IMAGE}
-              alt=""
+              alt={`Four et pains artisanaux — ${site?.name ?? 'boulangerie'}`}
+              priority
               className="absolute inset-0 h-full w-full object-cover"
               style={{
                 filter: 'sepia(0.12) saturate(1.2) contrast(1.06) brightness(1.02)',
@@ -190,10 +191,10 @@ export function BakeryImmersiveExperience({ site, onBack }) {
                 variants={listItem}
                 className="flex gap-4 rounded-xl border border-[#1A1A1A]/8 bg-white/60 p-3 shadow-sm backdrop-blur-sm"
               >
-                <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-[#1A1A1A]/10 sm:h-[72px] sm:w-[72px] sm:rounded-xl">
+                <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-[#1A1A1A]/10 bg-stone-200 sm:h-[72px] sm:w-[72px] sm:rounded-xl">
                   <SafeImg
                     src={row.image}
-                    alt=""
+                    alt={`${row.name} — photo produit boulangerie`}
                     className="h-full w-full object-cover"
                     loading="lazy"
                   />

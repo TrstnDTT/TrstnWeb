@@ -29,6 +29,8 @@ export function ReservationMailtoModal({
 
   useEffect(() => {
     if (!open) return
+    // Align form state with dialog open; avoids stale success after closing/reopening.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset tied to `open`, not external subscription
     setSuccess(false)
   }, [open])
 

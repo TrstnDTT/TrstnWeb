@@ -6,7 +6,7 @@ import { ShellLegalFooter } from '../components/shell/ShellLegalFooter.jsx'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
 import { TrstnWebLogo } from '../components/shell/TrstnWebLogo.jsx'
 import { CONTACT_PROJECT_TYPES, SITE } from '../constants.js'
-import { useShellTheme } from '../context/ShellThemeContext.jsx'
+import { useShellTheme } from '../context/useShellTheme.js'
 
 const easeLux = [0.22, 1, 0.36, 1]
 const FILM_GRAIN =

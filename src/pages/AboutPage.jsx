@@ -6,7 +6,7 @@ import { ShellLegalFooter } from '../components/shell/ShellLegalFooter.jsx'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
 import { TrstnWebLogo } from '../components/shell/TrstnWebLogo.jsx'
 import { SITE } from '../constants.js'
-import { useShellTheme } from '../context/ShellThemeContext.jsx'
+import { useShellTheme } from '../context/useShellTheme.js'
 
 const easeOut = [0.22, 1, 0.36, 1]
 const FILM_GRAIN =
@@ -176,28 +176,32 @@ export default function AboutPage() {
               ].join(' ')}
               role="list"
             >
-              {pillars.map(({ Icon, label, sub }) => (
-                <li key={label} className="flex flex-col gap-2">
-                  <Icon
-                    className={['h-6 w-6', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}
-                    strokeWidth={0.5}
-                    aria-hidden
-                    tabIndex={-1}
-                    focusable="false"
-                  />
-                  <p
-                    className={['text-[13px] font-semibold', L ? 'text-[#1d1d1f]' : 'text-zinc-200'].join(
-                      ' ',
-                    )}
-                    style={fontSyne}
-                  >
-                    {label}
-                  </p>
-                  <p className={['text-[12px] leading-relaxed', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}>
-                    {sub}
-                  </p>
-                </li>
-              ))}
+              {pillars.map((pillar) => {
+                const { label, sub } = pillar
+                const PillarGlyph = pillar.Icon
+                return (
+                  <li key={label} className="flex flex-col gap-2">
+                    <PillarGlyph
+                      className={['h-6 w-6', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}
+                      strokeWidth={0.5}
+                      aria-hidden
+                      tabIndex={-1}
+                      focusable="false"
+                    />
+                    <p
+                      className={['text-[13px] font-semibold', L ? 'text-[#1d1d1f]' : 'text-zinc-200'].join(
+                        ' ',
+                      )}
+                      style={fontSyne}
+                    >
+                      {label}
+                    </p>
+                    <p className={['text-[12px] leading-relaxed', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}>
+                      {sub}
+                    </p>
+                  </li>
+                )
+              })}
             </ul>
             </div>
 

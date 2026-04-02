@@ -122,10 +122,11 @@ export function AtelierSucreExperience({ site, onBack }) {
         </Reveal>
 
         <Reveal delay={0.08}>
-          <div className="relative mx-auto mt-16 aspect-[21/10] max-h-[min(52vh,520px)] w-full overflow-hidden rounded-[2.5rem] shadow-[0_32px_64px_-28px_rgba(44,38,36,0.18)]">
+          <div className="relative mx-auto mt-16 aspect-[21/10] max-h-[min(52vh,520px)] w-full overflow-hidden rounded-[2.5rem] bg-stone-100 shadow-[0_32px_64px_-28px_rgba(44,38,36,0.18)]">
             <SafeImg
               src={heroImage}
-              alt=""
+              alt={`Vitrine pâtissière — ${headline}`}
+              priority
               className="h-full w-full object-cover"
               style={{ filter: 'saturate(0.95) contrast(1.02)' }}
             />
@@ -151,7 +152,12 @@ export function AtelierSucreExperience({ site, onBack }) {
             <Reveal key={item.name} delay={0.05 * i}>
               <PedestalCard className="flex h-full flex-col">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-[#FAFAFA]">
-                  <SafeImg src={item.image} alt="" className="h-full w-full object-cover" loading="lazy" />
+                  <SafeImg
+                    src={item.image}
+                    alt={`${item.name} — pâtisserie L’Atelier Sucré`}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
                 <div className="mt-6 flex flex-1 flex-col text-center">
                   <h3 className="text-[15px] font-light leading-snug tracking-wide text-[#2C2624]">{item.name}</h3>
@@ -181,7 +187,12 @@ export function AtelierSucreExperience({ site, onBack }) {
           </Reveal>
           <Reveal delay={0.1}>
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-[0_36px_72px_-32px_rgba(44,38,36,0.2)] lg:aspect-square">
-              <SafeImg src={data.ingredientRare.image} alt="" className="h-full w-full object-cover" loading="lazy" />
+              <SafeImg
+                src={data.ingredientRare.image}
+                alt={`${data.ingredientRare.name} — ingrédient signature`}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
             </div>
           </Reveal>
         </div>
@@ -207,7 +218,12 @@ export function AtelierSucreExperience({ site, onBack }) {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <SafeImg src={t.image} alt="" className="h-full w-full object-cover" loading="lazy" />
+                    <SafeImg
+                      src={t.image}
+                      alt={`Tarte ${t.name} — bar à tartes`}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
                   </motion.div>
                 </div>
                 <p className="mt-8 max-w-[160px] text-[12px] font-extralight uppercase tracking-[0.28em] text-[#2C2624]/55">

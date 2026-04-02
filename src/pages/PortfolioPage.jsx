@@ -9,7 +9,7 @@ import { ShellLegalFooter } from '../components/shell/ShellLegalFooter.jsx'
 import { TrstnWebLogo } from '../components/shell/TrstnWebLogo.jsx'
 import { ProjectExperience } from '../components/templates/ProjectExperience.jsx'
 import { CATEGORIES, CATEGORY_CANVAS_HOVER, SITE } from '../constants.js'
-import { useShellTheme } from '../context/ShellThemeContext.jsx'
+import { useShellTheme } from '../context/useShellTheme.js'
 import { getSiteById } from '../data.js'
 
 /** Fond galerie & accent unique (détails discrets). */
@@ -273,8 +273,10 @@ export default function PortfolioPage() {
   useEffect(() => {
     const id = location.state?.openProject
     if (typeof id !== 'string') return
-    setActiveProject(id)
-    navigate('/portfolio', { replace: true, state: {} })
+    queueMicrotask(() => {
+      setActiveProject(id)
+      navigate('/portfolio', { replace: true, state: {} })
+    })
   }, [location.state, navigate])
 
   const openProject = useCallback(
@@ -325,7 +327,7 @@ export default function PortfolioPage() {
     try {
       const cat = sessionStorage.getItem(SS_LIST_CATEGORY)
       if (cat && CATEGORIES.some((c) => c.id === cat)) {
-        setActiveCategory(cat)
+        queueMicrotask(() => setActiveCategory(cat))
       }
       sessionStorage.removeItem(SS_LIST_SCROLL)
       sessionStorage.removeItem(SS_LIST_CATEGORY)

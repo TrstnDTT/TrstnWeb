@@ -74,9 +74,8 @@ export default function OrEtPeauBookingPage() {
     }
   }, [site])
 
-  if (!site) return null
-
   const mailtoHref = useMemo(() => {
+    if (!site) return '#'
     const dateStr = selectedDate ? formatDayFr(selectedDate) : '—'
     const body = [
       `— LE LABO DE PEAU — demande`,
@@ -93,7 +92,9 @@ export default function OrEtPeauBookingPage() {
       note,
     ].join('\n')
     return `mailto:${SITE.contactEmail}?subject=${encodeURIComponent(`Réservation — ${site.name}`)}&body=${encodeURIComponent(body)}`
-  }, [nom, email, zone, metal, jewelryStyle, note, site.name, selectedDate])
+  }, [nom, email, zone, metal, jewelryStyle, note, site, selectedDate])
+
+  if (!site) return null
 
   const canNext1 = selectedDate != null
   const canNext2 = jewelryStyle === 'simple' || jewelryStyle === 'brillant'
@@ -315,11 +316,12 @@ export default function OrEtPeauBookingPage() {
         <div className="relative min-h-[32vh] lg:min-h-[100dvh]">
           <SafeImg
             src={`${P}/piercingg.webp`}
-            alt=""
+            alt="Piercing studio — ambiance clinique et bijou, Le Labo de Peau"
             width={1200}
             height={1600}
+            priority
             className="h-full min-h-[32vh] w-full object-cover lg:min-h-[100dvh]"
-            style={{ filter: 'grayscale(20%) contrast(1.05) brightness(0.85)' }}
+            style={{ filter: 'grayscale(15%) contrast(1.05) brightness(1.04) saturate(0.9)' }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-transparent lg:bg-gradient-to-r lg:from-black/15 lg:via-transparent lg:to-[#FAFAFA]" />
           <div className="absolute bottom-6 left-6 right-6 lg:bottom-12 lg:left-10">

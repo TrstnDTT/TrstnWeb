@@ -38,8 +38,6 @@ export default function BrutalismBookingPage() {
     }
   }, [site])
 
-  if (!site) return null
-
   const onDrop = useCallback((e) => {
     e.preventDefault()
     setDrag(false)
@@ -48,6 +46,7 @@ export default function BrutalismBookingPage() {
   }, [])
 
   const mailtoHref = useMemo(() => {
+    if (!site) return '#'
     const body = [
       `— BRUTALISME CHIC — fiche production`,
       ``,
@@ -57,7 +56,9 @@ export default function BrutalismBookingPage() {
       `Fichiers joints (noms) : ${files.length ? files.map((f) => f.name).join(', ') : 'aucun'}`,
     ].join('\n')
     return `mailto:${SITE.contactEmail}?subject=${encodeURIComponent(`Production — ${site.name}`)}&body=${encodeURIComponent(body)}`
-  }, [nom, wCm, hCm, style, files, site.name])
+  }, [nom, wCm, hCm, style, files, site])
+
+  if (!site) return null
 
   const onSubmit = (e) => {
     e.preventDefault()

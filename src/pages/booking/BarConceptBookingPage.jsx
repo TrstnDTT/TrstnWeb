@@ -57,9 +57,8 @@ export default function BarConceptBookingPage() {
     }
   }, [site])
 
-  if (!site || !siteId || !BAR_IDS.has(siteId)) return null
-
   const mailtoHref = useMemo(() => {
+    if (!site || !siteId || !BAR_IDS.has(siteId)) return '#'
     const body = [
       `Réservation — ${site.name}`,
       '',
@@ -72,7 +71,9 @@ export default function BarConceptBookingPage() {
       .filter(Boolean)
       .join('\n')
     return `mailto:${SITE.contactEmail}?subject=${encodeURIComponent(`Réservation — ${site.name}`)}&body=${encodeURIComponent(body)}`
-  }, [nom, email, message, personnes, site.name])
+  }, [nom, email, message, personnes, site, siteId])
+
+  if (!site || !siteId || !BAR_IDS.has(siteId)) return null
 
   const onSubmit = (e) => {
     e.preventDefault()

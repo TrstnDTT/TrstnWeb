@@ -1,12 +1,14 @@
 /**
  * Le Chai Moderne — Bayonne : ambiance chêne/papier, menu « moments de vie », agenda, barre d’action mobile.
  */
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { Beer, Coffee, UtensilsCrossed, Wine } from 'lucide-react'
-import { BarExperienceChrome, useMiniSiteScrollProgress } from './BarExperienceChrome.jsx'
+import { BarExperienceChrome } from './BarExperienceChrome.jsx'
+import { useMiniSiteScrollProgress } from '../../hooks/useMiniSiteScrollProgress.js'
 import { BackButton } from '../mini/BackButton.jsx'
+import { SafeImg } from '../mini/SafeImg.jsx'
 import { SITE } from '../../constants.js'
 import {
   CHAI_AGENDA_EVENTS,
@@ -15,32 +17,15 @@ import {
   CHAI_PALETTE,
   CHAI_SOUL,
 } from '../../data/chaiModerneContent.js'
+import { UNSPLASH_CHAI } from '../../lib/unsplash.js'
 
 const { paper: BG, ink: INK, oak: OAK } = CHAI_PALETTE
 const ease = [0.22, 1, 0.36, 1]
 const SERIF = '"Cormorant Garamond", Georgia, serif'
 
-const softPhoto = 'saturate(0.88) brightness(1.02) contrast(1.02) grayscale(0.12)'
-
-const WINE_IMG_FALLBACK =
-  'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=82'
-
-function SafeChaiImg({ src, alt = '', className, style }) {
-  const [u, setU] = useState(src)
-  useEffect(() => setU(src), [src])
-  return (
-    <img
-      src={u}
-      alt={alt}
-      className={className}
-      style={style}
-      loading="lazy"
-      decoding="async"
-      referrerPolicy="no-referrer"
-      onError={() => setU(WINE_IMG_FALLBACK)}
-    />
-  )
-}
+/** Colorimétrie chaude (bois, zinc, convivialité). */
+const warmPhoto =
+  'saturate(0.9) brightness(1.06) contrast(1.04) sepia(0.1) saturate(1.12) grayscale(0.08)'
 
 const ICONS = {
   coffee: Coffee,
@@ -58,9 +43,15 @@ function ParallaxStill({ src, alt, className }) {
   })
   const y = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [24, -24])
   return (
-    <div ref={ref} className={`overflow-hidden ${className ?? ''}`}>
+    <div ref={ref} className={`overflow-hidden bg-stone-200 ${className ?? ''}`}>
       <motion.div style={{ y }} className="h-full w-full will-change-transform">
-        <SafeChaiImg src={src} alt={alt} className="h-full w-full object-cover" style={{ filter: softPhoto }} />
+        <SafeImg
+          src={src}
+          fallback={UNSPLASH_CHAI.still1}
+          alt={alt || 'Ambiance du Chai Moderne — sélection et bar à Bayonne'}
+          className="h-full w-full object-cover"
+          style={{ filter: warmPhoto }}
+        />
       </motion.div>
     </div>
   )
@@ -79,11 +70,7 @@ export function ChaiModerneBarExperience({ site, onBack }) {
   const heroScale = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : [1, 1.06])
   const heroY = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [0, 48])
 
-  const assets = site.chaiAssets ?? {
-    hero: 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=1800&q=88',
-    still1: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1200&q=85',
-    still2: 'https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1200&q=85',
-  }
+  const assets = { ...UNSPLASH_CHAI, ...(site.chaiAssets ?? {}) }
 
   const avis = site.testimonials ?? []
   const bookingTo = `/portfolio/${site?.id ?? 'zinc-des-amis'}/reservation`
@@ -123,14 +110,17 @@ export function ChaiModerneBarExperience({ site, onBack }) {
       <header
         id="chai-hero"
         ref={heroRef}
-        className="relative min-h-[min(92dvh,820px)] scroll-mt-2 overflow-hidden"
+        className="relative min-h-[min(92dvh,820px)] scroll-mt-2 overflow-hidden bg-stone-300"
       >
         <motion.div className="absolute inset-0" style={{ scale: heroScale, y: heroY }}>
-          <SafeChaiImg
+          <SafeImg
             src={assets.hero}
-            alt=""
+            fallback={UNSPLASH_CHAI.hero}
+            alt="Verre et lumière douce au comptoir — bar convivial à Bayonne, Le Chai Moderne"
+            priority
+            fadeIn
             className="h-full w-full object-cover"
-            style={{ filter: `${softPhoto}` }}
+            style={{ filter: warmPhoto }}
           />
         </motion.div>
         <div
@@ -251,8 +241,16 @@ export function ChaiModerneBarExperience({ site, onBack }) {
 
       {/* Parallax léger — verres & bouteilles */}
       <section className="grid gap-3 px-6 md:grid-cols-2 md:px-16">
-        <ParallaxStill src={assets.still1} alt="" className="aspect-[4/3] rounded-xl border border-[#1a1a1a]/08 md:aspect-[5/4]" />
-        <ParallaxStill src={assets.still2} alt="" className="aspect-[4/3] rounded-xl border border-[#1a1a1a]/08 md:aspect-[5/4]" />
+        <ParallaxStill
+          src={assets.still1}
+          alt="Sélection de bouteilles et verres — bar à vin chaleureux"
+          className="aspect-[4/3] rounded-xl border border-[#1a1a1a]/08 md:aspect-[5/4]"
+        />
+        <ParallaxStill
+          src={assets.still2}
+          alt="Ambiance zinc et bois — Le Chai Moderne, Bayonne"
+          className="aspect-[4/3] rounded-xl border border-[#1a1a1a]/08 md:aspect-[5/4]"
+        />
       </section>
 
       {/* L'Âme du Chai */}
