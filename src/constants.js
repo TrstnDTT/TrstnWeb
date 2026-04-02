@@ -16,31 +16,97 @@ export const HOME_FEATURED_SITE_IDS = [
 
 export const SITE = {
   title: 'TrstnWeb',
-  subtitle: 'Portfolio — identités UI/UX par secteur',
-  /** E-mail affiché pour « Me contacter » sur l’accueil (glass). */
+  subtitle: 'Sites web sur mesure — Bayonne, Landes & Sud-Ouest',
+  /** CTA principal vers la page contact (navigation, hero). */
+  ctaContact: 'Lancer ma croissance',
+  /** Libellé court (tab bar mobile). */
+  ctaContactShort: 'Croissance',
+  /** E-mail affiché pour les prises de contact. */
   contactEmail: 'decoberttristan@gmail.com',
   /** Page contact — localisation & réseau (URL publique). */
   contact: {
     locationLabel: 'France',
     instagramUrl: 'https://www.instagram.com/',
   },
-  footer:
-    'Immersion sectorielle : Des interfaces conçues pour capturer l’essence de chaque métier.',
-  /** Page d’accueil (/) — hero + accroche, aligné sur l’ancien « Meta Portfolio ». */
-  home: {
-    heroEyebrow: 'Portfolio',
-    heroTitle: 'Sites vitrines & identités UI/UX',
-    heroLead:
-      'Dix-neuf mini-sites : quatre restaurants et trois bars en expériences dédiées (speakeasy, craft néon, brasserie côte). Boulangeries et salons / barber complètent le panorama.',
-    ctaProjects: 'Voir les projets',
+  /** Pied de page — marque + infos légales (France / LSSI). */
+  legal: {
+    /** Lien court dans le footer. */
+    mentionsLinkLabel: 'Mentions légales',
+    /** Texte affiché sous la marque (une ligne). */
+    tagline: 'Studio web — sites sur mesure en React pour Bayonne, les Landes et le commerce local.',
+    copyright: (year) => `© ${year} TrstnWeb. Tous droits réservés.`,
+    editor:
+      'Éditeur du site : Tristan Decobert — activité de prestation de services numériques (France).',
+    contactLine: (email) => `Contact : ${email}`,
+    hosting:
+      'Hébergement : Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis — https://vercel.com',
+    dataNotice:
+      'Données personnelles : traitées uniquement pour répondre à vos demandes ; droits d’accès et de rectification sur simple demande auprès du contact ci-dessus.',
   },
-  /** Texte « À propos » — auteur solo (remplace l’ancien collectif étudiant). */
+  footer:
+    'Votre vitrine ne doit pas seulement être belle : elle doit transformer l’attention en rendez-vous — à Bayonne, dans les Landes ou ailleurs, des parcours pensés pour la conversion locale.',
+  /** Page d’accueil (/) — méthode PAS + H1 SEO. */
+  home: {
+    heroH1: 'Propulsez votre commerce local avec des sites web sur mesure.',
+    /**
+     * Premier paragraphe sous le H1 — doit contenir le nom de marque TrstnWeb (SEO / cohérence).
+     */
+    heroIntro:
+      'TrstnWeb conçoit des sites web sur mesure pour artisans et commerçants — priorité Bayonne, Landes (40) et Pays basque. Sans vitrine digitale à la hauteur de votre savoir-faire, les prospects partent ailleurs : nous les retenons avec des interfaces premium et des parcours orientés conversion.',
+    heroEyebrow: 'TrstnWeb',
+    heroLead:
+      'Une infrastructure éclair pour capturer chaque client avant qu’il ne s’échappe — mini-sites sur-mesure, pensés pour la rétention de lead et la prise de contact.',
+    ctaProjects: 'Voir les références',
+    ctaDiscover: 'Découvrir les univers',
+    carouselHint: 'Faites défiler pour voir ce qui vous attend.',
+    bottomPitch:
+      'Problème : invisible ou interchangeable en ligne. Agitation : vous perdez des rendez-vous chaque semaine. Solution : TrstnWeb orchestre design, performance et parcours pour transformer le trafic en file d’attente de clients.',
+    bottomCta: 'Découvrir la méthode',
+  },
+  /** Page portfolio — en-tête liste. */
+  portfolio: {
+    eyebrow: 'Preuves sociales',
+    headline: 'Des vitrines qui convertissent, secteur par secteur',
+    intro:
+      'Chaque projet est un laboratoire de site web sur mesure : navigation fluide, preuves visuelles, appels à l’action clairs — pour que votre commerce ne soit plus une option parmi d’autres.',
+  },
+  /** Texte « À propos » — PAS + promesse business. */
   about: {
     title: 'À propos',
     paragraphs: [
-      'Je conçois et développe des interfaces web (React, UI soignée) orientées identité de marque et conversion. Six expériences sont alignées sur le projet local trstnportfolio (sitesConfig / sitesInfo) ; les autres suivent la même exigence (parcours complet, avis, FAQ, contact).',
-      'Tout est réalisé en solo : design, prototypage, intégration et animations. Ouvrez un projet pour parcourir l’expérience plein écran ; chaque univers reste distinct, avec la même exigence de finition.',
+      'Problème : beaucoup de commerçants à Bayonne, dans les Landes ou ailleurs ont un site « qui existe » mais qui ne vend pas. Agitation : chaque visiteur qui rebondit est un panier ou un rendez-vous perdu. Solution : j’orchestre React, identité visuelle et copy pour que votre page travaille comme un commercial silencieux.',
+      'Je ne vends pas de la vitesse pour la vitesse : je mets une infrastructure éclair au service de la rétention de lead — avant que le prospect ne file vers Google Maps ou le concurrent. Design, intégration et animations : tout est assumé en solo, avec la même exigence sur chaque site sur mesure.',
     ],
+    /** Blocs h2 + corps (page À propos). */
+    sections: [
+      {
+        id: 'acte-1',
+        eyebrow: 'Problème',
+        title: 'Visible, mais pas convaincant',
+        body:
+          'Un site lent ou générique fait fuir avant le message. Vous payez en visibilité ce que vous perdez en confiance — et en paniers.',
+      },
+      {
+        id: 'acte-2',
+        eyebrow: 'Agitation',
+        title: 'Chaque seconde compte',
+        body:
+          'Vos concurrents sont à un clic. Sans rétention de lead et sans parcours clair, le trafic ne devient jamais rendez-vous.',
+      },
+      {
+        id: 'acte-3',
+        eyebrow: 'Solution',
+        title: 'Une vitrine qui travaille pour vous',
+        body:
+          'React, design d’élite et infrastructure éclair : on transforme l’attention en prise de contact mesurable, pas en vanity metrics.',
+      },
+    ],
+  },
+  /** Page contact — hero. */
+  contactPage: {
+    headline: 'Votre croissance commence par une conversation',
+    lead:
+      'Décrivez votre commerce et votre objectif : nous bâtissons un plan de site web sur mesure aligné sur vos revenus — idéal si vous êtes à Bayonne, dans les Landes ou le Sud-Ouest.',
   },
 }
 
@@ -226,17 +292,17 @@ export const CATEGORIES = [
       },
       {
         siteId: 'neon-shaker',
-        title: 'Neon Shaker',
+        title: "L'Apothicaire du Verre",
         description:
-          'Cocktail bar high-tech : scroll horizontal, glassmorphism, mixologie expérimentale & DJ sets — néons violet & bleu.',
-        styleTag: 'Nocturne cyber',
+          'Mixologie feutrée à Bayonne : minimal centré, macro cocktails, cuir & marbre — reveal des titres, parallaxe douce, art du geste.',
+        styleTag: 'Nuit & expertise',
       },
       {
         siteId: 'zinc-des-amis',
-        title: 'Le Zinc des Amis',
+        title: 'Le Chai Moderne',
         description:
-          'Bistrot de quartier : une page typographique massive, plat du jour ardoise, témoignages des habitués — kraft & noir.',
-        styleTag: 'Brut & sincère',
+          'Vin & tapas : bento ultra-propre, survol des bouteilles avec notes, timeline de carte, terroir sélectionné — loft clair & chêne.',
+        styleTag: 'Lumineux & raffiné',
       },
     ],
   },

@@ -500,74 +500,75 @@ export const SITES = [
   {
     id: 'neon-shaker',
     categoryId: 'bar',
-    name: 'Neon Shaker',
-    tagline: 'Mixologie & nuit électrique',
+    name: "L'Apothicaire du Verre",
+    tagline: 'Mixologie & alchimie — Bayonne',
     hero: {
-      headline: 'Le verre devient prisme — la nuit, circuit fermé.',
+      headline: 'L’excellence se déguste à la lueur des bougies.',
       subline:
-        'Shakers glacés, zeste torréfié, bassline qui colle au comptoir. Mixologie expérimentale & DJ sets jusqu’à l’aube.',
-      cta: 'Voir la lineup',
+        'Bar à cocktails feutré : bouteilles ambrées, comptoir en marbre, geste lent et précis — l’Adour n’est jamais loin.',
+      cta: 'Réserver une table',
     },
     about: {
-      title: 'Laboratoire nocturne',
+      title: 'L’Apothicaire',
       paragraphs: [
-        'Neon Shaker assume le contraste : silence du verre, chaos contrôlé du shaker. Chaque signature est calibrée au centilitre — tanins maîtrisés, amertume longue, glace qui fond au bon millimètre.',
+        'Ici le luxe est le silence du geste : chaque cocktail est composé comme une formule, dosée au compte-gouttes, servi dans le calme d’un soir où Bayonne respire encore le bois et le sel.',
       ],
     },
     contact: {
-      sectionTitle: 'Privatisation & VIP',
+      sectionTitle: 'Réservation',
       nameLabel: 'Nom',
       emailLabel: 'E-mail',
       phoneLabel: 'Téléphone',
-      messageLabel: 'Date, format table ou debout…',
-      submitLabel: 'Envoyer',
-    },
-    location: {
-      sectionTitle: 'Accès',
-      street: '14 rue des Arcades',
-      city: 'Lyon',
-      postalCode: '69002',
-      country: 'France',
-      hours: 'Mer–Dim · 18h00 – 4h00',
-      mapArea: 'Presqu’île',
-    },
-    social: { instagramLabel: 'Neon Shaker Lyon' },
-  },
-  {
-    id: 'zinc-des-amis',
-    categoryId: 'bar',
-    name: 'Le Zinc des Amis',
-    tagline: 'Bistrot — le plat du jour',
-    hero: {
-      headline: 'Pas de menu à dix pages. Juste le jour, le plat, le quartier.',
-      subline:
-        'Ardoise au feutre, vin au pichet, habitués qui s’installent sans demander la carte.',
-      cta: 'Passer au zinc',
-    },
-    about: {
-      title: 'Le quartier autour d’un verre',
-      paragraphs: [
-        'Le Zinc des Amis, c’est le bar où l’on croise le boulanger et l’étudiant : même tabouret, même planche, même respect du silence quand le plat arrive.',
-      ],
-    },
-    contact: {
-      sectionTitle: 'Réserver une table',
-      nameLabel: 'Nom',
-      emailLabel: 'E-mail',
-      phoneLabel: 'Téléphone',
-      messageLabel: 'Midi ou soir, nombre de couverts…',
+      messageLabel: 'Créneau, nombre de couverts, occasion…',
       submitLabel: 'Envoyer',
     },
     location: {
       sectionTitle: 'Nous trouver',
-      street: '4 rue du Marché',
-      city: 'Bordeaux',
-      postalCode: '33000',
+      street: '8 rue du Port-Neuf',
+      city: 'Bayonne',
+      postalCode: '64100',
       country: 'France',
-      hours: 'Lun–Sam · 11h30 – 23h30',
-      mapArea: 'Chartrons',
+      hours: 'Mar–Dim · 18h00 – 1h00',
+      mapArea: 'Grand Bayonne',
     },
-    social: { instagramLabel: 'Zinc des Amis' },
+    social: { instagramLabel: 'Apothicaire du Verre' },
+  },
+  {
+    id: 'zinc-des-amis',
+    categoryId: 'bar',
+    name: 'Le Chai Moderne',
+    tagline: 'Vin, tapas & lumière du Sud-Ouest',
+    hero: {
+      headline: 'Le meilleur du terroir, servi comme un loft ouvre la ville.',
+      subline:
+        'Entre cave traditionnelle et salle claire : chêne clair, métal noir, Irouléguy et tapas d’exception au cœur de Bayonne.',
+      cta: 'Voir la sélection',
+    },
+    about: {
+      title: 'Épicurisme lumineux',
+      paragraphs: [
+        'Nous sélectionnons des producteurs du piémont et du littoral : le verre raconte une parcelle, l’assiette un métier. Rien d’opaque — tout est lisible, comme une grande table éclairée.',
+        'Le chai prolonge la rue : bois clair, lignes nettes, accords proposés au comptoir sans jamais précipiter le choix.',
+      ],
+    },
+    contact: {
+      sectionTitle: 'Réservation',
+      nameLabel: 'Nom',
+      emailLabel: 'E-mail',
+      phoneLabel: 'Téléphone',
+      messageLabel: 'Midi ou soir, nombre de couverts, préférences de vins…',
+      submitLabel: 'Envoyer',
+    },
+    location: {
+      sectionTitle: 'Nous trouver',
+      street: '14 rue Bernadou',
+      city: 'Bayonne',
+      postalCode: '64100',
+      country: 'France',
+      hours: 'Mer–Lun · 12h00 – 14h30 · 19h00 – 23h30',
+      mapArea: 'Petit Bayonne',
+    },
+    social: { instagramLabel: 'Le Chai Moderne Bayonne' },
   },
   /* —— Tattoo / piercing —— */
   {
@@ -610,13 +611,13 @@ export const SITES = [
   {
     id: 'neo-ink-studio',
     categoryId: 'tattoo',
-    name: 'Neo-Ink Studio',
-    tagline: 'Géométrie · Réalisme · Urbain',
+    name: 'Brutalisme chic',
+    tagline: 'Loft secret · protocole visible',
     hero: {
       headline: 'La peau comme écran — précision chirurgicale, énergie de rue.',
       subline:
-        'Studio à Marseille : gros formats, tatouage géométrique et réalisme noir & gris, machines rotatives et guest artists internationaux toute l’année.',
-      cta: 'Réserver une consultation',
+        'Studio à Marseille : gros formats, géométrie et réalisme — machines calibrées, silence de coulisse, hygiène comme architecture.',
+      cta: 'Voir le protocole',
     },
     about: {
       title: 'L’approche',
@@ -647,13 +648,13 @@ export const SITES = [
   {
     id: 'le-labo-de-peau',
     categoryId: 'tattoo',
-    name: 'Le Labo de Peau',
-    tagline: 'Piercing médical & bijoux premium',
+    name: 'Or & Peau',
+    tagline: 'Bijouterie de peau',
     hero: {
-      headline: 'L’hygiène comme premier bijou.',
+      headline: 'La lumière choisit le métal avant la peau.',
       subline:
-        'Cabinet de perçage haut de gamme à Nantes : titane implant-grade, or 18k, protocole visible à chaque étape — pour une pose aussi sereine que précise.',
-      cta: 'Réserver mon bijou',
+        'Cabinet à Nantes : titane implant-grade, or 18k, protocole visible — nous marquons l’instant avec la même exigence qu’un serti.',
+      cta: 'Le bar à bijoux',
     },
     about: {
       title: 'Notre promesse',

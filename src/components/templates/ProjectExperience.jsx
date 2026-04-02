@@ -1,12 +1,12 @@
 import { BarBasqueExperience } from '../bar/BarBasqueExperience.jsx'
-import { NeonShakerExperience } from '../bar/NeonShakerExperience.jsx'
-import { ZincDesAmisExperience } from '../bar/ZincDesAmisExperience.jsx'
+import { ApothicaireBarExperience } from '../bar/ApothicaireBarExperience.jsx'
+import { ChaiModerneBarExperience } from '../bar/ChaiModerneBarExperience.jsx'
 import { ProjectView } from '../project/ProjectView.jsx'
 import { InfluencesExperience } from '../restaurant/InfluencesExperience.jsx'
 import { RestaurantBistroExperience } from '../restaurant/RestaurantBistroExperience.jsx'
-import { Atelier1920Experience } from '../tattoo/Atelier1920Experience.jsx'
-import { LeLaboDePeauExperience } from '../tattoo/LeLaboDePeauExperience.jsx'
-import { NeoInkStudioExperience } from '../tattoo/NeoInkStudioExperience.jsx'
+import { BrutalismChicExperience } from '../tattoo/BrutalismChicExperience.jsx'
+import { HeritageExperience } from '../tattoo/HeritageExperience.jsx'
+import { OrEtPeauExperience } from '../tattoo/OrEtPeauExperience.jsx'
 import { RestaurantFastFoodExperience } from '../restaurant/RestaurantFastFoodExperience.jsx'
 import { RestaurantGastronomyExperience } from '../restaurant/RestaurantGastronomyExperience.jsx'
 import { AuRasoirExperience } from '../salon/AuRasoirExperience.jsx'
@@ -25,14 +25,14 @@ const RESTAURANT_EXPERIENCE = {
 
 const BAR_EXPERIENCE = {
   'bar-basque': BarBasqueExperience,
-  'neon-shaker': NeonShakerExperience,
-  'zinc-des-amis': ZincDesAmisExperience,
+  'neon-shaker': ApothicaireBarExperience,
+  'zinc-des-amis': ChaiModerneBarExperience,
 }
 
 const TATTOO_EXPERIENCE = {
-  'atelier-1920': Atelier1920Experience,
-  'neo-ink-studio': NeoInkStudioExperience,
-  'le-labo-de-peau': LeLaboDePeauExperience,
+  'atelier-1920': HeritageExperience,
+  'neo-ink-studio': BrutalismChicExperience,
+  'le-labo-de-peau': OrEtPeauExperience,
 }
 
 const SALON_EXPERIENCE = {

@@ -3,7 +3,8 @@
  * Fusionné dans BUSINESS_RICH — textes uniques par établissement.
  */
 
-const TP = '/stock-photos/tattoo-piercing'
+/** Alias visuel : mêmes fichiers que stock-photos/tattoo-piercing (voir public/perceur). */
+const TP = '/perceur'
 
 export const ATELIER_1920_EXT = {
   clientProcessSteps: [

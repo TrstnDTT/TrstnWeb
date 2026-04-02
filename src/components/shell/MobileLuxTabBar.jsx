@@ -1,21 +1,31 @@
 /**
  * Tab bar flottante — mobile uniquement, style app native (verre, icônes).
  */
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { Info, LayoutGrid, Mail } from 'lucide-react'
+import { SITE } from '../../constants.js'
 import { useShellTheme } from '../../context/ShellThemeContext.jsx'
 
 const tabs = [
   { to: '/portfolio', label: 'Projets', Icon: LayoutGrid, end: false },
   { to: '/about', label: 'À propos', Icon: Info, end: false },
-  { to: '/contact', label: 'Contact', Icon: Mail, end: false },
+  {
+    to: '/contact',
+    label: SITE.ctaContactShort,
+    ariaLabel: SITE.ctaContact,
+    Icon: Mail,
+    end: false,
+  },
 ]
 
 export function MobileLuxTabBar() {
+  const { pathname } = useLocation()
   const { effectiveTheme, projectViewOpen } = useShellTheme()
   const L = effectiveTheme === 'light'
 
-  if (projectViewOpen) {
+  const isFullscreenBooking = /^\/portfolio\/[^/]+\/reservation$/.test(pathname)
+
+  if (projectViewOpen || isFullscreenBooking) {
     return null
   }
 
@@ -34,11 +44,12 @@ export function MobileLuxTabBar() {
               : 'border-white/[0.12] bg-[rgba(12,12,14,0.65)]',
           ].join(' ')}
         >
-          {tabs.map(({ to, label, Icon, end }) => (
+          {tabs.map(({ to, label, ariaLabel, Icon, end }) => (
             <NavLink
               key={to}
               to={to}
               end={end}
+              {...(ariaLabel ? { 'aria-label': ariaLabel } : {})}
               className={({ isActive }) =>
                 [
                   'flex min-h-[48px] min-w-[48px] flex-1 flex-col items-center justify-center gap-1 rounded-xl px-2 py-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] transition-[transform,background-color,color] duration-200 active:scale-[0.96]',

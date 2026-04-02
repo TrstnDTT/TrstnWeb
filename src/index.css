@@ -209,3 +209,47 @@ body {
     animation: none;
   }
 }
+
+/* Accueil — CTA principal : halo très léger (conversion) */
+@keyframes trstn-home-cta-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.08),
+      0 0 0 0 rgba(212, 175, 55, 0);
+  }
+  50% {
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      0 0 0 5px rgba(212, 175, 55, 0.09);
+  }
+}
+
+@keyframes trstn-home-cta-pulse-light {
+  0%,
+  100% {
+    box-shadow:
+      0 4px 22px rgba(0, 0, 0, 0.07),
+      0 0 0 0 rgba(255, 255, 255, 0);
+  }
+  50% {
+    box-shadow:
+      0 8px 36px rgba(0, 0, 0, 0.09),
+      0 0 0 4px rgba(255, 255, 255, 0.45);
+  }
+}
+
+.trstn-home-cta-primary--dark {
+  animation: trstn-home-cta-pulse 4s ease-in-out infinite;
+}
+
+.trstn-home-cta-primary--light {
+  animation: trstn-home-cta-pulse-light 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trstn-home-cta-primary--dark,
+  .trstn-home-cta-primary--light {
+    animation: none;
+  }
+}

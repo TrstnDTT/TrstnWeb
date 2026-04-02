@@ -5,6 +5,7 @@ import { Home, Info, Mail } from 'lucide-react'
 import { MobileCategoryRail } from '../components/portfolio/MobileCategoryRail.jsx'
 import { PortfolioProjectGrid } from '../components/portfolio/PortfolioProjectGrid.jsx'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
+import { ShellLegalFooter } from '../components/shell/ShellLegalFooter.jsx'
 import { TrstnWebLogo } from '../components/shell/TrstnWebLogo.jsx'
 import { ProjectExperience } from '../components/templates/ProjectExperience.jsx'
 import { CATEGORIES, CATEGORY_CANVAS_HOVER, SITE } from '../constants.js'
@@ -250,6 +251,12 @@ export default function PortfolioPage() {
     return () => setProjectViewOpen(false)
   }, [activeProject, setProjectViewOpen])
 
+  useEffect(() => {
+    if (!activeProject) {
+      document.title = `Portfolio | ${SITE.title}`
+    }
+  }, [activeProject])
+
   /** Retour depuis la page réservation Cheveux & Co : rouvrir le mini-site. */
   useEffect(() => {
     const id = location.state?.openProject
@@ -452,7 +459,7 @@ export default function PortfolioPage() {
                   ].join(' ')}
                 >
                   <Mail className="h-3 w-3 shrink-0" strokeWidth={1.5} aria-hidden tabIndex={-1} focusable="false" />
-                  Contact
+                  {SITE.ctaContact}
                 </Link>
               </div>
 
@@ -569,7 +576,7 @@ export default function PortfolioPage() {
                   )}
                   style={{ color: galleryTokens.accent }}
                 >
-                  Portfolio
+                  {SITE.portfolio.eyebrow}
                 </p>
                 <h2
                   className={[
@@ -578,7 +585,7 @@ export default function PortfolioPage() {
                   ].join(' ')}
                   style={fontSectionSerif}
                 >
-                  Réalisations sélectionnées
+                  {SITE.portfolio.headline}
                 </h2>
                 <p
                   className={[
@@ -586,7 +593,7 @@ export default function PortfolioPage() {
                     L ? 'text-[#0a0a0a]' : 'text-white',
                   ].join(' ')}
                 >
-                  {SITE.footer}
+                  {SITE.portfolio.intro}
                 </p>
               </header>
 
@@ -632,6 +639,8 @@ export default function PortfolioPage() {
                 </motion.section>
               ))}
             </div>
+
+            <ShellLegalFooter light={L} className="mt-8 px-5 sm:px-10 md:px-14 lg:px-20" />
           </main>
 
           <p

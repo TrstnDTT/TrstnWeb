@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { CheveuxCoBookingForm } from '../components/salon/CheveuxCoBookingForm.jsx'
 import { CheveuxCoCalendar } from '../components/salon/CheveuxCoCalendar.jsx'
+import { toLocalDateStringISO } from '../data/cheveuxCoBookingMock.js'
 
 const CREME = '#F5F5DC'
 const SAGE = '#6b8f71'
@@ -20,8 +21,7 @@ export default function CheveuxCoReservationPage() {
 
   const handlePickDate = useCallback((d) => {
     setSelectedDate(d)
-    const iso = d.toISOString().slice(0, 10)
-    setSyncedDate(iso)
+    setSyncedDate(toLocalDateStringISO(d))
   }, [])
 
   const backToSalon = () => {

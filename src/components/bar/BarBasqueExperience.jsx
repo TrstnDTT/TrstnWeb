@@ -103,6 +103,10 @@ export function BarBasqueExperience({ site, onBack }) {
           <img
             src={assets.hero}
             alt=""
+            width={900}
+            height={500}
+            decoding="async"
+            fetchPriority="high"
             className="h-full w-full object-cover"
             style={{ filter: 'contrast(1.05) saturate(0.92)' }}
             aria-hidden

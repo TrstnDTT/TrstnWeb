@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowLeft, BarChart3, Cpu, Zap } from 'lucide-react'
+import { ShellLegalFooter } from '../components/shell/ShellLegalFooter.jsx'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
 import { TrstnWebLogo } from '../components/shell/TrstnWebLogo.jsx'
 import { SITE } from '../constants.js'
@@ -44,7 +45,7 @@ function ParallaxSectionTitle({ children, className = '', id }) {
       ref={ref}
       id={id}
       style={{ ...fontSyne, y }}
-      className={className}
+      className={['relative', className].filter(Boolean).join(' ')}
     >
       {children}
     </motion.h2>
@@ -54,18 +55,18 @@ function ParallaxSectionTitle({ children, className = '', id }) {
 const pillars = [
   {
     Icon: Cpu,
-    label: 'Rigueur informatique',
-    sub: 'Fondations solides, code maintenable.',
+    label: 'Fondations & SEO technique',
+    sub: 'Un socle propre pour être trouvé, indexé et crédible — sans dette cachée.',
   },
   {
     Icon: Zap,
-    label: 'Performance React',
-    sub: 'Interfaces fluides, architecture sur-mesure.',
+    label: 'Rétention & expérience',
+    sub: 'Une infrastructure éclair pour capturer chaque lead avant qu’il ne s’échappe.',
   },
   {
     Icon: BarChart3,
-    label: 'Optimisation business',
-    sub: 'Conversion, présence stratégique.',
+    label: 'Croissance mesurable',
+    sub: 'Parcours et CTA alignés sur vos revenus, pas sur les tendances.',
   },
 ]
 
@@ -75,7 +76,7 @@ export default function AboutPage() {
 
   useEffect(() => {
     const prev = document.title
-    document.title = `À propos — ${SITE.title}`
+    document.title = `À propos | ${SITE.title}`
     return () => {
       document.title = prev
     }
@@ -138,7 +139,8 @@ export default function AboutPage() {
             ].join(' ')}
             style={fontSyne}
           >
-            L&apos;Art de la conversion digitale par <TrstnWebLogo as="span" className="inline text-inherit" />
+            Votre croissance digitale, architecturée par{' '}
+            <TrstnWebLogo as="span" className="inline text-inherit" />
           </motion.h1>
 
           <motion.div
@@ -147,62 +149,24 @@ export default function AboutPage() {
           >
             <div className="lg:col-span-7">
             <div className="space-y-12">
-              <section aria-labelledby="acte-1">
-                <ParallaxSectionTitle
-                  id="acte-1"
-                  className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b8a074]"
-                >
-                  La passion technique
-                </ParallaxSectionTitle>
-                <p
-                  className={[
-                    'mt-4 text-[15px] font-normal leading-[1.75] md:text-[16px]',
-                    L ? 'text-[#424245]' : 'text-zinc-400',
-                  ].join(' ')}
-                >
-                  Passionné par l&apos;informatique depuis des années, j&apos;ai transformé cette
-                  rigueur technique en une expertise de conception web.
-                </p>
-              </section>
-
-              <section aria-labelledby="acte-2">
-                <ParallaxSectionTitle
-                  id="acte-2"
-                  className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b8a074]"
-                >
-                  La méthode React
-                </ParallaxSectionTitle>
-                <p
-                  className={[
-                    'mt-4 text-[15px] font-normal leading-[1.75] md:text-[16px]',
-                    L ? 'text-[#424245]' : 'text-zinc-400',
-                  ].join(' ')}
-                >
-                  Spécialiste de l&apos;écosystème React, je ne conçois pas de simples sites : je
-                  bâtis des architectures performantes, fluides et sur-mesure, répondant
-                  précisément aux ambitions de mes clients.
-                </p>
-              </section>
-
-              <section aria-labelledby="acte-3">
-                <ParallaxSectionTitle
-                  id="acte-3"
-                  className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b8a074]"
-                >
-                  La promesse
-                </ParallaxSectionTitle>
-                <p
-                  className={[
-                    'mt-4 text-[15px] font-normal leading-[1.75] md:text-[16px]',
-                    L ? 'text-[#424245]' : 'text-zinc-400',
-                  ].join(' ')}
-                >
-                  Mon obsession ? Un travail soigné, un rendu esthétique irréprochable et, surtout,
-                  un objectif clair : catalyser votre croissance. Augmentez votre clientèle et vos
-                  taux de conversion grâce à une présence en ligne attrayante, stratégique et
-                  unique.
-                </p>
-              </section>
+              {SITE.about.sections.map((sec) => (
+                <section key={sec.id} aria-labelledby={sec.id}>
+                  <ParallaxSectionTitle
+                    id={sec.id}
+                    className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#b8a074]"
+                  >
+                    {sec.eyebrow} — {sec.title}
+                  </ParallaxSectionTitle>
+                  <p
+                    className={[
+                      'mt-4 text-[15px] font-normal leading-[1.75] md:text-[16px]',
+                      L ? 'text-[#424245]' : 'text-zinc-400',
+                    ].join(' ')}
+                  >
+                    {sec.body}
+                  </p>
+                </section>
+              ))}
             </div>
 
             <ul
@@ -321,7 +285,7 @@ export default function AboutPage() {
             ].join(' ')}
             style={fontSyne}
           >
-            Prêt à transformer votre vision ?
+            Prêt à arrêter de perdre des clients en ligne ?
           </p>
           <Link
             to="/contact"
@@ -332,7 +296,7 @@ export default function AboutPage() {
                 : 'border-white/[0.12] bg-white/[0.05] text-zinc-200 hover:bg-white/[0.09] hover:text-white',
             ].join(' ')}
           >
-            Écrire à {SITE.title}
+            {SITE.ctaContact}
           </Link>
         </motion.section>
 
@@ -349,6 +313,8 @@ export default function AboutPage() {
           {SITE.title}
         </motion.p>
         </motion.div>
+
+        <ShellLegalFooter light={L} />
       </main>
     </div>
   )

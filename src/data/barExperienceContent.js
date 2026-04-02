@@ -222,198 +222,84 @@ export const BAR_BASQUE_BUSINESS = {
 
 export const NEON_SHAKER_BUSINESS = {
   valueProposition:
-    'Mixologie sous néons — zeste torréfié, shaker à sec, bassline jusqu’à 4 h.',
-  ctaPrimary: { label: 'Line-up DJ', href: '#ns-dj' },
-  ctaSecondary: { label: 'Signatures', href: '#ns-signatures' },
-  mixologieIntro:
-    'Chaque profil aromatique est une colonne du menu : les Signatures pour l’audace, les Intemporels pour la précision du classique, les mocktails pour la complexité sans alcool — distillats botaniques, amertume maîtrisée, fraîcheur volontaire.',
-  signatures: [
+    'L’Apothicaire assume la lenteur du luxe : chaque cocktail est une démonstration — dosage, glace, zeste — sous la lumière tamisée du Nive.',
+  ctaPrimary: { label: 'Réservation', href: '/portfolio/neon-shaker/reservation' },
+  ctaSecondary: { label: 'L’art du geste', href: '#apo-geste' },
+  artDuGeste: [
     {
-      name: 'Spectre UV',
-      price: '16 €',
-      ingredients: 'Gin infusé shiso, liqueur violette, acidulé yuzu, glace sphère.',
-      degustation: 'Floral capiteux, amertume légère en queue, frais et long en bouche.',
+      step: '01',
+      title: 'Le dosage',
+      text: 'Chaque centilitre est pesé au compte-gouttes : équilibre sucre, acidité, alcool — rien au hasard.',
     },
     {
-      name: 'Shaker Froid #7',
-      price: '15 €',
-      ingredients: 'Rhum agricole, sirop betterave clarifié, bitters cacao, citron vert.',
-      degustation: 'Sucré salé complexe, texture satinée, finale épicée.',
+      step: '02',
+      title: 'Le shaker',
+      text: 'Glace sélectionnée, dilution contrôlée, geste du poignet calibré comme un métronome feutré.',
     },
     {
-      name: 'Tanin Express',
-      price: '15 €',
-      ingredients: 'Whisky tourbé, vermouth maison, écorce d’orange brûlée.',
-      degustation: 'Fumée noble, amertume longue, accord cigarillo (sans cigare).',
-    },
-    {
-      name: 'Nébuleuse Violette',
-      price: '14 €',
-      ingredients: 'Vodka infusée lavande, crème de mûre, prosecco sec.',
-      degustation: 'Bulles fines, fruité noir, rafraîchissant malgré la densité.',
+      step: '03',
+      title: 'La décoration',
+      text: 'Zeste brûlé au moment, herbe aromatique cueillie le matin : le dernier geste avant le silence.',
     },
   ],
-  intemporels: [
-    {
-      name: 'Negroni fumé',
-      price: '13 €',
-      ingredients: 'Gin, Campari, vermouth rouge, écorce torréfiée au chalumeau.',
-      degustation: 'Amertume équilibrée, note boisée, glace cubique unique.',
-    },
-    {
-      name: 'Moscow Mule épicé',
-      price: '12 €',
-      ingredients: 'Vodka, ginger beer artisanale, lime, infusion piment doux.',
-      degustation: 'Piquant maîtrisé, très frais, bulles longues.',
-    },
-    {
-      name: 'Old Fashioned au sirop d’érable',
-      price: '14 €',
-      ingredients: 'Bourbon 8 ans, bitters angostura, zeste orange, sirop maison.',
-      degustation: 'Sucro-amère profond, chaleur boisée, finale douce.',
-    },
-    {
-      name: 'Margarita salée au romarin',
-      price: '13 €',
-      ingredients: 'Tequila reposado, triple sec, lime, bord de verre sel & romarin.',
-      degustation: 'Acidité vive, herbacée, salinité qui prolonge.',
-    },
-  ],
-  mocktails: [
-    {
-      name: 'Forêt 0 %',
-      price: '10 €',
-      ingredients: 'Distillat botanique sans alcool, sapin, concombre, tonic.',
-      degustation: 'Vert profond, frais, amertume légère de quinine.',
-    },
-    {
-      name: 'Rubis sans alcool',
-      price: '10 €',
-      ingredients: 'Hibiscus, framboise, vinaigre de cidre, eau gazeuse.',
-      degustation: 'Floral, acidulé, bulles propres — comme un spritz sans vin.',
-    },
-    {
-      name: 'Amber Spice',
-      price: '11 €',
-      ingredients: 'Kombucha maison, gingembre, agrumes, mousse de pois chiche.',
-      degustation: 'Épicé chaud, mousse légère, finale citronnée.',
-    },
-  ],
-  djSetsSemaine: [
-    { day: 'Jeudi', artist: 'Nina K. · house mélodique', hours: '22h – 2h' },
-    { day: 'Vendredi', artist: 'Collectif Orbit · techno liquide', hours: '23h – 4h' },
-    { day: 'Samedi', artist: 'Guest + résident Neon Shaker', hours: '23h – 4h' },
-  ],
-  neonStoryBlocks: [
-    {
-      title: 'Le comptoir comme laboratoire',
-      text: 'Derrière le verre : balance de précision, zestes réservés au frigo à herbes, shakers à parois doubles pour le contrôle thermique. Rien n’est versé tant que la dilution n’est pas validée au compte-gouttes.',
-    },
-    {
-      title: 'La nuit comme territoire',
-      text: 'Le néon ne remplace pas la lumière : il la découpe. Entre deux sets, le staff rince les verres au son blanc des enceintes — rythme club, pas rythme fast-food.',
-    },
+  apothicaireSignatures: [
+    { name: 'Negroni de l’Apothicaire', price: '16 €', note: 'Amertume longue, zeste flambé au comptoir en marbre.' },
+    { name: 'Sour aux agrumes confits', price: '15 €', note: 'Blanc d’œuf, gin infusé bergamote, glace sculptée.' },
+    { name: 'Manhattan bord de Nive', price: '17 €', note: 'Whisky, vermouth maison, cerise d’exception.' },
   ],
   testimonials: [
     {
-      name: 'Alex R.',
+      name: 'Élise M.',
       rating: 5,
-      text: 'Le verre fume sous le néon — le shaker ne s’arrête jamais au bon moment.',
+      text: 'On sent la main avant le goût — rare aujourd’hui.',
     },
     {
-      name: 'Julie T.',
+      name: 'Julien P.',
       rating: 5,
-      text: 'Mocktail aussi sérieux que le cocktail d’à côté — enfin.',
+      text: 'Bayonne a enfin un bar où le silence compte autant que le verre.',
     },
   ],
   openingHours: {
     lundi: 'Fermé',
     mardi: 'Fermé',
-    mercredi: '18h00 – 2h00',
-    jeudi: '18h00 – 3h00',
-    vendredi: '18h00 – 4h00',
-    samedi: '18h00 – 4h00',
-    dimanche: 'Fermé',
+    mercredi: '18h00 – 1h00',
+    jeudi: '18h00 – 1h00',
+    vendredi: '18h00 – 1h00',
+    samedi: '18h00 – 1h00',
+    dimanche: '18h00 – 1h00',
   },
 }
 
 export const ZINC_DES_AMIS_BUSINESS = {
   valueProposition:
-    'Le plat du jour au feutre, le pichet qui traîne, les habitués qui racontent le quartier.',
-  ctaPrimary: { label: 'L’ardoise', href: '#zd-ardoise' },
-  ctaSecondary: { label: 'À grignoter', href: '#zd-grignoter' },
-  zincIntro:
-    'Une carte qui tient sur un clipboard — pas de pages à tourner : l’ardoise du midi change, les prix restent ceux du peuple, le café est servi comme avant les écrans.',
-  ardoiseMidi: {
-    titre: 'Ardoise du midi — mercredi',
-    entree: { nom: 'Salade de lentilles au lard paysan', detail: 'Vinaigre de cidre, herbes du potager.' },
-    plat: {
-      nom: 'Épaule d’agneau confite sept heures',
-      detail: 'Haricots tarbais, jus corsé, herbes fraîches.',
-      prix: '18 €',
-    },
-    dessert: { nom: 'Crème renversée au caramel', detail: 'Vanille bourbon, pas trop sucrée.' },
-    formule: 'Entrée + plat + dessert : 24 €',
-    vin: 'Pichet du jour (rouge Côtes de Bordeaux) : 12 €',
-  },
-  grignoter: [
-    {
-      name: 'Saucisson entier à partager',
-      price: '14 €',
-      detail: 'Pur porc, ail, poivre — coupé au couteau au comptoir.',
-    },
-    {
-      name: 'Planche fromages de brebis',
-      price: '16 €',
-      detail: 'Ossau-Iraty, brebis des Pyrénées, confiture de cerise noire.',
-    },
-    {
-      name: 'Terrine maison & cornichons',
-      price: '9 €',
-      detail: 'Pain de campagne toasté, moutarde à l’ancienne.',
-    },
-    {
-      name: 'Chips maison & aioli',
-      price: '6 €',
-      detail: 'Pommes Agria, sel fin, sauce à l’ail doux.',
-    },
-  ],
-  boissonsPeuple: [
-    { name: 'Demi de pression', price: '4 €', detail: 'Bière locale, mousse crémeuse.' },
-    { name: 'Kir vin blanc', price: '4,50 €', detail: 'Crème de cassis maison, muscadet du coin.' },
-    { name: 'Café comptoir', price: '2 €', detail: 'Expresso serré, tasse préchauffée.' },
-    { name: 'Vin au pichet (25 cl)', price: '8 €', detail: 'Rouge du patron — même bouteille qu’hier si elle est bonne.' },
-    { name: 'Pastis', price: '4 €', detail: 'Ricard ou Pastis 51 — glaçon unique, comme il faut.' },
-    { name: 'Diabolo menthe', price: '3,50 €', detail: 'Pour les drivers et les nostalgiques du collège.' },
-  ],
-  habituesTemoignages: [
-    {
-      name: 'Marie, libraire',
-      text: 'J’entre, je ne lis pas la carte. Le plat du jour suffit — et le pichet aussi.',
-    },
-    {
-      name: 'Sofiane, vélo',
-      text: 'Le zinc des amis, c’est le seul endroit où mon téléphone reste dans la poche.',
-    },
-    {
-      name: 'Robert, retraité',
-      text: 'Quarante ans le même tabouret. Le café a changé de torréfaction, pas le silence du verre.',
-    },
+    'Le Chai Moderne ne propose pas une carte opaque : chaque bouteille est choisie chez des vignerons du piémont et du littoral — Irouléguy, Rioja, Sud-Ouest — pour dire le terroir sans le masquer.',
+  ctaPrimary: { label: 'Réservation', href: '/portfolio/zinc-des-amis/reservation' },
+  ctaSecondary: { label: 'Sélection', href: '#chai-bento' },
+  chaiTimeline: [
+    { title: 'L’entrée', text: 'Tapas du marché — anchois, gilda, pain de tradition bayonnaise.' },
+    { title: 'Le partage', text: 'Planches ibériques, fromages de brebis, confitures maison du Pays basque.' },
+    { title: 'Le verre juste', text: 'Accords au verre ou à la bouteille — conseil au comptoir, jamais imposé.' },
+    { title: 'La suite', text: 'Digestifs locaux, café filtre, infusion du chai.' },
   ],
   testimonials: [
     {
       name: 'Inès D.',
       rating: 5,
-      text: 'Brut, honnête, efficace — comme un bon bistrot doit l’être.',
+      text: 'Le survol des bouteilles avec les notes : enfin un chai qui respecte le client.',
+    },
+    {
+      name: 'Marc L.',
+      rating: 5,
+      text: 'Lumineux sans froid — on se croirait entre Bordeaux et la montagne.',
     },
   ],
   openingHours: {
     lundi: 'Fermé',
-    mardi: '11h30 – 23h30',
-    mercredi: '11h30 – 23h30',
-    jeudi: '11h30 – 23h30',
-    vendredi: '11h30 – 0h30',
-    samedi: '11h30 – 0h30',
-    dimanche: 'Fermé',
+    mardi: '12h00 – 14h30 · 19h00 – 23h00',
+    mercredi: '12h00 – 14h30 · 19h00 – 23h30',
+    jeudi: '12h00 – 14h30 · 19h00 – 23h30',
+    vendredi: '12h00 – 14h30 · 19h00 – 23h30',
+    samedi: '12h00 – 15h00 · 19h00 – 23h30',
+    dimanche: '12h00 – 15h00 · 19h00 – 22h30',
   },
 }

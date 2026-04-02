@@ -176,8 +176,12 @@ export function CheveuxCoExperience({ site, onBack }) {
                   <img
                     src={`${SC}/shamppoing-coiffeur-le-salon-1024x683.jpeg`}
                     alt="Shampoing au salon, ambiance lumineuse et soins cheveux"
+                    width={320}
+                    height={320}
                     className="aspect-square w-[min(88vw,320px)] object-cover md:w-[300px]"
                     loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
                     style={{ filter: 'saturate(0.88)' }}
                   />
                 </div>

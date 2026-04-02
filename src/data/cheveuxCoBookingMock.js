@@ -4,6 +4,18 @@
 
 const DEFAULT_SLOTS = ['09:30', '10:45', '14:00', '16:15', '17:30']
 
+/**
+ * Date du calendrier local au format YYYY-MM-DD.
+ * Ne pas utiliser toISOString().slice(0,10) : en UTC cela peut reculer d’un jour (ex. Europe).
+ * @param {Date} d
+ */
+export function toLocalDateStringISO(d) {
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
 /** @param {Date} date */
 export function getMockSlotsForDate(date) {
   const d = new Date(date)

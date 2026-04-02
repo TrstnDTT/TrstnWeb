@@ -6,6 +6,8 @@ import ContactPage from './pages/ContactPage.jsx'
 import HomePage from './pages/HomePage.jsx'
 import PortfolioPage from './pages/PortfolioPage.jsx'
 import CheveuxCoReservationPage from './pages/CheveuxCoReservationPage.jsx'
+import MentionsLegalesPage from './pages/MentionsLegalesPage.jsx'
+import TattooBookingPage from './pages/TattooBookingPage.jsx'
 
 export default function App() {
   return (
@@ -16,7 +18,9 @@ export default function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
+        <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
         <Route path="/portfolio/cheveux-co/reservation" element={<CheveuxCoReservationPage />} />
+        <Route path="/portfolio/:siteId/reservation" element={<TattooBookingPage />} />
       </Routes>
       <MobileLuxTabBar />
     </>

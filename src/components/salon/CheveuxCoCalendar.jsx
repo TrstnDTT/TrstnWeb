@@ -113,7 +113,7 @@ export function CheveuxCoCalendar({ selectedDate, onSelectDate, sage, ink, sageM
           const sel = selectedDate && sameDay(cell, selectedDate)
           return (
             <button
-              key={cell.toISOString()}
+              key={`${cell.getFullYear()}-${cell.getMonth()}-${cell.getDate()}`}
               type="button"
               disabled={past}
               onClick={() => !past && onSelectDate(cell)}

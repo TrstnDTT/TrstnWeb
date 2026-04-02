@@ -1402,7 +1402,7 @@ export const BUSINESS_RICH = {
   'zinc-des-amis': ZINC_DES_AMIS_BUSINESS,
   'atelier-1920': {
     valueProposition:
-      'Old school & hand-poked : bois sombre, encres nobles, le temps du geste juste.',
+      'L’Héritage : galerie intemporelle, archive vivante — nous marquons l’instant avec la tenue du noir sur papier cassé.',
     ctaPrimary: { label: 'Entrer dans l’Atelier', href: '#contact' },
     ctaSecondary: { label: 'Instagram', href: '#' },
     organicInks: [
@@ -1473,7 +1473,7 @@ export const BUSINESS_RICH = {
   },
   'neo-ink-studio': {
     valueProposition:
-      'Néon, contraste, précision — géométrie et réalisme pour une peau qui affiche le futur.',
+      'Brutalisme chic : loft secret, protocole horizontal — précision et hygiène comme architecture.',
     ctaPrimary: { label: 'Lancer le projet', href: '#contact' },
     ctaSecondary: { label: 'Guest-spot', href: '#neo-guest' },
     simulation3d: {
@@ -1532,7 +1532,7 @@ export const BUSINESS_RICH = {
   },
   'le-labo-de-peau': {
     valueProposition:
-      'Titane, or 18k, protocole visible — le piercing comme acte médical esthétique.',
+      'Or & Peau : bijouterie de peau — titane, or 18k, lumière et reflets sur chaque pose.',
     ctaPrimary: { label: 'Réserver mon bijou', href: '#catalogue' },
     ctaSecondary: { label: 'Prendre rendez-vous', href: '#contact' },
     piercingTeam: [

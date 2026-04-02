@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowLeft, Mail, MapPin } from 'lucide-react'
+import { ShellLegalFooter } from '../components/shell/ShellLegalFooter.jsx'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
 import { TrstnWebLogo } from '../components/shell/TrstnWebLogo.jsx'
 import { CONTACT_PROJECT_TYPES, SITE } from '../constants.js'
@@ -87,7 +88,7 @@ export default function ContactPage() {
 
   useEffect(() => {
     const prev = document.title
-    document.title = `Contact — ${SITE.title}`
+    document.title = `${SITE.ctaContact} | ${SITE.title}`
     return () => {
       document.title = prev
     }
@@ -275,11 +276,10 @@ export default function ContactPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: easeLux }}
             >
-              Parlons de votre projet
+              {SITE.contactPage.headline}
             </motion.h1>
             <p className={['mt-5 max-w-md text-[15px] leading-relaxed', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}>
-              Un brief clair, une réponse sous 24h. Partagez votre secteur et vos attentes — le
-              reste, on le construit ensemble.
+              {SITE.contactPage.lead}
             </p>
 
             <ul className="mt-10 space-y-6" role="list">
@@ -525,6 +525,8 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
+
+        <ShellLegalFooter light={L} />
       </main>
     </div>
   )

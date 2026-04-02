@@ -271,9 +271,12 @@ export function InfluencesExperience({ site, onBack }) {
               <img
                 src={HERO_IMG}
                 alt="Salle de restaurant chaleureuse, tables dressées"
-                className="aspect-[4/3] w-full object-cover md:aspect-[5/4]"
+                width={1600}
+                height={1200}
+                className="aspect-[4/3] h-auto w-full object-cover md:aspect-[5/4]"
                 loading="eager"
                 decoding="async"
+                fetchPriority="high"
               />
             </motion.div>
 

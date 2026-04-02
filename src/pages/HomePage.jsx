@@ -1,11 +1,14 @@
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { ProjectPreview } from '../components/ProjectPreview.jsx'
+import { ShellLegalFooter } from '../components/shell/ShellLegalFooter.jsx'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
 import { TrstnWebLogo } from '../components/shell/TrstnWebLogo.jsx'
 import { HOME_FEATURED_SITE_IDS, SITE } from '../constants.js'
 import { useShellTheme } from '../context/ShellThemeContext.jsx'
 import { getSiteById } from '../data.js'
+import { SITE_METADATA } from '../seo.js'
 
 /** Courbes « fluides » — lourd, organique, pas mécanique */
 const easeLux = [0.22, 1, 0.36, 1]
@@ -19,17 +22,90 @@ const fontBtnSerif = {
   fontWeight: 400,
 }
 
+const fontValeurSerif = {
+  fontFamily: '"Cormorant Garamond", Georgia, serif',
+}
+
+const VALEUR_PILLARS = [
+  {
+    title: 'Ancrage local.',
+    body: 'Priorité Bayonne, Landes (40) et Pays Basque. Un partenaire à vos côtés.',
+  },
+  {
+    title: 'Rétention.',
+    body: 'Vos prospects partent ailleurs ? Nous les retenons avec des interfaces premium.',
+  },
+  {
+    title: 'Performance.',
+    body: 'Des parcours orientés conversion pour transformer vos visiteurs en clients.',
+  },
+]
+
+/** CTA principal — léger effet magnétique (réduit si prefers-reduced-motion). */
+function HomeMagneticCta({ to, children, className }) {
+  const wrap = useRef(null)
+  const [off, setOff] = useState({ x: 0, y: 0 })
+  const reduce = useReducedMotion()
+
+  const move = useCallback(
+    (e) => {
+      if (reduce) return
+      const el = wrap.current
+      if (!el) return
+      const r = el.getBoundingClientRect()
+      const cx = r.left + r.width / 2
+      const cy = r.top + r.height / 2
+      setOff({ x: (e.clientX - cx) * 0.1, y: (e.clientY - cy) * 0.1 })
+    },
+    [reduce],
+  )
+
+  const leave = useCallback(() => {
+    if (!reduce) setOff({ x: 0, y: 0 })
+  }, [reduce])
+
+  return (
+    <div ref={wrap} className="w-full" onMouseMove={move} onMouseLeave={leave}>
+      <Link
+        to={to}
+        className={className}
+        style={{
+          transform: reduce ? undefined : `translate(${off.x}px, ${off.y}px)`,
+          transition: reduce ? undefined : 'transform 0.2s ease-out',
+        }}
+      >
+        {children}
+      </Link>
+    </div>
+  )
+}
+
 export default function HomePage() {
   const { effectiveTheme } = useShellTheme()
   const L = effectiveTheme === 'light'
+  const reduceMotion = useReducedMotion()
 
-  const glassBtnOutline = L
-    ? 'trstn-entry-btn group relative flex w-full max-w-full items-center justify-center overflow-hidden rounded-[6px] border-[0.5px] border-black/[0.1] bg-white/70 px-8 py-4 text-center text-[#1d1d1f] shadow-[0_2px_20px_rgba(0,0,0,0.06)] backdrop-blur-md transition-[transform,box-shadow,background-color] duration-500 hover:border-black/[0.14] hover:bg-white/88 active:scale-[0.99]'
-    : 'trstn-entry-btn group relative flex w-full max-w-full items-center justify-center overflow-hidden rounded-[6px] border-[0.5px] border-white/[0.12] bg-transparent px-8 py-4 text-center text-[#f0f0f0] shadow-none backdrop-blur-sm transition-[transform,box-shadow,background-color] duration-500 hover:border-white/[0.18] hover:bg-white/[0.04] active:scale-[0.99]'
+  useEffect(() => {
+    const prev = document.title
+    document.title = SITE_METADATA.title
+    return () => {
+      document.title = prev
+    }
+  }, [])
 
-  const glassBtnPrimary = L
-    ? 'trstn-entry-btn group relative flex w-full max-w-full items-center justify-center overflow-hidden rounded-[6px] border-[0.5px] border-black/[0.08] bg-white/75 px-8 py-4 text-center text-[#1d1d1f] shadow-[0_2px_24px_rgba(0,0,0,0.07)] backdrop-blur-md transition-[transform,box-shadow,background-color] duration-500 hover:border-black/[0.1] hover:bg-white/92 hover:shadow-[0_6px_28px_rgba(0,0,0,0.08)] active:scale-[0.99]'
-    : 'trstn-entry-btn group relative flex w-full max-w-full items-center justify-center overflow-hidden rounded-[6px] border-0 bg-white/[0.09] px-8 py-4 text-center text-[#fafafa] shadow-[0_4px_32px_rgba(0,0,0,0.12)] backdrop-blur-sm transition-[transform,box-shadow,background-color] duration-500 hover:bg-white/[0.13] hover:shadow-[0_8px_40px_rgba(0,0,0,0.2)] active:scale-[0.99]'
+  /** Ghost — bordure fine, fond transparent (références, à propos, secondaires). */
+  const ghostBtn = L
+    ? 'trstn-entry-btn group relative flex w-full max-w-full items-center justify-center overflow-hidden rounded-[6px] border-[0.5px] border-black/[0.14] bg-transparent px-8 py-4 text-center text-[#1d1d1f] shadow-none backdrop-blur-sm transition-all duration-500 hover:border-black/[0.22] hover:bg-black/[0.03] hover:tracking-[0.2em] active:scale-[0.99]'
+    : 'trstn-entry-btn group relative flex w-full max-w-full items-center justify-center overflow-hidden rounded-[6px] border-[0.5px] border-white/[0.14] bg-transparent px-8 py-4 text-center text-[#f0f0f0] shadow-none backdrop-blur-sm transition-all duration-500 hover:border-white/[0.22] hover:bg-white/[0.04] hover:tracking-[0.2em] active:scale-[0.99]'
+
+  /** CTA principal — blanc (clair) ou or #D4AF37 (sombre), texte noir. */
+  const primaryCta = L
+    ? 'group trstn-entry-btn relative flex w-full max-w-full items-center justify-center overflow-hidden rounded-[6px] border-[0.5px] border-black/[0.06] bg-white px-8 py-4 text-center text-[#0a0a0a] shadow-[0_4px_22px_rgba(0,0,0,0.07)] transition-all duration-500 hover:tracking-[0.2em] active:scale-[0.99] trstn-home-cta-primary--light'
+    : 'group trstn-entry-btn relative flex w-full max-w-full items-center justify-center overflow-hidden rounded-[6px] border-[0.5px] border-[#c9a227]/45 bg-[#D4AF37] px-8 py-4 text-center text-[#0a0a0a] shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-500 hover:tracking-[0.2em] active:scale-[0.99] trstn-home-cta-primary--dark'
+
+  const heroH1Gradient = L
+    ? 'bg-gradient-to-br from-[#6e6e73] via-[#2e2e32] to-[#0a0a0c] bg-clip-text text-transparent'
+    : 'bg-gradient-to-br from-[#b4b4bc] via-[#e8e8ec] to-white bg-clip-text text-transparent'
 
   return (
     <div
@@ -86,30 +162,27 @@ export default function HomePage() {
         />
         <div className="relative z-10 flex min-h-[100dvh] flex-col px-5 pb-[calc(6.25rem+env(safe-area-inset-bottom))] pt-[calc(3.25rem+env(safe-area-inset-top))]">
           <div className="flex min-h-0 flex-1 flex-col justify-center py-6">
-            <motion.h1
-              className={[
-                'w-full text-center text-[clamp(2.25rem,8vw,3rem)] leading-[0.95]',
-                L ? 'text-[#1d1d1f]' : 'text-[#fafafa]',
-              ].join(' ')}
-              style={{
-                fontFamily: "'Syne', ui-sans-serif, system-ui, sans-serif",
-                fontWeight: 800,
-                letterSpacing: '-0.05em',
-              }}
-              initial={{ opacity: 0, y: 16 }}
+            <motion.div
+              className="flex w-full flex-col items-center text-center"
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, ease: easeLux }}
             >
-              <TrstnWebLogo className="block w-full" />
-            </motion.h1>
-            <p
-              className={[
-                'mx-auto mt-4 max-w-sm text-center text-[16px] leading-relaxed',
-                L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark',
-              ].join(' ')}
-            >
-              Interfaces sur-mesure — un swipe, un univers.
-            </p>
+              <div className="w-full max-w-[min(18rem,88vw)]">
+                <TrstnWebLogo className="trstn-heading block w-full tracking-[0.2em] sm:tracking-[0.24em]" />
+              </div>
+              <h1
+                className={[
+                  'mt-5 max-w-md text-[clamp(1.05rem,4.2vw,1.35rem)] font-extrabold leading-[1.2] tracking-[-0.03em]',
+                  heroH1Gradient,
+                ].join(' ')}
+                style={{
+                  fontFamily: "'Syne', ui-sans-serif, system-ui, sans-serif",
+                }}
+              >
+                {SITE.home.heroH1}
+              </h1>
+            </motion.div>
           </div>
           <div className="min-h-0 shrink-0">
             <div
@@ -149,25 +222,49 @@ export default function HomePage() {
               })}
             </div>
           </div>
-          <Link
-            to="/portfolio"
-            className={[
-              'mt-5 flex min-h-[48px] w-full shrink-0 items-center justify-center rounded-2xl text-[16px] font-medium tracking-wide transition active:scale-[0.98]',
-              L
-                ? 'border border-black/[0.08] bg-white/85 text-[#0a0a0a] shadow-lg backdrop-blur-xl hover:text-black'
-                : 'border border-white/[0.12] bg-white/[0.08] text-white shadow-xl backdrop-blur-xl hover:text-white',
-            ].join(' ')}
-            style={{ fontFamily: "'Plus Jakarta Sans', ui-sans-serif, sans-serif" }}
-          >
-            Découvrir
-          </Link>
+          <div className="mt-5 flex w-full shrink-0 flex-col">
+            <HomeMagneticCta to="/portfolio" className={primaryCta}>
+              <span
+                className="inline-flex items-center justify-center gap-0 text-[16px] font-medium"
+                style={{ fontFamily: "'Plus Jakarta Sans', ui-sans-serif, sans-serif" }}
+              >
+                {SITE.home.ctaProjects}
+              </span>
+            </HomeMagneticCta>
+            <div className="mt-6 flex flex-col gap-3">
+              <Link
+                to="/contact"
+                className={[
+                  'flex min-h-[46px] w-full items-center justify-center rounded-2xl border-[0.5px] text-[15px] font-medium transition-all duration-500 hover:tracking-[0.2em] active:scale-[0.98]',
+                  L
+                    ? 'border-black/[0.14] bg-transparent text-[#1d1d1f] hover:border-black/[0.22] hover:bg-black/[0.03]'
+                    : 'border-white/[0.14] bg-transparent text-[#f0f0f0] hover:border-white/[0.22] hover:bg-white/[0.04]',
+                ].join(' ')}
+                style={{ fontFamily: "'Plus Jakarta Sans', ui-sans-serif, sans-serif" }}
+              >
+                {SITE.ctaContact}
+              </Link>
+              <Link
+                to="/about"
+                className={[
+                  'flex min-h-[46px] w-full items-center justify-center rounded-2xl border-[0.5px] text-[15px] font-medium transition-all duration-500 hover:tracking-[0.2em] active:scale-[0.98]',
+                  L
+                    ? 'border-black/[0.14] bg-transparent text-[#1d1d1f] hover:border-black/[0.22] hover:bg-black/[0.03]'
+                    : 'border-white/[0.14] bg-transparent text-[#f0f0f0] hover:border-white/[0.22] hover:bg-white/[0.04]',
+                ].join(' ')}
+                style={{ fontFamily: "'Plus Jakarta Sans', ui-sans-serif, sans-serif" }}
+              >
+                À propos
+              </Link>
+            </div>
+          </div>
           <p
             className={[
               'mt-5 text-center text-[15px]',
               L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark',
             ].join(' ')}
           >
-            Glissez horizontalement pour parcourir les aperçus.
+            {SITE.home.carouselHint}
           </p>
         </div>
       </section>
@@ -248,37 +345,40 @@ export default function HomePage() {
         />
 
         <div className="relative z-10 flex min-h-[100dvh] w-full flex-col items-center justify-center px-5 py-16 sm:px-8">
-          <div className="-translate-y-[5%] flex w-full max-w-[min(28rem,92vw)] flex-col items-center gap-7 sm:max-w-[450px]">
-            <motion.h1
-              className={[
-                'w-full pl-[2px] text-left text-[clamp(2.1rem,6.2vw,3.15rem)] leading-[0.95]',
-                L ? 'text-[#1d1d1f]' : 'text-[#fafafa]',
-              ].join(' ')}
-              style={{
-                fontFamily: "'Syne', ui-sans-serif, system-ui, sans-serif",
-                fontWeight: 800,
-                letterSpacing: '-0.05em',
-              }}
-              initial={{ opacity: 0, y: 28 }}
+          <div className="flex w-full max-w-[min(28rem,92vw)] flex-col items-center gap-8 text-center sm:max-w-[450px]">
+            <motion.div
+              className="w-full"
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: easeLux }}
+              transition={{ duration: 0.75, ease: easeLux }}
             >
-              <TrstnWebLogo className="block w-full" />
-            </motion.h1>
-
-            <div className="flex w-full flex-col gap-5">
-              <motion.div
-                initial={{ opacity: 0, y: 22 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.4, ease: easeLux }}
+              <TrstnWebLogo className="trstn-heading block w-full tracking-[0.2em] sm:tracking-[0.26em]" />
+              <h1
+                className={[
+                  'mt-6 max-w-lg text-center text-[clamp(1.15rem,2.8vw,1.5rem)] font-extrabold leading-[1.2] tracking-[-0.03em]',
+                  heroH1Gradient,
+                ].join(' ')}
+                style={{
+                  fontFamily: "'Syne', ui-sans-serif, system-ui, sans-serif",
+                }}
               >
-                <Link to="/portfolio" className={glassBtnPrimary}>
-                  <span className="inline-flex items-center justify-center gap-0">
+                {SITE.home.heroH1}
+              </h1>
+            </motion.div>
+
+            <div className="flex w-full flex-col">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.75, delay: 0.28, ease: easeLux }}
+              >
+                <HomeMagneticCta to="/portfolio" className={primaryCta}>
+                  <span className="inline-flex w-full items-center justify-center gap-0">
                     <span
-                      className="inline-block text-[15px] tracking-[0.02em] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 md:text-base"
+                      className="inline-block text-[15px] tracking-[0.02em] md:text-base"
                       style={fontBtnSerif}
                     >
-                      Voir les projets
+                      {SITE.home.ctaProjects}
                     </span>
                     <span
                       className="inline-block max-w-0 overflow-hidden text-[15px] opacity-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:max-w-[1.25em] group-hover:opacity-100 md:text-base"
@@ -289,62 +389,107 @@ export default function HomePage() {
                       →
                     </span>
                   </span>
-                </Link>
+                </HomeMagneticCta>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 22 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.55, ease: easeLux }}
-              >
-                <Link to="/contact" className={glassBtnOutline}>
-                  <span className="inline-flex items-center justify-center gap-0">
-                    <span
-                      className="inline-block text-[15px] tracking-[0.02em] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 md:text-base"
-                      style={fontBtnSerif}
-                    >
-                      Me contacter
+              <div className="mt-7 flex w-full flex-col gap-5">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.75, delay: 0.42, ease: easeLux }}
+                >
+                  <Link to="/contact" className={ghostBtn}>
+                    <span className="inline-flex items-center justify-center gap-0">
+                      <span
+                        className="inline-block text-[15px] tracking-[0.02em] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 md:text-base"
+                        style={fontBtnSerif}
+                      >
+                        {SITE.ctaContact}
+                      </span>
+                      <span
+                        className="inline-block max-w-0 overflow-hidden text-[15px] opacity-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:max-w-[1.25em] group-hover:opacity-100 md:text-base"
+                        style={fontBtnSerif}
+                        aria-hidden
+                        tabIndex={-1}
+                      >
+                        →
+                      </span>
                     </span>
-                    <span
-                      className="inline-block max-w-0 overflow-hidden text-[15px] opacity-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:max-w-[1.25em] group-hover:opacity-100 md:text-base"
-                      style={fontBtnSerif}
-                      aria-hidden
-                      tabIndex={-1}
-                    >
-                      →
-                    </span>
-                  </span>
-                </Link>
-              </motion.div>
+                  </Link>
+                </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 22 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.7, ease: easeLux }}
-              >
-                <Link to="/about" className={glassBtnOutline}>
-                  <span className="inline-flex items-center justify-center gap-0">
-                    <span
-                      className="inline-block text-[15px] tracking-[0.02em] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 md:text-base"
-                      style={fontBtnSerif}
-                    >
-                      À propos
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.75, delay: 0.52, ease: easeLux }}
+                >
+                  <Link to="/about" className={ghostBtn}>
+                    <span className="inline-flex items-center justify-center gap-0">
+                      <span
+                        className="inline-block text-[15px] tracking-[0.02em] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 md:text-base"
+                        style={fontBtnSerif}
+                      >
+                        À propos
+                      </span>
+                      <span
+                        className="inline-block max-w-0 overflow-hidden text-[15px] opacity-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:max-w-[1.25em] group-hover:opacity-100 md:text-base"
+                        style={fontBtnSerif}
+                        aria-hidden
+                        tabIndex={-1}
+                      >
+                        →
+                      </span>
                     </span>
-                    <span
-                      className="inline-block max-w-0 overflow-hidden text-[15px] opacity-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:max-w-[1.25em] group-hover:opacity-100 md:text-base"
-                      style={fontBtnSerif}
-                      aria-hidden
-                      tabIndex={-1}
-                    >
-                      →
-                    </span>
-                  </span>
-                </Link>
-              </motion.div>
+                  </Link>
+                </motion.div>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+      <motion.section
+        className="relative isolate overflow-hidden border-t border-white/[0.07] bg-[#050506] px-5 py-20 text-[#fafafa] sm:px-8 md:py-28"
+        aria-labelledby="home-valeur-heading"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-10% 0px' }}
+        transition={{ duration: reduceMotion ? 0 : 0.75, ease: easeLux }}
+      >
+        <div
+          className="pointer-events-none absolute inset-0 z-0 opacity-[0.045]"
+          style={{ backgroundImage: FILM_GRAIN_SVG }}
+          aria-hidden
+          tabIndex={-1}
+        />
+        <div className="relative z-10 mx-auto max-w-6xl">
+          <h2
+            id="home-valeur-heading"
+            className="mx-auto max-w-3xl text-center text-[clamp(1.45rem,3.4vw,2.15rem)] font-light leading-[1.25] tracking-[-0.02em] text-[#f5f5f4]"
+            style={fontValeurSerif}
+          >
+            L'expertise locale au service de votre conversion.
+          </h2>
+          <div className="mt-14 grid gap-12 sm:gap-14 md:grid-cols-3 md:gap-10">
+            {VALEUR_PILLARS.map(({ title, body }) => (
+              <article key={title} className="text-center md:text-left">
+                <h3
+                  className="text-[clamp(1.12rem,2vw,1.32rem)] font-medium leading-snug text-[#f0ece0]"
+                  style={fontValeurSerif}
+                >
+                  {title}
+                </h3>
+                <p
+                  className="mt-4 text-[15px] leading-relaxed text-white/[0.68]"
+                  style={{ fontFamily: "'Plus Jakarta Sans', ui-sans-serif, sans-serif" }}
+                >
+                  {body}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </motion.section>
 
       <section
         className={[
@@ -359,8 +504,7 @@ export default function HomePage() {
               L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark',
             ].join(' ')}
           >
-            Studio indépendant — interfaces React sur-mesure, identité et conversion. Le récit
-            complet : méthode, promesse et contact.
+            {SITE.home.bottomPitch}
           </p>
           <Link
             to="/about"
@@ -371,7 +515,7 @@ export default function HomePage() {
                 : 'border border-white/[0.1] bg-white/[0.04] text-white hover:bg-white/[0.08] hover:text-white',
             ].join(' ')}
           >
-            Lire la présentation
+            {SITE.home.bottomCta}
           </Link>
           <p className={['trstn-label text-[12px]', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(' ')}>
             Conçu par{' '}
@@ -379,6 +523,8 @@ export default function HomePage() {
           </p>
         </div>
       </section>
+
+      <ShellLegalFooter light={L} />
       </main>
     </div>
   )
