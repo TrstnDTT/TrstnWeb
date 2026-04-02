@@ -22,7 +22,7 @@ export function BackButton({ onClick, site, variant = 'fixed' }) {
       className={layout}
       style={{
         borderColor: ring,
-        backgroundColor: `${p}e6`,
+        backgroundColor: p,
         color: t,
         boxShadow: `0 0 0 1px ${ring}, 0 12px 40px -16px rgba(0,0,0,0.55)`,
       }}

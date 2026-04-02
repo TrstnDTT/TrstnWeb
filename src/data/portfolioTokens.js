@@ -41,10 +41,10 @@ export const PORTFOLIO_TOKENS = {
     backButtonRing: 'rgba(139, 111, 71, 0.42)',
   },
   'pain-passion': {
-    portfolioTagline: 'Maison des Sens — hotspots, verre, murmure.',
-    cardBorder: 'rgba(44, 24, 16, 0.35)',
-    cardGlow: '0 0 36px -10px rgba(232, 184, 117, 0.35)',
-    backButtonRing: 'rgba(44, 24, 16, 0.4)',
+    portfolioTagline: 'L’Atelier Sucré — grille pastel, or rose, vitrine.',
+    cardBorder: 'rgba(201, 162, 126, 0.38)',
+    cardGlow: '0 0 40px -12px rgba(253, 245, 246, 0.5)',
+    backButtonRing: 'rgba(201, 162, 126, 0.42)',
   },
   'artisan-grain': {
     portfolioTagline: 'Ébénisterie — service-woodworker (legacy).',

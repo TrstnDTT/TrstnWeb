@@ -8,6 +8,7 @@ import PortfolioPage from './pages/PortfolioPage.jsx'
 import CheveuxCoReservationPage from './pages/CheveuxCoReservationPage.jsx'
 import MentionsLegalesPage from './pages/MentionsLegalesPage.jsx'
 import TattooBookingPage from './pages/TattooBookingPage.jsx'
+import ChaiModerneCartePage from './pages/ChaiModerneCartePage.jsx'
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
         <Route path="/portfolio/cheveux-co/reservation" element={<CheveuxCoReservationPage />} />
         <Route path="/portfolio/:siteId/reservation" element={<TattooBookingPage />} />
+        <Route path="/portfolio/zinc-des-amis/carte" element={<ChaiModerneCartePage />} />
       </Routes>
       <MobileLuxTabBar />
     </>

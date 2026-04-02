@@ -204,19 +204,19 @@ export const SITES = [
   {
     id: 'pain-passion',
     categoryId: 'boulangerie',
-    name: 'La Maison des Sens',
-    tagline: 'Immersif — Bordeaux',
+    name: "L'Atelier Sucré",
+    tagline: 'Pâtisserie boutique — Bordeaux',
     hero: {
-      headline: 'Ce qui se voit à peine compte le plus.',
+      headline: 'Saison, précision, silence.',
       subline:
-        'Un seul objet au centre ; le reste est silence, verre dépoli, murmure. La poésie du pain se lit sur le côté — jamais réduite à un bandeau criard.',
-      cta: 'Réserver une dégustation',
+        'Entremets comme bijoux : vanille tracée, citron en équilibre, glaçage mat — le goût avant le spectacle.',
+      cta: 'Réserver une création',
     },
     about: {
-      title: 'Alliance',
+      title: 'Philosophie',
       paragraphs: [
-        'Nous traitons la mie comme une page blanche : l’œil s’attarde sur la grigne, l’oreille sur le refroidissement, la main sur le poids.',
-        'L’élite du geste n’a pas besoin d’affiche : elle se reconnaît au son de la croûte quand elle cède.',
+        'Nous ne vendons pas du sucre : nous calibrons des contrastes — acidité du yuzu, fondant d’un crémeux, craquant d’un sablé cuit bas.',
+        'Chaque vitrine est une collection limitée : quand la saison tourne, la recette s’efface — pour revenir quand les fruits sont dignes d’elle.',
       ],
     },
     contact: {
@@ -236,7 +236,7 @@ export const SITES = [
       hours: 'Mer–Dim · 9h30 – 19h30',
       mapArea: 'Chartrons',
     },
-    social: { instagramLabel: 'Maison des Sens' },
+    social: { instagramLabel: 'Atelier Sucré Bordeaux' },
   },
   {
     id: 'artisan-grain',
@@ -539,9 +539,9 @@ export const SITES = [
     name: 'Le Chai Moderne',
     tagline: 'Vin, tapas & lumière du Sud-Ouest',
     hero: {
-      headline: 'Le meilleur du terroir, servi comme un loft ouvre la ville.',
+      headline: 'L’instant partagé',
       subline:
-        'Entre cave traditionnelle et salle claire : chêne clair, métal noir, Irouléguy et tapas d’exception au cœur de Bayonne.',
+        'Convivialité et partage au comptoir : café le matin, bière artisanale le soir — terrasse ombragée, pépite locale au cœur de Bayonne.',
       cta: 'Voir la sélection',
     },
     about: {

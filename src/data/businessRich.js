@@ -10,6 +10,7 @@ import {
   ZINC_DES_AMIS_BUSINESS,
 } from './barExperienceContent.js'
 import { ATELIER_1920_EXT, NEO_INK_EXT, LEBO_PEAU_EXT } from './tattooExtendedContent.js'
+import { ATELIER_SUCRE_DEFAULT } from './atelierSucreContent.js'
 
 export const BUSINESS_RICH = {
   'maison-lumiere': {
@@ -655,8 +656,15 @@ export const BUSINESS_RICH = {
     },
   },
   'pain-passion': {
+    bakeryImmersive: {
+      heroImage:
+        'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=2000&q=88',
+    },
+    atelierSucre: {
+      ...ATELIER_SUCRE_DEFAULT,
+    },
     valueProposition:
-      'Maison des sens : un produit, un regard, l’oreille du pain en texte.',
+      'Pâtisserie boutique : saison, ingrédient rare, précision de vitrine.',
     ctaPrimary: { label: 'Réserver une dégustation', href: '#contact' },
     ctaSecondary: { label: 'Itinéraire', href: '#footer-business' },
     maisonSensProduits: [
@@ -721,37 +729,37 @@ export const BUSINESS_RICH = {
       {
         name: 'Karim L.',
         rating: 5,
-        text: 'Enfin une boulangerie qui assume le design sans sacrifier le goût.',
+        text: 'Le citron déstructuré : équilibre chirurgical — pas trop sucré, jamais acide agressif.',
       },
       {
         name: 'Élodie R.',
         rating: 5,
-        text: 'Le comptoir vitré sur le labo : on voit tout, ça rassure.',
+        text: 'On dirait une vitrine joaillière : chaque entremets a son socle, la lumière tombe juste.',
       },
       {
         name: 'Hugo P.',
         rating: 5,
-        text: 'Pain aux graines à tomber — je repasse le mercredi.',
+        text: 'Saint-Honoré du week-end : vanille longue en bouche — je repasse dès la prochaine collection.',
       },
     ],
     gallery: [
-      { caption: 'Fournil ouvert sur la salle' },
-      { caption: 'Carte ardoise & néon discret' },
-      { caption: 'Viennoiseries empilées' },
-      { caption: 'Baristas & boulangers' },
+      { caption: 'Collection de saison — plateau marbre' },
+      { caption: 'Bar à tartes — cercles du jour' },
+      { caption: 'Laboratoire vitré sur salon' },
+      { caption: 'Glaçages mats & fruits d’exception' },
     ],
     faq: [
       {
-        q: 'Proposez-vous du sans gluten ?',
-        a: 'Un pain dédié le vendredi sur commande ; liste d’allergènes à la caisse.',
+        q: 'Peut-on commander une pièce sur mesure ?',
+        a: 'Oui, sous 72 h selon disponibilité des fruits et du chocolat grand cru.',
       },
       {
         q: 'Livrez-vous les entreprises ?',
-        a: 'Oui, petit-déjeuner d’équipe en Île-de-France, devis en ligne.',
+        a: 'Oui, plateaux pâtissiers pour séminaires à Bordeaux Métropole, devis en ligne.',
       },
       {
-        q: 'Avez-vous une place assise ?',
-        a: 'Une dizaine de places, dont bar face au pétrin.',
+        q: 'Avez-vous une terrasse ?',
+        a: 'Quelques places face au comptoir — réservation conseillée le samedi.',
       },
     ],
     openingHours: {

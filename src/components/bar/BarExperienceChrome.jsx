@@ -42,6 +42,8 @@ export function BarExperienceChrome({
   topOffset = '0px',
   /** Bouton retour (ou bloc) — active la mise en page en-tête à deux niveaux sans chevauchement. */
   backSlot = null,
+  /** Fond 100 % opaque, sans backdrop-blur — aucun contenu ne transparaît sous l’en-tête. */
+  opaqueHeader = false,
 }) {
   const scrollToId = useCallback((id) => {
     const el = document.getElementById(id)
@@ -49,9 +51,11 @@ export function BarExperienceChrome({
   }, [])
 
   const track = dark ? 'bg-white/[0.08]' : 'bg-black/[0.08]'
-  const pill = dark
-    ? 'border-white/15 bg-black/40 text-[#e8e4df]/90 hover:bg-white/10'
-    : 'border-black/12 bg-[#f0ebe3]/95 text-[#1a1814] hover:bg-white'
+  const pill = opaqueHeader
+    ? 'border-[#1a1a1a]/14 bg-white text-[#1a1a1a] hover:bg-[#D2B48C]/18'
+    : dark
+      ? 'border-white/15 bg-black/40 text-[#e8e4df]/90 hover:bg-white/10'
+      : 'border-black/12 bg-[#f0ebe3]/95 text-[#1a1814] hover:bg-white'
 
   const progressBar = (
     <div className={`pointer-events-none h-[3px] w-full shrink-0 ${track}`} aria-hidden tabIndex={-1}>
@@ -68,7 +72,13 @@ export function BarExperienceChrome({
   const nav = (
     <nav
       className={`flex w-full min-w-0 gap-1.5 overflow-x-auto overflow-y-hidden px-3 py-2 pb-2.5 [scrollbar-width:none] md:gap-2 md:px-6 md:py-2.5 [&::-webkit-scrollbar]:hidden ${
-        backSlot ? '' : dark ? 'border-b border-white/[0.06] bg-[#0d0b0a]/92 backdrop-blur-md' : 'border-b border-black/[0.07] bg-[#e8dcc8]/95 backdrop-blur-md'
+        backSlot
+          ? opaqueHeader
+            ? 'border-b border-[#1a1a1a]/08 bg-[#F9F7F2]'
+            : ''
+          : dark
+            ? 'border-b border-white/[0.06] bg-[#0d0b0a]/92 backdrop-blur-md'
+            : 'border-b border-black/[0.07] bg-[#e8dcc8]/95 backdrop-blur-md'
       }`}
       style={backSlot ? { WebkitOverflowScrolling: 'touch' } : undefined}
       aria-label="Sections de la carte"
@@ -90,7 +100,11 @@ export function BarExperienceChrome({
     return (
       <header
         className={`fixed left-0 right-0 z-[117] flex flex-col border-b shadow-[0_1px_0_0_rgba(0,0,0,0.04)] ${
-          dark ? 'border-white/[0.06] bg-[#0d0b0a]/95 backdrop-blur-md' : 'border-black/[0.07] bg-[#f7f5f0]/98 backdrop-blur-md'
+          opaqueHeader
+            ? 'border-[#1a1a1a]/10 bg-[#F9F7F2]'
+            : dark
+              ? 'border-white/[0.06] bg-[#0d0b0a]/95 backdrop-blur-md'
+              : 'border-black/[0.07] bg-[#f7f5f0]/98 backdrop-blur-md'
         }`}
         style={{ top: topOffset }}
       >

@@ -22,11 +22,14 @@ export function MobileCategoryRail({
     btn?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
   }, [activeCategory])
 
+  /** Fond 100 % opaque sous le header mobile (évite la lecture du contenu au travers). */
   const shell = flushUnderHeader
-    ? 'border-b-0 bg-transparent'
+    ? light
+      ? 'border-b border-black/[0.08] bg-[#F5F5F7]'
+      : 'border-b border-white/[0.08] bg-[#121210]'
     : light
-      ? 'border-black/[0.06] bg-[#F5F5F7]/92 backdrop-blur-xl'
-      : 'border-white/[0.08] bg-[#121210]/92 backdrop-blur-xl'
+      ? 'border-black/[0.06] bg-[#F5F5F7]'
+      : 'border-white/[0.08] bg-[#121210]'
 
   return (
     <div className={['w-full border-b md:hidden', shell].join(' ')}>

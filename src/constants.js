@@ -210,10 +210,10 @@ export const CATEGORIES = [
       },
       {
         siteId: 'pain-passion',
-        title: 'La Maison des Sens',
+        title: "L'Atelier Sucré",
         description:
-          'Minimal luxe : hotspots, un produit au centre, verre & oreille du pain en texte.',
-        styleTag: 'Minimaliste luxe',
+          'Pâtisserie boutique : grille produit aérée, socles vitrine, transitions scale & blur, pastel & or rose.',
+        styleTag: 'High-fashion grid',
       },
       {
         siteId: 'four-chocolat',

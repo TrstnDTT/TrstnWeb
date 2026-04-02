@@ -224,6 +224,8 @@ export default function PortfolioPage() {
   const [openOrigin, setOpenOrigin] = useState(null)
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0].id)
   const [hoverCategoryId, setHoverCategoryId] = useState(null)
+  /** Scroll du `<main>` liste — masque le bandeau mobile après 50px tout en gardant un accès Accueil (z-100). */
+  const [mainScrollY, setMainScrollY] = useState(0)
 
   /** Position du `<main>` liste avant ouverture mini-site (le main est démonté sous l’overlay). */
   const listScrollRestoreRef = useRef(null)
@@ -250,6 +252,16 @@ export default function PortfolioPage() {
     setProjectViewOpen(!!activeProject)
     return () => setProjectViewOpen(false)
   }, [activeProject, setProjectViewOpen])
+
+  useEffect(() => {
+    if (activeProject) return undefined
+    const main = mainScrollRef.current
+    if (!main) return undefined
+    const onScroll = () => setMainScrollY(main.scrollTop)
+    onScroll()
+    main.addEventListener('scroll', onScroll, { passive: true })
+    return () => main.removeEventListener('scroll', onScroll)
+  }, [activeProject])
 
   useEffect(() => {
     if (!activeProject) {
@@ -376,7 +388,7 @@ export default function PortfolioPage() {
           animate={{ backgroundColor: canvasBg }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
         >
-          <ShellThemeToggle className="fixed right-4 top-4 z-[55] max-md:top-[max(1rem,env(safe-area-inset-top))] md:right-8 md:top-6" />
+          <ShellThemeToggle className="fixed right-4 top-4 z-[100] max-md:top-[max(1rem,env(safe-area-inset-top))] md:right-8 md:top-6" />
 
           <motion.aside
             layout={false}
@@ -533,13 +545,28 @@ export default function PortfolioPage() {
             ].join(' ')}
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
+            {isMobile && mainScrollY > 50 ? (
+              <Link
+                to="/"
+                className={[
+                  'fixed left-4 z-[100] max-md:top-[max(0.75rem,env(safe-area-inset-top))]',
+                  'inline-flex min-h-[44px] min-w-[44px] items-center rounded-full border px-4 text-[10px] font-semibold uppercase tracking-[0.22em] shadow-md transition hover:opacity-90',
+                  L
+                    ? 'border-black/[0.12] bg-white text-[#1d1d1f]'
+                    : 'border-white/[0.14] bg-[#121210] text-white',
+                ].join(' ')}
+              >
+                Accueil
+              </Link>
+            ) : null}
             <div
               className={[
-                'sticky top-0 z-50 w-full md:static',
+                'sticky top-0 z-50 w-full transition-opacity duration-200 md:static md:opacity-100',
                 'mt-0 max-md:pt-[env(safe-area-inset-top)] md:pt-0',
                 L
                   ? 'max-md:border-b max-md:border-black/[0.08] max-md:bg-[#F5F5F7] max-md:shadow-[0_1px_0_0_rgba(0,0,0,0.06)]'
                   : 'max-md:border-b max-md:border-white/[0.08] max-md:bg-[#121210] max-md:shadow-[0_4px_14px_-6px_rgba(0,0,0,0.45)]',
+                isMobile && mainScrollY > 50 ? 'max-md:pointer-events-none max-md:opacity-0' : '',
               ].join(' ')}
             >
               <div
