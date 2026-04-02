@@ -76,6 +76,8 @@ function PortfolioProjectGridInner({
   shellLight = false,
   onOpenProject,
   gallery,
+  /** Première carte du portfolio (1er secteur) : marge pour le scroll snap mobile. */
+  firstCardScrollMargin = false,
 }) {
   const listReveal = useMemo(
     () => getListRevealVariants(prefersReducedMotion),
@@ -108,14 +110,14 @@ function PortfolioProjectGridInner({
         const shell = getSiteById(project.siteId)?.portfolio
         const gridStyle = getCardGridStyle(i, projects.length, !isMobile)
         const isLast = i === projects.length - 1
-        const snapClass = isLast
-          ? 'max-md:snap-end max-md:snap-always'
-          : 'max-md:snap-center max-md:snap-always'
+        const snapClass = isLast ? 'max-md:snap-end' : 'max-md:snap-start'
+        const firstCardMargin =
+          firstCardScrollMargin && i === 0 ? 'max-md:scroll-mt-[100px]' : ''
 
         return (
           <motion.li
             key={`${categoryId}-${project.siteId}`}
-            className={`list-none relative z-0 ${snapClass}`}
+            className={['list-none relative z-0', snapClass, firstCardMargin].filter(Boolean).join(' ')}
             style={gridStyle}
             variants={cardReveal}
           >
@@ -233,5 +235,6 @@ export const PortfolioProjectGrid = memo(
     prev.projects === next.projects &&
     prev.onOpenProject === next.onOpenProject &&
     prev.gallery.borderOuter === next.gallery.borderOuter &&
-    prev.shellLight === next.shellLight,
+    prev.shellLight === next.shellLight &&
+    prev.firstCardScrollMargin === next.firstCardScrollMargin,
 )

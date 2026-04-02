@@ -528,8 +528,8 @@ export default function PortfolioPage() {
           <main
             ref={mainScrollRef}
             className={[
-              'relative z-10 min-h-0 w-full flex-1 overflow-x-hidden overflow-y-auto overscroll-y-contain md:pl-[min(11rem,22vw)]',
-              'max-md:snap-y max-md:snap-mandatory',
+              'relative z-10 min-h-0 w-full flex-1 touch-pan-y overflow-x-hidden overflow-y-auto overscroll-y-contain md:pl-[min(11rem,22vw)]',
+              'max-md:snap-y max-md:snap-proximity',
             ].join(' ')}
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
@@ -568,7 +568,7 @@ export default function PortfolioPage() {
             <div className="relative mx-auto max-w-6xl px-5 pb-24 pt-6 sm:px-10 md:px-14 md:pb-32 md:pt-16 lg:px-20">
               <header
                 id="portfolio-top"
-                className="mb-14 max-w-xl scroll-mt-[calc(7rem+env(safe-area-inset-top))] md:mb-20 md:scroll-mt-24"
+                className="mb-14 max-w-xl scroll-mt-[calc(7rem+env(safe-area-inset-top))] max-md:snap-start md:mb-20 md:scroll-mt-24"
               >
                 <p
                   className={['text-[11px] uppercase tracking-[0.32em]', L ? 'trstn-a11y-muted-light' : 'trstn-a11y-muted-dark'].join(
@@ -635,6 +635,7 @@ export default function PortfolioPage() {
                     onOpenProject={openProject}
                     gallery={galleryTokens}
                     shellLight={L}
+                    firstCardScrollMargin={cat.id === CATEGORIES[0].id}
                   />
                 </motion.section>
               ))}
