@@ -376,7 +376,7 @@ export default function PortfolioPage() {
           animate={{ backgroundColor: canvasBg }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
         >
-          <ShellThemeToggle className="fixed right-4 top-4 z-[55] md:right-8 md:top-6" />
+          <ShellThemeToggle className="fixed right-4 top-4 z-[55] max-md:top-[max(1rem,env(safe-area-inset-top))] md:right-8 md:top-6" />
 
           <motion.aside
             layout={false}
@@ -535,14 +535,17 @@ export default function PortfolioPage() {
           >
             <div
               className={[
-                'sticky top-0 z-30 md:static',
-                L ? '' : '',
+                'sticky top-0 z-50 w-full md:static',
+                'mt-0 max-md:pt-[env(safe-area-inset-top)] md:pt-0',
+                L
+                  ? 'max-md:border-b max-md:border-black/[0.08] max-md:bg-[#F5F5F7] max-md:shadow-[0_1px_0_0_rgba(0,0,0,0.06)]'
+                  : 'max-md:border-b max-md:border-white/[0.08] max-md:bg-[#121210] max-md:shadow-[0_4px_14px_-6px_rgba(0,0,0,0.45)]',
               ].join(' ')}
             >
               <div
                 className={[
-                  'pointer-events-none h-[3px] w-full md:hidden',
-                  L ? 'bg-black/[0.04]' : 'bg-white/[0.06]',
+                  'pointer-events-none h-[3px] w-full shrink-0 md:hidden',
+                  L ? 'bg-black/[0.08]' : 'bg-white/[0.1]',
                 ].join(' ')}
                 aria-hidden
                 tabIndex={-1}
@@ -555,12 +558,13 @@ export default function PortfolioPage() {
                   }}
                 />
               </div>
-              <div className="px-3 sm:px-5 md:px-0">
+              <div className="px-3 pb-0 pt-0 sm:px-5 md:px-0">
                 <MobileCategoryRail
                   activeCategory={activeCategory}
                   onSelectCategory={scrollToCategory}
                   onHoverCategory={setHoverCategoryId}
                   light={L}
+                  flushUnderHeader
                 />
               </div>
             </div>

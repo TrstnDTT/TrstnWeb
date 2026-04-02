@@ -11,6 +11,8 @@ export function MobileCategoryRail({
   onSelectCategory,
   onHoverCategory,
   light,
+  /** Fond / bordure portés par le parent sticky (Portfolio) — évite le « trou » sous la safe area. */
+  flushUnderHeader = false,
 }) {
   const btnRefs = useRef([])
 
@@ -20,13 +22,14 @@ export function MobileCategoryRail({
     btn?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
   }, [activeCategory])
 
+  const shell = flushUnderHeader
+    ? 'border-b-0 bg-transparent'
+    : light
+      ? 'border-black/[0.06] bg-[#F5F5F7]/92 backdrop-blur-xl'
+      : 'border-white/[0.08] bg-[#121210]/92 backdrop-blur-xl'
+
   return (
-    <div
-      className={[
-        'w-full border-b md:hidden',
-        light ? 'border-black/[0.06] bg-[#F5F5F7]/92 backdrop-blur-xl' : 'border-white/[0.08] bg-[#121210]/92 backdrop-blur-xl',
-      ].join(' ')}
-    >
+    <div className={['w-full border-b md:hidden', shell].join(' ')}>
       <LayoutGroup>
         <div
           className="trstn-scroll-hide flex gap-1 overflow-x-auto px-1 py-2.5"
