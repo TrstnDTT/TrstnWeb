@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { SITE } from '../../constants.js'
 import { BackButton } from '../mini/BackButton.jsx'
+import { SafeImg } from '../mini/SafeImg.jsx'
 import { MagnetCtaButton } from './MagnetCtaButton.jsx'
 import { TattooFaqGrid } from './TattooFaqGrid.jsx'
 import { TattooProtocolReport } from './TattooProtocolReport.jsx'
@@ -119,14 +120,13 @@ export function OrEtPeauExperience({ site, onBack }) {
           </div>
         </motion.div>
         <div className="pointer-events-none absolute right-0 top-0 h-[55%] w-[55%] max-w-md opacity-90">
-          <img
+          <SafeImg
             src={`${P}/nosepiercing2.webp`}
             alt=""
             width={600}
             height={800}
             className={`h-full w-full object-cover object-center ${imgTone}`}
             loading="eager"
-            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-l from-[#f7f1e8] via-transparent to-transparent" />
         </div>
@@ -187,7 +187,7 @@ export function OrEtPeauExperience({ site, onBack }) {
       </section>
 
       <section className="relative min-h-[100dvh] snap-start">
-        <img
+        <SafeImg
           src={`${P}/cabinet.webp`}
           alt=""
           width={1200}

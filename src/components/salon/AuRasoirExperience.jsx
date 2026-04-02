@@ -3,6 +3,7 @@
  * Aucun composant partagé avec Cheveux & Co.
  */
 import { useCallback } from 'react'
+import { BARBER_IMG_FALLBACK, SafeImg } from '../mini/SafeImg.jsx'
 
 const CHARCOAL = '#141210'
 const CARBON = '#0d0c0b'
@@ -109,8 +110,9 @@ export function AuRasoirExperience({ site, onBack }) {
             className="col-span-12 overflow-hidden border-4 md:col-span-5"
             style={{ borderColor: ORANGE, boxShadow: `10px 10px 0 0 ${CARBON}` }}
           >
-            <img
+            <SafeImg
               src={`${SC}/industry_barber.jpg`}
+              fallback={BARBER_IMG_FALLBACK}
               alt="Atelier barbier industriel, fauteuil et miroir, ambiance brute"
               className="h-full min-h-[200px] w-full object-cover md:min-h-full"
               loading="eager"

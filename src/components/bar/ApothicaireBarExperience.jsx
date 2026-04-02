@@ -113,14 +113,18 @@ export function ApothicaireBarExperience({ site, onBack }) {
         }}
       />
 
-      <BarExperienceChrome progress={progress} anchors={anchors} accentColor={AMBER} dark />
-
-      <BackButton onClick={onBack} site={site} />
+      <BarExperienceChrome
+        progress={progress}
+        anchors={anchors}
+        accentColor={AMBER}
+        dark
+        backSlot={<BackButton variant="inline" onClick={onBack} site={site} />}
+      />
 
       {/* Hero — accroche + vide */}
       <header
         id="apo-hero"
-        className="relative scroll-mt-2 px-6 pb-20 pt-[calc(6rem+env(safe-area-inset-top))] text-center md:px-12 md:pb-28 md:pt-32"
+        className="relative scroll-mt-2 px-6 pb-20 pt-[calc(8.75rem+env(safe-area-inset-top))] text-center md:px-12 md:pb-28 md:pt-[calc(9.5rem+env(safe-area-inset-top))]"
       >
         <motion.p
           initial={{ opacity: 0, y: 12 }}
@@ -195,7 +199,7 @@ export function ApothicaireBarExperience({ site, onBack }) {
       </section>
 
       {/* L'Art du Geste */}
-      <section id="apo-geste" className="scroll-mt-20 border-y border-white/[0.06] bg-black/25 px-6 py-28 md:px-16 md:py-36">
+      <section id="apo-geste" className="scroll-mt-[7.5rem] border-y border-white/[0.06] bg-black/25 px-6 py-28 md:scroll-mt-32 md:px-16 md:py-36">
         <div className="mx-auto max-w-3xl text-center">
           <LetterReveal className="text-[clamp(1.45rem,3.2vw,1.9rem)] font-light text-[#f5ede0]">
             L’Art du Geste
@@ -224,7 +228,7 @@ export function ApothicaireBarExperience({ site, onBack }) {
       </section>
 
       {/* Créations */}
-      <section id="apo-cartes" className="scroll-mt-20 px-6 py-24 md:px-16 md:py-32">
+      <section id="apo-cartes" className="scroll-mt-[7.5rem] px-6 py-24 md:scroll-mt-32 md:px-16 md:py-32">
         <LetterReveal className="mx-auto block max-w-3xl text-center text-[clamp(1.45rem,3vw,1.85rem)] font-light">
           Créations du soir
         </LetterReveal>
@@ -268,7 +272,7 @@ export function ApothicaireBarExperience({ site, onBack }) {
         </section>
       ) : null}
 
-      <footer id="apo-footer" className="scroll-mt-20 border-t border-white/[0.06] px-6 py-16 md:px-16">
+      <footer id="apo-footer" className="scroll-mt-[7.5rem] border-t border-white/[0.06] px-6 py-16 md:scroll-mt-32 md:px-16">
         <div className="mx-auto max-w-2xl text-center text-[14px] font-light text-[#e8dfd0]/55">
           <p className="text-[11px] uppercase tracking-[0.35em] text-[#c9a86c]/70">{site.location?.city}</p>
           <p className="mt-4">{site.location?.street}</p>

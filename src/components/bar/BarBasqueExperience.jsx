@@ -3,8 +3,10 @@
  */
 import { useCallback, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
+import { BAR_BASQUE_IMAGES } from '../../constants/barBasqueImages.js'
 import { BarExperienceChrome, useMiniSiteScrollProgress } from './BarExperienceChrome.jsx'
 import { BackButton } from '../mini/BackButton.jsx'
+import { SafeImg } from '../mini/SafeImg.jsx'
 import { ReservationMailtoModal } from '../mini/ReservationMailtoModal.jsx'
 
 const easeSlow = [0.22, 1, 0.36, 1]
@@ -49,8 +51,8 @@ export function BarBasqueExperience({ site, onBack }) {
   const hand = site.fontHandwritten ?? '"Caveat", cursive'
 
   const assets = site.barBasqueAssets ?? {
-    hero: '/bar-basque/hero-overview.jpg',
-    menuContext: '/bar-basque/Menu.png',
+    hero: BAR_BASQUE_IMAGES.hero,
+    menuContext: BAR_BASQUE_IMAGES.menuContext,
     gallery: [],
   }
 
@@ -88,9 +90,13 @@ export function BarBasqueExperience({ site, onBack }) {
         .bb-h { font-family: ${heading}; font-weight: 800; letter-spacing: -0.03em; }
       `}</style>
 
-      <BarExperienceChrome progress={progress} anchors={anchors} accentColor={ROUGE} dark />
-
-      <BackButton onClick={onBack} site={site} />
+      <BarExperienceChrome
+        progress={progress}
+        anchors={anchors}
+        accentColor={ROUGE}
+        dark
+        backSlot={<BackButton variant="inline" onClick={onBack} site={site} />}
+      />
 
       <motion.section
         id="bb-hero"
@@ -100,12 +106,12 @@ export function BarBasqueExperience({ site, onBack }) {
         className="relative flex min-h-[100dvh] flex-col justify-end scroll-mt-2"
       >
         <div className="absolute inset-0 overflow-hidden">
-          <img
+          <SafeImg
             src={assets.hero}
+            fallback={BAR_BASQUE_IMAGES.hero}
             alt=""
             width={900}
             height={500}
-            decoding="async"
             fetchPriority="high"
             className="h-full w-full object-cover"
             style={{ filter: 'contrast(1.05) saturate(0.92)' }}
@@ -123,7 +129,7 @@ export function BarBasqueExperience({ site, onBack }) {
           />
         </div>
 
-        <div className="relative z-[1] px-5 pb-20 pt-36 sm:px-10 md:pb-28 md:pt-40">
+        <div className="relative z-[1] px-5 pb-20 pt-44 sm:px-10 md:pb-28 md:pt-48">
           <p className="text-[11px] font-medium uppercase tracking-[0.38em]" style={{ color: `${CREME}99` }}>
             {site.tagline}
           </p>
@@ -161,7 +167,7 @@ export function BarBasqueExperience({ site, onBack }) {
         whileInView="show"
         viewport={{ once: true, margin: '-10%' }}
         variants={vFade}
-        className="scroll-mt-20 px-5 py-24 sm:px-10 md:py-32"
+        className="scroll-mt-[7.5rem] md:scroll-mt-32 px-5 py-24 sm:px-10 md:py-32"
         style={{ backgroundColor: BOIS_CLAIR }}
       >
         <div className="mx-auto max-w-2xl">
@@ -184,7 +190,7 @@ export function BarBasqueExperience({ site, onBack }) {
 
       <section
         id="bb-carte"
-        className="scroll-mt-20 px-5 py-16 sm:px-10"
+        className="scroll-mt-[7.5rem] md:scroll-mt-32 px-5 py-16 sm:px-10"
         style={{ backgroundColor: BOIS }}
       >
         <div className="mx-auto max-w-3xl text-center">
@@ -207,12 +213,13 @@ export function BarBasqueExperience({ site, onBack }) {
           whileInView="show"
           viewport={{ once: true, margin: '-8%' }}
           variants={vFade}
-          className="scroll-mt-20"
+          className="scroll-mt-[7.5rem] md:scroll-mt-32"
           style={{ backgroundColor: sectionBg }}
         >
           <div className="relative h-[42vh] min-h-[220px] w-full overflow-hidden md:h-[48vh]">
-            <img
+            <SafeImg
               src={cat.headerImage}
+              fallback={BAR_BASQUE_IMAGES.hero}
               alt=""
               className="h-full w-full object-cover"
               style={{ filter: 'contrast(1.03) saturate(0.95)' }}
@@ -285,7 +292,7 @@ export function BarBasqueExperience({ site, onBack }) {
         whileInView="show"
         viewport={{ once: true }}
         variants={vFade}
-        className="scroll-mt-20 px-4 py-24 sm:px-8 md:py-32"
+        className="scroll-mt-[7.5rem] md:scroll-mt-32 px-4 py-24 sm:px-8 md:py-32"
         style={{ backgroundColor: BOIS }}
       >
         <div className="mx-auto max-w-6xl">
@@ -302,8 +309,9 @@ export function BarBasqueExperience({ site, onBack }) {
                 className="group overflow-hidden rounded-[4px] border border-white/[0.08]"
               >
                 <div className="aspect-[4/3] overflow-hidden">
-                  <img
+                  <SafeImg
                     src={px.src}
+                    fallback={BAR_BASQUE_IMAGES.steak}
                     alt={px.name}
                     className="h-full w-full object-cover transition duration-[1.1s] group-hover:scale-[1.03]"
                     loading="lazy"
@@ -334,8 +342,9 @@ export function BarBasqueExperience({ site, onBack }) {
               </p>
             </div>
             <div className="overflow-hidden rounded-[4px] border border-white/[0.1]">
-              <img
+              <SafeImg
                 src={assets.menuContext}
+                fallback={BAR_BASQUE_IMAGES.menuContext}
                 alt="Carte et comptoir"
                 className="aspect-[3/4] w-full object-cover"
                 loading="lazy"
@@ -351,7 +360,7 @@ export function BarBasqueExperience({ site, onBack }) {
         whileInView="show"
         viewport={{ once: true }}
         variants={vFade}
-        className="scroll-mt-20 px-5 py-20 sm:px-10 md:py-28"
+        className="scroll-mt-[7.5rem] md:scroll-mt-32 px-5 py-20 sm:px-10 md:py-28"
         style={{ backgroundColor: BOIS_CLAIR }}
       >
         <div className="mx-auto max-w-2xl">
@@ -379,7 +388,7 @@ export function BarBasqueExperience({ site, onBack }) {
         whileInView="show"
         viewport={{ once: true }}
         variants={vFade}
-        className="scroll-mt-20 px-5 py-24 sm:px-10"
+        className="scroll-mt-[7.5rem] md:scroll-mt-32 px-5 py-24 sm:px-10"
         style={{ backgroundColor: BOIS }}
       >
         <div className="mx-auto max-w-xl text-center">

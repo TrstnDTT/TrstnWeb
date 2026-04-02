@@ -1,6 +1,7 @@
 /**
  * Contenus longs & cartes détaillées — mini-sites Bar (fusionné dans BUSINESS_RICH).
  */
+import { BAR_BASQUE_IMAGES } from '../constants/barBasqueImages.js'
 
 export const BAR_BASQUE_BUSINESS = {
   valueProposition:
@@ -23,7 +24,7 @@ export const BAR_BASQUE_BUSINESS = {
     {
       id: 'bb-cote-mer',
       title: 'Côté Mer',
-      headerImage: '/bar-basque/cat-mer.jpeg',
+      headerImage: BAR_BASQUE_IMAGES.catMer,
       intro:
         'Sélectionnés chez nos pêcheurs de Saint-Jean-de-Luz et Ciboure : poisson line-caught quand la météo le permet, anchois de Getaria en conserve d’exception, chipirons traités comme des bijoux — plancha fumante, zeste, rien d’autre.',
       items: [
@@ -57,7 +58,7 @@ export const BAR_BASQUE_BUSINESS = {
     {
       id: 'bb-cote-terre',
       title: 'Côté Terre',
-      headerImage: '/bar-basque/cat-terre.jpg',
+      headerImage: BAR_BASQUE_IMAGES.catTerre,
       intro:
         'Viandes du Pays basque et charcuteries d’Ibaïama : le cochon nourri comme il faut, le jambon coupé épais, les croquetas qui tiennent la ligne — sélectionnés chez nos artisans de montagne et de vallée.',
       items: [
@@ -91,7 +92,7 @@ export const BAR_BASQUE_BUSINESS = {
     {
       id: 'bb-cave',
       title: 'La Cave',
-      headerImage: '/bar-basque/cat-cave.jpg',
+      headerImage: BAR_BASQUE_IMAGES.catCave,
       intro:
         'Irouléguy en rouge et en blanc, Txakoli de Getaria, cidre Kupela en bouteille — tout est servi à température de cave, jamais trop froid : le tanin a besoin d’air, le zeste aussi.',
       vinsRouges: [
@@ -112,7 +113,7 @@ export const BAR_BASQUE_BUSINESS = {
     {
       id: 'bb-spiritueux',
       title: 'Spiritueux locaux',
-      headerImage: '/bar-basque/pintxo-cafe.webp',
+      headerImage: BAR_BASQUE_IMAGES.catSpiritueux,
       intro:
         'Patxaran artisanal vieilli en cave, gin infusé au genévrier du piémont et zestes d’agrumes locaux — digestifs pour finir debout au zinc ou assis pour le dernier verre.',
       items: [
@@ -147,31 +148,31 @@ export const BAR_BASQUE_BUSINESS = {
       price: '8 €',
     },
     {
-      src: '/bar-basque/SteakDish.png',
+      src: BAR_BASQUE_IMAGES.steak,
       name: 'Solomillo & piperade',
       ingredients: 'Bœuf charolais, poivrons confits, oignon doux — tanin du rouge du pays en accord.',
       price: '18 €',
     },
     {
-      src: '/bar-basque/FishDish.png',
+      src: BAR_BASQUE_IMAGES.fish,
       name: 'Poisson du marché',
       ingredients: 'Ligne du jour, citron confit, herbes du maquis basque.',
       price: '16 €',
     },
     {
-      src: '/bar-basque/pintxo-interieur.jpg',
+      src: BAR_BASQUE_IMAGES.pintxoInterieur,
       name: 'Gilda revisitée',
       ingredients: 'Anchois cantabriques, olive manzanilla, piparra croquante.',
       price: '7 €',
     },
     {
-      src: '/bar-basque/pintxo-cafe.webp',
+      src: BAR_BASQUE_IMAGES.pintxoCafe,
       name: 'Tartine chorizo & tomate',
       ingredients: 'Chorizo ibérique grillé, tomate confite, pain cinq céréales.',
       price: '9 €',
     },
     {
-      src: '/bar-basque/Menu.png',
+      src: BAR_BASQUE_IMAGES.menuPlate,
       name: 'Assiette végétale du marché',
       ingredients: 'Légumes de producteur, œuf mollet, vinaigre de cidre.',
       price: '14 €',
@@ -194,7 +195,11 @@ export const BAR_BASQUE_BUSINESS = {
       text: 'La cave expliquée sans jargon : on sort avec une bouteille et une histoire.',
     },
   ],
-  gallery: [{ caption: 'Façade — vue d’ensemble' }, { caption: 'Comptoir' }, { caption: 'Assiette signature' }],
+  gallery: [
+    { caption: 'Façade — vue d’ensemble', src: BAR_BASQUE_IMAGES.gallery[0] },
+    { caption: 'Comptoir', src: BAR_BASQUE_IMAGES.gallery[1] },
+    { caption: 'Assiette signature', src: BAR_BASQUE_IMAGES.gallery[2] },
+  ],
   faq: [
     {
       q: 'Réservation obligatoire ?',

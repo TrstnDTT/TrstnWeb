@@ -3,17 +3,23 @@ import { ArrowLeft } from 'lucide-react'
 
 /**
  * Retour — couleurs alignées sur l’identité du site + anneau portfolio (tokens).
+ * `variant="inline"` : dans un en-tête (pas fixed) — ex. BarExperienceChrome `backSlot`.
  */
-export function BackButton({ onClick, site }) {
+export function BackButton({ onClick, site, variant = 'fixed' }) {
   const p = site?.surfaceColor ?? site?.primaryColor ?? '#0a0a0c'
   const t = site?.textColor ?? '#fafafa'
   const ring = site?.portfolio?.backButtonRing ?? 'rgba(255,255,255,0.14)'
+
+  const layout =
+    variant === 'inline'
+      ? 'relative z-10 flex w-fit max-w-full items-center gap-2 rounded-full border px-4 py-3 text-xs backdrop-blur-xl md:px-5 md:py-3.5 md:text-sm'
+      : 'trstn-ui trstn-label fixed left-3 top-3 z-[1000] flex items-center gap-2 rounded-full border px-3 py-2.5 text-xs backdrop-blur-xl md:left-5 md:top-5 md:px-4 md:text-sm'
 
   return (
     <motion.button
       type="button"
       onClick={onClick}
-      className="trstn-ui trstn-label fixed left-3 top-3 z-[1000] flex items-center gap-2 rounded-full border px-3 py-2.5 text-xs backdrop-blur-xl md:left-5 md:top-5 md:px-4 md:text-sm"
+      className={layout}
       style={{
         borderColor: ring,
         backgroundColor: `${p}e6`,

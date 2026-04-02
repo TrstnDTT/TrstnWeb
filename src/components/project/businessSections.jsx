@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { SafeImg } from '../mini/SafeImg.jsx'
 
 function SectionDetailedMenuDefault({ site }) {
   const sections = site.menuSections
@@ -412,12 +413,24 @@ export function SectionGallery({ site }) {
             className="group overflow-hidden rounded-xl border"
             style={{ borderColor: `${s}44` }}
           >
-            <div
-              className="aspect-[4/3] w-full transition duration-500 group-hover:scale-[1.02]"
-              style={{
-                background: `linear-gradient(145deg, ${site.primaryColor}cc, ${s}66, ${p})`,
-              }}
-            />
+            <div className="relative aspect-[4/3] w-full overflow-hidden transition duration-500 group-hover:scale-[1.02]">
+              {g.src ? (
+                <SafeImg
+                  src={g.src}
+                  alt={g.caption ?? ''}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div
+                  className="absolute inset-0 h-full w-full"
+                  style={{
+                    background: `linear-gradient(145deg, ${site.primaryColor}cc, ${s}66, ${p})`,
+                  }}
+                  aria-hidden
+                />
+              )}
+            </div>
             <figcaption
               className="border-t px-2 py-2 text-center text-[11px] leading-snug opacity-90"
               style={{ borderColor: `${s}33`, color: t }}

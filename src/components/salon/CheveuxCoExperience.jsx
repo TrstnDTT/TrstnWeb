@@ -4,6 +4,7 @@
  */
 import { useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { SafeImg, SALON_IMG_FALLBACK } from '../mini/SafeImg.jsx'
 
 const CREME = '#F5F5DC'
 const SAGE = '#6b8f71'
@@ -173,14 +174,14 @@ export function CheveuxCoExperience({ site, onBack }) {
                   className="overflow-hidden rounded-full border-2 shadow-[0_20px_60px_-24px_rgba(60,80,60,0.45)]"
                   style={{ borderColor: `${SAGE}44` }}
                 >
-                  <img
+                  <SafeImg
                     src={`${SC}/shamppoing-coiffeur-le-salon-1024x683.jpeg`}
+                    fallback={SALON_IMG_FALLBACK}
                     alt="Shampoing au salon, ambiance lumineuse et soins cheveux"
                     width={320}
                     height={320}
                     className="aspect-square w-[min(88vw,320px)] object-cover md:w-[300px]"
                     loading="eager"
-                    decoding="async"
                     fetchPriority="high"
                     style={{ filter: 'saturate(0.88)' }}
                   />

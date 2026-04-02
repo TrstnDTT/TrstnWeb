@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Circle, Ear, Minus, Sparkles } from 'lucide-react'
 import { SITE } from '../../constants.js'
 import { getSiteById } from '../../data.js'
+import { SafeImg } from '../../components/mini/SafeImg.jsx'
 
 const P = '/perceur'
 const INK = '#2c2825'
@@ -67,7 +68,7 @@ export default function OrEtPeauBookingPage() {
 
   const visualPanel = (
     <div className="relative min-h-[38vh] md:min-h-[100dvh]">
-      <img
+      <SafeImg
         src={`${P}/piercingg.webp`}
         alt=""
         width={1200}

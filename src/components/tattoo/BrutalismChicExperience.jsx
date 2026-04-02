@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
 import { SITE } from '../../constants.js'
 import { BackButton } from '../mini/BackButton.jsx'
+import { SafeImg } from '../mini/SafeImg.jsx'
 import { MagnetCtaButton } from './MagnetCtaButton.jsx'
 import { TattooFaqGrid } from './TattooFaqGrid.jsx'
 import { TattooProtocolReport } from './TattooProtocolReport.jsx'
@@ -54,14 +55,13 @@ function Panel({ src, alt, index, scrollRef }) {
       className="relative h-[min(72vh,640px)] min-w-[88vw] shrink-0 snap-center overflow-hidden md:min-w-[55vw] md:max-w-3xl"
     >
       <motion.div style={{ x: smoothX }} className="h-full w-[115%] max-w-none">
-        <img
+        <SafeImg
           src={src}
           alt={alt}
           width={1200}
           height={900}
           className={`h-full w-full object-cover ${imgTone}`}
           loading={index === 0 ? 'eager' : 'lazy'}
-          decoding="async"
         />
       </motion.div>
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#0D0D0D] via-transparent to-[#0D0D0D]/80" />

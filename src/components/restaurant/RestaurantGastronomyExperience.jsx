@@ -5,6 +5,7 @@
 import { useCallback, useState } from 'react'
 import { motion } from 'framer-motion'
 import { BackButton } from '../mini/BackButton.jsx'
+import { SafeImg } from '../mini/SafeImg.jsx'
 import { ContactForm } from '../mini/ContactForm.jsx'
 import { FakeMap } from '../mini/FakeMap.jsx'
 import { ReservationMailtoModal } from '../mini/ReservationMailtoModal.jsx'
@@ -281,12 +282,11 @@ export function RestaurantGastronomyExperience({ site, onBack }) {
               <figure key={i} className="relative aspect-[4/5] overflow-hidden">
                 {g.src ? (
                   <>
-                    <img
+                    <SafeImg
                       src={g.src}
                       alt={g.caption ?? ''}
                       className="absolute inset-0 h-full w-full object-cover"
                       loading="lazy"
-                      decoding="async"
                     />
                     <div
                       className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent"

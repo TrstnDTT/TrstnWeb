@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { SITE } from '../../constants.js'
 import { BackButton } from '../mini/BackButton.jsx'
+import { SafeImg } from '../mini/SafeImg.jsx'
 import { MagnetCtaButton } from './MagnetCtaButton.jsx'
 import { TattooFaqGrid } from './TattooFaqGrid.jsx'
 import { TattooProtocolReport } from './TattooProtocolReport.jsx'
@@ -93,14 +94,13 @@ export function HeritageExperience({ site, onBack }) {
               className="relative ml-auto w-full max-w-lg md:mt-12"
             >
               <div className="aspect-[4/5] overflow-hidden md:translate-x-8 md:shadow-2xl">
-                <img
+                <SafeImg
                   src={`${P}/thomas-pineiro-tattoo.webp`}
                   alt=""
                   width={800}
                   height={1000}
                   className={`h-full w-full object-cover ${imgTone}`}
                   loading="eager"
-                  decoding="async"
                 />
               </div>
             </motion.div>
@@ -182,14 +182,13 @@ export function HeritageExperience({ site, onBack }) {
                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                         className="overflow-hidden pb-6"
                       >
-                        <img
+                        <SafeImg
                           src={row.image}
                           alt=""
                           width={640}
                           height={800}
                           className={`aspect-[4/5] w-full max-w-xs object-cover ${imgTone}`}
                           loading="lazy"
-                          decoding="async"
                         />
                       </motion.div>
                     )}
@@ -209,7 +208,7 @@ export function HeritageExperience({ site, onBack }) {
                 className="pointer-events-none absolute right-0 top-0 z-10 hidden w-[min(38vw,340px)] md:block"
               >
                 <div className="aspect-[3/4] overflow-hidden shadow-2xl backdrop-blur-sm">
-                  <img
+                  <SafeImg
                     src={archive.find((r) => r.id === hoverId)?.image}
                     alt=""
                     width={340}

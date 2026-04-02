@@ -2,6 +2,7 @@
  * Identité visuelle unique par projet — aucune palette dupliquée.
  * Fusionné dans getSiteById() (voir data.js).
  */
+import { BAR_BASQUE_IMAGES } from '../constants/barBasqueImages.js'
 
 export const SITE_IDENTITIES = {
   'maison-lumiere': {
@@ -329,13 +330,9 @@ export const SITE_IDENTITIES = {
     previewKey: 'cozy-warm',
     trstnSignature: 'footer-bar',
     barBasqueAssets: {
-      hero: '/bar-basque/hero-overview.jpg',
-      menuContext: '/bar-basque/Menu.png',
-      gallery: [
-        '/bar-basque/SteakDish.png',
-        '/bar-basque/FishDish.png',
-        '/bar-basque/pintxo-theatre.jpg',
-      ],
+      hero: BAR_BASQUE_IMAGES.hero,
+      menuContext: BAR_BASQUE_IMAGES.menuContext,
+      gallery: [...BAR_BASQUE_IMAGES.gallery],
     },
   },
   'neon-shaker': {
@@ -372,10 +369,10 @@ export const SITE_IDENTITIES = {
     previewKey: 'bento',
     trstnSignature: 'inline-serif',
     chaiAssets: {
-      hero: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1600&q=85',
-      terroir1: 'https://images.unsplash.com/photo-1504274066651-8d31a536b11a?w=1400&q=85',
-      terroir2: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1400&q=85',
-      tapas: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=1400&q=85',
+      hero: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1600&q=85',
+      terroir1: 'https://images.unsplash.com/photo-1504274066651-8d31a536b11a?auto=format&fit=crop&w=1400&q=85',
+      terroir2: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1400&q=85',
+      tapas: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1400&q=85',
     },
     menu: {
       sectionTitle: 'Sélection du chai',
