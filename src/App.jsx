@@ -9,6 +9,9 @@ import CheveuxCoReservationPage from './pages/CheveuxCoReservationPage.jsx'
 import MentionsLegalesPage from './pages/MentionsLegalesPage.jsx'
 import TattooBookingPage from './pages/TattooBookingPage.jsx'
 import ChaiModerneCartePage from './pages/ChaiModerneCartePage.jsx'
+import ContactLeadPage from './pages/ContactLeadPage.jsx'
+import TarifsPage from './pages/TarifsPage.jsx'
+import MerciPage from './pages/MerciPage.jsx'
 
 export default function App() {
   return (
@@ -18,6 +21,9 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/propulsez-local" element={<ContactLeadPage />} />
+        <Route path="/tarifs" element={<TarifsPage />} />
+        <Route path="/merci" element={<MerciPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
         <Route path="/portfolio/cheveux-co/reservation" element={<CheveuxCoReservationPage />} />
