@@ -49,7 +49,12 @@ export default async function handler(req, res) {
       },
     })
 
-    return res.status(200).json({ sessionId: session.id })
+    if (!session.url) {
+      console.error('[stripe:create-checkout-session] session.url missing', { id: session.id })
+      return res.status(500).json({ error: 'Checkout session has no hosted URL.' })
+    }
+
+    return res.status(200).json({ url: session.url, sessionId: session.id })
   } catch (error) {
     console.error('[stripe:create-checkout-session]', error)
     return res.status(500).json({ error: 'Unable to create Stripe Checkout session.' })

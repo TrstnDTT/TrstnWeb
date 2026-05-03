@@ -1,16 +1,7 @@
-import { loadStripe } from '@stripe/stripe-js'
-
-let stripePromise
-
-function getStripe() {
-  if (!stripePromise) {
-    const key = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
-    if (!key) throw new Error('VITE_STRIPE_PUBLISHABLE_KEY is missing.')
-    stripePromise = loadStripe(key)
-  }
-  return stripePromise
-}
-
+/**
+ * Démarre le Checkout Stripe via l’URL hébergée (session.url).
+ * redirectToCheckout a été retiré de Stripe.js — redirection HTTP directe.
+ */
 export async function startCheckoutForPlan(planId) {
   const res = await fetch('/api/stripe/create-checkout-session', {
     method: 'POST',
@@ -23,9 +14,10 @@ export async function startCheckoutForPlan(planId) {
     throw new Error(payload?.error || 'Impossible de lancer le paiement.')
   }
 
-  const stripe = await getStripe()
-  if (!stripe) throw new Error('Stripe failed to initialize.')
+  const url = typeof payload?.url === 'string' ? payload.url.trim() : ''
+  if (!url || !/^https?:\/\//i.test(url)) {
+    throw new Error('Réponse Stripe invalide : URL de paiement manquante.')
+  }
 
-  const result = await stripe.redirectToCheckout({ sessionId: payload.sessionId })
-  if (result?.error) throw new Error(result.error.message || 'Redirection Stripe impossible.')
+  window.location.href = url
 }
