@@ -1,5 +1,5 @@
 /**
- * Le Chai Moderne — Bayonne : menu « moments de vie », âme du lieu, agenda.
+ * Le Chai Moderne — menu « moments de vie », âme du lieu, agenda.
  */
 
 export const CHAI_PALETTE = {
@@ -9,13 +9,13 @@ export const CHAI_PALETTE = {
 }
 
 /** Google Maps — adresse vitrine (démo). */
-export const CHAI_MAPS_QUERY = '14 rue Bernadou 64100 Bayonne France'
+export const CHAI_MAPS_QUERY = 'bar à vin France'
 
 export const CHAI_SOUL = {
   title: "L'Âme du Chai",
   lead: 'Convivialité, partage, pépite locale.',
   paragraphs: [
-    'Ici, le bois de la charpente raconte le temps : poutres claires, zinc au comptoir, lumière qui glisse comme sur une terrasse ombragée du Petit Bayonne. L’accueil est bayonnais — direct, chaleureux, jamais guindé.',
+    'Ici, le bois de la charpente raconte le temps : poutres claires, zinc au comptoir, lumière qui glisse comme sur une terrasse ombragée de centre-ville. L’accueil est direct, chaleureux, jamais guindé.',
     'On s’assoit pour un café le matin, une bière artisanale le soir, entre amis ou voyageurs de passage. Le Chai, c’est le prolongement de la rue : un lieu où l’on commande sans se presser, où chaque verre dit quelque chose du terroir.',
   ],
 }
@@ -35,7 +35,7 @@ export const CHAI_AGENDA_EVENTS = [
   {
     date: 'Jeudi 25 avril',
     title: 'Dégustation du sommelier',
-    detail: 'Irouléguy & voisins — 4 verres, mots du vigneron, accord mets du marché.',
+    detail: 'Vins de vignerons français — 4 verres, mots du vigneron, accord mets du marché.',
   },
 ]
 
@@ -57,8 +57,8 @@ export const CHAI_MENU_MOMENTS = [
   },
   {
     id: 'pression',
-    title: 'La Pression Locale',
-    subtitle: 'Brasseurs du Pays Basque',
+    title: 'La Pression Artisanale',
+    subtitle: 'Brasseurs français',
     iconKey: 'beer',
     items: [
       { name: 'IPA', price: '6€', note: 'Amertume vive, notes résineuses & agrumes.' },
@@ -72,7 +72,7 @@ export const CHAI_MENU_MOMENTS = [
     subtitle: 'Vins au verre — terroir',
     iconKey: 'wine',
     items: [
-      { name: 'Irouléguy rouge', price: '6€', note: 'Piémont basque — fruit noir, belle tension.' },
+      { name: 'Rouge de vigneron', price: '6€', note: 'Terroir français — fruit noir, belle tension.' },
       { name: 'Navarre blanc', price: '5,50€', note: 'Minéral, floral, idéal tapas.' },
       { name: 'Rioja crianza', price: '6,50€', note: 'Épices douces, chêne bien intégré.' },
     ],

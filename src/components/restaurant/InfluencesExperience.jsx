@@ -1,5 +1,5 @@
 /**
- * Influences — inspiré du restaurant Influences à Bayonne (restaurant-influences.fr).
+ * Influences — inspiré d’un restaurant bistronomique français.
  * Thème shell : clair = midi lumineux ; sombre = dîner intimiste.
  */
 import { useCallback, useId, useMemo, useState } from 'react'
@@ -588,7 +588,7 @@ export function InfluencesExperience({ site, onBack }) {
             La maison
           </p>
           <h2 id="influences-infos" className="inf-h mt-3 text-lg md:text-xl">
-            Bayonne
+            France
           </h2>
           <p className="mt-4 text-[14px] leading-relaxed" style={{ color: palette.muted }}>
             {site.location?.street}, {site.location?.postalCode} {site.location?.city}

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { PricingCards } from '../components/pricing/PricingCards.jsx'
+import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
 import { SITE } from '../constants.js'
 
 const serif = { fontFamily: '"Cormorant Garamond", Georgia, serif' }
@@ -35,13 +36,14 @@ const whyModel = [
   },
   {
     title: 'Partenariat',
-    body: 'Vous avez un expert local au bout du fil, pas un centre d’appel.',
+    body: 'Vous avez un expert au bout du fil, même à distance, pas un centre d’appel.',
   },
 ]
 
 export default function TarifsPage() {
   return (
     <div className="trstn-ui min-h-[100dvh] bg-[#08090b] text-[#efede8] antialiased">
+      <ShellThemeToggle className="fixed right-4 top-4 z-[300] md:right-8 md:top-6" />
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_130%_80%_at_50%_-10%,rgba(212,178,108,0.12),transparent_60%)]" />
 
       <header className="relative z-[1] border-b border-white/[0.08] px-4 py-4 sm:px-6">
@@ -67,7 +69,7 @@ export default function TarifsPage() {
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-[#c9c5bc] sm:text-[16px]">
             Sélectionnez l&apos;accompagnement qui correspond à l&apos;étape actuelle de votre business. Chaque pack
-            inclut mon expertise en direct de <strong className="font-semibold text-[#ebe7df]">Mont-de-Marsan</strong>.
+            inclut mon expertise à distance, disponible <strong className="font-semibold text-[#ebe7df]">partout en France</strong>.
           </p>
         </div>
 

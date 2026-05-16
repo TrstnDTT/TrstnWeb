@@ -1,5 +1,5 @@
 /**
- * Le Chai Moderne — Bayonne : ambiance chêne/papier, menu « moments de vie », agenda, barre d’action mobile.
+ * Le Chai Moderne — ambiance chêne/papier, menu « moments de vie », agenda, barre d’action mobile.
  */
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
@@ -48,7 +48,7 @@ function ParallaxStill({ src, alt, className }) {
         <SafeImg
           src={src}
           fallback={UNSPLASH_CHAI.still1}
-          alt={alt || 'Ambiance du Chai Moderne — sélection et bar à Bayonne'}
+          alt={alt || 'Ambiance du Chai Moderne — sélection et bar à vin français'}
           className="h-full w-full object-cover"
           style={{ filter: warmPhoto }}
         />
@@ -88,7 +88,7 @@ export function ChaiModerneBarExperience({ site, onBack }) {
     { id: 'chai-menu', label: 'MENU' },
     { id: 'chai-ame', label: 'ÂME' },
     { id: 'chai-agenda', label: 'AGENDA' },
-    { id: 'chai-footer', label: 'BAYONNE' },
+    { id: 'chai-footer', label: 'FRANCE' },
   ]
 
   return (
@@ -116,7 +116,7 @@ export function ChaiModerneBarExperience({ site, onBack }) {
           <SafeImg
             src={assets.hero}
             fallback={UNSPLASH_CHAI.hero}
-            alt="Verre et lumière douce au comptoir — bar convivial à Bayonne, Le Chai Moderne"
+            alt="Verre et lumière douce au comptoir — bar convivial en France, Le Chai Moderne"
             priority
             fadeIn
             className="h-full w-full object-cover"
@@ -248,7 +248,7 @@ export function ChaiModerneBarExperience({ site, onBack }) {
         />
         <ParallaxStill
           src={assets.still2}
-          alt="Ambiance zinc et bois — Le Chai Moderne, Bayonne"
+          alt="Ambiance zinc et bois — Le Chai Moderne, France"
           className="aspect-[4/3] rounded-xl border border-[#1a1a1a]/08 md:aspect-[5/4]"
         />
       </section>
@@ -284,7 +284,7 @@ export function ChaiModerneBarExperience({ site, onBack }) {
             L'Agenda du Zinc
           </h2>
           <p className="mt-3 max-w-xl text-[14px] leading-relaxed text-[#1a1a1a]/55">
-            Le fil des soirées et dégustations — pour planifier votre prochaine visite à Bayonne.
+            Le fil des soirées et dégustations — pour planifier votre prochaine visite au comptoir.
           </p>
           <ul className="mt-10 space-y-5">
             {CHAI_AGENDA_EVENTS.map((ev) => (

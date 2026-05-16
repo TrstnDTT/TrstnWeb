@@ -23,7 +23,7 @@ export const PORTFOLIO_TOKENS = {
     backButtonRing: 'rgba(251, 191, 36, 0.45)',
   },
   influences: {
-    portfolioTagline: 'Bistronomique Bayonne — pierre, rose & or, 24 couverts.',
+    portfolioTagline: 'Bistronomique France — pierre, rose & or, 24 couverts.',
     cardBorder: 'rgba(184, 138, 144, 0.42)',
     cardGlow: '0 0 40px -12px rgba(184, 138, 144, 0.2)',
     backButtonRing: 'rgba(184, 138, 144, 0.4)',
@@ -83,13 +83,13 @@ export const PORTFOLIO_TOKENS = {
     backButtonRing: 'rgba(201, 162, 39, 0.35)',
   },
   'bar-basque': {
-    portfolioTagline: 'Bar Basque — terroir, pintxos & zinc.',
+    portfolioTagline: 'Bar Comptoir — terroir français & zinc.',
     cardBorder: 'rgba(155, 35, 53, 0.45)',
     cardGlow: '0 0 36px -10px rgba(61, 41, 20, 0.35)',
     backButtonRing: 'rgba(155, 35, 53, 0.45)',
   },
   'neon-shaker': {
-    portfolioTagline: 'Apothicaire du Verre — mixologie feutrée, Bayonne.',
+    portfolioTagline: 'Apothicaire du Verre — mixologie feutrée, France.',
     cardBorder: 'rgba(201, 168, 108, 0.4)',
     cardGlow: '0 0 44px -12px rgba(201, 168, 108, 0.22)',
     backButtonRing: 'rgba(201, 168, 108, 0.38)',

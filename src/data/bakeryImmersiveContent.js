@@ -18,9 +18,9 @@ export const BAKERY_FOURNIL_DEFAULT = {
   title: 'Le Fournil',
   kicker: 'Expertise & matière',
   paragraphs: [
-    'Le levain naturel est nourri chaque jour comme un compagnon de travail : même température d’eau, même farine des Landes et du piémont basque, même écoute du grondement du pétrin.',
+    'Le levain naturel est nourri chaque jour comme un compagnon de travail : même température d’eau, même farine française, même écoute du grondement du pétrin.',
     'Le pétrissage est lent — on laisse le gluten s’organiser sans le brusquer ; les fournées s’enchaînent au rythme du four à pierre, entre vapeur et chaleur tenue.',
-    'Nos farines partent d’artisans meuniers du Pays basque et des Landes : blés anciens, T80 et complètes, pour des croûtes qui sonnent juste et des mies qui se déchirent sans s’effriter.',
+    'Nos farines partent d’artisans meuniers français : blés anciens, T80 et complètes, pour des croûtes qui sonnent juste et des mies qui se déchirent sans s’effriter.',
   ],
 }
 
@@ -86,9 +86,9 @@ export const BAKERY_MORNING_MENU_DEFAULT = {
       image: UNSPLASH_BAKERY.eclairChocolat,
     },
     {
-      name: 'Gâteau Basque',
+      name: 'Gâteau de maison',
       price: '4,80 €',
-      description: 'Crème ou cerise noire — signature bayonnaise.',
+      description: 'Crème ou cerise noire — signature de la maison.',
       image: UNSPLASH_BAKERY.gateauBasque,
     },
   ],

@@ -30,7 +30,7 @@ export default function ChaiModerneCartePage() {
       </header>
 
       <div className="mx-auto max-w-2xl px-6 py-12 md:py-16">
-        <p className="text-center text-[10px] uppercase tracking-[0.45em] text-[#1a1a1a]/45">Le Chai Moderne · Bayonne</p>
+        <p className="text-center text-[10px] uppercase tracking-[0.45em] text-[#1a1a1a]/45">Le Chai Moderne · France</p>
         <h1 className="mt-6 text-center text-[clamp(1.75rem,4vw,2.5rem)] font-light leading-tight" style={{ fontFamily: SERIF }}>
           Moments de vie
         </h1>

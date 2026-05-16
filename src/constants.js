@@ -16,7 +16,7 @@ export const HOME_FEATURED_SITE_IDS = [
 
 export const SITE = {
   title: 'TrstnWeb',
-  subtitle: 'Sites web sur mesure — Bayonne, Landes & Sud-Ouest',
+  subtitle: 'Sites web sur mesure — accompagnement à distance partout en France',
   /** CTA principal vers la page contact (navigation, hero). */
   ctaContact: 'Lancer ma croissance',
   /** Libellé court (tab bar mobile). */
@@ -33,7 +33,7 @@ export const SITE = {
     /** Lien court dans le footer. */
     mentionsLinkLabel: 'Mentions légales',
     /** Texte affiché sous la marque (une ligne). */
-    tagline: 'Studio web — sites sur mesure en React pour Bayonne, les Landes et le commerce local.',
+    tagline: 'Studio web — sites sur mesure en React pour commerces et indépendants partout en France.',
     copyright: (year) => `© ${year} TrstnWeb. Tous droits réservés.`,
     editor:
       'Éditeur du site : Tristan Decobert — activité de prestation de services numériques (France).',
@@ -44,15 +44,15 @@ export const SITE = {
       'Données personnelles : traitées uniquement pour répondre à vos demandes ; droits d’accès et de rectification sur simple demande auprès du contact ci-dessus.',
   },
   footer:
-    'Votre vitrine ne doit pas seulement être belle : elle doit transformer l’attention en rendez-vous — à Bayonne, dans les Landes ou ailleurs, des parcours pensés pour la conversion locale.',
+    'Votre vitrine ne doit pas seulement être belle : elle doit transformer l’attention en rendez-vous — partout en France, avec des parcours pensés pour convertir à distance.',
   /** Page d’accueil (/) — méthode PAS + H1 SEO. */
   home: {
-    heroH1: 'Propulsez votre commerce local avec des sites web sur mesure.',
+    heroH1: 'Propulsez votre activité partout en France avec des sites web sur mesure.',
     /**
      * Premier paragraphe sous le H1 — doit contenir le nom de marque TrstnWeb (SEO / cohérence).
      */
     heroIntro:
-      'TrstnWeb conçoit des sites web sur mesure pour artisans et commerçants — priorité Bayonne, Landes (40) et Pays basque. Sans vitrine digitale à la hauteur de votre savoir-faire, les prospects partent ailleurs : nous les retenons avec des interfaces premium et des parcours orientés conversion.',
+      'TrstnWeb conçoit des sites web sur mesure pour artisans et commerçants partout en France, avec un accompagnement à distance clair et réactif. Sans vitrine digitale à la hauteur de votre savoir-faire, les prospects partent ailleurs : nous les retenons avec des interfaces premium et des parcours orientés conversion.',
     heroEyebrow: 'TrstnWeb',
     heroLead:
       'Une infrastructure éclair pour capturer chaque client avant qu’il ne s’échappe — mini-sites sur-mesure, pensés pour la rétention de lead et la prise de contact.',
@@ -74,7 +74,7 @@ export const SITE = {
   about: {
     title: 'À propos',
     paragraphs: [
-      'Problème : beaucoup de commerçants à Bayonne, dans les Landes ou ailleurs ont un site « qui existe » mais qui ne vend pas. Agitation : chaque visiteur qui rebondit est un panier ou un rendez-vous perdu. Solution : j’orchestre React, identité visuelle et copy pour que votre page travaille comme un commercial silencieux.',
+      'Problème : beaucoup de commerçants partout en France ont un site « qui existe » mais qui ne vend pas. Agitation : chaque visiteur qui rebondit est un panier ou un rendez-vous perdu. Solution : j’orchestre React, identité visuelle et copy pour que votre page travaille comme un commercial silencieux.',
       'Je ne vends pas de la vitesse pour la vitesse : je mets une infrastructure éclair au service de la rétention de lead — avant que le prospect ne file vers Google Maps ou le concurrent. Design, intégration et animations : tout est assumé en solo, avec la même exigence sur chaque site sur mesure.',
     ],
     /** Blocs h2 + corps (page À propos). */
@@ -106,7 +106,7 @@ export const SITE = {
   contactPage: {
     headline: 'Votre croissance commence par une conversation',
     lead:
-      'Décrivez votre commerce et votre objectif : nous bâtissons un plan de site web sur mesure aligné sur vos revenus — idéal si vous êtes à Bayonne, dans les Landes ou le Sud-Ouest.',
+      'Décrivez votre commerce et votre objectif : nous bâtissons à distance un plan de site web sur mesure aligné sur vos revenus — idéal pour développer votre activité partout en France.',
   },
 }
 
@@ -178,7 +178,7 @@ export const CATEGORIES = [
         siteId: 'influences',
         title: 'Influences',
         description:
-          'Inspiré du restaurant bayonnais — expertise humaine, relation clientèle, témoignages et FAQ ; carte interactive et réservation.',
+          'Inspiré d’un restaurant français — expertise humaine, relation clientèle, témoignages et FAQ ; carte interactive et réservation.',
         styleTag: 'Territoire & accueil',
       },
     ],
@@ -285,16 +285,16 @@ export const CATEGORIES = [
     projects: [
       {
         siteId: 'bar-basque',
-        title: 'Bar Basque',
+        title: 'Bar Comptoir',
         description:
-          'L’ancre du portfolio : storytelling vertical, pintxos au survol, cave — rouge basque, bois sombre, blanc cassé.',
+          'L’ancre du portfolio : storytelling vertical, bouchées au survol, cave — rouge profond, bois sombre, blanc cassé.',
         styleTag: 'Terroir & zinc',
       },
       {
         siteId: 'neon-shaker',
         title: "L'Apothicaire du Verre",
         description:
-          'Mixologie feutrée à Bayonne : minimal centré, macro cocktails, cuir & marbre — reveal des titres, parallaxe douce, art du geste.',
+          'Mixologie feutrée en centre-ville : minimal centré, macro cocktails, cuir & marbre — reveal des titres, parallaxe douce, art du geste.',
         styleTag: 'Nuit & expertise',
       },
       {

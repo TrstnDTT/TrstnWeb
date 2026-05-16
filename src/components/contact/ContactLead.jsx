@@ -1,5 +1,5 @@
 /**
- * Formulaire conversion locale — EmailJS dédié (template LEAD).
+ * Formulaire conversion nationale — EmailJS dédié (template LEAD).
  * N’altère pas le formulaire Contact général du site.
  */
 import { useRef, useState } from 'react'
@@ -101,7 +101,7 @@ export function ContactLead({ className = '' }) {
         className="text-balance text-[22px] font-light leading-snug tracking-tight text-[#f4f1ea] sm:text-[26px] md:text-[28px]"
         style={{ fontFamily: '"Cormorant Garamond", Georgia, serif' }}
       >
-        Propulsez votre commerce local sur Google dès aujourd&apos;hui.
+        Propulsez votre activité sur Google partout en France dès aujourd&apos;hui.
       </h2>
       <p className="mt-3 text-[13px] leading-relaxed text-[#a8a5a0] sm:text-[14px]">
         Tristan analyse personnellement votre projet. Réponse sous 24h.
@@ -164,7 +164,7 @@ export function ContactLead({ className = '' }) {
             rows={4}
             required
             className="min-h-[120px] w-full resize-y rounded-[6px] border border-white/[0.14] bg-black/35 px-3.5 py-3 text-[15px] text-[#f4f1ea] outline-none ring-0 transition-[border-color,box-shadow] placeholder:text-[#5c5955] focus:border-amber-200/35 focus:shadow-[0_0_0_1px_rgba(251,191,36,0.12)]"
-            placeholder="Ville, type d’activité, objectifs visibilité locale…"
+            placeholder="Ville, type d’activité, objectifs de visibilité nationale…"
           />
         </div>
 

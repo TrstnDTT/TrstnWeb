@@ -1,5 +1,5 @@
 /**
- * L'Apothicaire du Verre — mixologie feutrée, minimal centré, cuir, macro cocktails (Bayonne).
+ * L'Apothicaire du Verre — mixologie feutrée, minimal centré, cuir, macro cocktails.
  * Images : site.apothicaireAssets — défauts Unsplash ; remplacer par fichiers PicFolder/bar via public/.
  */
 import { useRef } from 'react'
@@ -86,7 +86,7 @@ export function ApothicaireBarExperience({ site, onBack }) {
     { id: 'apo-hero', label: 'Entrée' },
     { id: 'apo-geste', label: 'Le geste' },
     { id: 'apo-cartes', label: 'Créations' },
-    { id: 'apo-footer', label: 'Bayonne' },
+    { id: 'apo-footer', label: 'France' },
   ]
 
   const v = {

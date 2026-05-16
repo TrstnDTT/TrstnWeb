@@ -369,7 +369,7 @@ export const SITE_IDENTITIES = {
     menu: {
       sectionTitle: 'Sélection du chai',
       items: [
-        { name: 'Irouléguy rouge', price: 'au verre', note: 'Pays basque' },
+        { name: 'Rouge de vigneron', price: 'au verre', note: 'Terroir français' },
         { name: 'Assiette tapas du marché', price: '24€', note: 'Pour deux' },
       ],
     },

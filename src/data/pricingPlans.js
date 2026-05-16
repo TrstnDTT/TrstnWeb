@@ -6,10 +6,10 @@ export const PRICING_PLANS = [
     tagline: 'Pour les artisans & commerçants qui veulent être vus.',
     depositLabel: "149,99€ d'acompte",
     recurringLabel: '30€/mois (engagement 12 mois)',
-    description: 'Une base solide pour être visible localement sans complexité inutile.',
+    description: 'Une base solide pour être visible en ligne sans complexité inutile.',
     features: [
       'Site vitrine one-page optimisé',
-      'Présence sur Google Maps & SEO local',
+      'Présence Google & SEO national ciblé',
       'Maintenance et sécurité garanties',
     ],
     ctaLabel: 'Choisir ce pack',
@@ -47,5 +47,5 @@ export const PRICING_PLANS = [
 export const REASSURANCE_BADGES = [
   'Paiement sécurisé via Stripe',
   'Engagement 12 mois',
-  'Expertise en direct depuis Mont-de-Marsan',
+  'Accompagnement à distance partout en France',
 ]

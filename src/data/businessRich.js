@@ -288,7 +288,7 @@ export const BUSINESS_RICH = {
   },
   influences: {
     valueProposition:
-      'Bistronomie bayonnaise — « en mélangeant les bonnes influences, on obtient l’alchimie » (carte & horaires indicatifs, démo portfolio).',
+      'Bistronomie française — « en mélangeant les bonnes influences, on obtient l’alchimie » (carte & horaires indicatifs, démo portfolio).',
     ctaPrimary: { label: 'Réserver', href: '#carte' },
     ctaSecondary: { label: 'Nous appeler', href: 'tel:+33559017504' },
     /** Piliers d’expertise humaine (démo UI — contenus alignés sur l’esprit du lieu). */
@@ -443,7 +443,7 @@ export const BUSINESS_RICH = {
       },
     ],
     gallery: [
-      { caption: 'Maison bayonnaise — salle feutrée' },
+      { caption: 'Maison française — salle feutrée' },
       { caption: 'Faustine en salle' },
       { caption: 'Quentin au dressage' },
       { caption: 'Carte des vins' },

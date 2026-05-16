@@ -1,5 +1,5 @@
 /**
- * Réservation plein écran — bars luxe Bayonne (Apothicaire du Verre / Chai Moderne).
+ * Réservation plein écran — bars luxe (Apothicaire du Verre / Chai Moderne).
  * Typographie serif, glow discret au survol.
  */
 import { useEffect, useId, useMemo, useState } from 'react'

@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
+import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
 
 export default function MerciPage() {
   return (
     <div className="trstn-ui flex min-h-[100dvh] items-center justify-center bg-[#07080a] px-4 text-[#efede8]">
+      <ShellThemeToggle className="fixed right-4 top-4 z-[300] md:right-8 md:top-6" />
       <div className="w-full max-w-2xl rounded-[12px] border border-white/[0.12] bg-white/[0.03] p-7 text-center shadow-[0_24px_80px_-30px_rgba(0,0,0,0.75)] sm:p-10">
         <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#beaf8b]">
           Paiement confirme

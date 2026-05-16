@@ -460,7 +460,7 @@ function TattooNoir({ theme }) {
                 <MapPin className="w-6 h-6" style={{ color: theme.primaryColor }} />
                 <div>
                   <div className="font-semibold">Adresse</div>
-                  <div className="text-sm opacity-70">3 rue Vauban, 64100 Bayonne (exemple)</div>
+                  <div className="text-sm opacity-70">3 rue Vauban, France (exemple)</div>
                 </div>
               </div>
               <div className="flex items-start gap-3">

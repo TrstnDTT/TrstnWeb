@@ -5,17 +5,17 @@ import { BAR_BASQUE_IMAGES } from '../constants/barBasqueImages.js'
 
 export const BAR_BASQUE_BUSINESS = {
   valueProposition:
-    'Pintxos au comptoir, terroir sud-ouest, zinc patiné — le Pays basque sans carte postale.',
+    'Bouchées au comptoir, terroir français, zinc patiné — l’esprit bistrot sans carte postale.',
   ctaPrimary: { label: 'Réserver au zinc', href: '#bb-reservation' },
   ctaSecondary: { label: 'La cave', href: '#bb-cave' },
   espritZinc: {
     title: "L'Esprit du Zinc",
     lead:
-      'Fiction sincère : en 1924, un marin de Saint-Jean-de-Luz laisse un zinc dans une remise. Quatre générations plus tard, le même zinc accueille Bayonne — bois sombre, lumière rousse, verres qui tintent comme avant l’heure.',
+      'Fiction sincère : en 1924, un marin laisse un zinc dans une remise. Quatre générations plus tard, le même zinc accueille une ville française — bois sombre, lumière rousse, verres qui tintent comme avant l’heure.',
     paragraphs: [
-      'Nous travaillons avec des producteurs d’Espelette, de Saint-Jean-Pied-de-Port et du littoral : pas de carte « fusion », pas de tapas générique — seulement ce que le marché autorise avec fierté.',
+      'Nous travaillons avec des producteurs français et des artisans de marché : pas de carte « fusion », pas de tapas générique — seulement ce que la saison autorise avec fierté.',
       'Le service est volontairement lent quand il le faut : un pintxo se déguste debout au comptoir ou assis face au bois ; le vin se choisit après une question sur le tanin, jamais après une photo Instagram.',
-      'Ici, le bruit est celui des assiettes et des tireuses — pas celui des playlists imposées. Bienvenue au Bar Basque : luxe discret, tradition tenue, table jamais oubliée.',
+      'Ici, le bruit est celui des assiettes et des tireuses — pas celui des playlists imposées. Bienvenue au Bar Comptoir : luxe discret, tradition tenue, table jamais oubliée.',
     ],
   },
   menuIntro:
@@ -26,30 +26,30 @@ export const BAR_BASQUE_BUSINESS = {
       title: 'Côté Mer',
       headerImage: BAR_BASQUE_IMAGES.catMer,
       intro:
-        'Sélectionnés chez nos pêcheurs de Saint-Jean-de-Luz et Ciboure : poisson line-caught quand la météo le permet, anchois de Getaria en conserve d’exception, chipirons traités comme des bijoux — plancha fumante, zeste, rien d’autre.',
+        'Sélectionnés chez nos pêcheurs français : poisson de ligne quand la météo le permet, anchois en conserve d’exception, encornets traités comme des bijoux — plancha fumante, zeste, rien d’autre.',
       items: [
         {
           name: 'Gambas à la plancha',
           price: '14 €',
-          detail: 'Gambas roses G14, ail confit, piment d’Espelette — huile à la cuillère.',
+          detail: 'Gambas roses G14, ail confit, piment doux — huile à la cuillère.',
         },
         {
-          name: 'Chipirons à la luzienne',
+          name: 'Encornets à la plancha',
           price: '12 €',
           detail: 'Encornets frais, oignon fondant, persil, jus de cuisson corsé.',
         },
         {
-          name: 'Anchois de Getaria (boîte prestige)',
+          name: 'Anchois prestige',
           price: '11 €',
           detail: 'Filets maigres, sel de salicornes, pain grillé au levain du boulanger du coin.',
         },
         {
           name: 'Txangurro gratiné',
           price: '13 €',
-          detail: 'Chair de tourteau, béchamel légère, gratin doré — classique san Sebastián.',
+          detail: 'Chair de tourteau, béchamel légère, gratin doré — classique de comptoir.',
         },
         {
-          name: 'Moules marinière basque',
+          name: 'Moules marinières',
           price: '13 €',
           detail: 'Vin blanc sec local, échalotes, persillade — pain pour la sauce.',
         },
@@ -60,7 +60,7 @@ export const BAR_BASQUE_BUSINESS = {
       title: 'Côté Terre',
       headerImage: BAR_BASQUE_IMAGES.catTerre,
       intro:
-        'Viandes du Pays basque et charcuteries d’Ibaïama : le cochon nourri comme il faut, le jambon coupé épais, les croquetas qui tiennent la ligne — sélectionnés chez nos artisans de montagne et de vallée.',
+        'Viandes françaises et charcuteries artisanales : le cochon nourri comme il faut, le jambon coupé épais, les croquetas qui tiennent la ligne — sélectionnés chez nos artisans de montagne et de vallée.',
       items: [
         {
           name: 'Jambon Ibaïama — assiette',
@@ -80,12 +80,12 @@ export const BAR_BASQUE_BUSINESS = {
         {
           name: 'Axoa de veau',
           price: '18 €',
-          detail: 'Piperade maison, veau du pays, mijoté long — plat signature du dimanche.',
+          detail: 'Poivrons confits, veau français, mijoté long — plat signature du dimanche.',
         },
         {
           name: 'Planche mixte charcuterie',
           price: '22 €',
-          detail: 'Lomo, chorizo, saucisson basque, cornichons maison — pour 2 minimum.',
+          detail: 'Lomo, chorizo, saucisson artisanal, cornichons maison — pour 2 minimum.',
         },
       ],
     },
@@ -123,7 +123,7 @@ export const BAR_BASQUE_BUSINESS = {
           detail: 'Prune sauvage, macération lente — sirops industriels interdits ici.',
         },
         {
-          name: 'Gin basque « Harri »',
+          name: 'Gin artisanal « Harri »',
           price: '11 €',
           detail: 'Botaniques : genièvre, thym sauvage, zeste de citron caviar — tonic ou sec.',
         },
@@ -144,7 +144,7 @@ export const BAR_BASQUE_BUSINESS = {
     {
       src: '/bar-basque/pintxo-theatre.jpg',
       name: 'Brocheta de chipirón',
-      ingredients: 'Calamar snacké, ail doux, piment d’Espelette, huile d’olive fruitée.',
+      ingredients: 'Calamar snacké, ail doux, piment délicat, huile d’olive fruitée.',
       price: '8 €',
     },
     {
@@ -156,7 +156,7 @@ export const BAR_BASQUE_BUSINESS = {
     {
       src: BAR_BASQUE_IMAGES.fish,
       name: 'Poisson du marché',
-      ingredients: 'Ligne du jour, citron confit, herbes du maquis basque.',
+      ingredients: 'Ligne du jour, citron confit, herbes du maquis.',
       price: '16 €',
     },
     {
@@ -227,7 +227,7 @@ export const BAR_BASQUE_BUSINESS = {
 
 export const NEON_SHAKER_BUSINESS = {
   valueProposition:
-    'L’Apothicaire assume la lenteur du luxe : chaque cocktail est une démonstration — dosage, glace, zeste — sous la lumière tamisée du Nive.',
+    'L’Apothicaire assume la lenteur du luxe : chaque cocktail est une démonstration — dosage, glace, zeste — sous une lumière tamisée.',
   ctaPrimary: { label: 'Réservation', href: '/portfolio/neon-shaker/reservation' },
   ctaSecondary: { label: 'L’art du geste', href: '#apo-geste' },
   artDuGeste: [
@@ -250,7 +250,7 @@ export const NEON_SHAKER_BUSINESS = {
   apothicaireSignatures: [
     { name: 'Negroni de l’Apothicaire', price: '16 €', note: 'Amertume longue, zeste flambé au comptoir en marbre.' },
     { name: 'Sour aux agrumes confits', price: '15 €', note: 'Blanc d’œuf, gin infusé bergamote, glace sculptée.' },
-    { name: 'Manhattan bord de Nive', price: '17 €', note: 'Whisky, vermouth maison, cerise d’exception.' },
+    { name: 'Manhattan signature', price: '17 €', note: 'Whisky, vermouth maison, cerise d’exception.' },
   ],
   testimonials: [
     {
@@ -261,7 +261,7 @@ export const NEON_SHAKER_BUSINESS = {
     {
       name: 'Julien P.',
       rating: 5,
-      text: 'Bayonne a enfin un bar où le silence compte autant que le verre.',
+      text: 'La ville a enfin un bar où le silence compte autant que le verre.',
     },
   ],
   openingHours: {
@@ -277,12 +277,12 @@ export const NEON_SHAKER_BUSINESS = {
 
 export const ZINC_DES_AMIS_BUSINESS = {
   valueProposition:
-    'Le Chai Moderne ne propose pas une carte opaque : chaque bouteille est choisie chez des vignerons du piémont et du littoral — Irouléguy, Rioja, Sud-Ouest — pour dire le terroir sans le masquer.',
+    'Le Chai Moderne ne propose pas une carte opaque : chaque bouteille est choisie chez des vignerons français et européens — pour dire le terroir sans le masquer.',
   ctaPrimary: { label: 'Réservation', href: '/portfolio/zinc-des-amis/reservation' },
   ctaSecondary: { label: 'Sélection', href: '#chai-bento' },
   chaiTimeline: [
-    { title: 'L’entrée', text: 'Tapas du marché — anchois, gilda, pain de tradition bayonnaise.' },
-    { title: 'Le partage', text: 'Planches ibériques, fromages de brebis, confitures maison du Pays basque.' },
+    { title: 'L’entrée', text: 'Tapas du marché — anchois, gilda, pain de tradition française.' },
+    { title: 'Le partage', text: 'Planches ibériques, fromages de brebis, confitures maison.' },
     { title: 'Le verre juste', text: 'Accords au verre ou à la bouteille — conseil au comptoir, jamais imposé.' },
     { title: 'La suite', text: 'Digestifs locaux, café filtre, infusion du chai.' },
   ],

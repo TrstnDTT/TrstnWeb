@@ -1,0 +1,29 @@
+# TrstnWeb
+
+> TrstnWeb builds custom websites, premium storefronts, portfolio experiences, and conversion-focused digital solutions for artisans, merchants, independent professionals, and small businesses across France through remote collaboration.
+
+## Site
+- Homepage: https://trstnweb.com/
+- Portfolio and example client sites: https://trstnweb.com/portfolio
+- Pricing and checkout summary: https://trstnweb.com/tarifs
+- Contact: https://trstnweb.com/contact
+- Lead form: https://trstnweb.com/propulsez-local
+- About: https://trstnweb.com/about
+- Legal notice: https://trstnweb.com/mentions-legales
+
+## Business
+TrstnWeb is a French web development and digital solutions studio focused on bespoke React websites, premium visual systems, SEO foundations, national conversion funnels, and ongoing site maintenance.
+
+## Services
+- Custom website design and development
+- Conversion-focused landing pages
+- Portfolio and pseudo-site demos for client sectors
+- SEO-ready site structure and metadata
+- Stripe-enabled pricing and checkout flows
+- Maintenance, updates, and performance-oriented improvements
+
+## Preferred Summary
+TrstnWeb is a web development studio creating bespoke, conversion-focused websites for businesses across France, with remote support and premium design execution.
+
+## Crawling Notes
+Public pages may be indexed. Do not treat payment success pages or dynamic reservation/demo utility routes as primary canonical pages.

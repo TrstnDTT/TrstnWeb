@@ -128,11 +128,11 @@ export const SITES = [
     id: 'influences',
     categoryId: 'restaurant',
     name: 'Influences',
-    tagline: 'Bistronomique — Bayonne',
+    tagline: 'Bistronomique — France',
     hero: {
-      headline: 'Restaurant bistronomique au cœur de Bayonne.',
+      headline: 'Restaurant bistronomique au cœur d’un quartier vivant.',
       subline:
-        'Un cadre intimiste et feutré, à deux pas du centre : assez à l’écart pour la quiétude. Faustine et Quentin ont façonné la maison — 24 couverts, pierre bayonnaise et touche contemporaine.',
+        'Un cadre intimiste et feutré, à deux pas du centre : assez à l’écart pour la quiétude. Faustine et Quentin ont façonné la maison — 24 couverts, pierre claire et touche contemporaine.',
       cta: 'Réserver',
     },
     about: {
@@ -154,14 +154,14 @@ export const SITES = [
     location: {
       sectionTitle: 'Nous trouver',
       street: '19 rue Vieille Boucherie',
-      city: 'Bayonne',
-      postalCode: '64100',
+      city: 'France',
+      postalCode: '',
       country: 'France',
       hours: 'Soir : mar.–sam. · Midi : mer.–sam. · Fermé dim. & lun. (détail sur restaurant-influences.fr)',
-      mapArea: 'Petit Bayonne',
+      mapArea: 'Quartier historique',
       phone: '05 59 01 75 04',
     },
-    social: { instagramLabel: 'Influences Bayonne' },
+    social: { instagramLabel: 'Influences France' },
   },
   /* —— Boulangerie —— */
   {
@@ -464,18 +464,18 @@ export const SITES = [
   {
     id: 'bar-basque',
     categoryId: 'bar',
-    name: 'Bar Basque',
+    name: 'Bar Comptoir',
     tagline: 'Pintxos, terroir & zinc',
     hero: {
-      headline: 'Là où le rouge basque rencontre le bois sombre.',
+      headline: 'Là où le rouge profond rencontre le bois sombre.',
       subline:
-        'Entre café de quartier et table du soir : pintxos, vins du sud-ouest et cidres du pays.',
+        'Entre café de quartier et table du soir : bouchées de comptoir, vins français et cidres artisanaux.',
       cta: 'Réserver au zinc',
     },
     about: {
       title: 'L’Esprit du Zinc',
       paragraphs: [
-        'Le Bar Basque est né d’un pari simple : faire tenir un comptoir de village dans une ville qui court. Ici, le verre s’arrête au bord du zinc, le jambon de Bayonne se coupe au couteau, et personne ne regarde l’heure.',
+        'Le Bar Comptoir est né d’un pari simple : faire tenir un comptoir de village dans une ville qui court. Ici, le verre s’arrête au bord du zinc, le jambon de pays se coupe au couteau, et personne ne regarde l’heure.',
       ],
     },
     contact: {
@@ -489,19 +489,19 @@ export const SITES = [
     location: {
       sectionTitle: 'Nous trouver',
       street: '1 rue d’Espagne',
-      city: 'Bayonne',
-      postalCode: '64100',
+      city: 'France',
+      postalCode: '',
       country: 'France',
       hours: 'Lun–Dim · 8h00 – 1h00',
       mapArea: 'Centre',
     },
-    social: { instagramLabel: 'Bar Basque' },
+    social: { instagramLabel: 'Bar Comptoir' },
   },
   {
     id: 'neon-shaker',
     categoryId: 'bar',
     name: "L'Apothicaire du Verre",
-    tagline: 'Mixologie & alchimie — Bayonne',
+    tagline: 'Mixologie & alchimie — France',
     hero: {
       headline: 'L’excellence se déguste à la lueur des bougies.',
       subline:
@@ -511,7 +511,7 @@ export const SITES = [
     about: {
       title: 'L’Apothicaire',
       paragraphs: [
-        'Ici le luxe est le silence du geste : chaque cocktail est composé comme une formule, dosée au compte-gouttes, servi dans le calme d’un soir où Bayonne respire encore le bois et le sel.',
+        'Ici le luxe est le silence du geste : chaque cocktail est composé comme une formule, dosée au compte-gouttes, servi dans le calme d’un soir où le bois et le sel restent en mémoire.',
       ],
     },
     contact: {
@@ -525,11 +525,11 @@ export const SITES = [
     location: {
       sectionTitle: 'Nous trouver',
       street: '8 rue du Port-Neuf',
-      city: 'Bayonne',
-      postalCode: '64100',
+      city: 'France',
+      postalCode: '',
       country: 'France',
       hours: 'Mar–Dim · 18h00 – 1h00',
-      mapArea: 'Grand Bayonne',
+      mapArea: 'Centre-ville',
     },
     social: { instagramLabel: 'Apothicaire du Verre' },
   },
@@ -537,11 +537,11 @@ export const SITES = [
     id: 'zinc-des-amis',
     categoryId: 'bar',
     name: 'Le Chai Moderne',
-    tagline: 'Vin, tapas & lumière du Sud-Ouest',
+    tagline: 'Vin, tapas & lumière française',
     hero: {
       headline: 'L’instant partagé',
       subline:
-        'Convivialité et partage au comptoir : café le matin, bière artisanale le soir — terrasse ombragée, pépite locale au cœur de Bayonne.',
+        'Convivialité et partage au comptoir : café le matin, bière artisanale le soir — terrasse ombragée, pépite de quartier au cœur d’une ville française.',
       cta: 'Voir la sélection',
     },
     about: {
@@ -562,13 +562,13 @@ export const SITES = [
     location: {
       sectionTitle: 'Nous trouver',
       street: '14 rue Bernadou',
-      city: 'Bayonne',
-      postalCode: '64100',
+      city: 'France',
+      postalCode: '',
       country: 'France',
       hours: 'Mer–Lun · 12h00 – 14h30 · 19h00 – 23h30',
-      mapArea: 'Petit Bayonne',
+      mapArea: 'Quartier historique',
     },
-    social: { instagramLabel: 'Le Chai Moderne Bayonne' },
+    social: { instagramLabel: 'Le Chai Moderne France' },
   },
   /* —— Tattoo / piercing —— */
   {

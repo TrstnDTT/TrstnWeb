@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
+import { ArrowRight, Zap } from 'lucide-react'
 import { ProjectPreview } from '../components/ProjectPreview.jsx'
 import { ShellLegalFooter } from '../components/shell/ShellLegalFooter.jsx'
 import { ShellThemeToggle } from '../components/shell/ShellThemeToggle.jsx'
@@ -28,8 +29,8 @@ const fontValeurSerif = {
 
 const VALEUR_PILLARS = [
   {
-    title: 'Ancrage local.',
-    body: 'Priorité Bayonne, Landes (40) et Pays Basque. Un partenaire à vos côtés.',
+    title: 'Accompagnement national.',
+    body: 'Un partenaire à vos côtés, même à distance, pour développer votre activité partout en France.',
   },
   {
     title: 'Rétention.',
@@ -171,7 +172,7 @@ export default function HomePage() {
               <div className="w-full max-w-[min(18rem,88vw)]">
                 <TrstnWebLogo className="trstn-heading block w-full tracking-[0.2em] sm:tracking-[0.24em]" />
               </div>
-              <h1
+              <p
                 className={[
                   'mt-5 max-w-md text-[clamp(1.05rem,4.2vw,1.35rem)] font-extrabold leading-[1.2] tracking-[-0.03em]',
                   heroH1Gradient,
@@ -181,7 +182,7 @@ export default function HomePage() {
                 }}
               >
                 {SITE.home.heroH1}
-              </h1>
+              </p>
             </motion.div>
           </div>
           <div className="min-h-0 shrink-0">
@@ -223,17 +224,19 @@ export default function HomePage() {
             </div>
           </div>
           <div className="mt-5 flex w-full shrink-0 flex-col">
-            <HomeMagneticCta to="/portfolio" className={primaryCta}>
+            <HomeMagneticCta to="/tarifs" className={primaryCta}>
               <span
-                className="inline-flex items-center justify-center gap-0 text-[16px] font-medium"
+                className="inline-flex items-center justify-center gap-2 text-[16px] font-medium"
                 style={{ fontFamily: "'Plus Jakarta Sans', ui-sans-serif, sans-serif" }}
               >
-                {SITE.home.ctaProjects}
+                <Zap className="h-4 w-4 shrink-0" strokeWidth={1.8} aria-hidden />
+                Lancer ma croissance
+                <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-500 group-hover:translate-x-1" strokeWidth={1.7} aria-hidden />
               </span>
             </HomeMagneticCta>
             <div className="mt-6 flex flex-col gap-3">
               <Link
-                to="/contact"
+                to="/portfolio"
                 className={[
                   'flex min-h-[46px] w-full items-center justify-center rounded-2xl border-[0.5px] text-[15px] font-medium transition-all duration-500 hover:tracking-[0.2em] active:scale-[0.98]',
                   L
@@ -242,7 +245,7 @@ export default function HomePage() {
                 ].join(' ')}
                 style={{ fontFamily: "'Plus Jakarta Sans', ui-sans-serif, sans-serif" }}
               >
-                {SITE.ctaContact}
+                {SITE.home.ctaProjects}
               </Link>
               <Link
                 to="/about"
@@ -372,22 +375,16 @@ export default function HomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.75, delay: 0.28, ease: easeLux }}
               >
-                <HomeMagneticCta to="/portfolio" className={primaryCta}>
-                  <span className="inline-flex w-full items-center justify-center gap-0">
+                <HomeMagneticCta to="/tarifs" className={primaryCta}>
+                  <span className="inline-flex w-full items-center justify-center gap-2">
+                    <Zap className="h-4 w-4 shrink-0 md:h-[18px] md:w-[18px]" strokeWidth={1.8} aria-hidden />
                     <span
                       className="inline-block text-[15px] tracking-[0.02em] md:text-base"
                       style={fontBtnSerif}
                     >
-                      {SITE.home.ctaProjects}
+                      Lancer ma croissance
                     </span>
-                    <span
-                      className="inline-block max-w-0 overflow-hidden text-[15px] opacity-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:max-w-[1.25em] group-hover:opacity-100 md:text-base"
-                      style={fontBtnSerif}
-                      aria-hidden
-                      tabIndex={-1}
-                    >
-                      →
-                    </span>
+                    <ArrowRight className="h-4 w-4 shrink-0 transition-transform duration-500 group-hover:translate-x-1 md:h-[18px] md:w-[18px]" strokeWidth={1.7} aria-hidden />
                   </span>
                 </HomeMagneticCta>
               </motion.div>
@@ -398,13 +395,13 @@ export default function HomePage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.75, delay: 0.42, ease: easeLux }}
                 >
-                  <Link to="/contact" className={ghostBtn}>
+                  <Link to="/portfolio" className={ghostBtn}>
                     <span className="inline-flex items-center justify-center gap-0">
                       <span
                         className="inline-block text-[15px] tracking-[0.02em] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 md:text-base"
                         style={fontBtnSerif}
                       >
-                        {SITE.ctaContact}
+                        {SITE.home.ctaProjects}
                       </span>
                       <span
                         className="inline-block max-w-0 overflow-hidden text-[15px] opacity-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:max-w-[1.25em] group-hover:opacity-100 md:text-base"
@@ -468,7 +465,7 @@ export default function HomePage() {
             className="mx-auto max-w-3xl text-center text-[clamp(1.45rem,3.4vw,2.15rem)] font-light leading-[1.25] tracking-[-0.02em] text-[#f5f5f4]"
             style={fontValeurSerif}
           >
-            L'expertise locale au service de votre conversion.
+            L'expertise à distance au service de votre conversion.
           </h2>
           <div className="mt-14 grid gap-12 sm:gap-14 md:grid-cols-3 md:gap-10">
             {VALEUR_PILLARS.map(({ title, body }) => (

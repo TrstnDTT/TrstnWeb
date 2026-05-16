@@ -70,7 +70,7 @@ export function BakeryImmersiveExperience({ site, onBack }) {
   const headline = site?.hero?.headline ?? site?.name ?? 'Boulangerie artisanale'
   const subline =
     site?.hero?.subline ??
-    'Farines des Landes et du Pays basque, levain vivant, four à pierre — chaque matin.'
+    'Farines françaises, levain vivant, four à pierre — chaque matin.'
 
   return (
     <div

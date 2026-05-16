@@ -1,5 +1,5 @@
 /**
- * Bar Basque — storytelling vertical profond, carte par catégories, grain argentique.
+ * Bar Comptoir — storytelling vertical profond, carte par catégories, grain argentique.
  */
 import { useCallback, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
@@ -428,7 +428,7 @@ export function BarBasqueExperience({ site, onBack }) {
       <ReservationMailtoModal
         open={modalOpen}
         onClose={closeModal}
-        venueName="Bar Basque"
+        venueName="Bar Comptoir"
         accentColor={ROUGE}
         fontFamilyBody={body}
         fontFamilyHeading={heading}

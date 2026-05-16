@@ -1,5 +1,5 @@
 /**
- * Visuels Bar Basque — URLs Unsplash normalisées (w ≤ 1200).
+ * Visuels Bar Comptoir — URLs Unsplash normalisées (w ≤ 1200).
  * Remplacer par des fichiers locaux dans public/bar-basque/ si besoin.
  */
 import { unsplashPhoto, UNSPLASH_FALLBACK_BAR } from '../lib/unsplash.js'

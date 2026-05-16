@@ -1,6 +1,6 @@
 /**
  * Modal glass — réservation par mailto (Nom, e-mail, date/heure, couverts).
- * Réutilisable (Bar Basque, La Table Constance, etc.).
+ * Réutilisable (Bar Comptoir, La Table Constance, etc.).
  */
 import { useEffect, useId, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
