@@ -2,6 +2,7 @@
 
 import Stripe from 'stripe'
 import { sendWelcomeEmail } from '../_lib/welcomeEmail.js'
+import { sendWelcomeWithResend } from './welcome-email.js'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
   apiVersion: '2024-06-20',
@@ -20,6 +21,35 @@ async function onCheckoutCompleted(session) {
   const recipientEmail = session.customer_details?.email || ''
   const planId = session.metadata?.planId || ''
   const sessionId = session.id
+
+  let sentViaResend = false
+  try {
+    const resendResult = await sendWelcomeWithResend({
+      recipientName,
+      recipientEmail,
+      planId,
+      sessionId,
+    })
+    sentViaResend = !resendResult?.skipped
+    console.info('[stripe:webhook] welcomeResend', {
+      sessionId,
+      recipientEmail,
+      planId,
+      skipped: !!resendResult?.skipped,
+      id: resendResult?.id,
+    })
+  } catch (error) {
+    console.error('[stripe:webhook] welcomeResend failed', {
+      sessionId,
+      recipientEmail,
+      planId,
+      error: error instanceof Error ? error.message : String(error),
+    })
+  }
+
+  if (sentViaResend) {
+    return
+  }
 
   try {
     const result = await sendWelcomeEmail({

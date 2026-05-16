@@ -62,6 +62,9 @@ export function PricingCards() {
               >
                 {plan.subtitle}
               </h3>
+              {plan.tagline ? (
+                <p className="mt-2 text-[14px] italic leading-snug text-[#b8b4ac]">{plan.tagline}</p>
+              ) : null}
               <p className="mt-4 text-[20px] font-semibold text-[#f7f2e4]">{plan.depositLabel}</p>
               <p className="mt-1 text-[14px] text-[#bdb8ae]">{plan.recurringLabel}</p>
               <p className="mt-4 text-[14px] leading-relaxed text-[#cdc8bf]">{plan.description}</p>
